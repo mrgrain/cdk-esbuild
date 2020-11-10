@@ -1,0 +1,18 @@
+# TypeScript stuff
+*.ts
+!*.d.ts
+tsconfig.json
+
+# Test setup
+test
+jest.config.js
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Assets
+package
+*.tgz
+*.gz
+*.zip
