@@ -27,8 +27,8 @@ export class LocalBundler implements ILocalBundling {
 
 const getEsbuildVersion = (): string => {
   return (
-    (esbuildVersion(findUp("package-lock.json"), null)) ??
-    (esbuildVersion(findUp("package.json"), null)) ??
+    esbuildVersion(findUp("package-lock.json"), null) ??
+    esbuildVersion(findUp("package.json"), null) ??
     esbuildVersion()
   );
 };
@@ -48,7 +48,7 @@ export class DockerBundler implements BundlingOptions {
 
   public readonly workingDirectory = "/asset-input";
 
-  protected options: BuildOptions;
+  public readonly options: BuildOptions;
 
   public constructor(options: BuildOptions) {
     this.options = {

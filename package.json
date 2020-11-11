@@ -1,6 +1,6 @@
 {
   "name": "@mrgrain/cdk-esbuild",
-  "version": "1.73.0-beta1",
+  "version": "1.73.0-beta2",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/mrgrain/cdk-esbuild",

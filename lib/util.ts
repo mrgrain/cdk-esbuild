@@ -1,5 +1,13 @@
 import { existsSync, readFileSync } from "fs";
-import { dirname, join, parse, resolve } from "path";
+import {
+  dirname,
+  isAbsolute,
+  join,
+  normalize,
+  parse,
+  resolve,
+  sep,
+} from "path";
 
 /**
  * Returns the major version of node installation
@@ -30,6 +38,20 @@ export function findUp(
 }
 
 /**
+ * Determine project root directory for Node.js applications.
+ */
+export function findProjectRoot(
+  directory: string = process.cwd()
+): string | undefined {
+  return (
+    findUp("yarn.lock", directory) ??
+    findUp("package-lock.json", directory) ??
+    findUp("package.json", directory) ??
+    findUp(`.git${sep}`, directory)
+  );
+}
+
+/**
  * Returns the version of esbuild installation
  */
 export function esbuildVersion<T>(
@@ -43,8 +65,19 @@ export function esbuildVersion<T>(
       dependencies?: { esbuild?: string & { version?: string } };
     } = JSON.parse(contents);
 
-    return pkg?.dependencies?.esbuild?.version ?? pkg?.dependencies?.esbuild ?? defaultVersion
+    return (
+      pkg?.dependencies?.esbuild?.version ??
+      pkg?.dependencies?.esbuild ??
+      defaultVersion
+    );
   } catch (error) {
     return defaultVersion;
   }
+}
+
+/**
+ * Returns the absolute version of a local path for a given base.
+ */
+export function getAbsolutePath(base: string, local: string) {
+  return normalize(resolve(base, local));
 }
