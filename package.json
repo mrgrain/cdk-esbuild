@@ -1,6 +1,12 @@
 {
   "name": "@mrgrain/cdk-esbuild",
-  "version": "1.72.0-beta2",
+  "version": "1.73.0-beta1",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/mrgrain/cdk-esbuild",
+    "type": "git"
+  },
+  "homepage": "https://github.com/mrgrain/cdk-esbuild",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
@@ -8,20 +14,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "esbuild": "~0.8.5"
+    "esbuild": "~0.8.6"
   },
   "peerDependencies": {
     "@aws-cdk/core": "^1.71.0",
     "@aws-cdk/aws-lambda": "^1.71.0"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.71.0",
-    "@aws-cdk/aws-lambda": "1.71.0",
-    "@aws-cdk/core": "1.71.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "10.17.27",
+    "@aws-cdk/assert": "1.73.0",
+    "@aws-cdk/aws-lambda": "1.73.0",
+    "@aws-cdk/core": "1.73.0",
+    "@types/jest": "ts4.0",
+    "@types/node": "ts4.0",
     "jest": "^26.4.2",
     "ts-jest": "^26.2.0",
-    "typescript": "~3.9.7"
+    "typescript": "latest"
   }
 }
