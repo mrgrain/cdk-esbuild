@@ -1,2 +1,2 @@
 export { Bundling, BuildOptions } from "./bundling";
-export { JavascriptAsset, JavascriptAsset as TypescriptAsset } from "./asset";
+export { JavaScriptAsset as JavascriptAsset, JavaScriptAsset as TypeScriptAsset } from "./asset";

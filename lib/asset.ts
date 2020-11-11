@@ -1,21 +1,20 @@
 import { sep } from "path";
 import { AssetCode } from "@aws-cdk/aws-lambda";
-import { AssetOptions } from "@aws-cdk/core";
+import { AssetHashType, IAsset } from "@aws-cdk/core";
 import { BuildOptions, Bundling } from "./bundling";
 import { findUp, nodeMajorVersion } from "./util";
 
-export interface EsbuildAssetOptions extends Omit<AssetOptions, "bundling"> {
+export interface EsbuildAssetOptions extends Partial<IAsset> {
   projectRoot?: string;
   forceDockerBundling?: boolean;
   buildOptions?: Omit<BuildOptions, "entryPoints">;
 }
 
-export class JavascriptAsset extends AssetCode {
+export class JavaScriptAsset extends AssetCode {
   public constructor(
     entry: string,
     {
       assetHash,
-      assetHashType,
       forceDockerBundling = false,
       projectRoot = findUp(`.git${sep}`) ??
         findUp("yarn.lock") ??
@@ -36,7 +35,7 @@ export class JavascriptAsset extends AssetCode {
 
     super(projectRoot, {
       assetHash,
-      assetHashType,
+      assetHashType: AssetHashType.OUTPUT,
       bundling: new Bundling(
         {
           ...buildOptions,

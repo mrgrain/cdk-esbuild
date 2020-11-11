@@ -1,6 +1,6 @@
 import "@aws-cdk/assert/jest";
 import { mocked } from "ts-jest/utils";
-import { TypescriptAsset } from "../lib/index";
+import { TypeScriptAsset } from "../lib/index";
 import * as util from "../lib/util";
 
 jest.mock("../lib/util", () => ({
@@ -20,7 +20,7 @@ describe("asset", () => {
 
     it("should throw an exception", () => {
       expect(
-        () => new TypescriptAsset("fixtures/handlers/ts-handler.ts")
+        () => new TypeScriptAsset("fixtures/handlers/ts-handler.ts")
       ).toThrow(/Cannot find project root/);
       expect(util.findUp).toBeCalledTimes(4);
     });
