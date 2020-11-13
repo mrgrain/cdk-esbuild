@@ -1,13 +1,5 @@
 import { existsSync, readFileSync } from "fs";
-import {
-  dirname,
-  isAbsolute,
-  join,
-  normalize,
-  parse,
-  resolve,
-  sep,
-} from "path";
+import { dirname, join, normalize, parse, resolve, sep } from "path";
 
 /**
  * Returns the major version of node installation

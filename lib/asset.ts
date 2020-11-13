@@ -76,7 +76,7 @@ export class JavaScriptAsset extends AssetCode {
 
     super(projectRoot, {
       assetHash,
-      assetHashType: AssetHashType.OUTPUT,
+      assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
       bundling: new Bundling(
         projectRoot,
         entry,
