@@ -4,7 +4,7 @@
 npm i && npm run build && npm t
 
 npm publish . --access public --tag cdk-1.XX.0
-npm dist-tag add @mrgrain/cdk-esbuild@1.XX.0-beta1 latest
+npm dist-tag add @mrgrain/cdk-esbuild@1.XX.0 latest
 ```
 
 ## Unpublish broken version
