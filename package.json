@@ -14,7 +14,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "esbuild": "~0.8.6"
+    "esbuild": "^0.8.0"
   },
   "peerDependencies": {
     "@aws-cdk/core": "1.85.0",
