@@ -1,8 +1,4 @@
-import {
-  BundlingDockerImage,
-  BundlingOptions,
-  ILocalBundling,
-} from "@aws-cdk/core";
+import { BundlingOptions, DockerImage, ILocalBundling } from "@aws-cdk/core";
 import { BuildOptions, buildSync } from "esbuild";
 import { join } from "path";
 import { esbuildVersion, findUp } from "./util";
@@ -34,8 +30,8 @@ const getEsbuildVersion = (): string => {
 };
 
 export class DockerBundler implements BundlingOptions {
-  public get image(): BundlingDockerImage {
-    return BundlingDockerImage.fromAsset(join(__dirname, "..", "esbuild"), {
+  public get image(): DockerImage {
+    return DockerImage.fromBuild(join(__dirname, "..", "esbuild"), {
       buildArgs: {
         version: getEsbuildVersion(),
       },
