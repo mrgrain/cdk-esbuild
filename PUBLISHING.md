@@ -3,6 +3,7 @@
 - Update the package version in `package.json`
 - Run `npm it`
 - Run `npm publish`
+- Run `npm run tag-latest`
 
 In the background, the publish command will execute the following steps:
 
@@ -13,7 +14,6 @@ npm t
 
 npm publish . --access public --tag cdk-$npm_package_version
 
-npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version latest
 npm run clean
 ```
 

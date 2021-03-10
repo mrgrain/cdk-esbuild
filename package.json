@@ -13,7 +13,8 @@
     "clean": "git clean -fx -q lib test",
     "build": "tsc",
     "prepublishOnly": "npm run clean && npm run build && npm t",
-    "postpublish": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version latest && npm run clean",
+    "postpublish": "npm run clean",
+    "tag-latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
     "test": "jest"
   },
   "dependencies": {
@@ -34,7 +35,7 @@
     "typescript": "^4.1.4"
   },
   "publishConfig": {
-    "cache": "~/.npm",
+    "cache": "$HOME/.npm",
     "access": "public",
     "tag": "cdk-$npm_package_version"
   }
