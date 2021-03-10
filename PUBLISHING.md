@@ -1,10 +1,20 @@
 ## Publish version
 
-```
-npm i && npm run build && npm t
+- Update the package version in `package.json`
+- Run `npm it`
+- Run `npm publish`
 
-npm publish . --access public --tag cdk-1.XX.0
-npm dist-tag add @mrgrain/cdk-esbuild@1.XX.0 latest
+In the background, the publish command will execute the following steps:
+
+```
+npm run clean
+npm run build
+npm t
+
+npm publish . --access public --tag cdk-$npm_package_version
+
+npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version latest
+npm run clean
 ```
 
 ## Unpublish broken version
