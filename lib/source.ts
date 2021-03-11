@@ -4,18 +4,13 @@ import {
   SourceConfig,
 } from "@aws-cdk/aws-s3-deployment";
 import { Construct, Stack } from "@aws-cdk/core";
-import {
-  EsbuildAssetProps,
-  JavaScriptAsset,
-  JavaScriptAssetProps,
-  TypeScriptAsset,
-  TypeScriptAssetProps,
-} from "./asset";
+import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from "./asset";
 import { BuildOptions } from "./bundling";
 
 type SourceProps = Omit<EsbuildAssetProps, "entrypoint">;
-export type JavaScriptSourceProps = Omit<JavaScriptAssetProps, "entrypoint">;
-export type TypeScriptSourceProps = Omit<TypeScriptAssetProps, "entrypoint">;
+
+type JavaScriptSourceProps = SourceProps;
+type TypeScriptSourceProps = SourceProps;
 
 abstract class Source<
   Props extends SourceProps,
@@ -63,7 +58,7 @@ abstract class Source<
       throw new Error(
         `Asset is already associated with another stack '${
           Stack.of(this.asset).stackName
-        }'. ` + "Create a new Code instance for every stack."
+        }'. ` + "Create a new Asset instance for every stack."
       );
     }
 
