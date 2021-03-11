@@ -1,6 +1,6 @@
 {
   "name": "@mrgrain/cdk-esbuild",
-  "version": "1.92.0",
+  "version": "1.93.0-beta1",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/mrgrain/cdk-esbuild",
@@ -14,9 +14,10 @@
     "build": "tsc",
     "prepublishOnly": "npm run clean && npm run build && npm t",
     "postpublish": "npm run clean",
-    "release": "standard-version",
+    "release": "standard-version -s",
     "tag-latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
-    "test": "jest"
+    "test": "jest",
+    "test-cycle": "npm i && npm run clean && npm run build && npm t && npm run clean"
   },
   "dependencies": {
     "esbuild": "^0.8.0"
