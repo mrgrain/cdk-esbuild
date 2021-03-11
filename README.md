@@ -16,7 +16,7 @@ CDK [supports _esbuild_ with lambdas](https://docs.aws.amazon.com/cdk/api/latest
 Install `cdk-esbuild` and required peer dependencies:
 
 ```
-npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda
+npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment
 ```
 
 Create new `TypeScriptCode` to be used as `Code` of a [Lambda Function](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html#code):
@@ -69,7 +69,8 @@ The package exports four different types of constructs:
   for use in S3 bucket deployments
 
 - `TypeScriptAsset` & `JavaScriptAsset` extending `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
-  as a base for the above and generic use
+  as a base for the above and generic use \
+  ⚠️ Internal use only! Will be made available in an upcoming version (Target: 1.95.0)
 
 - `EsbuildBundling` implementing `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
   provides a _esbuild_ bundling interface wherever needed

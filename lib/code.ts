@@ -69,3 +69,15 @@ abstract class Code<Props extends CodeProps> extends AssetCode {
 
 export class JavaScriptCode extends Code<JavaScriptAssetProps> {}
 export class TypeScriptCode extends Code<TypeScriptAssetProps> {}
+
+/**
+ * @deprecated
+ * @use JavaScriptCode
+ * */
+export type JavaScriptAsset = JavaScriptCode;
+
+/**
+ * @deprecated
+ * @use TypeScriptCode
+ * */
+export type TypeScriptAsset = TypeScriptCode;
