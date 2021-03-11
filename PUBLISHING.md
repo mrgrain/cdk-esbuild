@@ -5,6 +5,7 @@
 - `git push --follow-tags origin main`
 - `npm publish`
 - `npm run tag-latest`
+- `npm run github-release`
 
 In the background, the publish command will execute the following steps:
 

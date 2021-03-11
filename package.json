@@ -12,6 +12,7 @@
   "scripts": {
     "clean": "git clean -fx -q lib test",
     "build": "tsc",
+    "github-release": "gh create release v$npm_package_version -d -F CHANGELOG.md",
     "prepublishOnly": "npm run clean && npm run build && npm t",
     "postpublish": "npm run clean",
     "release": "standard-version -s",
@@ -42,7 +43,7 @@
     "typescript": "^4.2.3"
   },
   "publishConfig": {
-    "cache": "$HOME/.npm",
+    "cache": "/tmp/.npm",
     "access": "public",
     "tag": "cdk-$npm_package_version"
   }
