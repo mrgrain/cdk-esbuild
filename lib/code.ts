@@ -123,10 +123,10 @@ export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
  * @deprecated
  * @use JavaScriptCode
  * */
-export type JavaScriptAsset = JavaScriptCode;
+export class JavaScriptAsset extends JavaScriptCode {}
 
 /**
  * @deprecated
  * @use TypeScriptCode
  * */
-export type TypeScriptAsset = TypeScriptCode;
+export class TypeScriptAsset extends TypeScriptCode {}
