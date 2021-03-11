@@ -75,6 +75,34 @@ The package exports four different types of constructs:
 - `EsbuildBundling` implementing `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
   provides a _esbuild_ bundling interface wherever needed
 
+### Props
+
+- `props.entrypoint`
+- `entrypoint` (for convenience this can be a parameter on some constructs) \
+  Relative path to the entrypoint file of your code from the root of the project. See `props.projectRoot`.
+
+- `projectRoot` \
+  Absolute path to the root of the project for the asset. If not set, will attempt to guess the root path using a basic algorithm. \
+  The combination of `projectRoot + entrypoint` must always be a valid absolute path.
+
+> ### ⚠️ Library authors
+>
+> When developing a library, it's strongly recommended to set `projectRoot`. The easiest way to do this, is to resolve based on the directory name of the file:
+>
+> ```ts
+> const props = {
+>   projectRoot: resolve(__dirname),
+> };
+> ```
+>
+> This will dynamically resolve to the correct path, wherever the package is installed.
+
+- `forceDockerBundling` \
+  Force the asset to use Docker bundling and skip local bundling. This can be useful in CI environments. The `projectRoot` path will be mounted into the container as context.
+
+- `buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
+  Regular defaults apply, with a few changes as noted below. Generally speaking overwriting entrypoint or output options is not supported, as these are inferred from cdk.
+
 ### `TypeScriptCode`, `JavaScriptCode`
 
 _Currently these classes are identical and simply an alias for each other. However, it is encouraged to use the appropriate class, as functionality might diverge in future releases._

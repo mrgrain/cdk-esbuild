@@ -16,3 +16,9 @@ package
 *.tgz
 *.gz
 *.zip
+
+# Docs & examples
+examples
+
+# Config
+.vscode
