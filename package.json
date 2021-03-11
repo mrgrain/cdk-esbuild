@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "git clean -fx -q lib test",
     "build": "tsc",
-    "github-release": "gh create release v$npm_package_version -d -F CHANGELOG.md",
+    "github-release": "gh release create v$npm_package_version -d -F CHANGELOG.md",
     "prepublishOnly": "npm run clean && npm run build && npm t",
     "postpublish": "npm run clean",
     "release": "standard-version -s",
