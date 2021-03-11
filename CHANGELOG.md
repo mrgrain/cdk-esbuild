@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.93.0-beta.2](https://github.com/mrgrain/cdk-esbuild/compare/v1.93.0-beta.1...v1.93.0-beta.2) (2021-03-11)
+
+
+### Bug Fixes
+
+* deprecated names for Code needs to be a class ([273d616](https://github.com/mrgrain/cdk-esbuild/commit/273d616b4867da8382f2cd60241f9f8cfc229ae3))
+
 ## [1.93.0-beta.1](https://github.com/mrgrain/cdk-esbuild/compare/v1.92.0...v1.93.0-beta.1) (2021-03-11)
 
 
