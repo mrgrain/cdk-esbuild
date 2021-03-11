@@ -1,7 +1,7 @@
 ## Publish version
 
 - `npm run test-cycle`
-- `npm release -- --release-as minor`
+- `npm run release -- --release-as minor`
 - `git push --follow-tags origin main`
 - `npm publish`
 - `npm run tag-latest`
