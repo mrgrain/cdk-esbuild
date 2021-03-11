@@ -2,7 +2,7 @@ import "@aws-cdk/assert/jest";
 import { Stack } from "@aws-cdk/core";
 import { resolve } from "path";
 import { mocked } from "ts-jest/utils";
-import { TypeScriptAsset } from "../lib/asset";
+import { TypeScriptCode } from "../lib/code";
 import * as util from "../lib/util";
 
 jest.mock("../lib/util", () => {
@@ -27,16 +27,16 @@ describe("asset", () => {
 
     it("should throw an exception", () => {
       expect(
-        () => new TypeScriptAsset("fixtures/handlers/ts-handler.ts")
-      ).toThrow(/TypeScriptAsset: Cannot find project root/);
+        () => new TypeScriptCode("fixtures/handlers/ts-handler.ts")
+      ).toThrow(/TypeScriptCode: Cannot find project root/);
       expect(util.findProjectRoot).toBeCalledTimes(1);
     });
   });
 
   describe("entry is an absolute path", () => {
     it("should throw an exception", () => {
-      expect(() => new TypeScriptAsset("/project/index.ts")).toThrow(
-        /TypeScriptAsset: Entry must be a relative path/
+      expect(() => new TypeScriptCode("/project/index.ts")).toThrow(
+        /TypeScriptCode: Entry must be a relative path/
       );
     });
   });
@@ -45,7 +45,7 @@ describe("asset", () => {
     it("does not throw", () => {
       const stack = new Stack();
       const assetHash = "abcdefghij1234567890";
-      const code = new TypeScriptAsset("fixtures/handlers/ts-handler.ts", {
+      const code = new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
         projectRoot: resolve(__dirname),
         assetHash,
       });

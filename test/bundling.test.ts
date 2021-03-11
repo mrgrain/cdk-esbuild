@@ -1,5 +1,5 @@
 import "@aws-cdk/assert/jest";
-import { Bundling } from "../lib/bundling";
+import { EsbuildBundling } from "../lib/bundling";
 
 jest.mock("esbuild", () => ({
   buildSync: jest.fn(),
@@ -8,14 +8,14 @@ jest.mock("esbuild", () => ({
 describe("Bundling", () => {
   describe("Given a project root path", () => {
     it("should append the entry path to the project root for the local bundler", () => {
-      const bundler = new Bundling("/project", "index.ts", {}, true);
+      const bundler = new EsbuildBundling("/project", "index.ts", {}, true);
       expect(bundler.local?.options?.entryPoints).toContain(
         "/project/index.ts"
       );
     });
 
     it("should keep the relative entry path for the docker bundler", () => {
-      const bundler = new Bundling("/project", "index.ts", {}, true);
+      const bundler = new EsbuildBundling("/project", "index.ts", {}, true);
       expect(bundler?.options?.entryPoints).toContain("index.ts");
     });
   });

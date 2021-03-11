@@ -5,7 +5,7 @@ import { getAbsolutePath } from "./util";
 
 export type BuildOptions = Omit<EsbuildBuildOptions, "outfile" | "outdir">;
 
-export class Bundling extends DockerBundler implements BundlingOptions {
+export class EsbuildBundling extends DockerBundler implements BundlingOptions {
   public readonly local?: LocalBundler;
 
   public constructor(

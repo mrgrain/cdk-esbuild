@@ -1,33 +1,27 @@
+import { Asset as S3Asset } from "@aws-cdk/aws-s3-assets";
+import { AssetHashType, Construct, ConstructNode, IAsset } from "@aws-cdk/core";
 import { isAbsolute } from "path";
-import { AssetCode } from "@aws-cdk/aws-lambda";
-import { AssetHashType, IAsset } from "@aws-cdk/core";
-import { BuildOptions, Bundling } from "./bundling";
-import { findProjectRoot, nodeMajorVersion } from "./util";
-
-function defaultBuildOptions(options: BuildOptions = {}): BuildOptions {
-  return {
-    ...(!options.platform || options.platform === "node"
-      ? { platform: "node", target: "node" + nodeMajorVersion() }
-      : {}),
-    bundle: true,
-    ...options,
-  };
-}
-
+import { BuildOptions, EsbuildBundling } from "./bundling";
+import { findProjectRoot } from "./util";
 export interface EsbuildAssetProps extends Partial<IAsset> {
+  /**
+   * Path to the entrypoint of your code, e.g. `src/index.ts`
+   */
+  entrypoint: string;
+
   /**
    * The root path for the code asset. If not set, will attempt to guess the root path.
    *
    * Uses the following algorithm to detect the project root path:
    *
-   * 1. In the current working directory, look for `yarn.lock`
+   * 1. From the entrypoint, look for `yarn.lock`
    * 2. Return path if found, traverse up if not, continue if at root
    * 3. Go to 1) and repeat for the following files/directories in order:
    *    - `package-lock.json`
    *    - `package.json`
    *    - `.git/`
    *
-   * @default - findProjectRoot()
+   * @default - findProjectRoot(entrypoint)
    * @throws - When unset and path cannot be determined.
    */
   projectRoot?: string;
@@ -43,43 +37,45 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
   buildOptions?: Omit<BuildOptions, "entryPoints">;
 }
 
-export class JavaScriptAsset extends AssetCode {
-  /**
-   *
-   * @param entry - Relative path to the asset code from `props.projectRoot`.
-   * @param props - Asset properties.
-   */
-  constructor(entry: string, props: EsbuildAssetProps = {}) {
-    if (isAbsolute(entry)) {
+export type JavaScriptAssetProps = EsbuildAssetProps;
+export type TypeScriptAssetProps = EsbuildAssetProps;
+
+abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
+  public constructor(scope: Construct, id: string, props: Props) {
+    const name = scope.node.path + ConstructNode.PATH_SEP + id;
+
+    if (isAbsolute(props.entrypoint)) {
       throw new Error(
-        `${
-          new.target.name
-        }: Entry must be a relative path. If you need to define an absolute path, set \`props.projectRoot\` accordingly.`
+        `${name}: Entrypoint must be a relative path. If you need to define an absolute path, please use \`props.projectRoot\` accordingly.`
       );
     }
 
     const {
+      entrypoint,
       assetHash,
       forceDockerBundling = false,
-      projectRoot = findProjectRoot(),
+      projectRoot = findProjectRoot(entrypoint),
+      buildOptions: options = {},
     } = props;
 
     if (!projectRoot) {
       throw new Error(
-        `${
-          new.target.name
-        }: Cannot find project root. Please specify it with \`props.projectRoot\`.`
+        `${name}: Cannot find project root. Please specify with \`props.projectRoot\`.`
       );
     }
 
-    const buildOptions = defaultBuildOptions(props.buildOptions);
+    const buildOptions = {
+      bundle: true,
+      ...options,
+    };
 
-    super(projectRoot, {
+    super(scope, id, {
+      path: projectRoot,
       assetHash,
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
-      bundling: new Bundling(
+      bundling: new EsbuildBundling(
         projectRoot,
-        entry,
+        entrypoint,
         buildOptions,
         !forceDockerBundling
       ),
@@ -87,4 +83,5 @@ export class JavaScriptAsset extends AssetCode {
   }
 }
 
-export class TypeScriptAsset extends JavaScriptAsset {}
+export class JavaScriptAsset extends Asset<JavaScriptAssetProps> {}
+export class TypeScriptAsset extends Asset<TypeScriptAssetProps> {}
