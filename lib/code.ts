@@ -12,7 +12,7 @@ import {
   TypeScriptAsset as TSAsset,
 } from "./asset";
 
-type CodeProps = Omit<EsbuildAssetProps, "entrypoint">;
+type CodeProps = Omit<EsbuildAssetProps, "entryPoints">;
 
 type JavaScriptCodeProps = CodeProps;
 type TypeScriptCodeProps = CodeProps;
@@ -35,10 +35,10 @@ abstract class Code<
 
   /**
    *
-   * @param entrypoint - Relative path to the asset code from `props.projectRoot`.
+   * @param entryPoints - Relative path to the asset code from `props.projectRoot`.
    * @param props - Asset properties.
    */
-  constructor(entrypoint: string, props: Props) {
+  constructor(entryPoints: string | string[], props: Props) {
     super();
 
     const defaultOptions: BuildOptions = {
@@ -49,7 +49,7 @@ abstract class Code<
     };
 
     this.props = {
-      entrypoint,
+      entryPoints: Array.isArray(entryPoints) ? entryPoints : [entryPoints],
       ...props,
       buildOptions: {
         ...defaultOptions,
@@ -95,15 +95,15 @@ abstract class Code<
 export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
   protected AssetClass = JSAsset;
 
-  constructor(entrypoint: string, props: JavaScriptCodeProps = {}) {
-    super(entrypoint, props);
+  constructor(entryPoints: string | string[], props: JavaScriptCodeProps = {}) {
+    super(entryPoints, props);
   }
 }
 export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
   protected AssetClass = TSAsset;
 
-  constructor(entrypoint: string, props: TypeScriptCodeProps = {}) {
-    super(entrypoint, props);
+  constructor(entryPoints: string | string[], props: TypeScriptCodeProps = {}) {
+    super(entryPoints, props);
   }
 }
 

@@ -93,10 +93,15 @@ The package exports four different types of constructs:
 - `EsbuildBundling` implementing `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
   provides a _esbuild_ bundling interface wherever needed
 
+### Parameters
+
+- `entryPoints: string | string[]` \
+  Single or list of relative paths to the entry points of your code from the root of the project. See `props.projectRoot`.
+
 ### Props
 
-- `props.entrypoint` & `entrypoint` \
-  Relative path to the entrypoint file of your code from the root of the project. See `props.projectRoot`.
+- `props.entryPoints` \
+  Array of relative paths to the entry points of your code from the root of the project. See `props.projectRoot`.
 
 - `projectRoot` \
   Absolute path to the root of the project for the asset. If not set, will attempt to guess the root path using a basic algorithm. The combination of `projectRoot + entrypoint` must always be a valid absolute path. \

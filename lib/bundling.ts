@@ -10,19 +10,21 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
 
   public constructor(
     projectRoot: string,
-    entryPoint: string,
+    entryPoints: string[],
     options: BuildOptions,
     tryLocalBundling = true
   ) {
     super({
       ...options,
-      entryPoints: [entryPoint],
+      entryPoints,
     });
 
     if (tryLocalBundling) {
       this.local = new LocalBundler({
         ...options,
-        entryPoints: [getAbsolutePath(projectRoot, entryPoint)],
+        entryPoints: entryPoints.map((entryPoint) =>
+          getAbsolutePath(projectRoot, entryPoint)
+        ),
       });
     }
   }

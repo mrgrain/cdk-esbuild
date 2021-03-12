@@ -7,7 +7,7 @@ import { Construct, Stack } from "@aws-cdk/core";
 import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from "./asset";
 import { BuildOptions } from "./bundling";
 
-type SourceProps = Omit<EsbuildAssetProps, "entrypoint">;
+type SourceProps = Omit<EsbuildAssetProps, "entryPoints">;
 
 type JavaScriptSourceProps = SourceProps;
 type TypeScriptSourceProps = SourceProps;
@@ -28,10 +28,10 @@ abstract class Source<
 
   /**
    *
-   * @param entrypoint - Relative path to the source code from `props.projectRoot`.
+   * @param entryPoints - Relative path to the source code from `props.projectRoot`.
    * @param props - Source properties.
    */
-  constructor(entrypoint: string, props: Props) {
+  constructor(entryPoints: string | string[], props: Props) {
     const defaultOptions: BuildOptions = {
       platform: "browser",
       ...(!props.buildOptions?.define
@@ -46,7 +46,7 @@ abstract class Source<
     };
 
     this.props = {
-      entrypoint,
+      entryPoints: Array.isArray(entryPoints) ? entryPoints : [entryPoints],
       ...props,
       buildOptions: {
         ...defaultOptions,
@@ -95,8 +95,11 @@ export class JavaScriptSource extends Source<
 > {
   protected AssetClass = JavaScriptAsset;
 
-  constructor(entrypoint: string, props: JavaScriptSourceProps = {}) {
-    super(entrypoint, props);
+  constructor(
+    entryPoints: string | string[],
+    props: JavaScriptSourceProps = {}
+  ) {
+    super(entryPoints, props);
   }
 }
 
@@ -106,7 +109,10 @@ export class TypeScriptSource extends Source<
 > {
   protected AssetClass = TypeScriptAsset;
 
-  constructor(entrypoint: string, props: TypeScriptSourceProps = {}) {
-    super(entrypoint, props);
+  constructor(
+    entryPoints: string | string[],
+    props: TypeScriptSourceProps = {}
+  ) {
+    super(entryPoints, props);
   }
 }

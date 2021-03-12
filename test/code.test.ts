@@ -55,7 +55,7 @@ describe("asset", () => {
           code,
         });
       }).toThrow(
-        /MyFunction\/TypeScriptCode: Entrypoint must be a relative path/
+        /MyFunction\/TypeScriptCode: Entrypoints must be a relative path/
       );
     });
   });

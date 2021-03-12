@@ -5,9 +5,9 @@ import { BuildOptions, EsbuildBundling } from "./bundling";
 import { findProjectRoot } from "./util";
 export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
-   * Path to the entrypoint of your code, e.g. `src/index.ts`
+   * Relative paths to the entrypoints of your code, e.g. `src/index.ts`
    */
-  entrypoint: string;
+  entryPoints: string[];
 
   /**
    * The root path for the code asset. If not set, will attempt to guess the root path.
@@ -44,17 +44,19 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
   public constructor(scope: Construct, id: string, props: Props) {
     const name = scope.node.path + ConstructNode.PATH_SEP + id;
 
-    if (isAbsolute(props.entrypoint)) {
-      throw new Error(
-        `${name}: Entrypoint must be a relative path. If you need to define an absolute path, please use \`props.projectRoot\` accordingly.`
-      );
-    }
+    props.entryPoints.forEach((entryPoint: string) => {
+      if (isAbsolute(entryPoint)) {
+        throw new Error(
+          `${name}: Entrypoints must be a relative path. If you need to define an absolute path, please use \`props.projectRoot\` accordingly.`
+        );
+      }
+    });
 
     const {
-      entrypoint,
+      entryPoints,
       assetHash,
       forceDockerBundling = false,
-      projectRoot = findProjectRoot(entrypoint),
+      projectRoot = findProjectRoot(),
       buildOptions: options = {},
     } = props;
 
@@ -75,7 +77,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
       bundling: new EsbuildBundling(
         projectRoot,
-        entrypoint,
+        entryPoints,
         buildOptions,
         !forceDockerBundling
       ),

@@ -68,7 +68,7 @@ describe("source", () => {
           sources: [website],
         });
       }).toThrow(
-        /DeployWebsite\/TypeScriptSource: Entrypoint must be a relative path/
+        /DeployWebsite\/TypeScriptSource: Entrypoints must be a relative path/
       );
     });
   });
