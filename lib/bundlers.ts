@@ -8,9 +8,12 @@ export class LocalBundler implements ILocalBundling {
 
   tryBundle(outputDir: string, _options: BundlingOptions): boolean {
     try {
+      const outdir = join(
+        ...([outputDir, this.options.outdir].filter(Boolean) as string[])
+      );
       buildSync({
         ...this.options,
-        outdir: outputDir,
+        outdir,
       });
 
       return true;
@@ -47,9 +50,11 @@ export class DockerBundler implements BundlingOptions {
   public readonly options: BuildOptions;
 
   public constructor(options: BuildOptions) {
+    const outdir = ["/asset-output", options.outdir].filter(Boolean).join("/");
+
     this.options = {
       ...options,
-      outdir: "/asset-output",
+      outdir,
     };
   }
 }

@@ -118,7 +118,10 @@ The package exports four different types of constructs:
   Force the asset to use Docker bundling and skip local bundling. This can be useful in CI environments. The `projectRoot` path will be mounted into the container as context.
 
 - `buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
-  Regular defaults apply, with a few changes as noted below. Generally speaking overwriting entrypoint or output options is not supported, as these are inferred from cdk.
+  Regular defaults apply, with a few changes as noted below. Generally speaking usage of entry and output options are limited, as these are inferred from cdk.
+
+- `buildOptions.outdir` \
+  The path for the outdir is defined by cdk. However setting this option allows to write files into a subdirectory. For example `{ outdir: 'js' }` will create an asset that has a single directory called `js`, which contains all build files. This approach can be useful for static website deployments, where JavaScript code should go into a sub-directory.
 
 ### `TypeScriptCode`, `JavaScriptCode`
 

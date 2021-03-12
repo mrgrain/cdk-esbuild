@@ -1,4 +1,6 @@
 import "@aws-cdk/assert/jest";
+import { buildSync } from "esbuild";
+import { mocked } from "ts-jest/utils";
 import { EsbuildBundling } from "../lib/bundling";
 
 jest.mock("esbuild", () => ({
@@ -17,6 +19,29 @@ describe("Bundling", () => {
     it("should keep the relative entry path for the docker bundler", () => {
       const bundler = new EsbuildBundling("/project", "index.ts", {}, true);
       expect(bundler?.options?.entryPoints).toContain("index.ts");
+    });
+  });
+
+  describe("Given an outdir", () => {
+    it("should append outdir behind the cdk asset directory", () => {
+      const bundler = new EsbuildBundling(
+        "/project",
+        "index.ts",
+        {
+          outdir: "js",
+        },
+        true
+      );
+      // expect(bundler.local?.options?.outdir).toMatch(/cdk.out\/.*\/js$/);
+      expect(bundler.options?.outdir).toBe("/asset-output/js");
+
+      bundler.local?.tryBundle("cdk.out/123456", bundler);
+
+      expect(mocked(buildSync)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          outdir: "cdk.out/123456/js",
+        })
+      );
     });
   });
 });
