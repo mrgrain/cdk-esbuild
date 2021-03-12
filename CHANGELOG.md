@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [1.93.1](https://github.com/mrgrain/cdk-esbuild/compare/v1.93.0...v1.93.1) (2021-03-12)
 
+Required release to make version available on npm.
+
 ## [1.93.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.92.0...v1.93.0) (2021-03-12)
+
+### BREAKING CHANGES
+
+- Package root auto detect now searches upwards from the entrypoint, instead of current working directory.
 
 ### Features
 
