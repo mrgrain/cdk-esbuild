@@ -95,15 +95,14 @@ The package exports four different types of constructs:
 
 ### Props
 
-- `props.entrypoint`
-- `entrypoint` (for convenience this can be a parameter on some constructs) \
+- `props.entrypoint` & `entrypoint` \
   Relative path to the entrypoint file of your code from the root of the project. See `props.projectRoot`.
 
 - `projectRoot` \
-  Absolute path to the root of the project for the asset. If not set, will attempt to guess the root path using a basic algorithm. \
-  The combination of `projectRoot + entrypoint` must always be a valid absolute path.
+  Absolute path to the root of the project for the asset. If not set, will attempt to guess the root path using a basic algorithm. The combination of `projectRoot + entrypoint` must always be a valid absolute path. \
+  Often the easiest way to set `projectRoot` is to use a combination of `resolve` and `__dirname` (see below).
 
-> ### ⚠️ Library authors
+> ### ⚠️ For library authors
 >
 > When developing a library, it's strongly recommended to set `projectRoot`. The easiest way to do this, is to resolve based on the directory name of the file:
 >
@@ -139,6 +138,7 @@ _Currently these classes are identical and simply an alias for each other. Howev
 
 - `bundle=true`
 - `platform=browser`
+- `--define:process.env.NODE_ENV=\\\"production\\\"` or actual value of `NODE_ENV` if set
 
 ### `TypeScriptAsset`, `JavaScriptAsset`
 
