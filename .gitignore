@@ -13,3 +13,6 @@ package
 *.tgz
 *.gz
 *.zip
+
+# Example template
+examples/template

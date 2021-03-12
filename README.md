@@ -16,10 +16,18 @@ CDK [supports _esbuild_ with lambdas](https://docs.aws.amazon.com/cdk/api/latest
 Install `cdk-esbuild` and required peer dependencies:
 
 ```
-npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment
+npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-s3-assets
 ```
 
-Create new `TypeScriptCode` to be used as `Code` of a [Lambda Function](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html#code):
+### Lambda Function
+
+Install the the lambda package:
+
+```
+npm install @aws-cdk/aws-lambda
+```
+
+Use `TypeScriptCode` as the `code` of a [Lambda Function](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html#code):
 
 ```ts
 import * as lambda from "@aws-cdk/aws-lambda";
@@ -35,7 +43,17 @@ const fn = new lambda.Function(this, "MyFunction", {
 });
 ```
 
-Or a new `TypeScriptSource` to be used as the `Source` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
+### Static Website
+
+> 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
+
+Install the S3 deployment package:
+
+```
+npm install @aws-cdk/aws-s3-deployment
+```
+
+Use a `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
 ```ts
 import * as s3 from "@aws-cdk/aws-s3";
@@ -43,7 +61,7 @@ import * as s3deploy from "@aws-cdk/aws-s3-deployment";
 import * as path from "path";
 import { TypeScriptAsset } from "@mrgrain/cdk-esbuild";
 
-const websiteBundle = new TypeScriptSource("path/from/project/root/index.tsx");
+const websiteBundle = new TypeScriptSource("path/to/code/index.tsx");
 
 const websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
   autoDeleteObjects: true,
