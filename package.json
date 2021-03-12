@@ -45,6 +45,6 @@
   "publishConfig": {
     "cache": "/tmp/.npm",
     "access": "public",
-    "tag": "cdk-$npm_package_version"
+    "tag": "unstable"
   }
 }
