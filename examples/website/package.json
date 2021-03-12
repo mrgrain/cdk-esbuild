@@ -8,12 +8,12 @@
     "cdk": "cdk"
   },
   "dependencies": {
-    "@aws-cdk/aws-s3": "^1.93.0",
-    "@aws-cdk/aws-s3-assets": "^1.93.0",
-    "@aws-cdk/aws-s3-deployment": "^1.93.0",
-    "@aws-cdk/core": "^1.93.0",
-    "@mrgrain/cdk-esbuild": "^1.93.0-beta.2",
-    "reacht": "^0.0.2",
+    "@aws-cdk/aws-s3": "1.93.0",
+    "@aws-cdk/aws-s3-assets": "1.93.0",
+    "@aws-cdk/aws-s3-deployment": "1.93.0",
+    "@aws-cdk/core": "1.93.0",
+    "@mrgrain/cdk-esbuild": "cdk-1.93.0",
+    "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
   "devDependencies": {
