@@ -12,18 +12,6 @@ import {
   TypeScriptAsset as TSAsset,
 } from "./asset";
 
-function mergeWithDefaultBuildOptions(
-  options: BuildOptions = {}
-): BuildOptions {
-  return {
-    ...(!options.platform || options.platform === "node"
-      ? { platform: "node", target: "node" + nodeMajorVersion() }
-      : {}),
-    bundle: true,
-    ...options,
-  };
-}
-
 type CodeProps = Omit<EsbuildAssetProps, "entrypoint">;
 
 type JavaScriptCodeProps = CodeProps;
