@@ -145,4 +145,57 @@ describe("source", () => {
       }).not.toThrow();
     });
   });
+
+  describe("default build options", () => {
+    it("does not override provided values", () => {
+      const source = new JavaScriptSource("fixtures/handlers/js-handler.js", {
+        buildOptions: {
+          platform: "neutral",
+          define: {},
+        },
+      }) as any;
+
+      expect(source.props.buildOptions.platform).toBe("neutral");
+      expect(Object.keys(source.props.buildOptions.define).length).toBe(0);
+    });
+
+    it("platform=browser", () => {
+      const source = new JavaScriptSource(
+        "fixtures/handlers/js-handler.js"
+      ) as any;
+
+      expect(source.props.buildOptions.platform).toBe("browser");
+    });
+
+    describe("NODE_ENV is set", () => {
+      it("defines NODE_ENV as that value", () => {
+        const source = new JavaScriptSource(
+          "fixtures/handlers/js-handler.js"
+        ) as any;
+
+        expect(source.props.buildOptions.define?.["process.env.NODE_ENV"]).toBe(
+          '"test"'
+        );
+      });
+    });
+
+    describe("NODE_ENV not set", () => {
+      beforeEach(() => {
+        delete process.env.NODE_ENV;
+      });
+
+      afterEach(() => {
+        process.env.NODE_ENV = "test";
+      });
+      it("defines NODE_ENV as production", () => {
+        const source = new JavaScriptSource(
+          "fixtures/handlers/js-handler.js"
+        ) as any;
+
+        expect(source.props.buildOptions.define?.["process.env.NODE_ENV"]).toBe(
+          '"production"'
+        );
+      });
+    });
+  });
 });

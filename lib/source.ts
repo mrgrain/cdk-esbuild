@@ -34,6 +34,15 @@ abstract class Source<
   constructor(entrypoint: string, props: Props) {
     const defaultOptions: BuildOptions = {
       platform: "browser",
+      ...(!props.buildOptions?.define
+        ? {
+            define: {
+              "process.env.NODE_ENV": `"${
+                process.env.NODE_ENV ?? "production"
+              }"`,
+            },
+          }
+        : {}),
     };
 
     this.props = {
