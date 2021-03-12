@@ -21,7 +21,7 @@
     "test-cycle": "npm i && npm run clean && npm run build && npm t && npm run clean"
   },
   "dependencies": {
-    "esbuild": "^0.8.0"
+    "esbuild": "^0.9.0"
   },
   "peerDependencies": {
     "@aws-cdk/aws-lambda": "1.93.0",
