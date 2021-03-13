@@ -10,14 +10,20 @@ jest.mock("esbuild", () => ({
 describe("Bundling", () => {
   describe("Given a project root path", () => {
     it("should append the entry path to the project root for the local bundler", () => {
-      const bundler = new EsbuildBundling("/project", ["index.ts"], {}, true);
-      expect(bundler.local?.options?.entryPoints).toContain(
+      const bundler = new EsbuildBundling(
+        { absWorkingDir: "/project", entryPoints: ["index.ts"] },
+        { localBundling: true }
+      );
+      expect(bundler.local?.buildOptions?.entryPoints).toContain(
         "/project/index.ts"
       );
     });
 
     it("should keep the relative entry path for the docker bundler", () => {
-      const bundler = new EsbuildBundling("/project", ["index.ts"], {}, true);
+      const bundler = new EsbuildBundling(
+        { absWorkingDir: "/project", entryPoints: ["index.ts"] },
+        { localBundling: true }
+      );
       expect(bundler?.options?.entryPoints).toContain("index.ts");
     });
   });
@@ -25,14 +31,10 @@ describe("Bundling", () => {
   describe("Given an outdir", () => {
     it("should append outdir behind the cdk asset directory", () => {
       const bundler = new EsbuildBundling(
-        "/project",
-        ["index.ts"],
-        {
-          outdir: "js",
-        },
-        true
+        { absWorkingDir: "/project", entryPoints: ["index.ts"], outdir: "js" },
+        { localBundling: true }
       );
-      // expect(bundler.local?.options?.outdir).toMatch(/cdk.out\/.*\/js$/);
+
       expect(bundler.options?.outdir).toBe("/asset-output/js");
 
       bundler.local?.tryBundle("cdk.out/123456", bundler);

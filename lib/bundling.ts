@@ -1,31 +1,58 @@
 import { BundlingOptions } from "@aws-cdk/core";
-import { BuildOptions as EsbuildBuildOptions } from "esbuild";
-import { DockerBundler, LocalBundler } from "./bundlers";
-import { getAbsolutePath } from "./util";
+import { join, resolve } from "path";
+import {
+  BuildOptions,
+  BundlerProps,
+  DockerBundler,
+  LocalBundler,
+} from "./bundlers";
+import { esbuildVersion, getAbsolutePath } from "./util";
 
-export type BuildOptions = Omit<EsbuildBuildOptions, "outfile">;
+interface BundlingProps extends BundlerProps {
+  /**
+   * Use local bundling over Docker bundling.
+   *
+   * @default true
+   */
+  localBundling?: boolean;
+}
+
+const getEsbuildVersion = (projectRoot: string): string => {
+  return (
+    esbuildVersion(join(projectRoot, "package-lock.json"), null) ??
+    esbuildVersion(join(projectRoot, "package.json"), null) ??
+    esbuildVersion(resolve(__dirname, "..", "package.json"))
+  );
+};
 
 export class EsbuildBundling extends DockerBundler implements BundlingOptions {
   public readonly local?: LocalBundler;
 
   public constructor(
-    projectRoot: string,
-    entryPoints: string[],
-    options: BuildOptions,
-    tryLocalBundling = true
+    buildOptions: BuildOptions,
+    { localBundling = true, copyDir, esbuildVersion }: BundlingProps
   ) {
-    super({
-      ...options,
-      entryPoints,
+    const absWorkingDir = buildOptions.absWorkingDir ?? process.cwd();
+
+    super(buildOptions, {
+      copyDir,
+      esbuildVersion: esbuildVersion ?? getEsbuildVersion(absWorkingDir),
     });
 
-    if (tryLocalBundling) {
-      this.local = new LocalBundler({
-        ...options,
-        entryPoints: entryPoints.map((entryPoint) =>
-          getAbsolutePath(projectRoot, entryPoint)
-        ),
-      });
+    if (localBundling) {
+      this.local = new LocalBundler(
+        {
+          ...buildOptions,
+          entryPoints: this.options.entryPoints.map((entryPoint: string) =>
+            getAbsolutePath(absWorkingDir, entryPoint)
+          ),
+        },
+        {
+          copyDir: copyDir
+            ? getAbsolutePath(absWorkingDir, copyDir)
+            : undefined,
+        }
+      );
     }
   }
 }

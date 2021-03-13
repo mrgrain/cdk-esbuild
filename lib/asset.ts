@@ -1,7 +1,8 @@
 import { Asset as S3Asset } from "@aws-cdk/aws-s3-assets";
 import { AssetHashType, Construct, ConstructNode, IAsset } from "@aws-cdk/core";
 import { isAbsolute } from "path";
-import { BuildOptions, EsbuildBundling } from "./bundling";
+import { BuildOptions } from "./bundlers";
+import { EsbuildBundling } from "./bundling";
 import { findProjectRoot } from "./util";
 export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
@@ -25,6 +26,13 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
    * @throws - When unset and path cannot be determined.
    */
   projectRoot?: string;
+
+  /**
+   * Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+   *
+   * @experimental Likely to change once esbuild supports this natively
+   */
+  copyDir?: string;
 
   /**
    * Force the asset to use Docker bundling (and skip local bundling).
@@ -76,10 +84,15 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       assetHash,
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
       bundling: new EsbuildBundling(
-        projectRoot,
-        entryPoints,
-        buildOptions,
-        !forceDockerBundling
+        {
+          ...buildOptions,
+          entryPoints,
+          absWorkingDir: projectRoot,
+        },
+        {
+          localBundling: !forceDockerBundling,
+          copyDir: props.copyDir,
+        }
       ),
     });
   }

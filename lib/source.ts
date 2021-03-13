@@ -5,7 +5,7 @@ import {
 } from "@aws-cdk/aws-s3-deployment";
 import { Construct, Stack } from "@aws-cdk/core";
 import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from "./asset";
-import { BuildOptions } from "./bundling";
+import { BuildOptions } from "./bundlers";
 
 type SourceProps = Omit<EsbuildAssetProps, "entryPoints">;
 
@@ -32,7 +32,7 @@ abstract class Source<
    * @param props - Source properties.
    */
   constructor(entryPoints: string | string[], props: Props) {
-    const defaultOptions: BuildOptions = {
+    const defaultOptions: Partial<BuildOptions> = {
       platform: "browser",
       ...(!props.buildOptions?.define
         ? {

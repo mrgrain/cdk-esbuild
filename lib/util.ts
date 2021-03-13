@@ -47,12 +47,12 @@ export function findProjectRoot(
  * Returns the version of esbuild installation
  */
 export function esbuildVersion<T>(
-  packageJsonPath = resolve(join(__dirname, "..", "package.json")),
+  packageJsonPath: string,
   defaultVersion: string | T = "*"
 ): string | T {
-  const contents = readFileSync(packageJsonPath).toString();
-
   try {
+    const contents = readFileSync(packageJsonPath).toString();
+
     const pkg: {
       dependencies?: { esbuild?: string & { version?: string } };
     } = JSON.parse(contents);

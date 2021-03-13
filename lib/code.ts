@@ -4,13 +4,13 @@ import {
   ResourceBindOptions,
 } from "@aws-cdk/aws-lambda";
 import { CfnResource, Construct, Stack } from "@aws-cdk/core";
-import { BuildOptions } from "./bundling";
 import { nodeMajorVersion } from "./util";
 import {
   EsbuildAssetProps,
   JavaScriptAsset as JSAsset,
   TypeScriptAsset as TSAsset,
 } from "./asset";
+import { BuildOptions } from "./bundlers";
 
 type CodeProps = Omit<EsbuildAssetProps, "entryPoints">;
 
@@ -41,7 +41,7 @@ abstract class Code<
   constructor(entryPoints: string | string[], props: Props) {
     super();
 
-    const defaultOptions: BuildOptions = {
+    const defaultOptions: Partial<BuildOptions> = {
       ...(!props.buildOptions?.platform ||
       props.buildOptions?.platform === "node"
         ? { platform: "node", target: "node" + nodeMajorVersion() }
