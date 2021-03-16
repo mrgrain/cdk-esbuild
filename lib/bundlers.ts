@@ -6,7 +6,6 @@ import {
 } from "@aws-cdk/core";
 import { buildSync, BuildOptions as EsbuildOptions } from "esbuild";
 import { join, resolve } from "path";
-import { esbuildVersion, findUp } from "./util";
 
 export type BuildOptions = Omit<EsbuildOptions, "outfile" | "entryPoints"> &
   Required<Pick<EsbuildOptions, "entryPoints">>;

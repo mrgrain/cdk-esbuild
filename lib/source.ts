@@ -28,7 +28,7 @@ abstract class Source<
 
   /**
    *
-   * @param entryPoints - Relative path to the source code from `props.projectRoot`.
+   * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Source properties.
    */
   constructor(entryPoints: string | string[], props: Props) {

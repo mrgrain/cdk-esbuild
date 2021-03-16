@@ -9,14 +9,12 @@ jest.mock("esbuild", () => ({
 
 describe("Bundling", () => {
   describe("Given a project root path", () => {
-    it("should append the entry path to the project root for the local bundler", () => {
+    it("should keep the relative path for the local bundler", () => {
       const bundler = new EsbuildBundling(
         { absWorkingDir: "/project", entryPoints: ["index.ts"] },
         { localBundling: true }
       );
-      expect(bundler.local?.buildOptions?.entryPoints).toContain(
-        "/project/index.ts"
-      );
+      expect(bundler.local?.buildOptions?.entryPoints).toContain("index.ts");
     });
 
     it("should keep the relative entry path for the docker bundler", () => {

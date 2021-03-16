@@ -1,4 +1,5 @@
 import { BundlingOptions } from "@aws-cdk/core";
+import { readFileSync } from "fs";
 import { join, resolve } from "path";
 import {
   BuildOptions,
@@ -6,7 +7,6 @@ import {
   DockerBundler,
   LocalBundler,
 } from "./bundlers";
-import { esbuildVersion, getAbsolutePath } from "./util";
 
 interface BundlingProps extends BundlerProps {
   /**
@@ -17,10 +17,31 @@ interface BundlingProps extends BundlerProps {
   localBundling?: boolean;
 }
 
-const getEsbuildVersion = (projectRoot: string): string => {
+const getEsbuildVersion = (workingDir: string): string => {
+  function esbuildVersion<T>(
+    packageJsonPath: string,
+    defaultVersion: string | T = "*"
+  ): string | T {
+    try {
+      const contents = readFileSync(packageJsonPath).toString();
+
+      const pkg: {
+        dependencies?: { esbuild?: string & { version?: string } };
+      } = JSON.parse(contents);
+
+      return (
+        pkg?.dependencies?.esbuild?.version ??
+        pkg?.dependencies?.esbuild ??
+        defaultVersion
+      );
+    } catch (error) {
+      return defaultVersion;
+    }
+  }
+
   return (
-    esbuildVersion(join(projectRoot, "package-lock.json"), null) ??
-    esbuildVersion(join(projectRoot, "package.json"), null) ??
+    esbuildVersion(join(workingDir, "package-lock.json"), null) ??
+    esbuildVersion(join(workingDir, "package.json"), null) ??
     esbuildVersion(resolve(__dirname, "..", "package.json"))
   );
 };
@@ -40,19 +61,9 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
     });
 
     if (localBundling) {
-      this.local = new LocalBundler(
-        {
-          ...buildOptions,
-          entryPoints: this.options.entryPoints.map((entryPoint: string) =>
-            getAbsolutePath(absWorkingDir, entryPoint)
-          ),
-        },
-        {
-          copyDir: copyDir
-            ? getAbsolutePath(absWorkingDir, copyDir)
-            : undefined,
-        }
-      );
+      this.local = new LocalBundler(buildOptions, {
+        copyDir: copyDir ? resolve(absWorkingDir, copyDir) : undefined,
+      });
     }
   }
 }

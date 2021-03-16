@@ -4,13 +4,16 @@ import {
   ResourceBindOptions,
 } from "@aws-cdk/aws-lambda";
 import { CfnResource, Construct, Stack } from "@aws-cdk/core";
-import { nodeMajorVersion } from "./util";
 import {
   EsbuildAssetProps,
   JavaScriptAsset as JSAsset,
   TypeScriptAsset as TSAsset,
 } from "./asset";
 import { BuildOptions } from "./bundlers";
+
+function nodeMajorVersion(): number {
+  return parseInt(process.versions.node.split(".")[0], 10);
+}
 
 type CodeProps = Omit<EsbuildAssetProps, "entryPoints">;
 
@@ -35,7 +38,7 @@ abstract class Code<
 
   /**
    *
-   * @param entryPoints - Relative path to the asset code from `props.projectRoot`.
+   * @param entryPoints - Relative path to the asset code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Asset properties.
    */
   constructor(entryPoints: string | string[], props: Props) {
