@@ -1,5 +1,5 @@
 import { Bucket } from "@aws-cdk/aws-s3";
-import { BucketDeployment, Source } from "@aws-cdk/aws-s3-deployment";
+import { BucketDeployment } from "@aws-cdk/aws-s3-deployment";
 import * as cdk from "@aws-cdk/core";
 import { CfnOutput, RemovalPolicy } from "@aws-cdk/core";
 import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
@@ -9,11 +9,9 @@ export class WebsiteStack extends cdk.Stack {
     super(scope, id, props);
 
     const websiteBundle = new TypeScriptSource("./src/index.tsx", {
+      copyDir: "static",
       buildOptions: {
-        define: {
-          // React requires this env variable to be set when building for the browser
-          "process.env.NODE_ENV": '"production"',
-        },
+        outdir: "js",
       },
     });
 
@@ -26,7 +24,7 @@ export class WebsiteStack extends cdk.Stack {
 
     new BucketDeployment(this, "DeployWebsite", {
       destinationBucket: websiteBucket,
-      sources: [Source.asset("./static"), websiteBundle],
+      sources: [websiteBundle],
     });
 
     new CfnOutput(this, "WebsiteUrl", {
