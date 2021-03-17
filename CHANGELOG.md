@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.94.1](https://github.com/mrgrain/cdk-esbuild/compare/v1.94.0...v1.94.1) (2021-03-17)
+
+
+### Bug Fixes
+
+* change cdk version constraints to work with patches ([fa0fa5f](https://github.com/mrgrain/cdk-esbuild/commit/fa0fa5fbdf608b14faf7a5e6132016fb6f2e393e))
+
 ## [1.94.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.93.1...v1.94.0) (2021-03-16)
 
 - update to cdk-1.94.0 ([1623339](https://github.com/mrgrain/cdk-esbuild/commit/162333930a7534277c5ce4318f81df1fc954fe5e))
