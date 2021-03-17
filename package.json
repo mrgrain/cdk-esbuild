@@ -16,7 +16,8 @@
     "prepublishOnly": "npm run clean && npm run build && npm t",
     "postpublish": "npm run clean",
     "release": "standard-version -s",
-    "tag-latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
+    "tag:cdk": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version cdk-$npm_package_version",
+    "tag:latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
     "test": "jest",
     "test-cycle": "npm i && npm run clean && npm run build && npm t && npm run clean"
   },
