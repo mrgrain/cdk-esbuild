@@ -2,6 +2,8 @@
 *.ts
 !*.d.ts
 tsconfig.json
+.nvmrc
+.versionrc
 
 # Test setup
 test
@@ -19,6 +21,7 @@ package
 
 # Docs & examples
 examples
+PUBLISHING.md
 
 # Config
 .vscode
