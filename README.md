@@ -116,12 +116,18 @@ _Bundling powers all other features. You normally won't have to use it, but it's
   **All build options are optional.** \
   Same defaults and functionalities apply, with a few changes as noted below. Generally speaking usage of entry and output options are different, as these are inferred by CDK.
 
-- ❌ `buildOptions.entrypoints` \
+- ❌ `buildOptions.entryPoints` \
   _Not available. Option is exposed as parameter._
 
 - `buildOptions.outdir: string` \
   The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
-  For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory.
+  For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+  _Cannot be used together with `outfile`._
+
+- `buildOptions.outfile: string` \
+  Relative path to a file inside the CDK asset output directory. \
+  For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point.\
+  _Cannot be used with multiple `entryPoints` or together with `outdir`._
 
 - `buildOptions.absWorkingDir: string` \
   Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory).\

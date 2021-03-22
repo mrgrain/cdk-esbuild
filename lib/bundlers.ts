@@ -5,15 +5,49 @@ import {
   ILocalBundling,
 } from "@aws-cdk/core";
 import { buildSync, BuildOptions as EsbuildOptions } from "esbuild";
-import { join, resolve } from "path";
+import { join, normalize, resolve, posix, PlatformPath } from "path";
 
-export type BuildOptions = Omit<EsbuildOptions, "outfile" | "entryPoints"> &
-  Required<Pick<EsbuildOptions, "entryPoints">>;
+type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
+  Required<Pick<T, RK>>;
+
+export type BuildOptions = MarkRequired<EsbuildOptions, "entryPoints">;
 
 export interface BundlerProps {
+  /**
+   * Relative path to a directory copied to the output before esbuild is run (i.e esbuild will overwrite existing files).
+   */
   copyDir?: string;
 
+  /**
+   * Docker build only. A npm compatible version constraint.
+   *
+   * If not provided will attempt to read from a `package-lock.json` or `package.json` file in the `absWorkingDir`.
+   * Otherwise uses the constraint provided by this package (usually ^0.x.0).
+   */
   esbuildVersion?: string;
+}
+
+function getOutputOptions(
+  cdkOutputDir: string,
+  outfile?: string,
+  outdir?: string,
+  path: Pick<PlatformPath, "normalize" | "join"> = posix
+) {
+  if (outfile) {
+    return {
+      outdir: undefined,
+      outfile: path.normalize(
+        path.join(...([cdkOutputDir, outfile].filter(Boolean) as string[]))
+      ),
+    };
+  }
+
+  return {
+    outdir: posix.normalize(
+      posix.join(...([cdkOutputDir, outdir].filter(Boolean) as string[]))
+    ),
+    outfile: undefined,
+  };
 }
 
 export class LocalBundler implements ILocalBundling {
@@ -28,13 +62,14 @@ export class LocalBundler implements ILocalBundling {
         FileSystem.copyDirectory(this.props.copyDir, outputDir);
       }
 
-      const bundleOutdir = join(
-        ...([outputDir, this.buildOptions.outdir].filter(Boolean) as string[])
-      );
-
       buildSync({
         ...this.buildOptions,
-        outdir: bundleOutdir,
+        ...getOutputOptions(
+          outputDir,
+          this.buildOptions.outfile,
+          this.buildOptions.outdir,
+          { normalize, join }
+        ),
       });
 
       return true;
@@ -59,7 +94,7 @@ export class DockerBundler implements BundlingOptions {
       JSON.stringify({
         ...this.props,
         outputDirectory: this.outputDirectory,
-        options: this.options,
+        options: this.buildOptions,
       }),
     ];
   }
@@ -68,20 +103,25 @@ export class DockerBundler implements BundlingOptions {
 
   public readonly outputDirectory = "/asset-output";
 
-  public readonly options: BuildOptions;
+  public readonly buildOptions: BuildOptions;
 
   public constructor(
-    options: BuildOptions,
+    buildOptions: BuildOptions,
     public readonly props: BundlerProps = {}
   ) {
-    const outdir = [this.outputDirectory, options.outdir]
-      .filter(Boolean)
-      .join("/");
+    if (buildOptions.outfile && buildOptions.outdir) {
+      throw new Error('Cannot use both "outfile" and "outdir"');
+    }
 
-    this.options = {
-      ...options,
+    this.buildOptions = {
+      ...buildOptions,
+      ...getOutputOptions(
+        this.outputDirectory,
+        buildOptions.outfile,
+        buildOptions.outdir,
+        posix
+      ),
       absWorkingDir: this.workingDirectory,
-      outdir,
     };
   }
 }

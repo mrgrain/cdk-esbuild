@@ -25,8 +25,6 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
 
   /**
    * Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
-   *
-   * @experimental Likely to change once esbuild supports this natively
    */
   copyDir?: string;
 
