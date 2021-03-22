@@ -1,7 +1,13 @@
 {
   "name": "@mrgrain/cdk-esbuild",
   "version": "1.94.1",
+  "description": "CDK constructs for esbuild, an extremely fast JavaScript bundler",
   "license": "MIT",
+  "author": {
+    "name": "Moritz Kornher",
+    "email": "mail@moritzkornher.de",
+    "url": "https://moritzkornher.de"
+  },
   "repository": {
     "url": "https://github.com/mrgrain/cdk-esbuild",
     "type": "git"
@@ -47,5 +53,16 @@
     "cache": "/tmp/.npm",
     "access": "public",
     "tag": "unstable"
-  }
+  },
+  "keywords": [
+    "aws-cdk",
+    "bundler",
+    "cdk",
+    "constructs",
+    "esbuild",
+    "lambda",
+    "s3",
+    "s3-deployment",
+    "static website"
+  ]
 }
