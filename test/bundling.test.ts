@@ -9,7 +9,7 @@ jest.mock("esbuild", () => ({
 
 const realEsbuild = jest.requireActual("esbuild");
 
-describe("Bundling", () => {
+describe("bundling", () => {
   describe("Given a project root path", () => {
     it("should keep the relative path for the local bundler", () => {
       const bundler = new EsbuildBundling(

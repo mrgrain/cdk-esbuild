@@ -4,7 +4,7 @@ import { Function, Runtime } from "@aws-cdk/aws-lambda";
 import { resolve } from "path";
 import { JavaScriptCode, TypeScriptCode, JavaScriptAsset } from "../lib/code";
 
-describe("asset", () => {
+describe("code", () => {
   describe("entry is an absolute path", () => {
     it("should throw an exception", () => {
       expect(() => {
