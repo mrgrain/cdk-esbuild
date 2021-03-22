@@ -59,7 +59,13 @@ export class LocalBundler implements ILocalBundling {
   tryBundle(outputDir: string, _options: BundlingOptions): boolean {
     try {
       if (this.props.copyDir) {
-        FileSystem.copyDirectory(this.props.copyDir, outputDir);
+        FileSystem.copyDirectory(
+          resolve(
+            this.buildOptions.absWorkingDir ?? process.cwd(),
+            this.props.copyDir
+          ),
+          outputDir
+        );
       }
 
       buildSync({

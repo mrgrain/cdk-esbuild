@@ -62,7 +62,7 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
 
     if (localBundling) {
       this.local = new LocalBundler(buildOptions, {
-        copyDir: copyDir ? resolve(absWorkingDir, copyDir) : undefined,
+        copyDir,
       });
     }
   }
