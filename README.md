@@ -193,7 +193,7 @@ Inline function code is limited to 4 KiB _after_ transformation.
   **Default transform options:** \
   • `loader=ts|js|tsx|jsx` (one of `ts,js,tsx,jsx` depending on the used class)
 
-### `TypeScriptAsset`, `JavaScriptAsset`
+## `TypeScriptAsset`, `JavaScriptAsset`
 
 **⚠️ Status: Experimental**
 
@@ -204,6 +204,28 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
 **Default build options:**
 
 - `bundle=true`
+
+### Parameters
+
+- `scope: cdk.Construct`
+- `id: string`
+- `props: TypeScriptAssetProps|JavaScriptAssetProps`
+
+### Props
+
+- `props.entryPoints: string | string[]` \
+  A single or list of relative paths to the entry points of your code from the root of the project.
+
+- `props.copyDir?: string` \
+   **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
+   Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
+
+- `props.forceDockerBundling: boolean (false)` \
+  Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
+
+- `props.buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
+  **All build options are optional.** \
+  ➡️ See `TypeScriptCode` for detailed explanation on options.
 
 ## `EsbuildBundling`
 
