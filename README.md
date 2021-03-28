@@ -78,7 +78,7 @@ new s3deploy.BucketDeployment(this, "DeployWebsite", {
 
 The package exports various different constructs for use with existing CDK features. A major guiding design principal for this package is to _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
 
-For use in **lambda functions**, the following classes implement a form of `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)):
+For use in **lambda functions**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)):
 
 - `TypeScriptCode` & `JavaScriptCode`
 - `InlineTypeScriptCode` & `InlineJavaScriptCode`
@@ -92,8 +92,8 @@ For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` 
 
 Underlying classes the power the other features. You normally won't have to use them, but they are there if you need them:
 
-<!-- - `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
-  creates an a asset that can be used with other constructs -->
+- `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
+  creates an asset uploaded to S3 which can be referenced by other constructs
 
 - `EsbuildBundling` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
   provides a _esbuild_ bundling interface wherever needed
@@ -159,6 +159,22 @@ Underlying classes the power the other features. You normally won't have to use 
 - `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
 
+## `TypeScriptSource`, `JavaScriptSource`
+
+> ℹ️ _Although these classes are currently identical, please use the appropriate class as functionality might diverge in future releases._
+
+**Default build options:**
+
+- `bundle=true`
+- `platform=browser`
+- `--define:process.env.NODE_ENV=\\\"production\\\"` or actual value of `NODE_ENV` if set
+
+> 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
+
+### Parameters & Props
+
+➡️ _Code and Source constructs share the same set of parameters, props and build options. Please see above for details._
+
 ## `InlineTypeScriptCode`, `InlineJavaScriptCode`, `InlineTsxCode`, `InlineJsxCode`
 
 **⚠️ Status: Experimental**
@@ -177,29 +193,17 @@ Inline function code is limited to 4 KiB _after_ transformation.
   **Default transform options:** \
   • `loader=ts|js|tsx|jsx` (one of `ts,js,tsx,jsx` depending on the used class)
 
-## `TypeScriptSource`, `JavaScriptSource`
+### `TypeScriptAsset`, `JavaScriptAsset`
 
-> ℹ️ _Although these classes are currently identical, please use the appropriate class as functionality might diverge in future releases._
+**⚠️ Status: Experimental**
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment. The asset can be used by other constructs.
+
+> ℹ️ _The high-level constructs for `TypeScriptSource` and `TypeScriptCode` (and respective JavaScript classes) actually just use this asset._
 
 **Default build options:**
 
 - `bundle=true`
-- `platform=browser`
-- `--define:process.env.NODE_ENV=\\\"production\\\"` or actual value of `NODE_ENV` if set
-
-> 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
-
-### Parameters & Props
-
-_Code and Source constructs share the same set of parameters, props and build options. Please see above for details._
-
-<!-- ### `TypeScriptAsset`, `JavaScriptAsset`
-
-_Currently these classes are identical and simply an alias for each other. However, it is encouraged to use the appropriate class, as functionality might diverge in future releases._
-
-**Defaults**
-
-- `bundle=true` -->
 
 ## `EsbuildBundling`
 

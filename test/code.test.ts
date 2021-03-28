@@ -2,7 +2,7 @@ import "@aws-cdk/assert/jest";
 import { Stack } from "@aws-cdk/core";
 import { Function, Runtime } from "@aws-cdk/aws-lambda";
 import { resolve } from "path";
-import { JavaScriptCode, TypeScriptCode, JavaScriptAsset } from "../lib/code";
+import { JavaScriptCode, TypeScriptCode } from "../lib/code";
 
 describe("code", () => {
   describe("entry is an absolute path", () => {
@@ -48,7 +48,7 @@ describe("code", () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new JavaScriptAsset("fixtures/handlers/js-handler.js", {
+        const code = new JavaScriptCode("fixtures/handlers/js-handler.js", {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 

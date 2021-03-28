@@ -91,5 +91,12 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
   }
 }
 
+/**
+ * @experimental
+ */
 export class JavaScriptAsset extends Asset<JavaScriptAssetProps> {}
+
+/**
+ * @experimental
+ */
 export class TypeScriptAsset extends Asset<TypeScriptAssetProps> {}

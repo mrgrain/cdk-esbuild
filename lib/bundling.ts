@@ -46,6 +46,9 @@ const getEsbuildVersion = (workingDir: string): string => {
   );
 };
 
+/**
+ * @experimental
+ */
 export class EsbuildBundling extends DockerBundler implements BundlingOptions {
   public readonly local?: LocalBundler;
 

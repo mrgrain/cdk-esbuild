@@ -109,15 +109,3 @@ export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
     super(entryPoints, props);
   }
 }
-
-/**
- * @deprecated
- * @use JavaScriptCode
- * */
-export class JavaScriptAsset extends JavaScriptCode {}
-
-/**
- * @deprecated
- * @use TypeScriptCode
- * */
-export class TypeScriptAsset extends TypeScriptCode {}
