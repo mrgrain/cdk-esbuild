@@ -233,7 +233,7 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
 
 Low-level class that can be used where a `BundlingOptions` are required. This class provides the local und Docker-based bundling but doesn't come with any kind of safeguards.
 
-#### Parameters
+### Parameters
 
 - `buildOptions` \
   All esbuild options are available, with adapted functionality as described above.
