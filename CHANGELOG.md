@@ -4,20 +4,22 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.95.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.94.1...v1.95.0) (2021-03-28)
 
+- update to cdk-1.95.0 ([0a98ef3](https://github.com/mrgrain/cdk-esbuild/commit/0a98ef311d92e1366f535bf18d7a5f10ac6ad02a))
+
+### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
+
+- exported `TypeScriptAsset` & `JavaScriptAsset` are now implementing `s3.Asset` and replace the previously deprecated aliases for code classes of the same name; replace any previous use with `TypeScriptCode` & `JavaScriptCode` for lambda functions ([9b86eab](https://github.com/mrgrain/cdk-esbuild/commit/9b86eab91f82e66088a25248d7a4c754dbe73d85))
 
 ### Features
 
-* added inline code constructs using the transform api ([6ef1c97](https://github.com/mrgrain/cdk-esbuild/commit/6ef1c9756f22256c008e1f9725ea3b5b5a176e3c))
-* export new asset classes, replacing deprecated alias for code classes ([9b86eab](https://github.com/mrgrain/cdk-esbuild/commit/9b86eab91f82e66088a25248d7a4c754dbe73d85))
-* support for outfile build option ([90ef5ec](https://github.com/mrgrain/cdk-esbuild/commit/90ef5ecb5906e0f2fc76a933b9f0067f1aae6428))
-* update to cdk-1.95.0 ([0a98ef3](https://github.com/mrgrain/cdk-esbuild/commit/0a98ef311d92e1366f535bf18d7a5f10ac6ad02a))
+- added various InlineCode constructs using the transform api ([6ef1c97](https://github.com/mrgrain/cdk-esbuild/commit/6ef1c9756f22256c008e1f9725ea3b5b5a176e3c))
+- support added for `outfile` build option ([90ef5ec](https://github.com/mrgrain/cdk-esbuild/commit/90ef5ecb5906e0f2fc76a933b9f0067f1aae6428))
 
 ### [1.94.1](https://github.com/mrgrain/cdk-esbuild/compare/v1.94.0...v1.94.1) (2021-03-17)
 
-
 ### Bug Fixes
 
-* change cdk version constraints to work with patches ([fa0fa5f](https://github.com/mrgrain/cdk-esbuild/commit/fa0fa5fbdf608b14faf7a5e6132016fb6f2e393e))
+- change cdk version constraints to work with patches ([fa0fa5f](https://github.com/mrgrain/cdk-esbuild/commit/fa0fa5fbdf608b14faf7a5e6132016fb6f2e393e))
 
 ## [1.94.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.93.1...v1.94.0) (2021-03-16)
 
