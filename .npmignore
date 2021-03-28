@@ -1,3 +1,6 @@
+# npm stuff
+.npmrc
+
 # TypeScript stuff
 *.ts
 !*.d.ts

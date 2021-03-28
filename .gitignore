@@ -3,6 +3,7 @@
 *.d.ts
 node_modules
 !test/fixtures/handlers/js-handler.js
+.npmrc
 
 # CDK asset staging directory
 .cdk.staging
