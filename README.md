@@ -137,7 +137,7 @@ Underlying classes the power the other features. You normally won't have to use 
   Docker-based builds also use this path to mount local files into the container. A large `absWorkingDir` can slow down the Docker build. \
   If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set `absWorkingDir` is to use a combination of `resolve` and `__dirname` (see "A note for library authors" below).
 
-> ### ⚠️ A note for library authors
+> **⚠️ A note for library authors**
 >
 > When developing a library consumed by other packages, you'll most likely have to set `absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
 >
