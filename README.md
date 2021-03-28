@@ -1,4 +1,4 @@
-# cdk-esbuild
+7# cdk-esbuild
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
@@ -78,21 +78,24 @@ new s3deploy.BucketDeployment(this, "DeployWebsite", {
 
 The package exports various different constructs for use with existing CDK features. A major guiding design principal for this package is to _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
 
-_Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options:_
+For use in **lambda functions**, the following classes implement a form of `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)):
 
-- ⚙ `TypeScriptCode` & `JavaScriptCode` implements `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)) \
-  for use in lambda functions
+- `TypeScriptCode` & `JavaScriptCode`
+- `InlineTypeScriptCode` & `InlineJavaScriptCode`
+- `InlineTsxCode` & `InlineJsxCode`
 
-- 🧺 `TypeScriptSource` & `JavaScriptSource` implements `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)) \
-  for use in S3 bucket deployments
+For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)):
 
-<!-- - `TypeScriptAsset` & `JavaScriptAsset` extending `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
-  as a base for the above and generic use \
-  ⚠️ Internal use only! Will be made available in an upcoming version (Target: 1.95.0) -->
+- 🧺 `TypeScriptSource` & `JavaScriptSource`
 
-_Bundling powers all other features. You normally won't have to use it, but it's there if you need it:_
+> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options:_
 
-- 📦 `EsbuildBundling` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
+Underlying classes the power the other features. You normally won't have to use them, but they are there if you need them:
+
+<!-- - `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
+  creates an a asset that can be used with other constructs -->
+
+- `EsbuildBundling` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
   provides a _esbuild_ bundling interface wherever needed
 
 ## `TypeScriptCode`, `JavaScriptCode`
@@ -155,6 +158,24 @@ _Bundling powers all other features. You normally won't have to use it, but it's
 
 - `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
+
+## `InlineTypeScriptCode`, `InlineJavaScriptCode`, `InlineTsxCode`, `InlineJsxCode`
+
+**⚠️ Status: Experimental**
+
+An implementation of `lambda.InlineCode` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.InlineCode.html)) using the esbuild Transform API.
+Inline function code is limited to 4 KiB _after_ transformation.
+
+### Parameters
+
+- `code: string` \
+  The inline code to be transformed.
+
+- `transformOptions: TransformOptions` \
+  Options from the [esbuild Transform API](https://esbuild.github.io/api/#transform-api).
+
+  **Default transform options:** \
+  • `loader=ts|js|tsx|jsx` (one of `ts,js,tsx,jsx` depending on the used class)
 
 ## `TypeScriptSource`, `JavaScriptSource`
 
