@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
 
-- esbuild minimum version updated to `^0.11.0` which contains which [contains breaking changes](https://github.com/evanw/esbuild/releases/tag/v0.9.0) as well as [updated behaviour for entry points](https://github.com/evanw/esbuild/releases/tag/v0.11.0); please check esbuild's change log ([35c9046](https://github.com/mrgrain/cdk-esbuild/commit/35c904666415797eb5e5f09add47edfe2979303e))
+- esbuild minimum version updated to `^0.11.0` which includes [breaking changes re how some files are interpreted](https://github.com/evanw/esbuild/releases/tag/v0.10.0) as well as [updated behaviour for entry points](https://github.com/evanw/esbuild/releases/tag/v0.11.0); please check esbuild's change log ([35c9046](https://github.com/mrgrain/cdk-esbuild/commit/35c904666415797eb5e5f09add47edfe2979303e))
 - use esbuild's handling of `process.env.NODE_ENV`, notably the value will now be set to `development` unless [minification](https://esbuild.github.io/api/#minify) is enabled ([04bc5ed](https://github.com/mrgrain/cdk-esbuild/commit/04bc5edb1eb40b42499ffb9dfd78dac28fea7602))
 
 ### Features
