@@ -31,13 +31,13 @@ abstract class Source<
    * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Source properties.
    */
-  constructor(entryPoints: string | string[], props: Props) {
+  constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
     const defaultOptions: Partial<BuildOptions> = {
       platform: "browser",
     };
 
     this.props = {
-      entryPoints: Array.isArray(entryPoints) ? entryPoints : [entryPoints],
+      entryPoints,
       ...props,
       buildOptions: {
         ...defaultOptions,
@@ -87,7 +87,7 @@ export class JavaScriptSource extends Source<
   protected AssetClass = JavaScriptAsset;
 
   constructor(
-    entryPoints: string | string[],
+    entryPoints: EsbuildAssetProps["entryPoints"],
     props: JavaScriptSourceProps = {}
   ) {
     super(entryPoints, props);
@@ -101,7 +101,7 @@ export class TypeScriptSource extends Source<
   protected AssetClass = TypeScriptAsset;
 
   constructor(
-    entryPoints: string | string[],
+    entryPoints: EsbuildAssetProps["entryPoints"],
     props: TypeScriptSourceProps = {}
   ) {
     super(entryPoints, props);

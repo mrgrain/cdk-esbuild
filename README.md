@@ -110,7 +110,7 @@ Underlying classes the power the other features. You normally won't have to use 
 
 ### Parameters
 
-- `entryPoints: string | string[]` \
+- `entryPoints: string | string[] | Record<string, string>` \
   A single or list of relative paths to the entry points of your code from the root of the project.
 
 ### Props
@@ -212,7 +212,7 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
 
 ### Props
 
-- `props.entryPoints: string | string[]` \
+- `props.entryPoints: string | string[] | Record<string, string>` \
   A single or list of relative paths to the entry points of your code from the root of the project.
 
 - `props.copyDir?: string` \

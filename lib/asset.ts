@@ -7,7 +7,7 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
    * Relative paths to the entrypoints of your code, e.g. `src/index.ts`
    */
-  entryPoints: string[];
+  entryPoints: string | string[] | Record<string, string>;
 
   /**
    * Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
@@ -33,19 +33,22 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
     scope: Construct,
     id: string,
     {
-      entryPoints,
+      entryPoints: propEntryPoints,
       assetHash,
       forceDockerBundling = false,
       copyDir,
       buildOptions: options = {},
     }: Props
   ) {
+    const entryPoints: BuildOptions["entryPoints"] =
+      typeof propEntryPoints === "string" ? [propEntryPoints] : propEntryPoints;
+
     const name = scope.node.path + ConstructNode.PATH_SEP + id;
 
-    entryPoints.forEach((entryPoint: string) => {
+    Object.values(entryPoints).forEach((entryPoint: string) => {
       if (isAbsolute(entryPoint)) {
         throw new Error(
-          `${name}: Entrypoints must be a relative path. If you need to define an absolute path, please use \`buildOptions.absWorkingDir\` accordingly.`
+          `${name}: Entry points must be a relative path. If you need to define an absolute path, please use \`buildOptions.absWorkingDir\` accordingly.`
         );
       }
     });

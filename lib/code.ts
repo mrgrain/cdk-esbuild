@@ -41,7 +41,7 @@ abstract class Code<
    * @param entryPoints - Relative path to the asset code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Asset properties.
    */
-  constructor(entryPoints: string | string[], props: Props) {
+  constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
     super();
 
     const defaultOptions: Partial<BuildOptions> = {
@@ -52,7 +52,7 @@ abstract class Code<
     };
 
     this.props = {
-      entryPoints: Array.isArray(entryPoints) ? entryPoints : [entryPoints],
+      entryPoints,
       ...props,
       buildOptions: {
         ...defaultOptions,
@@ -98,14 +98,20 @@ abstract class Code<
 export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
   protected AssetClass = JSAsset;
 
-  constructor(entryPoints: string | string[], props: JavaScriptCodeProps = {}) {
+  constructor(
+    entryPoints: EsbuildAssetProps["entryPoints"],
+    props: JavaScriptCodeProps = {}
+  ) {
     super(entryPoints, props);
   }
 }
 export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
   protected AssetClass = TSAsset;
 
-  constructor(entryPoints: string | string[], props: TypeScriptCodeProps = {}) {
+  constructor(
+    entryPoints: EsbuildAssetProps["entryPoints"],
+    props: TypeScriptCodeProps = {}
+  ) {
     super(entryPoints, props);
   }
 }

@@ -18,7 +18,7 @@ describe("code", () => {
           code,
         });
       }).toThrow(
-        /MyFunction\/JavaScriptCode: Entrypoints must be a relative path/
+        /MyFunction\/JavaScriptCode: Entry points must be a relative path/
       );
     });
   });
@@ -43,7 +43,7 @@ describe("code", () => {
     });
   });
 
-  describe("deprecated asset name can be used", () => {
+  describe("JavaScriptCode can be used", () => {
     it("should not throw", () => {
       expect(() => {
         const stack = new Stack();
@@ -51,6 +51,27 @@ describe("code", () => {
         const code = new JavaScriptCode("fixtures/handlers/js-handler.js", {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
+
+        new Function(stack, "MyFunction", {
+          runtime: Runtime.NODEJS_14_X,
+          handler: "index.handler",
+          code,
+        });
+      }).not.toThrow();
+    });
+  });
+
+  describe("Map can be used for entry points", () => {
+    it("should not throw", () => {
+      expect(() => {
+        const stack = new Stack();
+
+        const code = new JavaScriptCode(
+          { handler: "fixtures/handlers/js-handler.js" },
+          {
+            buildOptions: { absWorkingDir: resolve(__dirname) },
+          }
+        );
 
         new Function(stack, "MyFunction", {
           runtime: Runtime.NODEJS_14_X,

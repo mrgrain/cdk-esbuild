@@ -25,7 +25,7 @@ describe("source", () => {
           sources: [website],
         });
       }).toThrow(
-        /DeployWebsite\/TypeScriptSource: Entrypoints must be a relative path/
+        /DeployWebsite\/TypeScriptSource: Entry points must be a relative path/
       );
     });
   });
