@@ -4,13 +4,16 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.97.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.96.0...v1.97.0) (2021-04-11)
 
+- update to cdk-1.97.0 ([fedb40a](https://github.com/mrgrain/cdk-esbuild/commit/fedb40a3098cd3b2de5b113d79a2edd185789fde))
+
+### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
+
+- esbuild minimum version updated to `^0.11.0` which contains which [contains breaking changes](https://github.com/evanw/esbuild/releases/tag/v0.9.0) as well as [updated behaviour for entry points](https://github.com/evanw/esbuild/releases/tag/v0.11.0); please check esbuild's change log ([35c9046](https://github.com/mrgrain/cdk-esbuild/commit/35c904666415797eb5e5f09add47edfe2979303e))
+- use esbuild's handling of `process.env.NODE_ENV`, notably the value will now be set to `development` unless [minification](https://esbuild.github.io/api/#minify) is enabled ([04bc5ed](https://github.com/mrgrain/cdk-esbuild/commit/04bc5edb1eb40b42499ffb9dfd78dac28fea7602))
 
 ### Features
 
-* change min esbuild version ([35c9046](https://github.com/mrgrain/cdk-esbuild/commit/35c904666415797eb5e5f09add47edfe2979303e))
-* rely on esbuild to handle `process.env.NODE_ENV` ([04bc5ed](https://github.com/mrgrain/cdk-esbuild/commit/04bc5edb1eb40b42499ffb9dfd78dac28fea7602))
-* support object maps for entry points ([62a4431](https://github.com/mrgrain/cdk-esbuild/commit/62a4431572a4b32acd45c569405d19244b1aa76a))
-* update to cdk-1.97.0 ([fedb40a](https://github.com/mrgrain/cdk-esbuild/commit/fedb40a3098cd3b2de5b113d79a2edd185789fde))
+- support object maps for entry points ([62a4431](https://github.com/mrgrain/cdk-esbuild/commit/62a4431572a4b32acd45c569405d19244b1aa76a))
 
 ## [1.96.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.95.0...v1.96.0) (2021-04-11)
 

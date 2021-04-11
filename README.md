@@ -176,7 +176,7 @@ Underlying classes the power the other features. You normally won't have to use 
 
 ## `InlineTypeScriptCode`, `InlineJavaScriptCode`, `InlineTsxCode`, `InlineJsxCode`
 
-**⚠️ Status: Experimental**
+**⚠️ Status: Unstable**
 
 An implementation of `lambda.InlineCode` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.InlineCode.html)) using the esbuild Transform API.
 Inline function code is limited to 4 KiB _after_ transformation.
@@ -193,8 +193,6 @@ Inline function code is limited to 4 KiB _after_ transformation.
   • `loader=ts|js|tsx|jsx` (one of `ts,js,tsx,jsx` depending on the used class)
 
 ## `TypeScriptAsset`, `JavaScriptAsset`
-
-**⚠️ Status: Experimental**
 
 Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment. The asset can be used by other constructs.
 
@@ -228,7 +226,7 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
 
 ## `EsbuildBundling`
 
-**⚠️ Status: Experimental**
+**⚠️ Status: Unstable**
 
 Low-level class that can be used where a `BundlingOptions` are required. This class provides the local und Docker-based bundling but doesn't come with any kind of safeguards.
 
@@ -248,9 +246,9 @@ Low-level class that can be used where a `BundlingOptions` are required. This cl
 
 ## Versioning
 
-**⚠️ Status: Experimental**
+**⚠️ Status: Unstable**
 
-_Because this package builds on CDK APIs that are marked experimental, it also has to be considered experimental._
+_Because esbuild is still in major version zero, this package must be considered unstable. Notably updates to the minimal version requirement of esbuild will be introduced in minor versions of this package and thus will contain any breaking changes esbuild introduces._
 
 The package tracks the **minor** version number of CDK releases. It might work with newer versions of CDK, but has not been tested. Features changes, including breaking changes, will only be introduced alongside minor releases.
 
@@ -260,6 +258,10 @@ The package tracks the **minor** version number of CDK releases. It might work w
 
 With the monolithic version 2 of CDK (aka Mono-CDK) approaching fast, versioning for this library will change as well.
 
-A major 2.0 release will be marked alongside CDK. However from that point on, this package will use _semantic versioning_ and not longer align version numbers with AWS CDK. New major versions will appear with breaking changes, including updated of minimum (peer) dependencies.
+A major 2.0 release will be marked alongside CDK. From that point on, this package will mostly use _semantic versioning_ and not longer align version numbers with AWS CDK.
 
-I also hope to be able to drop the _experimental_ status, but we will see about this. A lot hinges on the relevant CDK packages here.
+The big exceptions will be updates to the minimal version requirement of esbuild. As long as esbuild is still in major version zero, these requirement updates will be introduced as minor version updates.
+
+Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental feature and internal classes only.
+
+In future, new major versions will appear with breaking changes, including updated of minimum (peer) dependencies.
