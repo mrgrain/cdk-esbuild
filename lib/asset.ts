@@ -10,20 +10,6 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
   entryPoints: string[];
 
   /**
-   * The root path for the code asset. If not set, will attempt to guess the root path.
-   *
-   * DEPRECATED! Will be removed in upcoming version.
-   *
-   * `buildOptions.absWorkingDir` will take priority, then `projectRoot`, then the current working directory.
-   *  The previously used detection algorithm as been removed.
-   *
-   * @default `process.cwd()`
-   *
-   * @deprecated use `buildOptions.absWorkingDir` instead
-   */
-  projectRoot?: string;
-
-  /**
    * Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
    */
   copyDir?: string;
@@ -48,7 +34,6 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
     id: string,
     {
       entryPoints,
-      projectRoot,
       assetHash,
       forceDockerBundling = false,
       copyDir,
@@ -65,7 +50,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       }
     });
 
-    const absWorkingDir = options.absWorkingDir ?? projectRoot ?? process.cwd();
+    const absWorkingDir = options.absWorkingDir ?? process.cwd();
 
     const buildOptions = {
       bundle: true,

@@ -35,7 +35,9 @@ describe("source", () => {
       const stack = new Stack();
 
       const website = new TypeScriptSource("fixtures/handlers/ts-handler.ts", {
-        projectRoot: resolve(__dirname),
+        buildOptions: {
+          absWorkingDir: resolve(__dirname),
+        },
       });
 
       const websiteBucket = new Bucket(stack, "WebsiteBucket", {
@@ -57,7 +59,9 @@ describe("source", () => {
       const stack = new Stack();
 
       const website = new JavaScriptSource("fixtures/handlers/js-handler.js", {
-        projectRoot: resolve(__dirname),
+        buildOptions: {
+          absWorkingDir: resolve(__dirname),
+        },
       });
 
       const websiteBucket = new Bucket(stack, "WebsiteBucket", {
@@ -83,8 +87,10 @@ describe("source", () => {
         const website = new JavaScriptSource(
           "fixtures/handlers/js-handler.js",
           {
-            projectRoot: resolve(__dirname),
             assetHash,
+            buildOptions: {
+              absWorkingDir: resolve(__dirname),
+            },
           }
         );
 
