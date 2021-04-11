@@ -31,17 +31,17 @@
     "esbuild": "^0.9.0"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-lambda": "~1.95.0",
-    "@aws-cdk/aws-s3-assets": "~1.95.0",
-    "@aws-cdk/aws-s3-deployment": "~1.95.0",
-    "@aws-cdk/core": "~1.95.0"
+    "@aws-cdk/aws-lambda": "~1.96.0",
+    "@aws-cdk/aws-s3-assets": "~1.96.0",
+    "@aws-cdk/aws-s3-deployment": "~1.96.0",
+    "@aws-cdk/core": "~1.96.0"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "~1.95.0",
-    "@aws-cdk/aws-lambda": "~1.95.0",
-    "@aws-cdk/aws-s3-assets": "~1.95.0",
-    "@aws-cdk/aws-s3-deployment": "~1.95.0",
-    "@aws-cdk/core": "~1.95.0",
+    "@aws-cdk/assert": "~1.96.0",
+    "@aws-cdk/aws-lambda": "~1.96.0",
+    "@aws-cdk/aws-s3-assets": "~1.96.0",
+    "@aws-cdk/aws-s3-deployment": "~1.96.0",
+    "@aws-cdk/core": "~1.96.0",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.25",
     "jest": "^26.4.2",
