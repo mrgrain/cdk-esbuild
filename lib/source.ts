@@ -34,15 +34,6 @@ abstract class Source<
   constructor(entryPoints: string | string[], props: Props) {
     const defaultOptions: Partial<BuildOptions> = {
       platform: "browser",
-      ...(!props.buildOptions?.define
-        ? {
-            define: {
-              "process.env.NODE_ENV": `"${
-                process.env.NODE_ENV ?? "production"
-              }"`,
-            },
-          }
-        : {}),
     };
 
     this.props = {

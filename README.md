@@ -167,7 +167,6 @@ Underlying classes the power the other features. You normally won't have to use 
 
 - `bundle=true`
 - `platform=browser`
-- `--define:process.env.NODE_ENV=\\\"production\\\"` or actual value of `NODE_ENV` if set
 
 > 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
 

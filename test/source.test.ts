@@ -129,36 +129,5 @@ describe("source", () => {
 
       expect(source.props.buildOptions.platform).toBe("browser");
     });
-
-    describe("NODE_ENV is set", () => {
-      it("defines NODE_ENV as that value", () => {
-        const source = new JavaScriptSource(
-          "fixtures/handlers/js-handler.js"
-        ) as any;
-
-        expect(source.props.buildOptions.define?.["process.env.NODE_ENV"]).toBe(
-          '"test"'
-        );
-      });
-    });
-
-    describe("NODE_ENV not set", () => {
-      beforeEach(() => {
-        delete process.env.NODE_ENV;
-      });
-
-      afterEach(() => {
-        process.env.NODE_ENV = "test";
-      });
-      it("defines NODE_ENV as production", () => {
-        const source = new JavaScriptSource(
-          "fixtures/handlers/js-handler.js"
-        ) as any;
-
-        expect(source.props.buildOptions.define?.["process.env.NODE_ENV"]).toBe(
-          '"production"'
-        );
-      });
-    });
   });
 });
