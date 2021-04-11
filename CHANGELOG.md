@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.96.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.95.0...v1.96.0) (2021-04-11)
 
+- update to cdk-1.96.0 ([ae26510](https://github.com/mrgrain/cdk-esbuild/commit/ae2651026617646833303f0b9259d564765273d5))
 
-### Features
+### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
 
-* remove deprecated `projectRoot` prop ([40e7ab0](https://github.com/mrgrain/cdk-esbuild/commit/40e7ab0ccd6fa52727f548168cbbc05afcfe4b16))
-* update to cdk-1.96.0 ([ae26510](https://github.com/mrgrain/cdk-esbuild/commit/ae2651026617646833303f0b9259d564765273d5))
+- removed deprecated `projectRoot` prop, please use `buildOptions.absWorkingPath` instead ([40e7ab0](https://github.com/mrgrain/cdk-esbuild/commit/40e7ab0ccd6fa52727f548168cbbc05afcfe4b16))
 
 ## [1.95.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.94.1...v1.95.0) (2021-03-28)
 
