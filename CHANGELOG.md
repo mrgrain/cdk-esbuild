@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.96.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.95.0...v1.96.0) (2021-04-11)
+
+
+### Features
+
+* remove deprecated `projectRoot` prop ([40e7ab0](https://github.com/mrgrain/cdk-esbuild/commit/40e7ab0ccd6fa52727f548168cbbc05afcfe4b16))
+* update to cdk-1.96.0 ([ae26510](https://github.com/mrgrain/cdk-esbuild/commit/ae2651026617646833303f0b9259d564765273d5))
+
 ## [1.95.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.94.1...v1.95.0) (2021-03-28)
 
 - update to cdk-1.95.0 ([0a98ef3](https://github.com/mrgrain/cdk-esbuild/commit/0a98ef311d92e1366f535bf18d7a5f10ac6ad02a))
