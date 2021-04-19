@@ -4,10 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.99.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.98.0...v1.99.0) (2021-04-19)
 
-
-### Features
-
-* update to cdk-1.99.0 ([cfffb19](https://github.com/mrgrain/cdk-esbuild/commit/cfffb1901f8567ea81de3e7f746d8cffd50b4bcc))
+- update to cdk-1.99.0 ([cfffb19](https://github.com/mrgrain/cdk-esbuild/commit/cfffb1901f8567ea81de3e7f746d8cffd50b4bcc))
 
 ## [1.98.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.97.0...v1.98.0) (2021-04-13)
 
