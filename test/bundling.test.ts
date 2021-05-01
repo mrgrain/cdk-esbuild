@@ -80,6 +80,9 @@ describe("bundling", () => {
         }
       );
     });
+    afterEach(() => {
+      mocked(buildSync).mockReset();
+    });
 
     it("should throw an exception", () => {
       expect(() => {
@@ -139,11 +142,21 @@ describe("bundling", () => {
   });
 
   describe("Priority is AttemptLocal", () => {
+    beforeEach(() => {
+      mocked(buildSync).mockImplementation(() => {
+        throw new Error("a");
+      });
+    });
+
+    afterEach(() => {
+      mocked(buildSync).mockReset();
+    });
+
     it("should set a local bundler", () => {
       const bundler = new EsbuildBundling(
         {
           absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
+          entryPoints: ["indexA.ts"],
           outfile: "index.js",
         },
         {
@@ -153,9 +166,6 @@ describe("bundling", () => {
 
       expect(bundler.local).not.toBeUndefined();
 
-      mocked(buildSync).mockImplementationOnce(() => {
-        throw new Error();
-      });
       const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
 
       expect(result).toBe(false);
@@ -163,11 +173,21 @@ describe("bundling", () => {
   });
 
   describe("Priority is LocalOnly", () => {
+    beforeEach(() => {
+      mocked(buildSync).mockImplementationOnce(() => {
+        throw new Error("b");
+      });
+    });
+
+    afterEach(() => {
+      mocked(buildSync).mockReset();
+    });
+
     it("should set a local bundler", () => {
       const bundler = new EsbuildBundling(
         {
           absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
+          entryPoints: ["indexB.ts"],
           outfile: "index.js",
         },
         {
@@ -176,10 +196,6 @@ describe("bundling", () => {
       );
 
       expect(bundler.local).not.toBeUndefined();
-
-      mocked(buildSync).mockImplementationOnce(() => {
-        throw new Error();
-      });
       const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
 
       expect(result).toBe(true);
