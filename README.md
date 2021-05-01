@@ -235,8 +235,8 @@ Low-level class that can be used where a `BundlingOptions` are required. This cl
 - `buildOptions` \
   All esbuild options are available, with adapted functionality as described above.
 
-- `props.localBundling: boolean (true)` \
-  Use bundling with the locally installed esbuild binary over the Docker build.
+- `props.priority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+  Priority order of available bundlers. Default `BundlerPriority.AttemptLocal` is to attempt using a locally installed binary first, falling back to Docker in case of failure. Can be set to only use either the local or Docker bundler.
 
 - `props.copyDir?: string` \
   Copy additional files to the output directory, before the build runs.

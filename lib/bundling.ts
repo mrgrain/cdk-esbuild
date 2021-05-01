@@ -3,16 +3,21 @@ import { readFileSync } from "fs";
 import { join, resolve } from "path";
 import {
   BuildOptions,
+  BundlerPriority,
   BundlerProps,
   DockerBundler,
   LocalBundler,
 } from "./bundlers";
 
+export { BundlerPriority } from "./bundlers";
+
 interface BundlingProps extends BundlerProps {
   /**
    * Use local bundling over Docker bundling.
+   * Deprecated. If providerPriority is set, will be ignored.
    *
    * @default true
+   * @deprecated use `BundlingProps.providerPriority` instead
    */
   localBundling?: boolean;
 }
@@ -54,7 +59,14 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
 
   public constructor(
     buildOptions: BuildOptions,
-    { localBundling = true, copyDir, esbuildVersion }: BundlingProps
+    {
+      localBundling,
+      priority = localBundling === false
+        ? BundlerPriority.DockerOnly
+        : BundlerPriority.AttemptLocal,
+      copyDir,
+      esbuildVersion,
+    }: BundlingProps = {}
   ) {
     const absWorkingDir = buildOptions.absWorkingDir ?? process.cwd();
 
@@ -63,9 +75,10 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
       esbuildVersion: esbuildVersion ?? getEsbuildVersion(absWorkingDir),
     });
 
-    if (localBundling) {
+    if (priority !== BundlerPriority.DockerOnly) {
       this.local = new LocalBundler(buildOptions, {
         copyDir,
+        priority,
       });
     }
   }

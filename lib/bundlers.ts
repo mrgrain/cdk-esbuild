@@ -12,6 +12,28 @@ type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
 
 export type BuildOptions = MarkRequired<EsbuildOptions, "entryPoints">;
 
+export enum BundlerPriority {
+  /**
+   * Only use the Docker bundler
+   */
+  DockerOnly,
+
+  /**
+   * Only use the local bundler
+   */
+  LocalOnly,
+
+  /**
+   * Attempt using the local bundler first, try Docker bundler if it fails
+   *
+   * Note: Currently failure also includes errors emitted by esbuild,
+   * e.g broken code or wrong configuration.
+   *
+   * @experimental Future version will only run Docker bundler when esbuild fails to run.
+   */
+  AttemptLocal,
+}
+
 export interface BundlerProps {
   /**
    * Relative path to a directory copied to the output before esbuild is run (i.e esbuild will overwrite existing files).
@@ -25,6 +47,13 @@ export interface BundlerProps {
    * Otherwise uses the constraint provided by this package (usually ^0.x.0).
    */
   esbuildVersion?: string;
+
+  /**
+   * Priority order of available bundlers. Defaults to attempt local first, then docker.
+   *
+   * @default BundlerPriority.AttemptLocal
+   */
+  priority?: BundlerPriority;
 }
 
 function getOutputOptions(
@@ -81,7 +110,8 @@ export class LocalBundler implements ILocalBundling {
       return true;
     } catch (error) {
       console.error(error);
-      return false;
+
+      return Boolean(this.props.priority === BundlerPriority.LocalOnly);
     }
   }
 }

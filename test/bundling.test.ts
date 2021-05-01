@@ -1,6 +1,7 @@
 import "@aws-cdk/assert/jest";
 import { BuildOptions, BuildResult, buildSync } from "esbuild";
 import { mocked } from "ts-jest/utils";
+import { BundlerPriority } from "../lib/bundlers";
 import { EsbuildBundling } from "../lib/bundling";
 
 jest.mock("esbuild", () => ({
@@ -92,6 +93,113 @@ describe("bundling", () => {
           { localBundling: true }
         );
       }).toThrowError('Cannot use both "outfile" and "outdir"');
+    });
+  });
+
+  describe("LocalBundling set to true", () => {
+    it("should set a local bundler", () => {
+      const bundler = new EsbuildBundling(
+        {
+          absWorkingDir: "/project",
+          entryPoints: ["index.ts"],
+          outfile: "index.js",
+        },
+        { localBundling: true }
+      );
+
+      expect(bundler.local).not.toBeUndefined();
+    });
+  });
+
+  describe("LocalBundling set to false", () => {
+    it("should NOT set a local bundler", () => {
+      const bundler = new EsbuildBundling(
+        {
+          absWorkingDir: "/project",
+          entryPoints: ["index.ts"],
+          outfile: "index.js",
+        },
+        { localBundling: false }
+      );
+
+      expect(bundler.local).toBeUndefined();
+    });
+  });
+
+  describe("Neither priority nor localBundling are set", () => {
+    it("should set a local bundler", () => {
+      const bundler = new EsbuildBundling({
+        absWorkingDir: "/project",
+        entryPoints: ["index.ts"],
+        outfile: "index.js",
+      });
+
+      expect(bundler.local).not.toBeUndefined();
+    });
+  });
+
+  describe("Priority is AttemptLocal", () => {
+    it("should set a local bundler", () => {
+      const bundler = new EsbuildBundling(
+        {
+          absWorkingDir: "/project",
+          entryPoints: ["index.ts"],
+          outfile: "index.js",
+        },
+        {
+          priority: BundlerPriority.AttemptLocal,
+        }
+      );
+
+      expect(bundler.local).not.toBeUndefined();
+
+      mocked(buildSync).mockImplementationOnce(() => {
+        throw new Error();
+      });
+      const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
+
+      expect(result).toBe(false);
+    });
+  });
+
+  describe("Priority is LocalOnly", () => {
+    it("should set a local bundler", () => {
+      const bundler = new EsbuildBundling(
+        {
+          absWorkingDir: "/project",
+          entryPoints: ["index.ts"],
+          outfile: "index.js",
+        },
+        {
+          priority: BundlerPriority.LocalOnly,
+        }
+      );
+
+      expect(bundler.local).not.toBeUndefined();
+
+      mocked(buildSync).mockImplementationOnce(() => {
+        throw new Error();
+      });
+      const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
+
+      expect(result).toBe(true);
+    });
+  });
+
+  describe("Priority is DockerOnly", () => {
+    it("should set a local bundler", () => {
+      const bundler = new EsbuildBundling(
+        {
+          absWorkingDir: "/project",
+          entryPoints: ["index.ts"],
+          outfile: "index.js",
+        },
+        {
+          priority: BundlerPriority.DockerOnly,
+        }
+      );
+
+      expect(bundler.local).toBeUndefined();
     });
   });
 });

@@ -1,4 +1,4 @@
-export { EsbuildBundling } from "./bundling";
+export { EsbuildBundling, BundlerPriority } from "./bundling";
 
 export { JavaScriptAsset, TypeScriptAsset } from "./asset";
 
