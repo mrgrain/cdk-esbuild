@@ -6,6 +6,7 @@ import {
 } from "@aws-cdk/core";
 import { buildSync, BuildOptions as EsbuildOptions } from "esbuild";
 import { join, normalize, resolve, posix, PlatformPath } from "path";
+import { printBuildMessages } from "./formatMessages";
 
 type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
   Required<Pick<T, RK>>;
@@ -24,12 +25,7 @@ export enum BundlerPriority {
   LocalOnly,
 
   /**
-   * Attempt using the local bundler first, try Docker bundler if it fails
-   *
-   * Note: Currently failure also includes errors emitted by esbuild,
-   * e.g broken code or wrong configuration.
-   *
-   * @experimental Future version will only run Docker bundler when esbuild fails to run.
+   * Attempts to first use the local bundler, only use Docker bundler if local fails.
    */
   AttemptLocal,
 }
@@ -97,7 +93,7 @@ export class LocalBundler implements ILocalBundling {
         );
       }
 
-      buildSync({
+      const buildResult = buildSync({
         ...this.buildOptions,
         ...getOutputOptions(
           outputDir,
@@ -107,9 +103,11 @@ export class LocalBundler implements ILocalBundling {
         ),
       });
 
+      printBuildMessages(buildResult, { prefix: "Build " });
+
       return true;
     } catch (error) {
-      console.error(error);
+      printBuildMessages(error, { prefix: "Build " });
 
       return Boolean(this.props.priority === BundlerPriority.LocalOnly);
     }

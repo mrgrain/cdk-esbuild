@@ -3,6 +3,11 @@ import { BuildOptions, BuildResult, buildSync } from "esbuild";
 import { mocked } from "ts-jest/utils";
 import { BundlerPriority } from "../lib/bundlers";
 import { EsbuildBundling } from "../lib/bundling";
+import { printBuildMessages } from "../lib/formatMessages";
+
+jest.mock("../lib/formatMessages", () => ({
+  printBuildMessages: jest.fn(),
+}));
 
 jest.mock("esbuild", () => ({
   buildSync: jest.fn(),
@@ -11,6 +16,10 @@ jest.mock("esbuild", () => ({
 const realEsbuild = jest.requireActual("esbuild");
 
 describe("bundling", () => {
+  beforeEach(() => {
+    mocked(printBuildMessages).mockReset();
+  });
+
   describe("Given a project root path", () => {
     it("should keep the relative path for the local bundler", () => {
       const bundler = new EsbuildBundling(
@@ -169,6 +178,13 @@ describe("bundling", () => {
       const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
 
       expect(result).toBe(false);
+      expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
+      expect(mocked(printBuildMessages)).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          message: "a",
+        }),
+        expect.anything()
+      );
     });
   });
 
@@ -199,6 +215,13 @@ describe("bundling", () => {
       const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
 
       expect(result).toBe(true);
+      expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
+      expect(mocked(printBuildMessages)).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          message: "b",
+        }),
+        expect.anything()
+      );
     });
   });
 
