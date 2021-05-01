@@ -1,12 +1,22 @@
 import { Stack } from "@aws-cdk/core";
+import { mocked } from "ts-jest/utils";
 import {
   InlineJavaScriptCode,
   InlineJsxCode,
   InlineTsxCode,
   InlineTypeScriptCode,
 } from "../lib";
+import { printBuildMessages } from "../lib/formatMessages";
+
+jest.mock("../lib/formatMessages", () => ({
+  printBuildMessages: jest.fn(),
+}));
 
 describe("inline-code", () => {
+  beforeEach(() => {
+    mocked(printBuildMessages).mockReset();
+  });
+
   describe("given some js code", () => {
     it("should transform the code", () => {
       const code = new InlineJavaScriptCode(
@@ -54,6 +64,17 @@ describe("inline-code", () => {
       expect(inlineCode).toBe(
         'const App = () => /* @__PURE__ */ React.createElement("div", null, "Hello World");\n'
       );
+    });
+  });
+
+  describe("given some broken ts code", () => {
+    it("should display errors and warnings", () => {
+      expect(() => {
+        const code = new InlineTypeScriptCode("let : d ===== 1");
+        code.bind(new Stack());
+      }).toThrowError("Failed to transform InlineCode");
+
+      expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
     });
   });
 });
