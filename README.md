@@ -156,8 +156,11 @@ Underlying classes the power the other features. You normally won't have to use 
   **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
   Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
 
-- `props.forceDockerBundling: boolean (false)` \
+- **⚠️ Deprecated** `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
+
+- `props.bundlerPriority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+  Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
 
 ## `TypeScriptSource`, `JavaScriptSource`
 
@@ -217,8 +220,11 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
    **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
    Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
 
-- `props.forceDockerBundling: boolean (false)` \
+- **⚠️ Deprecated** `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
+
+- `props.bundlerPriority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+  Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
 
 - `props.buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
   **All build options are optional.** \

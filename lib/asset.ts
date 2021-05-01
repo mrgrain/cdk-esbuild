@@ -1,7 +1,7 @@
 import { Asset as S3Asset } from "@aws-cdk/aws-s3-assets";
 import { AssetHashType, Construct, ConstructNode, IAsset } from "@aws-cdk/core";
 import { isAbsolute } from "path";
-import { BuildOptions } from "./bundlers";
+import { BuildOptions, BundlerPriority } from "./bundlers";
 import { EsbuildBundling } from "./bundling";
 export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
@@ -16,8 +16,17 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
 
   /**
    * Force the asset to use Docker bundling (and skip local bundling).
+   *
+   * @deprecated please use `bundlerPriority`
    */
   forceDockerBundling?: boolean;
+
+  /**
+   * Priority order of available bundlers. Defaults to attempt local first, then docker.
+   *
+   * @default BundlerPriority.AttemptLocal
+   */
+  bundlerPriority?: BundlerPriority;
 
   /**
    * Options passed on to esbuild.
@@ -36,6 +45,9 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       entryPoints: propEntryPoints,
       assetHash,
       forceDockerBundling = false,
+      bundlerPriority = forceDockerBundling === true
+        ? BundlerPriority.DockerOnly
+        : BundlerPriority.AttemptLocal,
       copyDir,
       buildOptions: options = {},
     }: Props
@@ -71,7 +83,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
           entryPoints,
         },
         {
-          localBundling: !forceDockerBundling,
+          priority: bundlerPriority,
           copyDir,
         }
       ),
