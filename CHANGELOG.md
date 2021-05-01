@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.101.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.100.0...v1.101.0) (2021-05-01)
+
+
+### Features
+
+* log nicely formatted esbuild messages for local bundler ([7f15bed](https://github.com/mrgrain/cdk-esbuild/commit/7f15bedbdfb619c2d0767bc37458108e01c3a85e))
+* print transform errors and warnings ([1eeeb10](https://github.com/mrgrain/cdk-esbuild/commit/1eeeb10ca6b1e46452c55792d28429986eb4b09f))
+* use more explicity bundling order ([425665a](https://github.com/mrgrain/cdk-esbuild/commit/425665a2f8f20bb557119e79e3354a4d9d696d24))
+
 ## [1.100.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.100.0-beta.1...v1.100.0) (2021-05-01)
 
 - no changes, cdk version constraints are now less strict
