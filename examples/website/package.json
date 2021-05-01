@@ -3,7 +3,7 @@
   "private": "true",
   "version": "0.1.0",
   "scripts": {
-    "start": "esbuild ./src --bundle --define:process.env.NODE_ENV=\\\"production\\\" --servedir=static --outdir=static/js",
+    "start": "esbuild ./src/index.tsx --bundle --define:process.env.NODE_ENV=\\\"production\\\" --servedir=static --outdir=static/js",
     "test": "jest",
     "cdk": "cdk"
   },
