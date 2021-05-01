@@ -4,7 +4,17 @@ Make a static website with React and deploy it with a single command using cdk.
 
 ## Getting started
 
+Run `npm install` to get setup.
 
+Have a look at the React code in `./src`. Maybe change the content in `App.tsx`.
+
+To view your React app locally, run `npm start` and open the printed URL in a browser.
+
+Once you are happy, deploy your app with `npx cdk deploy`. If you haven't used the CDK in your account before, you will have bootstrap the account first (typically by running `npx cdk bootstrap`) and sort out permissions. Please refer to [the official AWS CDK documentation](https://docs.aws.amazon.com/cdk/latest/guide/home.html) to get started.
+
+As part of the deployment, a URL will be displayed. Open it to view your deployed website!
+
+Don't forget to tear everything down with `npx cdk destroy` - otherwise you might occur costs.
 
 ## Useful commands
 
