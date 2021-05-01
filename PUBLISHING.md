@@ -28,3 +28,9 @@ npm run clean
 ```
 npm unpublish @mrgrain/cdk-esbuild@X.Y.Z
 ```
+
+## Remove tag
+
+```
+npm dist-tag rm @mrgrain/cdk-esbuild <tag>
+```
