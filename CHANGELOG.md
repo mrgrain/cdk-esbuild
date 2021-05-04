@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.102.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.101.0...v1.102.0) (2021-05-04)
+
+
+### Features
+
+* expose bundlerPriority to highlevel constructs, deprecate forceDockerBundling ([cc4c933](https://github.com/mrgrain/cdk-esbuild/commit/cc4c93376cf3a8628edd696fe9fa8f65a09c7e21))
+* update dependencies to cdk-1.102.0 ([c616c1b](https://github.com/mrgrain/cdk-esbuild/commit/c616c1ba07a9bdd11f3dc3369b1335918458800f))
+
+
+### Bug Fixes
+
+* **examples/website:** change start command to work with latest esbuild versions ([45b4c91](https://github.com/mrgrain/cdk-esbuild/commit/45b4c91b454a9520e3aca4ff66ed75abc2ea7d4a))
+
 ## [1.101.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.100.0...v1.101.0) (2021-05-01)
 
 ### Features
