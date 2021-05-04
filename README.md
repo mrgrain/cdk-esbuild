@@ -21,6 +21,8 @@ npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-s3-assets
 
 ### Lambda function
 
+> 💡 See [Lambda Function](examples/lambda) for a complete working example of a how to deploy a lambda function.
+
 Install the the lambda package:
 
 ```
@@ -31,7 +33,7 @@ Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazo
 
 ```ts
 import * as lambda from "@aws-cdk/aws-lambda";
-import { TypeScriptAsset } from "@mrgrain/cdk-esbuild";
+import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 
 const bundledCode = new TypeScriptCode("src/index.ts");
 
@@ -57,7 +59,7 @@ Use `TypeScriptSource` as one of the `sources` of a [static website deployment](
 ```ts
 import * as s3 from "@aws-cdk/aws-s3";
 import * as s3deploy from "@aws-cdk/aws-s3-deployment";
-import { TypeScriptAsset } from "@mrgrain/cdk-esbuild";
+import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
 
 const websiteBundle = new TypeScriptSource("src/index.tsx");
 
@@ -115,7 +117,7 @@ Underlying classes the power the other features. You normally won't have to use 
 
 ### Props
 
-- `props.buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
+- `props.buildOptions?` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
   **All build options are optional.** \
   Same defaults and functionalities apply, with a few changes as noted below. Generally speaking usage of entry and output options are different, as these are inferred by CDK.
 
@@ -156,10 +158,10 @@ Underlying classes the power the other features. You normally won't have to use 
   **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
   Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
 
-- **⚠️ Deprecated** `props.forceDockerBundling: boolean (false)` \
+- **⚠️ Deprecated in favour of `props.bundlerPriority`** `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
 
-- `props.bundlerPriority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+- `props.bundlerPriority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
   Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
 
 ## `TypeScriptSource`, `JavaScriptSource`
@@ -220,13 +222,13 @@ Bundles the entry points and creates a CDK asset which is uploaded to the bootst
    **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
    Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
 
-- **⚠️ Deprecated** `props.forceDockerBundling: boolean (false)` \
+- **⚠️ Deprecated in favour of `props.bundlerPriority`** `props.forceDockerBundling: boolean (false)` \
   Force use of Docker bundling and skip local bundling. This can be useful in CI environments. The `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is preferred and Docker will only be used if the local bundling fails.
 
-- `props.bundlerPriority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+- `props.bundlerPriority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
   Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
 
-- `props.buildOptions` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
+- `props.buildOptions?` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
   **All build options are optional.** \
   ➡️ See `TypeScriptCode` for detailed explanation on options.
 
@@ -238,10 +240,10 @@ Low-level class that can be used where a `BundlingOptions` are required. This cl
 
 ### Parameters
 
-- `buildOptions` \
+- `buildOptions?` \
   All esbuild options are available, with adapted functionality as described above.
 
-- `props.priority: BundlerPriority (BundlerPriority.AttemptLocal)` \
+- `props.priority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
   Priority order of available bundlers. Default `BundlerPriority.AttemptLocal` is to attempt using a locally installed binary first, retrying with Docker in case of failure. Can be set to only use either the local or Docker bundler.
 
 - `props.copyDir?: string` \
