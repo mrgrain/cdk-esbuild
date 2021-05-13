@@ -24,7 +24,7 @@ describe("bundling", () => {
     it("should keep the relative path for the local bundler", () => {
       const bundler = new EsbuildBundling(
         { absWorkingDir: "/project", entryPoints: ["index.ts"] },
-        { localBundling: true }
+        { priority: BundlerPriority.LocalOnly }
       );
       expect(bundler.local?.buildOptions?.entryPoints).toContain("index.ts");
     });
@@ -32,7 +32,7 @@ describe("bundling", () => {
     it("should keep the relative entry path for the docker bundler", () => {
       const bundler = new EsbuildBundling(
         { absWorkingDir: "/project", entryPoints: ["index.ts"] },
-        { localBundling: true }
+        { priority: BundlerPriority.LocalOnly }
       );
       expect(bundler?.buildOptions?.entryPoints).toContain("index.ts");
     });
@@ -42,7 +42,7 @@ describe("bundling", () => {
     it("should append outdir behind the cdk asset directory", () => {
       const bundler = new EsbuildBundling(
         { absWorkingDir: "/project", entryPoints: ["index.ts"], outdir: "js" },
-        { localBundling: true }
+        { priority: BundlerPriority.LocalOnly }
       );
 
       expect(bundler.buildOptions?.outdir).toBe("/asset-output/js");
@@ -65,7 +65,9 @@ describe("bundling", () => {
           entryPoints: ["index.ts"],
           outfile: "index.js",
         },
-        { localBundling: true }
+        {
+          priority: BundlerPriority.LocalOnly,
+        }
       );
 
       expect(bundler.buildOptions?.outfile).toBe("/asset-output/index.js");
@@ -102,43 +104,15 @@ describe("bundling", () => {
             outdir: "js",
             outfile: "index.js",
           },
-          { localBundling: true }
+          {
+            priority: BundlerPriority.LocalOnly,
+          }
         );
       }).toThrowError('Cannot use both "outfile" and "outdir"');
     });
   });
 
-  describe("LocalBundling set to true", () => {
-    it("should set a local bundler", () => {
-      const bundler = new EsbuildBundling(
-        {
-          absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
-          outfile: "index.js",
-        },
-        { localBundling: true }
-      );
-
-      expect(bundler.local).not.toBeUndefined();
-    });
-  });
-
-  describe("LocalBundling set to false", () => {
-    it("should NOT set a local bundler", () => {
-      const bundler = new EsbuildBundling(
-        {
-          absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
-          outfile: "index.js",
-        },
-        { localBundling: false }
-      );
-
-      expect(bundler.local).toBeUndefined();
-    });
-  });
-
-  describe("Neither priority nor localBundling are set", () => {
+  describe("Priority is not set", () => {
     it("should set a local bundler", () => {
       const bundler = new EsbuildBundling({
         absWorkingDir: "/project",

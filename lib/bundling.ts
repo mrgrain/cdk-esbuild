@@ -11,16 +11,7 @@ import {
 
 export { BundlerPriority } from "./bundlers";
 
-interface BundlingProps extends BundlerProps {
-  /**
-   * Use local bundling over Docker bundling.
-   * Deprecated. If providerPriority is set, will be ignored.
-   *
-   * @default true
-   * @deprecated use `BundlingProps.providerPriority` instead
-   */
-  localBundling?: boolean;
-}
+interface BundlingProps extends BundlerProps {}
 
 const getEsbuildVersion = (workingDir: string): string => {
   function esbuildVersion<T>(
@@ -60,10 +51,7 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
   public constructor(
     buildOptions: BuildOptions,
     {
-      localBundling,
-      priority = localBundling === false
-        ? BundlerPriority.DockerOnly
-        : BundlerPriority.AttemptLocal,
+      priority = BundlerPriority.AttemptLocal,
       copyDir,
       esbuildVersion,
     }: BundlingProps = {}

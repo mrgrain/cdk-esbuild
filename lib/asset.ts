@@ -15,13 +15,6 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
   copyDir?: string;
 
   /**
-   * Force the asset to use Docker bundling (and skip local bundling).
-   *
-   * @deprecated please use `bundlerPriority`
-   */
-  forceDockerBundling?: boolean;
-
-  /**
    * Priority order of available bundlers. Defaults to attempt local first, then docker.
    *
    * @default BundlerPriority.AttemptLocal
@@ -44,10 +37,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
     {
       entryPoints: propEntryPoints,
       assetHash,
-      forceDockerBundling = false,
-      bundlerPriority = forceDockerBundling === true
-        ? BundlerPriority.DockerOnly
-        : BundlerPriority.AttemptLocal,
+      bundlerPriority = BundlerPriority.AttemptLocal,
       copyDir,
       buildOptions: options = {},
     }: Props
