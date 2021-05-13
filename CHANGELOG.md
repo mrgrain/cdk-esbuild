@@ -4,14 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.103.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.102.0...v1.103.0) (2021-05-13)
 
+- works with cdk-1.103.0
 
-### ⚠ BREAKING CHANGES
+### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
 
-* removed deprecared `forceDockerBundling` and `localBundling`
-
-### Features
-
-* remove deprecated functionality ([cc40b90](https://github.com/mrgrain/cdk-esbuild/commit/cc40b900acd8cba725e31db0a79cd3f8b711277e))
+- removed deprecated `forceDockerBundling` and `localBundling` ([cc40b90](https://github.com/mrgrain/cdk-esbuild/commit/cc40b900acd8cba725e31db0a79cd3f8b711277e))
 
 ## [1.102.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.101.0...v1.102.0) (2021-05-04)
 
