@@ -4,14 +4,12 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.105.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.104.0...v1.105.0) (2021-05-19)
 
+- works with cdk-1.105.0
 
-### ⚠ BREAKING CHANGES
+### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
 
-* esbuild v0.12.0 contains backwards-incompatible changes
-
-### Features
-
-* upgrade esbuild to v0.12.x ([c1f3896](https://github.com/mrgrain/cdk-esbuild/commit/c1f389622b243ff79702fe6109f38fe173917bd5))
+- upgraded esbuild to [v0.12.0](https://github.com/evanw/esbuild/releases/tag/v0.12.0) which contains backwards-incompatible changes (mostly related to CSS bundling)
+-
 
 ## [1.104.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.103.0...v1.104.0) (2021-05-19)
 
