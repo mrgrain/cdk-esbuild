@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.105.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.104.0...v1.105.0) (2021-05-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* esbuild v0.12.0 contains backwards-incompatible changes
+
+### Features
+
+* upgrade esbuild to v0.12.x ([c1f3896](https://github.com/mrgrain/cdk-esbuild/commit/c1f389622b243ff79702fe6109f38fe173917bd5))
+
 ## [1.104.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.103.0...v1.104.0) (2021-05-19)
 
 - works with cdk-1.104.0 ([fb0de78](https://github.com/mrgrain/cdk-esbuild/commit/fb0de78faf29815045822b8e80b2bbb07b8f7cbf))
