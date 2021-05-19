@@ -4,10 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.104.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.103.0...v1.104.0) (2021-05-19)
 
-
-### Features
-
-* update dependencies ([fb0de78](https://github.com/mrgrain/cdk-esbuild/commit/fb0de78faf29815045822b8e80b2bbb07b8f7cbf))
+- works with cdk-1.104.0 ([fb0de78](https://github.com/mrgrain/cdk-esbuild/commit/fb0de78faf29815045822b8e80b2bbb07b8f7cbf))
 
 ## [1.103.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.102.0...v1.103.0) (2021-05-13)
 
