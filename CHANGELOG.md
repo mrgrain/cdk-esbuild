@@ -9,7 +9,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### ⚠️ BREAKING CHANGES TO EXPERIMENTAL FEATURES
 
 - upgraded esbuild to [v0.12.0](https://github.com/evanw/esbuild/releases/tag/v0.12.0) which contains backwards-incompatible changes (mostly related to CSS bundling)
--
 
 ## [1.104.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.103.0...v1.104.0) (2021-05-19)
 
