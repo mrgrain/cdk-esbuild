@@ -1,6 +1,6 @@
 {
   "name": "@mrgrain/cdk-esbuild",
-  "version": "1.105.0",
+  "version": "1.106.0",
   "description": "CDK constructs for esbuild, an extremely fast JavaScript bundler",
   "license": "MIT",
   "author": {
