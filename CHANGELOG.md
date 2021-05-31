@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.106.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.105.0...v1.106.0) (2021-05-31)
 
+- works with cdk-1.106.0
+
 ## [1.105.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.104.0...v1.105.0) (2021-05-19)
 
 - works with cdk-1.105.0
