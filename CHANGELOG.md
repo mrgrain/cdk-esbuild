@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.108.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.107.0...v1.108.0) (2021-06-09)
+
 ## [1.107.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.106.0...v1.107.0) (2021-06-03)
 
 - works with cdk-1.107.0
