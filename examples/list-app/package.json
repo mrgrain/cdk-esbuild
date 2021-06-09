@@ -1,0 +1,22 @@
+{
+  "name": "list-app",
+  "version": "0.1.0",
+  "scripts": {
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@aws-cdk/assert": "1.108.0",
+    "@types/jest": "latest",
+    "@types/node": "latest",
+    "aws-cdk": "1.108.0",
+    "jest": "^26.4.2",
+    "ts-jest": "^26.2.0",
+    "ts-node": "latest",
+    "typescript": "latest"
+  },
+  "dependencies": {
+    "@aws-cdk/core": "1.108.0",
+    "@mrgrain/cdk-esbuild": "cdk-1.108.0"
+  }
+}
