@@ -7,6 +7,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 
 import { List } from "../models/List";
+import { emptyResponse, jsonResponse } from "./responses";
 import { getList, getAllLists, saveList, deleteList } from "./storage";
 import { validateJson, validateList } from "./validation";
 
@@ -15,16 +16,7 @@ enum HTTP_METHOD {
   PUT = "PUT",
   GET = "GET",
   DELETE = "DELETE",
-}
-
-function json(data: unknown, statusCode = 200): APIGatewayProxyResult {
-  return {
-    statusCode,
-    body: JSON.stringify(data, null, 2),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
+  OPTION = "OPTION",
 }
 
 export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
@@ -39,7 +31,7 @@ export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
     if (isRoot && httpMethod === HTTP_METHOD.GET) {
       const lists = await getAllLists();
 
-      return json(lists);
+      return jsonResponse(lists);
     }
 
     // New list
@@ -49,11 +41,11 @@ export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
           validateList({ ...validateJson<List>(body), id: uuidv4() })
         );
 
-        return json(list, 201);
+        return jsonResponse(list, 201);
       } catch (error) {
         const { message, actual, expected } = error as AssertionError;
 
-        return json(
+        return jsonResponse(
           `${message} Expected \`${expected}\` but got \`${actual}\`.`,
           400
         );
@@ -64,7 +56,7 @@ export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
     if (listId && httpMethod === HTTP_METHOD.GET) {
       const list = await getList(listId);
 
-      return json(list);
+      return jsonResponse(list);
     }
 
     // Update list
@@ -75,11 +67,11 @@ export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
 
         const list = await saveList(validateList(input));
 
-        return json(list);
+        return jsonResponse(list);
       } catch (error) {
         const { message, actual, expected } = error as AssertionError;
 
-        return json(
+        return jsonResponse(
           `${message} Expected \`${expected}\` but got \`${actual}\`.`,
           400
         );
@@ -90,8 +82,16 @@ export const handler: Handler<APIGatewayProxyEvent, APIGatewayProxyResult> =
     if (listId && httpMethod === HTTP_METHOD.DELETE) {
       await deleteList(listId);
 
-      return json("Deleted", 200);
+      return jsonResponse("Deleted", 200);
     }
 
-    return json("Not Found", 404);
+    // CORS
+    if (httpMethod === HTTP_METHOD.OPTION) {
+      return emptyResponse(204, {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+      });
+    }
+
+    return jsonResponse("Not Found", 404);
   };
