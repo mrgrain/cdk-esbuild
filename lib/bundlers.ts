@@ -4,7 +4,7 @@ import {
   FileSystem,
   ILocalBundling,
 } from "@aws-cdk/core";
-import { buildSync, BuildOptions as EsbuildOptions } from "esbuild";
+import { buildSync, BuildOptions as EsbuildOptions, BuildFailure } from "esbuild";
 import { join, normalize, resolve, posix, PlatformPath } from "path";
 import { printBuildMessages } from "./formatMessages";
 
@@ -107,7 +107,7 @@ export class LocalBundler implements ILocalBundling {
 
       return true;
     } catch (error) {
-      printBuildMessages(error, { prefix: "Build " });
+      printBuildMessages(error as BuildFailure, { prefix: "Build " });
 
       return Boolean(this.props.priority === BundlerPriority.LocalOnly);
     }

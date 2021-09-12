@@ -1,5 +1,5 @@
 import { InlineCode } from "@aws-cdk/aws-lambda";
-import { transformSync, TransformOptions, Loader } from "esbuild";
+import { transformSync, TransformOptions, Loader, BuildFailure } from "esbuild";
 import { printBuildMessages } from "./formatMessages";
 
 abstract class BaseInlineCode extends InlineCode {
@@ -17,7 +17,7 @@ abstract class BaseInlineCode extends InlineCode {
 
       super(transformedCode.code);
     } catch (error) {
-      printBuildMessages(error, { prefix: "Transform " });
+      printBuildMessages(error as BuildFailure, { prefix: "Transform " });
 
       throw new Error("Failed to transform InlineCode");
     }
