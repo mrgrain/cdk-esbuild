@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.118.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.117.0...v1.118.0) (2021-09-12)
+
+
+### Bug Fixes
+
+* make error handing compatible to latest tsc version ([b5e36e2](https://github.com/mrgrain/cdk-esbuild/commit/b5e36e27481706ea5a7ac5f8c05d74418b07c125))
+
 ## [1.117.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.116.0...v1.117.0) (2021-08-08)
 
 - works with cdk-1.117.0
