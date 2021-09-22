@@ -9,7 +9,9 @@ _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fa
 _esbuild_ is an extremely fast bundler and minifier for Typescript and JavaScript.
 This package makes _esbuild_ available to deploy lambda functions, static websites or to publish build artefacts (assets) for further use.
 
-CDK [supports _esbuild_ with lambdas](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html), but the implementation cannot be used for other things and doesn't expose all _esbuild_'s build interface.
+AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html). However the implementation cannot be used with any other Constructs and doesn't expose all of _esbuild_'s build interface.
+
+This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. This makes it quicker and easier to use for Node.hs users, but incompatible for other languages.
 
 ## Getting started
 
