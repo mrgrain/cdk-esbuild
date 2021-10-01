@@ -11,7 +11,7 @@ This package makes _esbuild_ available to deploy lambda functions, static websit
 
 AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html). However the implementation cannot be used with any other Constructs and doesn't expose all of _esbuild_'s build interface.
 
-This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. This makes it quicker and easier to use for Node.hs users, but incompatible for other languages.
+This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. The approach is quicker and easier to use for Node.js users, but incompatible with other languages.
 
 ## Getting started
 
