@@ -4,14 +4,15 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.125.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.124.0...v1.125.0) (2021-10-01)
 
-
 ### ⚠ BREAKING CHANGES
 
-* esbuild made changes to tree-shaking and the way platform-specific binaries are installed. Please check the esbuild documention for details.
+- `esbuild` released a breaking change to the tree shaking options and introduced a new way how platform-specific binaries are installed. Please check the esbuild v0.13.0 [release notes](https://github.com/evanw/esbuild/releases/tag/v0.12.0) for details.
 
 ### Features
 
-* upgrade esbuild min version to ^0.13.0 ([3d0b5ee](https://github.com/mrgrain/cdk-esbuild/commit/3d0b5ee5c01b7edcf7042a728932a0e1ce722d3c))
+- works with cdk-1.125.0
+
+- upgrade `esbuild` minimum version to ^0.13.0 ([3d0b5ee](https://github.com/mrgrain/cdk-esbuild/commit/3d0b5ee5c01b7edcf7042a728932a0e1ce722d3c))
 
 ## [1.124.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.123.0...v1.124.0) (2021-10-01)
 
