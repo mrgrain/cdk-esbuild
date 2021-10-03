@@ -18,7 +18,7 @@ This package is running _esbuild_ directly in Node.js and bypasses Docker which 
 Install `cdk-esbuild` and required peer dependencies:
 
 ```
-npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-s3-assets
+npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment
 ```
 
 ### Lambda function
