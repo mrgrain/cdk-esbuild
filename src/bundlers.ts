@@ -1,17 +1,18 @@
+import { join, normalize, resolve, posix, PlatformPath } from 'path';
 import {
   BundlingOptions,
   DockerImage,
   FileSystem,
   ILocalBundling,
-} from "@aws-cdk/core";
-import { buildSync, BuildOptions as EsbuildOptions, BuildFailure } from "esbuild";
-import { join, normalize, resolve, posix, PlatformPath } from "path";
-import { printBuildMessages } from "./formatMessages";
+} from '@aws-cdk/core';
+import { BuildOptions as EsbuildOptions, BuildFailure, BuildResult } from './esbuild-types';
+import { buildSync } from './esbuild-wrapper';
+import { printBuildMessages } from './formatMessages';
 
 type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-  Required<Pick<T, RK>>;
+Required<Pick<T, RK>>;
 
-export type BuildOptions = MarkRequired<EsbuildOptions, "entryPoints">;
+export type BuildOptions = MarkRequired<EsbuildOptions, 'entryPoints'>;
 
 export enum BundlerPriority {
   /**
@@ -56,20 +57,20 @@ function getOutputOptions(
   cdkOutputDir: string,
   outfile?: string,
   outdir?: string,
-  path: Pick<PlatformPath, "normalize" | "join"> = posix
+  path: Pick<PlatformPath, 'normalize' | 'join'> = posix,
 ) {
   if (outfile) {
     return {
       outdir: undefined,
       outfile: path.normalize(
-        path.join(...([cdkOutputDir, outfile].filter(Boolean) as string[]))
+        path.join(...([cdkOutputDir, outfile].filter(Boolean) as string[])),
       ),
     };
   }
 
   return {
     outdir: posix.normalize(
-      posix.join(...([cdkOutputDir, outdir].filter(Boolean) as string[]))
+      posix.join(...([cdkOutputDir, outdir].filter(Boolean) as string[])),
     ),
     outfile: undefined,
   };
@@ -78,7 +79,7 @@ function getOutputOptions(
 export class LocalBundler implements ILocalBundling {
   public constructor(
     public readonly buildOptions: BuildOptions,
-    public readonly props: BundlerProps = {}
+    public readonly props: BundlerProps = {},
   ) {}
 
   tryBundle(outputDir: string, _options: BundlingOptions): boolean {
@@ -87,27 +88,27 @@ export class LocalBundler implements ILocalBundling {
         FileSystem.copyDirectory(
           resolve(
             this.buildOptions.absWorkingDir ?? process.cwd(),
-            this.props.copyDir
+            this.props.copyDir,
           ),
-          outputDir
+          outputDir,
         );
       }
 
-      const buildResult = buildSync({
+      const buildResult: BuildResult = buildSync({
         ...this.buildOptions,
         ...getOutputOptions(
           outputDir,
           this.buildOptions.outfile,
           this.buildOptions.outdir,
-          { normalize, join }
+          { normalize, join },
         ),
       });
 
-      printBuildMessages(buildResult, { prefix: "Build " });
+      printBuildMessages(buildResult, { prefix: 'Build ' });
 
       return true;
     } catch (error) {
-      printBuildMessages(error as BuildFailure, { prefix: "Build " });
+      printBuildMessages(error as BuildFailure, { prefix: 'Build ' });
 
       return Boolean(this.props.priority === BundlerPriority.LocalOnly);
     }
@@ -116,9 +117,9 @@ export class LocalBundler implements ILocalBundling {
 
 export class DockerBundler implements BundlingOptions {
   public get image(): DockerImage {
-    return DockerImage.fromBuild(resolve(__dirname, "..", "esbuild"), {
+    return DockerImage.fromBuild(resolve(__dirname, '..', 'esbuild'), {
       buildArgs: {
-        version: this.props.esbuildVersion ?? "*",
+        version: this.props.esbuildVersion ?? '*',
       },
     });
   }
@@ -133,15 +134,15 @@ export class DockerBundler implements BundlingOptions {
     ];
   }
 
-  public readonly workingDirectory = "/asset-input";
+  public readonly workingDirectory = '/asset-input';
 
-  public readonly outputDirectory = "/asset-output";
+  public readonly outputDirectory = '/asset-output';
 
   public readonly buildOptions: BuildOptions;
 
   public constructor(
     buildOptions: BuildOptions,
-    public readonly props: BundlerProps = {}
+    public readonly props: BundlerProps = {},
   ) {
     if (buildOptions.outfile && buildOptions.outdir) {
       throw new Error('Cannot use both "outfile" and "outdir"');
@@ -153,7 +154,7 @@ export class DockerBundler implements BundlingOptions {
         this.outputDirectory,
         buildOptions.outfile,
         buildOptions.outdir,
-        posix
+        posix,
       ),
       absWorkingDir: this.workingDirectory,
     };

@@ -1,22 +1,22 @@
-import { BundlingOptions } from "@aws-cdk/core";
-import { readFileSync } from "fs";
-import { join, resolve } from "path";
+import { readFileSync } from 'fs';
+import { join, resolve } from 'path';
+import { BundlingOptions } from '@aws-cdk/core';
 import {
   BuildOptions,
   BundlerPriority,
   BundlerProps,
   DockerBundler,
   LocalBundler,
-} from "./bundlers";
+} from './bundlers';
 
-export { BundlerPriority } from "./bundlers";
+export { BundlerPriority } from './bundlers';
 
 interface BundlingProps extends BundlerProps {}
 
 const getEsbuildVersion = (workingDir: string): string => {
   function esbuildVersion<T>(
     packageJsonPath: string,
-    defaultVersion: string | T = "*"
+    defaultVersion: string | T = '*',
   ): string | T {
     try {
       const contents = readFileSync(packageJsonPath).toString();
@@ -36,9 +36,9 @@ const getEsbuildVersion = (workingDir: string): string => {
   }
 
   return (
-    esbuildVersion(join(workingDir, "package-lock.json"), null) ??
-    esbuildVersion(join(workingDir, "package.json"), null) ??
-    esbuildVersion(resolve(__dirname, "..", "package.json"))
+    esbuildVersion(join(workingDir, 'package-lock.json'), null) ??
+    esbuildVersion(join(workingDir, 'package.json'), null) ??
+    esbuildVersion(resolve(__dirname, '..', 'package.json'))
   );
 };
 
@@ -54,7 +54,7 @@ export class EsbuildBundling extends DockerBundler implements BundlingOptions {
       priority = BundlerPriority.AttemptLocal,
       copyDir,
       esbuildVersion,
-    }: BundlingProps = {}
+    }: BundlingProps = {},
   ) {
     const absWorkingDir = buildOptions.absWorkingDir ?? process.cwd();
 

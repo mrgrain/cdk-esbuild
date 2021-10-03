@@ -1,25 +1,26 @@
-import { InlineCode } from "@aws-cdk/aws-lambda";
-import { transformSync, TransformOptions, Loader, BuildFailure } from "esbuild";
-import { printBuildMessages } from "./formatMessages";
+import { InlineCode } from '@aws-cdk/aws-lambda';
+import { TransformOptions, Loader, BuildFailure } from './esbuild-types';
+import { transformSync } from './esbuild-wrapper';
+import { printBuildMessages } from './formatMessages';
 
 abstract class BaseInlineCode extends InlineCode {
   public constructor(
     code: string,
     loader: Loader,
-    transformOptions: TransformOptions = {}
+    transformOptions: TransformOptions = {},
   ) {
     try {
       const transformedCode = transformSync(code, {
         loader,
         ...transformOptions,
       });
-      printBuildMessages(transformedCode, { prefix: "Transform " });
+      printBuildMessages(transformedCode, { prefix: 'Transform ' });
 
       super(transformedCode.code);
     } catch (error) {
-      printBuildMessages(error as BuildFailure, { prefix: "Transform " });
+      printBuildMessages(error as BuildFailure, { prefix: 'Transform ' });
 
-      throw new Error("Failed to transform InlineCode");
+      throw new Error('Failed to transform InlineCode');
     }
   }
 }
@@ -29,7 +30,7 @@ abstract class BaseInlineCode extends InlineCode {
  */
 export class InlineJavaScriptCode extends BaseInlineCode {
   public constructor(code: string, transformOptions?: TransformOptions) {
-    super(code, "js", transformOptions);
+    super(code, 'js', transformOptions);
   }
 }
 
@@ -38,7 +39,7 @@ export class InlineJavaScriptCode extends BaseInlineCode {
  */
 export class InlineJsxCode extends BaseInlineCode {
   public constructor(code: string, transformOptions?: TransformOptions) {
-    super(code, "jsx", transformOptions);
+    super(code, 'jsx', transformOptions);
   }
 }
 
@@ -47,7 +48,7 @@ export class InlineJsxCode extends BaseInlineCode {
  */
 export class InlineTypeScriptCode extends BaseInlineCode {
   public constructor(code: string, transformOptions?: TransformOptions) {
-    super(code, "ts", transformOptions);
+    super(code, 'ts', transformOptions);
   }
 }
 
@@ -56,6 +57,6 @@ export class InlineTypeScriptCode extends BaseInlineCode {
  */
 export class InlineTsxCode extends BaseInlineCode {
   public constructor(code: string, transformOptions?: TransformOptions) {
-    super(code, "tsx", transformOptions);
+    super(code, 'tsx', transformOptions);
   }
 }

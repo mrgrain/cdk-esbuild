@@ -1,32 +1,33 @@
+import { WriteStream } from 'tty';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   BuildFailure,
   BuildResult,
-  formatMessagesSync,
   TransformFailure,
   TransformResult,
-} from "esbuild";
-import { WriteStream } from "tty";
+} from './esbuild-types';
+import { formatMessagesSync } from './esbuild-wrapper';
 
 export function printBuildErrors(
   failure: TransformFailure | BuildFailure,
   {
     dest = process.stdout,
     color = true,
-    prefix = "",
+    prefix = '',
   }: {
     dest?: WriteStream;
     color?: boolean;
     prefix?: string;
-  } = {}
+  } = {},
 ): void {
   const errors = formatMessagesSync(failure.errors, {
-    kind: "error",
+    kind: 'error',
     color,
   });
 
   if (errors.length > 0) {
     dest.write(`${prefix}Errors:\n\n`);
-    dest.write(errors.join("\n\n"));
+    dest.write(errors.join('\n\n'));
   }
 }
 
@@ -35,21 +36,21 @@ export function printBuildWarnings(
   {
     dest = process.stdout,
     color = true,
-    prefix = "",
+    prefix = '',
   }: {
     dest?: WriteStream;
     color?: boolean;
     prefix?: string;
-  } = {}
+  } = {},
 ): void {
   const warnings = formatMessagesSync(failure.warnings, {
-    kind: "warning",
+    kind: 'warning',
     color,
   });
 
   if (warnings.length > 0) {
     dest.write(`${prefix}Warning:\n\n`);
-    dest.write(warnings.join("\n\n"));
+    dest.write(warnings.join('\n\n'));
   }
 }
 
@@ -59,7 +60,7 @@ export function printBuildMessages(
     dest?: WriteStream;
     color?: boolean;
     prefix?: string;
-  } = {}
+  } = {},
 ): void {
   printBuildWarnings(failure, props);
 

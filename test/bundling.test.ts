@@ -1,133 +1,134 @@
-import "@aws-cdk/assert/jest";
-import { BuildOptions, BuildResult, buildSync } from "esbuild";
-import { mocked } from "ts-jest/utils";
-import { BundlerPriority } from "../lib/bundlers";
-import { EsbuildBundling } from "../lib/bundling";
-import { printBuildMessages } from "../lib/formatMessages";
+import '@aws-cdk/assert/jest';
+import { mocked } from 'ts-jest/utils';
+import { BundlerPriority } from '../src/bundlers';
+import { EsbuildBundling } from '../src/bundling';
+import { BuildOptions, BuildResult } from '../src/esbuild-types';
+import { buildSync } from '../src/esbuild-wrapper';
+import { printBuildMessages } from '../src/formatMessages';
 
-jest.mock("../lib/formatMessages", () => ({
+jest.mock('../src/formatMessages', () => ({
   printBuildMessages: jest.fn(),
 }));
 
-jest.mock("esbuild", () => ({
+jest.mock('esbuild', () => ({
   buildSync: jest.fn(),
 }));
 
-const realEsbuild = jest.requireActual("esbuild");
+const realEsbuild = jest.requireActual('esbuild');
 
-describe("bundling", () => {
+describe('bundling', () => {
   beforeEach(() => {
     mocked(printBuildMessages).mockReset();
   });
 
-  describe("Given a project root path", () => {
-    it("should keep the relative path for the local bundler", () => {
+  describe('Given a project root path', () => {
+    it('should keep the relative path for the local bundler', () => {
       const bundler = new EsbuildBundling(
-        { absWorkingDir: "/project", entryPoints: ["index.ts"] },
-        { priority: BundlerPriority.LocalOnly }
+        { absWorkingDir: '/project', entryPoints: ['index.ts'] },
+        { priority: BundlerPriority.LocalOnly },
       );
-      expect(bundler.local?.buildOptions?.entryPoints).toContain("index.ts");
+      expect(bundler.local?.buildOptions?.entryPoints).toContain('index.ts');
     });
 
-    it("should keep the relative entry path for the docker bundler", () => {
+    it('should keep the relative entry path for the docker bundler', () => {
       const bundler = new EsbuildBundling(
-        { absWorkingDir: "/project", entryPoints: ["index.ts"] },
-        { priority: BundlerPriority.LocalOnly }
+        { absWorkingDir: '/project', entryPoints: ['index.ts'] },
+        { priority: BundlerPriority.LocalOnly },
       );
-      expect(bundler?.buildOptions?.entryPoints).toContain("index.ts");
+      expect(bundler?.buildOptions?.entryPoints).toContain('index.ts');
     });
   });
 
-  describe("Given an outdir", () => {
-    it("should append outdir behind the cdk asset directory", () => {
+  describe('Given an outdir', () => {
+    it('should append outdir behind the cdk asset directory', () => {
       const bundler = new EsbuildBundling(
-        { absWorkingDir: "/project", entryPoints: ["index.ts"], outdir: "js" },
-        { priority: BundlerPriority.LocalOnly }
+        { absWorkingDir: '/project', entryPoints: ['index.ts'], outdir: 'js' },
+        { priority: BundlerPriority.LocalOnly },
       );
 
-      expect(bundler.buildOptions?.outdir).toBe("/asset-output/js");
+      expect(bundler.buildOptions?.outdir).toBe('/asset-output/js');
 
-      bundler.local?.tryBundle("cdk.out/123456", bundler);
+      bundler.local?.tryBundle('cdk.out/123456', bundler);
 
       expect(mocked(buildSync)).toHaveBeenCalledWith(
         expect.objectContaining({
-          outdir: "cdk.out/123456/js",
-        })
+          outdir: 'cdk.out/123456/js',
+        }),
       );
     });
   });
 
-  describe("Given an outfile", () => {
-    it("should set an outfile, inside the the cdk asset directory", () => {
+  describe('Given an outfile', () => {
+    it('should set an outfile, inside the the cdk asset directory', () => {
       const bundler = new EsbuildBundling(
         {
-          absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
-          outfile: "index.js",
+          absWorkingDir: '/project',
+          entryPoints: ['index.ts'],
+          outfile: 'index.js',
         },
         {
           priority: BundlerPriority.LocalOnly,
-        }
+        },
       );
 
-      expect(bundler.buildOptions?.outfile).toBe("/asset-output/index.js");
+      expect(bundler.buildOptions?.outfile).toBe('/asset-output/index.js');
 
-      bundler.local?.tryBundle("cdk.out/123456", bundler);
+      bundler.local?.tryBundle('cdk.out/123456', bundler);
 
       expect(mocked(buildSync)).toHaveBeenCalledWith(
         expect.objectContaining({
           outdir: undefined,
-          outfile: "cdk.out/123456/index.js",
-        })
+          outfile: 'cdk.out/123456/index.js',
+        }),
       );
     });
   });
 
-  describe("Given an outdir and outfile", () => {
+  describe('Given an outdir and outfile', () => {
     beforeEach(() => {
       mocked(buildSync).mockImplementationOnce(
         (options: BuildOptions): BuildResult => {
           return realEsbuild.buildSync(options);
-        }
+        },
       );
     });
     afterEach(() => {
       mocked(buildSync).mockReset();
     });
 
-    it("should throw an exception", () => {
+    it('should throw an exception', () => {
       expect(() => {
-        const bundler = new EsbuildBundling(
+        new EsbuildBundling(
           {
-            absWorkingDir: "/project",
-            entryPoints: ["index.ts"],
-            outdir: "js",
-            outfile: "index.js",
+            absWorkingDir: '/project',
+            entryPoints: ['index.ts'],
+            outdir: 'js',
+            outfile: 'index.js',
           },
           {
             priority: BundlerPriority.LocalOnly,
-          }
+          },
         );
       }).toThrowError('Cannot use both "outfile" and "outdir"');
     });
   });
 
-  describe("Priority is not set", () => {
-    it("should set a local bundler", () => {
+  describe('Priority is not set', () => {
+    it('should set a local bundler', () => {
       const bundler = new EsbuildBundling({
-        absWorkingDir: "/project",
-        entryPoints: ["index.ts"],
-        outfile: "index.js",
+        absWorkingDir: '/project',
+        entryPoints: ['index.ts'],
+        outfile: 'index.js',
       });
 
       expect(bundler.local).not.toBeUndefined();
     });
   });
 
-  describe("Priority is AttemptLocal", () => {
+  describe('Priority is AttemptLocal', () => {
     beforeEach(() => {
       mocked(buildSync).mockImplementation(() => {
-        throw new Error("a");
+        throw new Error('a');
       });
     });
 
@@ -135,37 +136,37 @@ describe("bundling", () => {
       mocked(buildSync).mockReset();
     });
 
-    it("should set a local bundler", () => {
+    it('should set a local bundler', () => {
       const bundler = new EsbuildBundling(
         {
-          absWorkingDir: "/project",
-          entryPoints: ["indexA.ts"],
-          outfile: "index.js",
+          absWorkingDir: '/project',
+          entryPoints: ['indexA.ts'],
+          outfile: 'index.js',
         },
         {
           priority: BundlerPriority.AttemptLocal,
-        }
+        },
       );
 
       expect(bundler.local).not.toBeUndefined();
 
-      const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
+      const result = bundler.local?.tryBundle('cdk.out/123456', bundler);
 
       expect(result).toBe(false);
       expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
       expect(mocked(printBuildMessages)).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          message: "a",
+          message: 'a',
         }),
-        expect.anything()
+        expect.anything(),
       );
     });
   });
 
-  describe("Priority is LocalOnly", () => {
+  describe('Priority is LocalOnly', () => {
     beforeEach(() => {
       mocked(buildSync).mockImplementationOnce(() => {
-        throw new Error("b");
+        throw new Error('b');
       });
     });
 
@@ -173,43 +174,43 @@ describe("bundling", () => {
       mocked(buildSync).mockReset();
     });
 
-    it("should set a local bundler", () => {
+    it('should set a local bundler', () => {
       const bundler = new EsbuildBundling(
         {
-          absWorkingDir: "/project",
-          entryPoints: ["indexB.ts"],
-          outfile: "index.js",
+          absWorkingDir: '/project',
+          entryPoints: ['indexB.ts'],
+          outfile: 'index.js',
         },
         {
           priority: BundlerPriority.LocalOnly,
-        }
+        },
       );
 
       expect(bundler.local).not.toBeUndefined();
-      const result = bundler.local?.tryBundle("cdk.out/123456", bundler);
+      const result = bundler.local?.tryBundle('cdk.out/123456', bundler);
 
       expect(result).toBe(true);
       expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
       expect(mocked(printBuildMessages)).toHaveBeenLastCalledWith(
         expect.objectContaining({
-          message: "b",
+          message: 'b',
         }),
-        expect.anything()
+        expect.anything(),
       );
     });
   });
 
-  describe("Priority is DockerOnly", () => {
-    it("should set a local bundler", () => {
+  describe('Priority is DockerOnly', () => {
+    it('should set a local bundler', () => {
       const bundler = new EsbuildBundling(
         {
-          absWorkingDir: "/project",
-          entryPoints: ["index.ts"],
-          outfile: "index.js",
+          absWorkingDir: '/project',
+          entryPoints: ['index.ts'],
+          outfile: 'index.js',
         },
         {
           priority: BundlerPriority.DockerOnly,
-        }
+        },
       );
 
       expect(bundler.local).toBeUndefined();

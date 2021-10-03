@@ -1,25 +1,25 @@
-import "@aws-cdk/assert/jest";
-import { Stack } from "@aws-cdk/core";
-import { Function, Runtime as LambdaRuntime } from "@aws-cdk/aws-lambda";
-import { resolve } from "path";
-import { JavaScriptCode, TypeScriptCode } from "../lib/code";
+import '@aws-cdk/assert/jest';
+import { resolve } from 'path';
+import { Function, Runtime as LambdaRuntime } from '@aws-cdk/aws-lambda';
 import {
   Canary,
   Runtime as SyntheticsRuntime,
   Test,
-} from "@aws-cdk/aws-synthetics";
+} from '@aws-cdk/aws-synthetics';
+import { Stack } from '@aws-cdk/core';
+import { JavaScriptCode, TypeScriptCode } from '../src/code';
 
-describe("Code", () => {
-  describe("entry is an absolute path", () => {
-    it("should throw an exception", () => {
+describe('code', () => {
+  describe('entry is an absolute path', () => {
+    it('should throw an exception', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new JavaScriptCode("/project/index.js");
+        const code = new JavaScriptCode('/project/index.js');
 
-        new Function(stack, "MyFunction", {
+        new Function(stack, 'MyFunction', {
           runtime: LambdaRuntime.NODEJS_14_X,
-          handler: "index.handler",
+          handler: 'index.handler',
           code,
         });
       }).toThrow(
@@ -28,59 +28,59 @@ describe("Code", () => {
     });
   });
 
-  describe("using a custom hash", () => {
-    it("does not throw", () => {
+  describe('using a custom hash', () => {
+    it('does not throw', () => {
       expect(() => {
         const stack = new Stack();
 
-        const assetHash = "abcdefghij1234567890";
-        const code = new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+        const assetHash = 'abcdefghij1234567890';
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
           assetHash,
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 
-        new Function(stack, "MyFunction", {
+        new Function(stack, 'MyFunction', {
           runtime: LambdaRuntime.NODEJS_14_X,
-          handler: "index.handler",
+          handler: 'index.handler',
           code,
         });
       }).not.toThrow();
     });
   });
 
-  describe("JavaScriptCode can be used", () => {
-    it("should not throw", () => {
+  describe('JavaScriptCode can be used', () => {
+    it('should not throw', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new JavaScriptCode("fixtures/handlers/js-handler.js", {
+        const code = new JavaScriptCode('fixtures/handlers/js-handler.js', {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 
-        new Function(stack, "MyFunction", {
+        new Function(stack, 'MyFunction', {
           runtime: LambdaRuntime.NODEJS_14_X,
-          handler: "index.handler",
+          handler: 'index.handler',
           code,
         });
       }).not.toThrow();
     });
   });
 
-  describe("Map can be used for entry points", () => {
-    it("should not throw", () => {
+  describe('Map can be used for entry points', () => {
+    it('should not throw', () => {
       expect(() => {
         const stack = new Stack();
 
         const code = new JavaScriptCode(
-          { handler: "fixtures/handlers/js-handler.js" },
+          { handler: 'fixtures/handlers/js-handler.js' },
           {
             buildOptions: { absWorkingDir: resolve(__dirname) },
           },
         );
 
-        new Function(stack, "MyFunction", {
+        new Function(stack, 'MyFunction', {
           runtime: LambdaRuntime.NODEJS_14_X,
-          handler: "index.handler",
+          handler: 'index.handler',
           code,
         });
       }).not.toThrow();
@@ -88,19 +88,19 @@ describe("Code", () => {
   });
 });
 
-describe("AWS Lambda", () => {
-  describe("TypeScriptCode can be used in Lambda Function", () => {
-    it("should not throw", () => {
+describe('AWS Lambda', () => {
+  describe('TypeScriptCode can be used in Lambda Function', () => {
+    it('should not throw', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 
-        new Function(stack, "MyFunction", {
+        new Function(stack, 'MyFunction', {
           runtime: LambdaRuntime.NODEJS_14_X,
-          handler: "index.handler",
+          handler: 'index.handler',
           code,
         });
       }).not.toThrow();
@@ -108,22 +108,22 @@ describe("AWS Lambda", () => {
   });
 });
 
-describe("Amazon CloudWatch Synthetics", () => {
-  describe("TypeScriptCode can be used in Synthetics Test", () => {
-    it("should not throw", () => {
+describe('Amazon CloudWatch Synthetics', () => {
+  describe('TypeScriptCode can be used in Synthetics Test', () => {
+    it('should not throw', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 
         const test = Test.custom({
           code,
-          handler: "index.handler",
+          handler: 'index.handler',
         });
 
-        new Canary(stack, "MyCanary", {
+        new Canary(stack, 'MyCanary', {
           test,
           runtime: SyntheticsRuntime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
         });
