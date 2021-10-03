@@ -1,0 +1,297 @@
+{
+  "tasks": {
+    "clobber": {
+      "name": "clobber",
+      "description": "hard resets to HEAD of origin and cleans the local repo",
+      "env": {
+        "BRANCH": "$(git branch --show-current)"
+      },
+      "steps": [
+        {
+          "exec": "git checkout -b scratch",
+          "name": "save current HEAD in \"scratch\" branch"
+        },
+        {
+          "exec": "git checkout $BRANCH"
+        },
+        {
+          "exec": "git fetch origin",
+          "name": "fetch latest changes from origin"
+        },
+        {
+          "exec": "git reset --hard origin/$BRANCH",
+          "name": "hard reset to origin commit"
+        },
+        {
+          "exec": "git clean -fdx",
+          "name": "clean all untracked files"
+        },
+        {
+          "say": "ready to rock! (unpushed commits are under the \"scratch\" branch)"
+        }
+      ],
+      "condition": "git diff --exit-code > /dev/null"
+    },
+    "compile": {
+      "name": "compile",
+      "description": "Only compile",
+      "steps": [
+        {
+          "exec": "jsii --silence-warnings=reserved-word --no-fix-peer-dependencies"
+        },
+        {
+          "spawn": "docgen"
+        }
+      ]
+    },
+    "test:compile": {
+      "name": "test:compile",
+      "description": "compiles the test code",
+      "steps": [
+        {
+          "exec": "tsc --noEmit --project tsconfig.jest.json"
+        }
+      ]
+    },
+    "test": {
+      "name": "test",
+      "description": "Run tests",
+      "steps": [
+        {
+          "exec": "rm -fr lib/"
+        },
+        {
+          "spawn": "test:compile"
+        },
+        {
+          "exec": "jest --passWithNoTests --all --updateSnapshot"
+        },
+        {
+          "spawn": "eslint"
+        }
+      ]
+    },
+    "build": {
+      "name": "build",
+      "description": "Full release build (test+compile)",
+      "steps": [
+        {
+          "exec": "npx projen"
+        },
+        {
+          "spawn": "test"
+        },
+        {
+          "spawn": "compile"
+        },
+        {
+          "spawn": "package"
+        }
+      ]
+    },
+    "test:watch": {
+      "name": "test:watch",
+      "description": "Run jest in watch mode",
+      "steps": [
+        {
+          "exec": "jest --watch"
+        }
+      ]
+    },
+    "test:update": {
+      "name": "test:update",
+      "description": "Update jest snapshots",
+      "steps": [
+        {
+          "exec": "jest --updateSnapshot"
+        }
+      ]
+    },
+    "bump": {
+      "name": "bump",
+      "description": "Bumps version based on latest git tag and generates a changelog entry",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt"
+      },
+      "steps": [
+        {
+          "builtin": "release/bump-version"
+        }
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+    },
+    "unbump": {
+      "name": "unbump",
+      "description": "Restores version to 0.0.0",
+      "env": {
+        "OUTFILE": "package.json",
+        "CHANGELOG": "dist/changelog.md",
+        "BUMPFILE": "dist/version.txt",
+        "RELEASETAG": "dist/releasetag.txt"
+      },
+      "steps": [
+        {
+          "builtin": "release/reset-version"
+        }
+      ]
+    },
+    "publish:github": {
+      "name": "publish:github",
+      "description": "Publish this package to GitHub Releases",
+      "requiredEnv": [
+        "GITHUB_TOKEN",
+        "GITHUB_REPOSITORY",
+        "GITHUB_REF"
+      ],
+      "steps": [
+        {
+          "exec": "errout=$(mktemp); gh release create $(cat dist/releasetag.txt) -R $GITHUB_REPOSITORY -F dist/changelog.md -t $(cat dist/releasetag.txt) --target $GITHUB_REF 2> $errout && true; exitcode=$?; if [ $exitcode -ne 0 ] && ! grep -q \"Release.tag_name already exists\" $errout; then cat $errout; exit $exitcode; fi"
+        }
+      ]
+    },
+    "upgrade": {
+      "name": "upgrade",
+      "description": "upgrade dependencies",
+      "env": {
+        "CI": "0"
+      },
+      "steps": [
+        {
+          "exec": "npm-check-updates --upgrade --target=minor --reject='projen'"
+        },
+        {
+          "exec": "npm install"
+        },
+        {
+          "exec": "npm update @aws-cdk/assert @aws-cdk/aws-s3 @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest ts-node typescript @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics @aws-cdk/core constructs @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics @aws-cdk/core"
+        },
+        {
+          "exec": "npx projen"
+        }
+      ]
+    },
+    "upgrade-projen": {
+      "name": "upgrade-projen",
+      "description": "upgrade projen",
+      "env": {
+        "CI": "0"
+      },
+      "steps": [
+        {
+          "exec": "npm-check-updates --upgrade --target=minor --filter='projen'"
+        },
+        {
+          "exec": "npm install"
+        },
+        {
+          "exec": "npm update projen"
+        },
+        {
+          "exec": "npx projen"
+        }
+      ]
+    },
+    "watch": {
+      "name": "watch",
+      "description": "Watch & compile in the background",
+      "steps": [
+        {
+          "exec": "jsii -w --silence-warnings=reserved-word --no-fix-peer-dependencies"
+        }
+      ]
+    },
+    "package": {
+      "name": "package",
+      "description": "Create an npm tarball",
+      "steps": [
+        {
+          "exec": "jsii-pacmak"
+        }
+      ]
+    },
+    "eslint": {
+      "name": "eslint",
+      "description": "Runs eslint against the codebase",
+      "steps": [
+        {
+          "exec": "eslint --ext .ts,.tsx,.mjs --fix --no-error-on-unmatched-pattern src .projenrc.mjs test build-tools"
+        }
+      ]
+    },
+    "default": {
+      "name": "default",
+      "steps": [
+        {
+          "exec": "ts-node --skip-project .projenrc.mjs"
+        }
+      ]
+    },
+    "compat": {
+      "name": "compat",
+      "description": "Perform API compatibility check against latest version",
+      "steps": [
+        {
+          "exec": "jsii-diff npm:$(node -p \"require('./package.json').name\") -k --ignore-file .compatignore || (echo \"\nUNEXPECTED BREAKING CHANGES: add keys such as 'removed:constructs.Node.of' to .compatignore to skip.\n\" && exit 1)"
+        }
+      ]
+    },
+    "publish:npm": {
+      "name": "publish:npm",
+      "description": "Publish this package to npm",
+      "env": {
+        "NPM_DIST_TAG": "next",
+        "NPM_REGISTRY": "registry.npmjs.org"
+      },
+      "requiredEnv": [
+        "NPM_TOKEN"
+      ],
+      "steps": [
+        {
+          "exec": "npx -p jsii-release@latest jsii-release-npm"
+        }
+      ]
+    },
+    "docgen": {
+      "name": "docgen",
+      "description": "Generate API.md from .jsii manifest",
+      "steps": [
+        {
+          "exec": "jsii-docgen"
+        }
+      ]
+    },
+    "release:next": {
+      "name": "release:next",
+      "description": "Prepare a release from \"next\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MAJOR": "2",
+        "PRERELEASE": "alpha"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    }
+  },
+  "env": {
+    "PATH": "$(npx -c \"node -e \\\"console.log(process.env.PATH)\\\"\")"
+  },
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}

@@ -2,38 +2,38 @@ import {
   DeploymentSourceContext,
   ISource,
   SourceConfig,
-} from "@aws-cdk/aws-s3-deployment";
-import { Construct, Stack } from "@aws-cdk/core";
-import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from "./asset";
-import { BuildOptions } from "./bundlers";
+} from '@aws-cdk/aws-s3-deployment';
+import { Construct, Stack } from '@aws-cdk/core';
+import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
+import { BuildOptions } from './bundlers';
 
-type SourceProps = Omit<EsbuildAssetProps, "entryPoints">;
+type SourceProps = Omit<EsbuildAssetProps, 'entryPoints'>;
 
 type JavaScriptSourceProps = SourceProps;
 type TypeScriptSourceProps = SourceProps;
 
 abstract class Source<
   Props extends SourceProps,
-  Asset extends JavaScriptAsset | TypeScriptAsset
+  Asset extends JavaScriptAsset | TypeScriptAsset,
 > implements ISource {
   protected abstract AssetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps
+    props: EsbuildAssetProps,
   ) => Asset;
 
   protected props: EsbuildAssetProps;
 
-  protected asset: Asset;
+  protected asset!: Asset;
 
   /**
    *
    * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Source properties.
    */
-  constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
+  constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
     const defaultOptions: Partial<BuildOptions> = {
-      platform: "browser",
+      platform: 'browser',
     };
 
     this.props = {
@@ -52,19 +52,19 @@ abstract class Source<
       this.asset = new this.AssetClass(
         scope,
         this.constructor.name,
-        this.props
+        this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
       throw new Error(
         `Asset is already associated with another stack '${
           Stack.of(this.asset).stackName
-        }'. ` + "Create a new Asset instance for every stack."
+        }'. ` + 'Create a new Asset instance for every stack.',
       );
     }
 
     if (!context) {
       throw new Error(
-        `To use a ${this.constructor.name}, context must be provided`
+        `To use a ${this.constructor.name}, context must be provided`,
       );
     }
 
@@ -81,28 +81,28 @@ abstract class Source<
 }
 
 export class JavaScriptSource extends Source<
-  JavaScriptSourceProps,
-  JavaScriptAsset
+JavaScriptSourceProps,
+JavaScriptAsset
 > {
   protected AssetClass = JavaScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
-    props: JavaScriptSourceProps = {}
+    entryPoints: EsbuildAssetProps['entryPoints'],
+    props: JavaScriptSourceProps = {},
   ) {
     super(entryPoints, props);
   }
 }
 
 export class TypeScriptSource extends Source<
-  TypeScriptSourceProps,
-  TypeScriptAsset
+TypeScriptSourceProps,
+TypeScriptAsset
 > {
   protected AssetClass = TypeScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
-    props: TypeScriptSourceProps = {}
+    entryPoints: EsbuildAssetProps['entryPoints'],
+    props: TypeScriptSourceProps = {},
   ) {
     super(entryPoints, props);
   }

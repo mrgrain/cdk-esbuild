@@ -1,55 +1,82 @@
 {
   "name": "@mrgrain/cdk-esbuild",
-  "version": "1.127.0",
   "description": "CDK constructs for esbuild, an extremely fast JavaScript bundler",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mrgrain/cdk-esbuild.git"
+  },
+  "scripts": {
+    "clobber": "npx projen clobber",
+    "compile": "npx projen compile",
+    "test:compile": "npx projen test:compile",
+    "test": "npx projen test",
+    "build": "npx projen build",
+    "test:watch": "npx projen test:watch",
+    "test:update": "npx projen test:update",
+    "bump": "npx projen bump",
+    "unbump": "npx projen unbump",
+    "publish:github": "npx projen publish:github",
+    "upgrade": "npx projen upgrade",
+    "upgrade-projen": "npx projen upgrade-projen",
+    "watch": "npx projen watch",
+    "package": "npx projen package",
+    "eslint": "npx projen eslint",
+    "default": "npx projen default",
+    "compat": "npx projen compat",
+    "publish:npm": "npx projen publish:npm",
+    "docgen": "npx projen docgen",
+    "release:next": "npx projen release:next",
+    "projen": "npx projen"
+  },
   "author": {
     "name": "Moritz Kornher",
     "email": "mail@moritzkornher.de",
-    "url": "https://moritzkornher.de"
+    "url": "https://moritzkornher.de",
+    "organization": false
   },
-  "repository": {
-    "url": "https://github.com/mrgrain/cdk-esbuild",
-    "type": "git"
-  },
-  "homepage": "https://github.com/mrgrain/cdk-esbuild",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "scripts": {
-    "clean": "git clean -fx -q lib test",
-    "build": "tsc",
-    "github-release": "gh release create v$npm_package_version -d -F CHANGELOG.md",
-    "prepublishOnly": "npm run clean && npm run build && npm t",
-    "postpublish": "npm run clean",
-    "release": "standard-version -s",
-    "tag:cdk": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version cdk-$npm_package_version",
-    "tag:latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
-    "test": "jest",
-    "test-cycle": "npm i && npm run clean && npm run build && npm t && npm run clean"
-  },
-  "dependencies": {
-    "esbuild": "^0.13.0"
+  "devDependencies": {
+    "@aws-cdk/assert": "^1.99.0",
+    "@aws-cdk/aws-s3": "^1.99.0",
+    "@types/eslint": "^7.28.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.17.0",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "esbuild": "^0.13.0",
+    "eslint": "^7.32.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-import-resolver-typescript": "^2.5.0",
+    "eslint-plugin-import": "^2.24.2",
+    "jest": "^26.4.2",
+    "jest-junit": "^12",
+    "jsii": "^1.35.0",
+    "jsii-diff": "^1.35.0",
+    "jsii-docgen": "^3.6.3",
+    "jsii-pacmak": "^1.35.0",
+    "json-schema": "^0.3.0",
+    "npm-check-updates": "^11",
+    "projen": "^0.28.34",
+    "standard-version": "^9",
+    "ts-jest": "^26.5.1",
+    "ts-node": "^9",
+    "typescript": "^4.2.3"
   },
   "peerDependencies": {
     "@aws-cdk/aws-lambda": "^1.99.0",
     "@aws-cdk/aws-s3-assets": "^1.99.0",
     "@aws-cdk/aws-s3-deployment": "^1.99.0",
     "@aws-cdk/aws-synthetics": "^1.99.0",
+    "@aws-cdk/core": "^1.99.0",
+    "constructs": "^3.2.27"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-lambda": "^1.99.0",
+    "@aws-cdk/aws-s3-assets": "^1.99.0",
+    "@aws-cdk/aws-s3-deployment": "^1.99.0",
+    "@aws-cdk/aws-synthetics": "^1.99.0",
     "@aws-cdk/core": "^1.99.0"
   },
-  "devDependencies": {
-    "@aws-cdk/assert": "^1.99.0",
-    "@types/jest": "ts4.4",
-    "@types/node": "ts4.4",
-    "jest": "^27.0.3",
-    "standard-version": "^9.3.1",
-    "ts-jest": "^27.0.5",
-    "typescript": "^4.4.3"
-  },
-  "publishConfig": {
-    "access": "public",
-    "tag": "unstable"
-  },
+  "bundledDependencies": [],
   "keywords": [
     "aws-cdk",
     "bundler",
@@ -60,5 +87,66 @@
     "s3",
     "s3-deployment",
     "static website"
-  ]
+  ],
+  "main": "lib/index.js",
+  "license": "MIT",
+  "homepage": "https://github.com/mrgrain/cdk-esbuild",
+  "publishConfig": {
+    "tag": "next"
+  },
+  "version": "0.0.0",
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.ts?(x)",
+      "**/?(*.)+(spec|test).ts?(x)"
+    ],
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "clover",
+      "text"
+    ],
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ],
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test-reports"
+        }
+      ]
+    ],
+    "preset": "ts-jest",
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "tsconfig.jest.json"
+      }
+    }
+  },
+  "types": "lib/index.d.ts",
+  "stability": "stable",
+  "jsii": {
+    "outdir": "dist",
+    "targets": {},
+    "tsc": {
+      "outDir": "lib",
+      "rootDir": "src"
+    }
+  },
+  "optionalDependencies": {
+    "esbuild": "^0.13.0"
+  },
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
 }

@@ -1,8 +1,8 @@
-import { Asset as S3Asset } from "@aws-cdk/aws-s3-assets";
-import { AssetHashType, Construct, ConstructNode, IAsset } from "@aws-cdk/core";
-import { isAbsolute } from "path";
-import { BuildOptions, BundlerPriority } from "./bundlers";
-import { EsbuildBundling } from "./bundling";
+import { isAbsolute } from 'path';
+import { Asset as S3Asset } from '@aws-cdk/aws-s3-assets';
+import { AssetHashType, Construct, ConstructNode, IAsset } from '@aws-cdk/core';
+import { BuildOptions, BundlerPriority } from './bundlers';
+import { EsbuildBundling } from './bundling';
 export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
    * Relative paths to the entrypoints of your code, e.g. `src/index.ts`
@@ -24,7 +24,7 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
   /**
    * Options passed on to esbuild.
    */
-  buildOptions?: Omit<BuildOptions, "entryPoints">;
+  buildOptions?: Omit<BuildOptions, 'entryPoints'>;
 }
 
 export type JavaScriptAssetProps = EsbuildAssetProps;
@@ -40,17 +40,17 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       bundlerPriority = BundlerPriority.AttemptLocal,
       copyDir,
       buildOptions: options = {},
-    }: Props
+    }: Props,
   ) {
-    const entryPoints: BuildOptions["entryPoints"] =
-      typeof propEntryPoints === "string" ? [propEntryPoints] : propEntryPoints;
+    const entryPoints: BuildOptions['entryPoints'] =
+      typeof propEntryPoints === 'string' ? [propEntryPoints] : propEntryPoints;
 
     const name = scope.node.path + ConstructNode.PATH_SEP + id;
 
     Object.values(entryPoints).forEach((entryPoint: string) => {
       if (isAbsolute(entryPoint)) {
         throw new Error(
-          `${name}: Entry points must be a relative path. If you need to define an absolute path, please use \`buildOptions.absWorkingDir\` accordingly.`
+          `${name}: Entry points must be a relative path. If you need to define an absolute path, please use \`buildOptions.absWorkingDir\` accordingly.`,
         );
       }
     });
@@ -75,7 +75,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
         {
           priority: bundlerPriority,
           copyDir,
-        }
+        },
       ),
     });
   }

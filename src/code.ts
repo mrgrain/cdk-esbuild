@@ -2,24 +2,24 @@ import {
   Code as LambdaCode,
   CodeConfig as LambdaCodeConfig,
   ResourceBindOptions,
-} from "@aws-cdk/aws-lambda";
+} from '@aws-cdk/aws-lambda';
 import {
   Code as SyntheticsCode,
   CodeConfig as SyntheticsCodeConfig,
-} from "@aws-cdk/aws-synthetics";
-import { CfnResource, Construct, Stack } from "@aws-cdk/core";
+} from '@aws-cdk/aws-synthetics';
+import { CfnResource, Construct, Stack } from '@aws-cdk/core';
 import {
   EsbuildAssetProps,
   JavaScriptAsset as JSAsset,
   TypeScriptAsset as TSAsset,
-} from "./asset";
-import { BuildOptions } from "./bundlers";
+} from './asset';
+import { BuildOptions } from './bundlers';
 
 function nodeMajorVersion(): number {
-  return parseInt(process.versions.node.split(".")[0], 10);
+  return parseInt(process.versions.node.split('.')[0], 10);
 }
 
-type CodeProps = Omit<EsbuildAssetProps, "entryPoints">;
+type CodeProps = Omit<EsbuildAssetProps, 'entryPoints'>;
 
 type JavaScriptCodeProps = CodeProps;
 type TypeScriptCodeProps = CodeProps;
@@ -36,20 +36,20 @@ abstract class Code<
 
   protected props: EsbuildAssetProps;
 
-  protected asset: Asset;
+  protected asset!: Asset;
 
-  public isInline: false;
+  public isInline: false = false;
 
   /**
    *
    * @param entryPoints - Relative path to the asset code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Asset properties.
    */
-  constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
+  constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
     const defaultOptions: Partial<BuildOptions> = {
       ...(!props.buildOptions?.platform ||
-          props.buildOptions?.platform === "node"
-        ? { platform: "node", target: "node" + nodeMajorVersion() }
+          props.buildOptions?.platform === 'node'
+        ? { platform: 'node', target: 'node' + nodeMajorVersion() }
         : {}),
     };
 
@@ -77,7 +77,7 @@ abstract class Code<
       throw new Error(
         `Asset is already associated with another stack '${
           Stack.of(this.asset).stackName
-        }'. ` + "Create a new Asset instance for every stack.",
+        }'. ` + 'Create a new Asset instance for every stack.',
       );
     }
 
@@ -91,7 +91,7 @@ abstract class Code<
 
   bindToResource(resource: CfnResource, options?: ResourceBindOptions) {
     if (!this.asset) {
-      throw new Error("bindToResource() must be called after bind()");
+      throw new Error('bindToResource() must be called after bind()');
     }
     const resourceProperty = options?.resourceProperty || this.constructor.name;
     // https://github.com/aws/aws-cdk/issues/1432
@@ -103,7 +103,7 @@ export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
   protected AssetClass = JSAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
+    entryPoints: EsbuildAssetProps['entryPoints'],
     props: JavaScriptCodeProps = {},
   ) {
     super(entryPoints, props);
@@ -113,7 +113,7 @@ export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
   protected AssetClass = TSAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
+    entryPoints: EsbuildAssetProps['entryPoints'],
     props: TypeScriptCodeProps = {},
   ) {
     super(entryPoints, props);
