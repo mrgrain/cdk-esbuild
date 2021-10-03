@@ -15,7 +15,13 @@ This package is running _esbuild_ directly in Node.js and bypasses Docker which 
 
 ## Getting started
 
-Install `cdk-esbuild` and required peer dependencies:
+Install `cdk-esbuild`:
+
+```
+npm install @mrgrain/cdk-esbuild
+```
+
+⚠️ When using an older version of npm (4-6), the required peer dependencies have to be installed manually. Use this command instead:
 
 ```
 npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment
@@ -24,12 +30,6 @@ npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-
 ### Lambda function
 
 > 💡 See [Lambda Function](examples/lambda) for a complete working example of a how to deploy a lambda function.
-
-Install the the lambda package:
-
-```
-npm install @aws-cdk/aws-lambda
-```
 
 Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html#code):
 
@@ -49,12 +49,6 @@ const fn = new lambda.Function(this, "MyFunction", {
 ### Static Website
 
 > 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
-
-Install the S3 deployment package:
-
-```
-npm install @aws-cdk/aws-s3-deployment
-```
 
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
