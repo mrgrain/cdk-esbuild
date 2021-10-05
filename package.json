@@ -34,6 +34,7 @@
     "@aws-cdk/aws-lambda": "^1.99.0",
     "@aws-cdk/aws-s3-assets": "^1.99.0",
     "@aws-cdk/aws-s3-deployment": "^1.99.0",
+    "@aws-cdk/aws-synthetics": "^1.99.0",
     "@aws-cdk/core": "^1.99.0"
   },
   "devDependencies": {
