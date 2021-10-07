@@ -27,7 +27,7 @@ npm install @mrgrain/cdk-esbuild
 npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
 ```
 
-### Lambda function
+### AWS Lambda: Serverless function
 
 > 💡 See [Lambda Function](examples/lambda) for a complete working example of a how to deploy a lambda function.
 
@@ -46,7 +46,7 @@ const fn = new lambda.Function(stack, "MyFunction", {
 });
 ```
 
-### Static Website
+### AWS S3: Static Website
 
 > 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
 
@@ -72,10 +72,12 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 });
 ```
 
-### Amazon CloudWatch Synthetics
+### Amazon CloudWatch Synthetics: Canary monitoring
 
 > ⚠️ **Status: Experimental** \
 > Expect the interface to change. Please report any issues!
+
+> 💡 See [Monitored Website](examples/website) for a complete working example of deployed and monitored website.
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
@@ -83,10 +85,14 @@ Synthetics runs a canary to produce traffic to an application for monitoring pur
 import * as synthetics from "@aws-cdk/aws-synthetics";
 import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 
-const bundledCode = new TypeScriptCode("src/index.ts");
+const bundledCode = new TypeScriptCode("src/index.ts", {
+  buildOptions: {
+    outdir: "nodejs/node_modules", // This is required by Synthetics
+  },
+});
 
 const canary = new synthetics.Canary(stack, "MyCanary", {
-  runtime: synthetics.SyntheticsRuntime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+  runtime: synthetics.Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
   test: synthetics.Test.custom({
     code: bundledCode,
     handler: "index.handler",
