@@ -4,16 +4,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.126.0-beta.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.125.0...v1.126.0-beta.0) (2021-10-07)
 
-
 ### Features
 
-* make Code compatible to @aws-cdk/aws-synthetics ([#99](https://github.com/mrgrain/cdk-esbuild/issues/99)) ([f840300](https://github.com/mrgrain/cdk-esbuild/commit/f840300439f7175c46d173378d8e941b7dd80483))
-
-
-### Bug Fixes
-
-* **examples/lambda:** fix typo ([f2f1f57](https://github.com/mrgrain/cdk-esbuild/commit/f2f1f57bec937d7213158ff85a8a3752f782b642))
-* **examples/website:** NODE_ENV is now automatically defined by esbuild ([facf62a](https://github.com/mrgrain/cdk-esbuild/commit/facf62a05c56186082dd0413eaa1e5b39a410fe2))
+- works with cdk-1.126.0
+- [Experimental] `Code` is now compatible with `@aws-cdk/aws-synthetics` ([#99](https://github.com/mrgrain/cdk-esbuild/issues/99)) ([f840300](https://github.com/mrgrain/cdk-esbuild/commit/f840300439f7175c46d173378d8e941b7dd80483))
 
 ## [1.125.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.124.0...v1.125.0) (2021-10-01)
 
