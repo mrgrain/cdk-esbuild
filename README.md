@@ -24,7 +24,7 @@ npm install @mrgrain/cdk-esbuild
 ⚠️ When using an older version of npm (4-6), the required peer dependencies have to be installed manually. Use this command instead:
 
 ```
-npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment
+npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
 ```
 
 ### Lambda function
@@ -39,7 +39,7 @@ import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 
 const bundledCode = new TypeScriptCode("src/index.ts");
 
-const fn = new lambda.Function(this, "MyFunction", {
+const fn = new lambda.Function(stack, "MyFunction", {
   runtime: lambda.Runtime.NODEJS_14_X,
   handler: "index.handler",
   code: bundledCode,
@@ -59,16 +59,38 @@ import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
 
 const websiteBundle = new TypeScriptSource("src/index.tsx");
 
-const websiteBucket = new s3.Bucket(this, "WebsiteBucket", {
+const websiteBucket = new s3.Bucket(stack, "WebsiteBucket", {
   autoDeleteObjects: true,
   publicReadAccess: true,
   removalPolicy: RemovalPolicy.DESTROY,
   websiteIndexDocument: "index.html",
 });
 
-new s3deploy.BucketDeployment(this, "DeployWebsite", {
+new s3deploy.BucketDeployment(stack, "DeployWebsite", {
   destinationBucket: websiteBucket,
   sources: [websiteBundle],
+});
+```
+
+### Amazon CloudWatch Synthetics
+
+> ⚠️ **Status: Experimental** \
+> Expect the interface to change. Please report any issues!
+
+Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
+
+```ts
+import * as synthetics from "@aws-cdk/aws-synthetics";
+import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
+
+const bundledCode = new TypeScriptCode("src/index.ts");
+
+const canary = new synthetics.Canary(stack, "MyCanary", {
+  runtime: synthetics.SyntheticsRuntime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+  test: synthetics.Test.custom({
+    code: bundledCode,
+    handler: "index.handler",
+  });
 });
 ```
 
@@ -76,9 +98,12 @@ new s3deploy.BucketDeployment(this, "DeployWebsite", {
 
 The package exports various different constructs for use with existing CDK features. A major guiding design principal for this package is to _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
 
-For use in **lambda functions**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)):
+For use in **Lambda Functions** and **Synthetic Canaries**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-synthetics.Code.html)):
 
 - `TypeScriptCode` & `JavaScriptCode`
+
+Inline code is only supported by **Lambda**:
+
 - `InlineTypeScriptCode` & `InlineJavaScriptCode`
 - `InlineTsxCode` & `InlineJsxCode`
 

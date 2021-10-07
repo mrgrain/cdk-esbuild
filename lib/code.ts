@@ -1,8 +1,12 @@
 import {
   Code as LambdaCode,
-  CodeConfig,
+  CodeConfig as LambdaCodeConfig,
   ResourceBindOptions,
 } from "@aws-cdk/aws-lambda";
+import {
+  Code as SyntheticsCode,
+  CodeConfig as SyntheticsCodeConfig,
+} from "@aws-cdk/aws-synthetics";
 import { CfnResource, Construct, Stack } from "@aws-cdk/core";
 import {
   EsbuildAssetProps,
@@ -22,12 +26,12 @@ type TypeScriptCodeProps = CodeProps;
 
 abstract class Code<
   Props extends CodeProps,
-  Asset extends JSAsset | TSAsset
-> extends LambdaCode {
+  Asset extends JSAsset | TSAsset,
+> implements LambdaCode, SyntheticsCode {
   protected abstract AssetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps
+    props: EsbuildAssetProps,
   ) => Asset;
 
   protected props: EsbuildAssetProps;
@@ -42,11 +46,9 @@ abstract class Code<
    * @param props - Asset properties.
    */
   constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
-    super();
-
     const defaultOptions: Partial<BuildOptions> = {
       ...(!props.buildOptions?.platform ||
-      props.buildOptions?.platform === "node"
+          props.buildOptions?.platform === "node"
         ? { platform: "node", target: "node" + nodeMajorVersion() }
         : {}),
     };
@@ -61,19 +63,21 @@ abstract class Code<
     };
   }
 
-  bind(scope: Construct): CodeConfig {
+  bind(
+    scope: Construct,
+  ): LambdaCodeConfig & SyntheticsCodeConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
       this.asset = new this.AssetClass(
         scope,
         this.constructor.name,
-        this.props
+        this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
       throw new Error(
         `Asset is already associated with another stack '${
           Stack.of(this.asset).stackName
-        }'. ` + "Create a new Asset instance for every stack."
+        }'. ` + "Create a new Asset instance for every stack.",
       );
     }
 
@@ -100,7 +104,7 @@ export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
 
   constructor(
     entryPoints: EsbuildAssetProps["entryPoints"],
-    props: JavaScriptCodeProps = {}
+    props: JavaScriptCodeProps = {},
   ) {
     super(entryPoints, props);
   }
@@ -110,7 +114,7 @@ export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
 
   constructor(
     entryPoints: EsbuildAssetProps["entryPoints"],
-    props: TypeScriptCodeProps = {}
+    props: TypeScriptCodeProps = {},
   ) {
     super(entryPoints, props);
   }
