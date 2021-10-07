@@ -1,11 +1,19 @@
 import { Bucket } from "@aws-cdk/aws-s3";
 import { BucketDeployment } from "@aws-cdk/aws-s3-deployment";
-import * as cdk from "@aws-cdk/core";
-import { CfnOutput, RemovalPolicy } from "@aws-cdk/core";
-import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
+import { Canary, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics";
+import { Alarm, ComparisonOperator } from "@aws-cdk/aws-cloudwatch";
+import {
+  CfnOutput,
+  Construct,
+  Duration,
+  RemovalPolicy,
+  Stack,
+  StackProps,
+} from "@aws-cdk/core";
+import { TypeScriptCode, TypeScriptSource } from "@mrgrain/cdk-esbuild";
 
-export class WebsiteStack extends cdk.Stack {
-  constructor(scope?: cdk.Construct, id?: string, props?: cdk.StackProps) {
+export class WebsiteStack extends Stack {
+  constructor(scope?: Construct, id?: string, props?: StackProps) {
     super(scope, id, props);
 
     const websiteBundle = new TypeScriptSource("./src/index.tsx", {
@@ -22,13 +30,47 @@ export class WebsiteStack extends cdk.Stack {
       websiteIndexDocument: "index.html",
     });
 
-    new BucketDeployment(this, "DeployWebsite", {
+    const website = new BucketDeployment(this, "DeployWebsite", {
       destinationBucket: websiteBucket,
       sources: [websiteBundle],
     });
 
     new CfnOutput(this, "WebsiteUrl", {
       value: websiteBucket.bucketWebsiteUrl,
+    });
+
+    const canary = new Canary(this, "Monitoring", {
+      schedule: Schedule.rate(Duration.hours(1)),
+      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+      test: Test.custom({
+        code: new TypeScriptCode("./src/canary.ts", {
+          buildOptions: {
+            outdir: "nodejs/node_modules",
+            external: [
+              "Synthetics",
+            ],
+          },
+        }),
+        handler: "canary.handler",
+      }),
+      environmentVariables: {
+        MONITORING_URL: websiteBucket.bucketWebsiteUrl,
+        TIMEOUT: "3000",
+      },
+      artifactsBucketLocation: {
+        bucket: new Bucket(this, "ArtifactsBucket", {
+          autoDeleteObjects: true,
+          removalPolicy: RemovalPolicy.DESTROY,
+        }),
+      },
+    });
+    canary.node.addDependency(website);
+
+    new Alarm(this, "CanaryAlarm", {
+      metric: canary.metricSuccessPercent(),
+      evaluationPeriods: 2,
+      threshold: 90,
+      comparisonOperator: ComparisonOperator.LESS_THAN_THRESHOLD,
     });
   }
 }
