@@ -6,6 +6,8 @@ const App = (): JSX.Element => (
       Static Website with React
       <br />
       <small>Made easy with @mrgrain/cdk-esbuild</small>
+      <hr />
+      <small>Uptime monitored with Amazon CloudWatch Synthetics</small>
     </h1>
   </div>
 );
