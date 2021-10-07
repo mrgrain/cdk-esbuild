@@ -77,8 +77,6 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 > ⚠️ **Status: Experimental** \
 > Expect the interface to change. Please report any issues!
 
-> 💡 See [Monitored Website](examples/website) for a complete working example of deployed and monitored website.
-
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
 ```ts
