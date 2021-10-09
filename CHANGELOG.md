@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.127.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.126.0...v1.127.0) (2021-10-09)
+
+
+### Features
+
+* **example/website:** Monitor uptime with Synthetics ([621d2d4](https://github.com/mrgrain/cdk-esbuild/commit/621d2d4192da63fa385b76b59353ffe77023c38d))
+
 ## [1.126.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.126.0-beta.0...v1.126.0) (2021-10-09)
 
 ### Features
