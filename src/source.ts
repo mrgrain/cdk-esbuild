@@ -4,19 +4,17 @@ import {
   SourceConfig,
 } from '@aws-cdk/aws-s3-deployment';
 import { Construct, Stack } from '@aws-cdk/core';
-import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
-import { BuildOptions } from './bundlers';
+import { EsbuildAssetProps, EsbuildProps, JavaScriptAsset, TypeScriptAsset } from './asset';
+import { EsbuildOptions } from './bundlers';
 
-type SourceProps = Omit<EsbuildAssetProps, 'entryPoints'>;
-
-type JavaScriptSourceProps = SourceProps;
-type TypeScriptSourceProps = SourceProps;
+type JavaScriptSourceProps = EsbuildProps;
+type TypeScriptSourceProps = EsbuildProps;
 
 abstract class Source<
-  Props extends SourceProps,
+  Props extends EsbuildProps,
   Asset extends JavaScriptAsset | TypeScriptAsset,
 > implements ISource {
-  protected abstract AssetClass: new (
+  protected readonly abstract assetClass: new (
     scope: Construct,
     id: string,
     props: EsbuildAssetProps,
@@ -32,7 +30,7 @@ abstract class Source<
    * @param props - Source properties.
    */
   constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
-    const defaultOptions: Partial<BuildOptions> = {
+    const defaultOptions: Partial<EsbuildOptions> = {
       platform: 'browser',
     };
 
@@ -49,7 +47,7 @@ abstract class Source<
   bind(scope: Construct, context?: DeploymentSourceContext): SourceConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
-      this.asset = new this.AssetClass(
+      this.asset = new this.assetClass(
         scope,
         this.constructor.name,
         this.props,
@@ -84,7 +82,7 @@ export class JavaScriptSource extends Source<
 JavaScriptSourceProps,
 JavaScriptAsset
 > {
-  protected AssetClass = JavaScriptAsset;
+  assetClass = JavaScriptAsset;
 
   constructor(
     entryPoints: EsbuildAssetProps['entryPoints'],
@@ -98,7 +96,7 @@ export class TypeScriptSource extends Source<
 TypeScriptSourceProps,
 TypeScriptAsset
 > {
-  protected AssetClass = TypeScriptAsset;
+  assetClass = TypeScriptAsset;
 
   constructor(
     entryPoints: EsbuildAssetProps['entryPoints'],

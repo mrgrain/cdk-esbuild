@@ -61,10 +61,21 @@ const project = new AwsCdkConstructLibrary({
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/aws-synthetics',
   ],
-  cdkTestDependencies: ['@aws-cdk/assert', '@aws-cdk/aws-s3'],
-  devDeps: ['@types/eslint', 'esbuild@^0.13.0'],
+  cdkTestDependencies: [
+    '@aws-cdk/assert',
+    '@aws-cdk/aws-s3',
+    '@aws-cdk/core',
+    '@aws-cdk/aws-lambda',
+    '@aws-cdk/aws-s3-assets',
+    '@aws-cdk/aws-s3-deployment',
+    '@aws-cdk/aws-synthetics',
+  ],
+  devDeps: [
+    '@types/eslint',
+    'esbuild@^0.13.0',
+  ],
 
-  // Ignorefiles
+  // Ignore files
   gitignore: [
     '.npmrc',
     '*.gz',
@@ -110,12 +121,12 @@ const esbuildTypes = (
   await linter.lintText(
     readFileSync('node_modules/esbuild/lib/main.d.ts').toString(),
     {
-      filePath: 'src/esbuild-types.ts',
+      filePath: 'src/esbuild-types-raw.ts',
     },
   )
 ).pop().output;
 
-new TextFile(project, 'src/esbuild-types.ts', {
+new TextFile(project, 'src/esbuild-types-raw.ts', {
   editGitignore: false,
   lines: [esbuildTypes],
 });

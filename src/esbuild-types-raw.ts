@@ -5,64 +5,68 @@ export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'sil
 export type Charset = 'ascii' | 'utf8';
 
 interface CommonOptions {
-  readonly sourcemap?: boolean | 'inline' | 'external' | 'both';
-  readonly legalComments?: 'none' | 'inline' | 'eof' | 'linked' | 'external';
-  readonly sourceRoot?: string;
-  readonly sourcesContent?: boolean;
+  sourcemap?: boolean | 'inline' | 'external' | 'both';
+  legalComments?: 'none' | 'inline' | 'eof' | 'linked' | 'external';
+  sourceRoot?: string;
+  sourcesContent?: boolean;
 
-  readonly format?: Format;
-  readonly globalName?: string;
-  readonly target?: string | string[];
+  format?: Format;
+  globalName?: string;
+  target?: string | string[];
 
-  readonly minify?: boolean;
-  readonly minifyWhitespace?: boolean;
-  readonly minifyIdentifiers?: boolean;
-  readonly minifySyntax?: boolean;
-  readonly charset?: Charset;
-  readonly treeShaking?: boolean;
-  readonly ignoreAnnotations?: boolean;
+  minify?: boolean;
+  minifyWhitespace?: boolean;
+  minifyIdentifiers?: boolean;
+  minifySyntax?: boolean;
+  charset?: Charset;
+  treeShaking?: boolean;
+  ignoreAnnotations?: boolean;
 
-  readonly jsx?: 'transform' | 'preserve';
-  readonly jsxFactory?: string;
-  readonly jsxFragment?: string;
+  jsx?: 'transform' | 'preserve';
+  jsxFactory?: string;
+  jsxFragment?: string;
 
-  readonly define?: { [key: string]: string };
-  readonly pure?: string[];
-  readonly keepNames?: boolean;
+  define?: { [key: string]: string };
+  pure?: string[];
+  keepNames?: boolean;
 
-  readonly color?: boolean;
-  readonly logLevel?: LogLevel;
-  readonly logLimit?: number;
+  color?: boolean;
+  logLevel?: LogLevel;
+  logLimit?: number;
 }
 
 export interface BuildOptions extends CommonOptions {
-  readonly bundle?: boolean;
-  readonly splitting?: boolean;
-  readonly preserveSymlinks?: boolean;
-  readonly outfile?: string;
-  readonly metafile?: boolean;
-  readonly outdir?: string;
-  readonly outbase?: string;
-  readonly platform?: Platform;
-  readonly external?: string[];
-  readonly loader?: { [ext: string]: Loader };
-  readonly resolveExtensions?: string[];
-  readonly mainFields?: string[];
-  readonly conditions?: string[];
-  readonly write?: boolean;
-  readonly allowOverwrite?: boolean;
-  readonly tsconfig?: string;
-  readonly outExtension?: { [ext: string]: string };
-  readonly publicPath?: string;
-  readonly entryNames?: string;
-  readonly chunkNames?: string;
-  readonly assetNames?: string;
-  readonly inject?: string[];
-  readonly banner?: { [type: string]: string };
-  readonly footer?: { [type: string]: string };
-  readonly incremental?: boolean;
-  readonly absWorkingDir?: string;
-  readonly nodePaths?: string[]; // The "NODE_PATH" variable from Node.js
+  bundle?: boolean;
+  splitting?: boolean;
+  preserveSymlinks?: boolean;
+  outfile?: string;
+  metafile?: boolean;
+  outdir?: string;
+  outbase?: string;
+  platform?: Platform;
+  external?: string[];
+  loader?: { [ext: string]: Loader };
+  resolveExtensions?: string[];
+  mainFields?: string[];
+  conditions?: string[];
+  write?: boolean;
+  allowOverwrite?: boolean;
+  tsconfig?: string;
+  outExtension?: { [ext: string]: string };
+  publicPath?: string;
+  entryNames?: string;
+  chunkNames?: string;
+  assetNames?: string;
+  inject?: string[];
+  banner?: { [type: string]: string };
+  footer?: { [type: string]: string };
+  incremental?: boolean;
+  entryPoints?: string[] | Record<string, string>;
+  stdin?: StdinOptions;
+  plugins?: Plugin[];
+  absWorkingDir?: string;
+  nodePaths?: string[]; // The "NODE_PATH" variable from Node.js
+  watch?: boolean | WatchMode;
 }
 
 export interface WatchMode {
@@ -154,11 +158,19 @@ export interface ServeResult {
 }
 
 export interface TransformOptions extends CommonOptions {
-  readonly tsconfigRaw?: string;
-  readonly sourcefile?: string;
-  readonly loader?: Loader;
-  readonly banner?: string;
-  readonly footer?: string;
+  tsconfigRaw?: string | {
+    compilerOptions?: {
+      jsxFactory?: string;
+      jsxFragmentFactory?: string;
+      useDefineForClassFields?: boolean;
+      importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
+    };
+  };
+
+  sourcefile?: string;
+  loader?: Loader;
+  banner?: string;
+  footer?: string;
 }
 
 export interface TransformResult {
