@@ -1,56 +1,22 @@
 import { join, normalize, resolve, posix, PlatformPath } from 'path';
 import {
   BundlingOptions,
-  DockerImage,
   FileSystem,
   ILocalBundling,
 } from '@aws-cdk/core';
-import { BuildOptions as EsbuildOptions, BuildFailure, BuildResult } from './esbuild-types';
+import { BuildOptions, BuildFailure, BuildResult } from './esbuild-types';
 import { buildSync } from './esbuild-wrapper';
 import { printBuildMessages } from './formatMessages';
 
-type MarkRequired<T, RK extends keyof T> = Exclude<T, RK> &
-Required<Pick<T, RK>>;
-
-export type BuildOptions = MarkRequired<EsbuildOptions, 'entryPoints'>;
-
-export enum BundlerPriority {
-  /**
-   * Only use the Docker bundler
-   */
-  DockerOnly,
-
-  /**
-   * Only use the local bundler
-   */
-  LocalOnly,
-
-  /**
-   * Attempts to first use the local bundler, only use Docker bundler if local fails.
-   */
-  AttemptLocal,
+export interface EsbuildOptions extends BuildOptions {
+  readonly entryPoints: string[] | Record<string, string>;
 }
 
-export interface BundlerProps {
+export interface EsbuildBundlingProps {
   /**
    * Relative path to a directory copied to the output before esbuild is run (i.e esbuild will overwrite existing files).
    */
-  copyDir?: string;
-
-  /**
-   * Docker build only. A npm compatible version constraint.
-   *
-   * If not provided will attempt to read from a `package-lock.json` or `package.json` file in the `absWorkingDir`.
-   * Otherwise uses the constraint provided by this package (usually ^0.x.0).
-   */
-  esbuildVersion?: string;
-
-  /**
-   * Priority order of available bundlers. Defaults to attempt local first, then docker.
-   *
-   * @default BundlerPriority.AttemptLocal
-   */
-  priority?: BundlerPriority;
+  readonly copyDir?: string;
 }
 
 function getOutputOptions(
@@ -78,8 +44,8 @@ function getOutputOptions(
 
 export class LocalBundler implements ILocalBundling {
   public constructor(
-    public readonly buildOptions: BuildOptions,
-    public readonly props: BundlerProps = {},
+    public readonly buildOptions: EsbuildOptions,
+    public readonly props: EsbuildBundlingProps = {},
   ) {}
 
   tryBundle(outputDir: string, _options: BundlingOptions): boolean {
@@ -105,58 +71,10 @@ export class LocalBundler implements ILocalBundling {
       });
 
       printBuildMessages(buildResult, { prefix: 'Build ' });
-
-      return true;
     } catch (error) {
       printBuildMessages(error as BuildFailure, { prefix: 'Build ' });
-
-      return Boolean(this.props.priority === BundlerPriority.LocalOnly);
-    }
-  }
-}
-
-export class DockerBundler implements BundlingOptions {
-  public get image(): DockerImage {
-    return DockerImage.fromBuild(resolve(__dirname, '..', 'esbuild'), {
-      buildArgs: {
-        version: this.props.esbuildVersion ?? '*',
-      },
-    });
-  }
-
-  public get command(): string[] {
-    return [
-      JSON.stringify({
-        ...this.props,
-        outputDirectory: this.outputDirectory,
-        options: this.buildOptions,
-      }),
-    ];
-  }
-
-  public readonly workingDirectory = '/asset-input';
-
-  public readonly outputDirectory = '/asset-output';
-
-  public readonly buildOptions: BuildOptions;
-
-  public constructor(
-    buildOptions: BuildOptions,
-    public readonly props: BundlerProps = {},
-  ) {
-    if (buildOptions.outfile && buildOptions.outdir) {
-      throw new Error('Cannot use both "outfile" and "outdir"');
     }
 
-    this.buildOptions = {
-      ...buildOptions,
-      ...getOutputOptions(
-        this.outputDirectory,
-        buildOptions.outfile,
-        buildOptions.outdir,
-        posix,
-      ),
-      absWorkingDir: this.workingDirectory,
-    };
+    return true;
   }
 }

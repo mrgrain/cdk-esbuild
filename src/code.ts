@@ -1,34 +1,36 @@
 import {
-  Code as LambdaCode,
-  CodeConfig as LambdaCodeConfig,
   ResourceBindOptions,
 } from '@aws-cdk/aws-lambda';
-import {
-  Code as SyntheticsCode,
-  CodeConfig as SyntheticsCodeConfig,
-} from '@aws-cdk/aws-synthetics';
 import { CfnResource, Construct, Stack } from '@aws-cdk/core';
 import {
   EsbuildAssetProps,
+  EsbuildProps,
   JavaScriptAsset as JSAsset,
   TypeScriptAsset as TSAsset,
 } from './asset';
-import { BuildOptions } from './bundlers';
+import { EsbuildOptions } from './bundlers';
 
 function nodeMajorVersion(): number {
   return parseInt(process.versions.node.split('.')[0], 10);
 }
 
-type CodeProps = Omit<EsbuildAssetProps, 'entryPoints'>;
+export interface Location {
+  readonly bucketName: string;
+  readonly objectKey: string;
+}
+export interface CodeConfig {
+  readonly s3Location?: Location;
+  readonly inlineCode?: string;
+}
 
-type JavaScriptCodeProps = CodeProps;
-type TypeScriptCodeProps = CodeProps;
+type JavaScriptCodeProps = EsbuildProps;
+type TypeScriptCodeProps = EsbuildProps;
 
 abstract class Code<
-  Props extends CodeProps,
+  Props extends EsbuildProps,
   Asset extends JSAsset | TSAsset,
-> implements LambdaCode, SyntheticsCode {
-  protected abstract AssetClass: new (
+> {
+  protected readonly abstract assetClass: new (
     scope: Construct,
     id: string,
     props: EsbuildAssetProps,
@@ -46,7 +48,7 @@ abstract class Code<
    * @param props - Asset properties.
    */
   constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
-    const defaultOptions: Partial<BuildOptions> = {
+    const defaultOptions: Partial<EsbuildOptions> = {
       ...(!props.buildOptions?.platform ||
           props.buildOptions?.platform === 'node'
         ? { platform: 'node', target: 'node' + nodeMajorVersion() }
@@ -65,10 +67,10 @@ abstract class Code<
 
   bind(
     scope: Construct,
-  ): LambdaCodeConfig & SyntheticsCodeConfig {
+  ): CodeConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
-      this.asset = new this.AssetClass(
+      this.asset = new this.assetClass(
         scope,
         this.constructor.name,
         this.props,
@@ -100,7 +102,7 @@ abstract class Code<
 }
 
 export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
-  protected AssetClass = JSAsset;
+  assetClass = JSAsset;
 
   constructor(
     entryPoints: EsbuildAssetProps['entryPoints'],
@@ -110,7 +112,7 @@ export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
   }
 }
 export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
-  protected AssetClass = TSAsset;
+  assetClass = TSAsset;
 
   constructor(
     entryPoints: EsbuildAssetProps['entryPoints'],

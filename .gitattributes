@@ -20,6 +20,6 @@
 /LICENSE                         	linguist-generated
 /package-lock.json               	linguist-generated
 /package.json                    	linguist-generated
-/src/esbuild-types.ts            	linguist-generated
+/src/esbuild-types-raw.ts        	linguist-generated
 /tsconfig.eslint.json            	linguist-generated
 /tsconfig.jest.json              	linguist-generated
