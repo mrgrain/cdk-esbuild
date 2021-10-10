@@ -1,8 +1,11 @@
-export { BundlerPriority, EsbuildBundling } from './bundling';
 
-export { JavaScriptAsset, TypeScriptAsset } from './asset';
+export { EsbuildBundling } from './bundling';
 
-export { JavaScriptCode, TypeScriptCode } from './code';
+export { EsbuildBundlingProps, LocalBundler, EsbuildOptions } from './bundlers';
+
+export { JavaScriptAsset, TypeScriptAsset, EsbuildProps, EsbuildAssetProps } from './asset';
+
+export { JavaScriptCode, TypeScriptCode, CodeConfig, Location } from './code';
 
 export {
   InlineJavaScriptCode,
@@ -12,3 +15,5 @@ export {
 } from './inline-code';
 
 export { JavaScriptSource, TypeScriptSource } from './source';
+
+export { BuildOptions, TransformOptions } from './esbuild-types';
