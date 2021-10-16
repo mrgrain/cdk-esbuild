@@ -1,6 +1,5 @@
-import {
-  ResourceBindOptions,
-} from '@aws-cdk/aws-lambda';
+import { ResourceBindOptions } from '@aws-cdk/aws-lambda';
+import { Location } from '@aws-cdk/aws-s3';
 import { CfnResource, Construct, Stack } from '@aws-cdk/core';
 import {
   EsbuildAssetProps,
@@ -14,13 +13,8 @@ function nodeMajorVersion(): number {
   return parseInt(process.versions.node.split('.')[0], 10);
 }
 
-export interface Location {
-  readonly bucketName: string;
-  readonly objectKey: string;
-}
 export interface CodeConfig {
-  readonly s3Location?: Location;
-  readonly inlineCode?: string;
+  s3Location: Location;
 }
 
 type JavaScriptCodeProps = EsbuildProps;
@@ -28,12 +22,12 @@ type TypeScriptCodeProps = EsbuildProps;
 
 abstract class Code<
   Props extends EsbuildProps,
-  Asset extends JSAsset | TSAsset,
+  Asset extends JSAsset | TSAsset
 > {
-  protected readonly abstract assetClass: new (
+  protected abstract readonly assetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps,
+    props: EsbuildAssetProps
   ) => Asset;
 
   protected props: EsbuildAssetProps;
@@ -50,7 +44,7 @@ abstract class Code<
   constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
     const defaultOptions: Partial<EsbuildOptions> = {
       ...(!props.buildOptions?.platform ||
-          props.buildOptions?.platform === 'node'
+      props.buildOptions?.platform === 'node'
         ? { platform: 'node', target: 'node' + nodeMajorVersion() }
         : {}),
     };
@@ -65,9 +59,7 @@ abstract class Code<
     };
   }
 
-  bind(
-    scope: Construct,
-  ): CodeConfig {
+  bind(scope: Construct): CodeConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
       this.asset = new this.assetClass(

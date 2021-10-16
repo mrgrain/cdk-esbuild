@@ -61,15 +61,16 @@ const project = new AwsCdkConstructLibrary({
   cdkDependencies: [
     '@aws-cdk/core',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/aws-s3',
     '@aws-cdk/aws-s3-assets',
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/aws-synthetics',
   ],
   cdkTestDependencies: [
-    '@aws-cdk/assert',
-    '@aws-cdk/aws-s3',
     '@aws-cdk/core',
     '@aws-cdk/aws-lambda',
+    '@aws-cdk/assert',
+    '@aws-cdk/aws-s3',
     '@aws-cdk/aws-s3-assets',
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/aws-synthetics',

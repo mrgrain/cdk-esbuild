@@ -523,6 +523,19 @@ import { CodeConfig } from '@mrgrain/cdk-esbuild'
 const codeConfig: CodeConfig = { ... }
 ```
 
+##### `image`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.image"></a>
+
+```typescript
+public readonly image: CodeImageConfig;
+```
+
+- *Type:* [`@aws-cdk/aws-lambda.CodeImageConfig`](#@aws-cdk/aws-lambda.CodeImageConfig)
+- *Default:* code is not an ECR container image
+
+Docker image configuration (mutually exclusive with `s3Location` and `inlineCode`).
+
+---
+
 ##### `inlineCode`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.inlineCode"></a>
 
 ```typescript
@@ -530,6 +543,9 @@ public readonly inlineCode: string;
 ```
 
 - *Type:* `string`
+- *Default:* none
+
+Inline code (mutually exclusive with `s3Location`).
 
 ---
 
@@ -539,7 +555,10 @@ public readonly inlineCode: string;
 public readonly s3Location: Location;
 ```
 
-- *Type:* [`@mrgrain/cdk-esbuild.Location`](#@mrgrain/cdk-esbuild.Location)
+- *Type:* [`@aws-cdk/aws-s3.Location`](#@aws-cdk/aws-s3.Location)
+- *Default:* none
+
+The location of the code in S3 (mutually exclusive with `inlineCode`).
 
 ---
 
@@ -1194,36 +1213,6 @@ public readonly copyDir: string;
 - *Type:* `string`
 
 Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
-
----
-
-### Location <a name="@mrgrain/cdk-esbuild.Location"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { Location } from '@mrgrain/cdk-esbuild'
-
-const location: Location = { ... }
-```
-
-##### `bucketName`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.Location.property.bucketName"></a>
-
-```typescript
-public readonly bucketName: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `objectKey`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.Location.property.objectKey"></a>
-
-```typescript
-public readonly objectKey: string;
-```
-
-- *Type:* `string`
 
 ---
 
