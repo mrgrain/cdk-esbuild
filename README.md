@@ -4,6 +4,10 @@ _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fa
 
 [Getting started](#getting-started) | [Documentation](#documentation) | [Versioning](#versioning)
 
+## ⚠️ Alpha Version of `jsii` compatible package
+
+Documentation has not yet been updated.
+
 ## Why?
 
 _esbuild_ is an extremely fast bundler and minifier for Typescript and JavaScript.
