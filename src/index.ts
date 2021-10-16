@@ -5,7 +5,7 @@ export { EsbuildBundlingProps, LocalBundler, EsbuildOptions } from './bundlers';
 
 export { JavaScriptAsset, TypeScriptAsset, EsbuildProps, EsbuildAssetProps } from './asset';
 
-export { JavaScriptCode, TypeScriptCode, CodeConfig, Location } from './code';
+export { JavaScriptCode, TypeScriptCode, CodeConfig } from './code';
 
 export {
   InlineJavaScriptCode,
