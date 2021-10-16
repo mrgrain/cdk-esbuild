@@ -4,23 +4,24 @@ import {
   SourceConfig,
 } from '@aws-cdk/aws-s3-deployment';
 import { Construct, Stack } from '@aws-cdk/core';
-import { EsbuildAssetProps, EsbuildProps, JavaScriptAsset, TypeScriptAsset } from './asset';
-import { EsbuildOptions } from './bundlers';
+import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
+import { EntryPoints } from './bundler';
+import { BuildOptions } from './esbuild-types';
 
-type JavaScriptSourceProps = EsbuildProps;
-type TypeScriptSourceProps = EsbuildProps;
+export interface JavaScriptSourceProps extends AssetBaseProps{};
+export interface TypeScriptSourceProps extends AssetBaseProps{};
 
 abstract class Source<
-  Props extends EsbuildProps,
+  Props extends JavaScriptSourceProps | TypeScriptSourceProps,
   Asset extends JavaScriptAsset | TypeScriptAsset,
 > implements ISource {
   protected readonly abstract assetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps,
+    props: AssetProps,
   ) => Asset;
 
-  protected props: EsbuildAssetProps;
+  protected props: AssetProps;
 
   protected asset!: Asset;
 
@@ -29,8 +30,8 @@ abstract class Source<
    * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Source properties.
    */
-  constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
-    const defaultOptions: Partial<EsbuildOptions> = {
+  constructor(entryPoints: EntryPoints, props: Props) {
+    const defaultOptions: Partial<BuildOptions> = {
       platform: 'browser',
     };
 
@@ -85,7 +86,7 @@ JavaScriptAsset
   assetClass = JavaScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps['entryPoints'],
+    entryPoints: EntryPoints,
     props: JavaScriptSourceProps = {},
   ) {
     super(entryPoints, props);
@@ -99,7 +100,7 @@ TypeScriptAsset
   assetClass = TypeScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps['entryPoints'],
+    entryPoints: EntryPoints,
     props: TypeScriptSourceProps = {},
   ) {
     super(entryPoints, props);
