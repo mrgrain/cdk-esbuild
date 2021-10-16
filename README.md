@@ -279,18 +279,36 @@ Low-level class that can be used where a `BundlingOptions` are required. This cl
 
 _Because esbuild is still in major version zero, this package must be considered unstable. Notably updates to the minimal version requirement of esbuild will be introduced in minor versions of this package and thus will contain any breaking changes esbuild introduces._
 
+**Upcoming changes to versioning! See Future section below.**
+
 The package tracks the **minor** version number of CDK releases. It might work with newer versions of CDK, but has not been tested. Features changes, including breaking changes, will only be introduced alongside minor releases.
 
 **Patches releases** will contain fixes to this library only and do not necessarily reflect CDK patches.
 
-### Future & AWS CDK v2
+Any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to all new or experimental features and internal classes.
 
-With the monolithic version 2 of CDK (aka Mono-CDK) approaching fast, versioning for this library will change as well.
+### Future
 
-A major 2.0 release will be marked alongside CDK. From that point on, this package will mostly use _semantic versioning_ and not longer align version numbers with AWS CDK.
+### `jsii` compatibility
+
+I am actively working on a [jsii](https://aws.github.io/jsii/) compatible version of this constructs library, see the [next branch](https://github.com/mrgrain/cdk-esbuild/tree/next) for further details. Amongst other things, this will allow me to publish the package to the [Construct Hub](https://constructs.dev/).
+
+**The release of this will be in a new major version 2.** Versioning will evolve further towards semantic versioning,with `esbuild` upgrades being the exception. They will continue to be shipped as part of minor version updates and might include breaking changes.
+
+**Most of the package will remain the same** and migration will be easy. However some interfaces need to be updated for `jsii` and deprecated features will be removed.
+
+### AWS CDK v2
+
+With the monolithic version 2 of CDK (aka Mono-CDK) on the horizon, versioning for this library will change as well.
+
+A major release will be marked alongside CDK. From that point on, this package will mostly use _semantic versioning_ and not longer align version numbers with AWS CDK.
 
 The big exceptions will be updates to the minimal version requirement of esbuild. As long as esbuild is still in major version zero, these requirement updates will be introduced as minor version updates.
 
-Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental feature and internal classes only.
+Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental features and internal classes.
 
-In future, new major versions will appear with breaking changes, including updated of minimum (peer) dependencies.
+### Stable esbuild
+
+Once `esbuild` has reached a stable version 1.0, a new major version will be released for _all_ breaking changes, including updated of minimum (peer) dependencies.
+
+Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental features and internal classes.
