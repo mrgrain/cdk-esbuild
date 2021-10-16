@@ -1,11 +1,17 @@
 
-export { EsbuildBundling } from './bundling';
+export { BuildOptions, TransformOptions } from './esbuild-types';
 
-export { EsbuildBundlingProps, LocalBundler, EsbuildOptions } from './bundlers';
+export { EsbuildBundler, BundlerProps } from './bundler';
 
-export { JavaScriptAsset, TypeScriptAsset, EsbuildProps, EsbuildAssetProps } from './asset';
+export { JavaScriptAsset, TypeScriptAsset, AssetBaseProps, AssetProps } from './asset';
 
-export { JavaScriptCode, TypeScriptCode, CodeConfig } from './code';
+export {
+  JavaScriptCode,
+  JavaScriptCodeProps,
+  TypeScriptCode,
+  TypeScriptCodeProps,
+  CodeConfig,
+} from './code';
 
 export {
   InlineJavaScriptCode,
@@ -14,6 +20,9 @@ export {
   InlineTypeScriptCode,
 } from './inline-code';
 
-export { JavaScriptSource, TypeScriptSource } from './source';
-
-export { BuildOptions, TransformOptions } from './esbuild-types';
+export {
+  JavaScriptSource,
+  JavaScriptSourceProps,
+  TypeScriptSource,
+  TypeScriptSourceProps,
+} from './source';

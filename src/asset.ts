@@ -1,21 +1,9 @@
 import { isAbsolute } from 'path';
 import { Asset as S3Asset } from '@aws-cdk/aws-s3-assets';
 import { AssetHashType, Construct, ConstructNode } from '@aws-cdk/core';
-import { EsbuildOptions } from './bundlers';
-import { EsbuildBundling } from './bundling';
-import { BuildOptions } from './esbuild-types';
+import { EsbuildBundler, BundlerProps, EntryPoints } from './bundler';
 
-export interface EsbuildProps {
-  /**
-   * Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
-   */
-  readonly copyDir?: string;
-
-  /**
-   * Options passed on to esbuild.
-   */
-  readonly buildOptions?: BuildOptions;
-
+export interface AssetBaseProps extends BundlerProps {
   /**
    * A hash of this asset, which is available at construction time.
    *
@@ -26,29 +14,29 @@ export interface EsbuildProps {
   readonly assetHash?: string;
 }
 
-export interface EsbuildAssetProps extends EsbuildProps {
+export interface AssetProps extends AssetBaseProps {
   /**
    * Relative paths to the entrypoints of your code, e.g. `src/index.ts`
    */
-  readonly entryPoints: string | string[] | Record<string, string>;
+  readonly entryPoints: EntryPoints;
 }
 
-export type JavaScriptAssetProps = EsbuildAssetProps;
-export type TypeScriptAssetProps = EsbuildAssetProps;
+type JavaScriptAssetProps = AssetProps;
+type TypeScriptAssetProps = AssetProps;
 
-abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
+abstract class Asset<Props extends AssetProps> extends S3Asset {
   public constructor(
     scope: Construct,
     id: string,
-    {
-      entryPoints: propEntryPoints,
+    props: Props,
+  ) {
+    const {
       assetHash,
       copyDir,
       buildOptions: options = {},
-    }: Props,
-  ) {
-    const entryPoints: EsbuildOptions['entryPoints'] =
-      typeof propEntryPoints === 'string' ? [propEntryPoints] : propEntryPoints;
+    } = props;
+    const entryPoints: string[] | Record<string, string> =
+      typeof props.entryPoints === 'string' ? [props.entryPoints] : props.entryPoints;
 
     const name = scope.node.path + ConstructNode.PATH_SEP + id;
 
@@ -72,12 +60,10 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
       path: absWorkingDir,
       assetHash,
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
-      bundling: new EsbuildBundling(
+      bundling: new EsbuildBundler(
+        entryPoints,
         {
-          ...buildOptions,
-          entryPoints,
-        },
-        {
+          buildOptions,
           copyDir,
         },
       ),

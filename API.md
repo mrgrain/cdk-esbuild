@@ -3,6 +3,118 @@
 
 ## Structs <a name="Structs"></a>
 
+### AssetBaseProps <a name="@mrgrain/cdk-esbuild.AssetBaseProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { AssetBaseProps } from '@mrgrain/cdk-esbuild'
+
+const assetBaseProps: AssetBaseProps = { ... }
+```
+
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.assetHash"></a>
+
+```typescript
+public readonly assetHash: string;
+```
+
+- *Type:* `string`
+
+A hash of this asset, which is available at construction time.
+
+As this is a plain string, it
+can be used in construct IDs in order to enforce creation of a new resource when the content
+hash has changed.
+
+---
+
+### AssetProps <a name="@mrgrain/cdk-esbuild.AssetProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { AssetProps } from '@mrgrain/cdk-esbuild'
+
+const assetProps: AssetProps = { ... }
+```
+
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.assetHash"></a>
+
+```typescript
+public readonly assetHash: string;
+```
+
+- *Type:* `string`
+
+A hash of this asset, which is available at construction time.
+
+As this is a plain string, it
+can be used in construct IDs in order to enforce creation of a new resource when the content
+hash has changed.
+
+---
+
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string | string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
+
+---
+
 ### BuildOptions <a name="@mrgrain/cdk-esbuild.BuildOptions"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -513,6 +625,40 @@ public readonly write: boolean;
 
 ---
 
+### BundlerProps <a name="@mrgrain/cdk-esbuild.BundlerProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { BundlerProps } from '@mrgrain/cdk-esbuild'
+
+const bundlerProps: BundlerProps = { ... }
+```
+
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
 ### CodeConfig <a name="@mrgrain/cdk-esbuild.CodeConfig"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -523,56 +669,51 @@ import { CodeConfig } from '@mrgrain/cdk-esbuild'
 const codeConfig: CodeConfig = { ... }
 ```
 
-##### `image`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.image"></a>
-
-```typescript
-public readonly image: CodeImageConfig;
-```
-
-- *Type:* [`@aws-cdk/aws-lambda.CodeImageConfig`](#@aws-cdk/aws-lambda.CodeImageConfig)
-- *Default:* code is not an ECR container image
-
-Docker image configuration (mutually exclusive with `s3Location` and `inlineCode`).
-
----
-
-##### `inlineCode`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.inlineCode"></a>
-
-```typescript
-public readonly inlineCode: string;
-```
-
-- *Type:* `string`
-- *Default:* none
-
-Inline code (mutually exclusive with `s3Location`).
-
----
-
-##### `s3Location`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.s3Location"></a>
+##### `s3Location`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.s3Location"></a>
 
 ```typescript
 public readonly s3Location: Location;
 ```
 
 - *Type:* [`@aws-cdk/aws-s3.Location`](#@aws-cdk/aws-s3.Location)
-- *Default:* none
-
-The location of the code in S3 (mutually exclusive with `inlineCode`).
 
 ---
 
-### EsbuildAssetProps <a name="@mrgrain/cdk-esbuild.EsbuildAssetProps"></a>
+### JavaScriptCodeProps <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
-import { EsbuildAssetProps } from '@mrgrain/cdk-esbuild'
+import { JavaScriptCodeProps } from '@mrgrain/cdk-esbuild'
 
-const esbuildAssetProps: EsbuildAssetProps = { ... }
+const javaScriptCodeProps: JavaScriptCodeProps = { ... }
 ```
 
-##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAssetProps.property.assetHash"></a>
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.assetHash"></a>
 
 ```typescript
 public readonly assetHash: string;
@@ -588,7 +729,17 @@ hash has changed.
 
 ---
 
-##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAssetProps.property.buildOptions"></a>
+### JavaScriptSourceProps <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { JavaScriptSourceProps } from '@mrgrain/cdk-esbuild'
+
+const javaScriptSourceProps: JavaScriptSourceProps = { ... }
+```
+
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildOptions"></a>
 
 ```typescript
 public readonly buildOptions: BuildOptions;
@@ -600,7 +751,7 @@ Options passed on to esbuild.
 
 ---
 
-##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAssetProps.property.copyDir"></a>
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.copyDir"></a>
 
 ```typescript
 public readonly copyDir: string;
@@ -612,571 +763,7 @@ Relative path to a directory copied to the output BEFORE esbuild is run (i.e esb
 
 ---
 
-##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAssetProps.property.entryPoints"></a>
-
-```typescript
-public readonly entryPoints: string | string[] | {[ key: string ]: string};
-```
-
-- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
-
-Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
-
----
-
-### EsbuildBundlingProps <a name="@mrgrain/cdk-esbuild.EsbuildBundlingProps"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { EsbuildBundlingProps } from '@mrgrain/cdk-esbuild'
-
-const esbuildBundlingProps: EsbuildBundlingProps = { ... }
-```
-
-##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundlingProps.property.copyDir"></a>
-
-```typescript
-public readonly copyDir: string;
-```
-
-- *Type:* `string`
-
-Relative path to a directory copied to the output before esbuild is run (i.e esbuild will overwrite existing files).
-
----
-
-### EsbuildOptions <a name="@mrgrain/cdk-esbuild.EsbuildOptions"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { EsbuildOptions } from '@mrgrain/cdk-esbuild'
-
-const esbuildOptions: EsbuildOptions = { ... }
-```
-
-##### `absWorkingDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.absWorkingDir"></a>
-
-```typescript
-public readonly absWorkingDir: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `allowOverwrite`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.allowOverwrite"></a>
-
-```typescript
-public readonly allowOverwrite: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `assetNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.assetNames"></a>
-
-```typescript
-public readonly assetNames: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `banner`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.banner"></a>
-
-```typescript
-public readonly banner: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
----
-
-##### `bundle`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.bundle"></a>
-
-```typescript
-public readonly bundle: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `charset`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.charset"></a>
-
-```typescript
-public readonly charset: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `chunkNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.chunkNames"></a>
-
-```typescript
-public readonly chunkNames: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `color`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.color"></a>
-
-```typescript
-public readonly color: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `conditions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.conditions"></a>
-
-```typescript
-public readonly conditions: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `define`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.define"></a>
-
-```typescript
-public readonly define: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
----
-
-##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.entryNames"></a>
-
-```typescript
-public readonly entryNames: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `external`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.external"></a>
-
-```typescript
-public readonly external: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.footer"></a>
-
-```typescript
-public readonly footer: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
----
-
-##### `format`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.format"></a>
-
-```typescript
-public readonly format: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `globalName`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.globalName"></a>
-
-```typescript
-public readonly globalName: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `ignoreAnnotations`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.ignoreAnnotations"></a>
-
-```typescript
-public readonly ignoreAnnotations: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `incremental`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.incremental"></a>
-
-```typescript
-public readonly incremental: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `inject`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.inject"></a>
-
-```typescript
-public readonly inject: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `jsx`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.jsx"></a>
-
-```typescript
-public readonly jsx: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.jsxFactory"></a>
-
-```typescript
-public readonly jsxFactory: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `jsxFragment`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.jsxFragment"></a>
-
-```typescript
-public readonly jsxFragment: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `keepNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.keepNames"></a>
-
-```typescript
-public readonly keepNames: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `legalComments`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.legalComments"></a>
-
-```typescript
-public readonly legalComments: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.loader"></a>
-
-```typescript
-public readonly loader: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
----
-
-##### `logLevel`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.logLevel"></a>
-
-```typescript
-public readonly logLevel: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `logLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.logLimit"></a>
-
-```typescript
-public readonly logLimit: number;
-```
-
-- *Type:* `number`
-
----
-
-##### `mainFields`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.mainFields"></a>
-
-```typescript
-public readonly mainFields: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `metafile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.metafile"></a>
-
-```typescript
-public readonly metafile: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `minify`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.minify"></a>
-
-```typescript
-public readonly minify: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `minifyIdentifiers`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.minifyIdentifiers"></a>
-
-```typescript
-public readonly minifyIdentifiers: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `minifySyntax`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.minifySyntax"></a>
-
-```typescript
-public readonly minifySyntax: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `minifyWhitespace`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.minifyWhitespace"></a>
-
-```typescript
-public readonly minifyWhitespace: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `nodePaths`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.nodePaths"></a>
-
-```typescript
-public readonly nodePaths: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `outbase`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.outbase"></a>
-
-```typescript
-public readonly outbase: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `outdir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.outdir"></a>
-
-```typescript
-public readonly outdir: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `outExtension`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.outExtension"></a>
-
-```typescript
-public readonly outExtension: {[ key: string ]: string};
-```
-
-- *Type:* {[ key: string ]: `string`}
-
----
-
-##### `outfile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.outfile"></a>
-
-```typescript
-public readonly outfile: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.platform"></a>
-
-```typescript
-public readonly platform: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `preserveSymlinks`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.preserveSymlinks"></a>
-
-```typescript
-public readonly preserveSymlinks: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `publicPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.publicPath"></a>
-
-```typescript
-public readonly publicPath: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `pure`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.pure"></a>
-
-```typescript
-public readonly pure: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `resolveExtensions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.resolveExtensions"></a>
-
-```typescript
-public readonly resolveExtensions: string[];
-```
-
-- *Type:* `string`[]
-
----
-
-##### `sourcemap`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.sourcemap"></a>
-
-```typescript
-public readonly sourcemap: boolean | string;
-```
-
-- *Type:* `boolean` | `string`
-
----
-
-##### `sourceRoot`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.sourceRoot"></a>
-
-```typescript
-public readonly sourceRoot: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `sourcesContent`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.sourcesContent"></a>
-
-```typescript
-public readonly sourcesContent: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `splitting`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.splitting"></a>
-
-```typescript
-public readonly splitting: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.target"></a>
-
-```typescript
-public readonly target: string | string[];
-```
-
-- *Type:* `string` | `string`[]
-
----
-
-##### `treeShaking`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.treeShaking"></a>
-
-```typescript
-public readonly treeShaking: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `tsconfig`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.tsconfig"></a>
-
-```typescript
-public readonly tsconfig: string;
-```
-
-- *Type:* `string`
-
----
-
-##### `write`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.write"></a>
-
-```typescript
-public readonly write: boolean;
-```
-
-- *Type:* `boolean`
-
----
-
-##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildOptions.property.entryPoints"></a>
-
-```typescript
-public readonly entryPoints: string[] | {[ key: string ]: string};
-```
-
-- *Type:* `string`[] | {[ key: string ]: `string`}
-
----
-
-### EsbuildProps <a name="@mrgrain/cdk-esbuild.EsbuildProps"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { EsbuildProps } from '@mrgrain/cdk-esbuild'
-
-const esbuildProps: EsbuildProps = { ... }
-```
-
-##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProps.property.assetHash"></a>
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.assetHash"></a>
 
 ```typescript
 public readonly assetHash: string;
@@ -1189,30 +776,6 @@ A hash of this asset, which is available at construction time.
 As this is a plain string, it
 can be used in construct IDs in order to enforce creation of a new resource when the content
 hash has changed.
-
----
-
-##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProps.property.buildOptions"></a>
-
-```typescript
-public readonly buildOptions: BuildOptions;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
-
-Options passed on to esbuild.
-
----
-
-##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProps.property.copyDir"></a>
-
-```typescript
-public readonly copyDir: string;
-```
-
-- *Type:* `string`
-
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
 
 ---
 
@@ -1506,27 +1069,129 @@ public readonly tsconfigRaw: string;
 
 ---
 
-## Classes <a name="Classes"></a>
+### TypeScriptCodeProps <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps"></a>
 
-### EsbuildBundling <a name="@mrgrain/cdk-esbuild.EsbuildBundling"></a>
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildBundling.Initializer"></a>
+#### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
-import { EsbuildBundling } from '@mrgrain/cdk-esbuild'
+import { TypeScriptCodeProps } from '@mrgrain/cdk-esbuild'
 
-new EsbuildBundling(buildOptions: EsbuildOptions, bundlerProps?: EsbuildBundlingProps)
+const typeScriptCodeProps: TypeScriptCodeProps = { ... }
 ```
 
-##### `buildOptions`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundling.parameter.buildOptions"></a>
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildOptions"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildOptions`](#@mrgrain/cdk-esbuild.EsbuildOptions)
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
 
 ---
 
-##### `bundlerProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundling.parameter.bundlerProps"></a>
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.copyDir"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildBundlingProps`](#@mrgrain/cdk-esbuild.EsbuildBundlingProps)
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.assetHash"></a>
+
+```typescript
+public readonly assetHash: string;
+```
+
+- *Type:* `string`
+
+A hash of this asset, which is available at construction time.
+
+As this is a plain string, it
+can be used in construct IDs in order to enforce creation of a new resource when the content
+hash has changed.
+
+---
+
+### TypeScriptSourceProps <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { TypeScriptSourceProps } from '@mrgrain/cdk-esbuild'
+
+const typeScriptSourceProps: TypeScriptSourceProps = { ... }
+```
+
+##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+Options passed on to esbuild.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string;
+```
+
+- *Type:* `string`
+
+Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.assetHash"></a>
+
+```typescript
+public readonly assetHash: string;
+```
+
+- *Type:* `string`
+
+A hash of this asset, which is available at construction time.
+
+As this is a plain string, it
+can be used in construct IDs in order to enforce creation of a new resource when the content
+hash has changed.
+
+---
+
+## Classes <a name="Classes"></a>
+
+### EsbuildBundler <a name="@mrgrain/cdk-esbuild.EsbuildBundler"></a>
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildBundler.Initializer"></a>
+
+```typescript
+import { EsbuildBundler } from '@mrgrain/cdk-esbuild'
+
+new EsbuildBundler(entryPoints: string | string[] | {[ key: string ]: string}, props: BundlerProps)
+```
+
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.parameter.entryPoints"></a>
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
 ---
 
@@ -1534,17 +1199,19 @@ new EsbuildBundling(buildOptions: EsbuildOptions, bundlerProps?: EsbuildBundling
 
 #### Properties <a name="Properties"></a>
 
-##### `buildOptions`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundling.property.buildOptions"></a>
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.entryPoints"></a>
 
 ```typescript
-public readonly buildOptions: EsbuildOptions;
+public readonly entryPoints: string | string[] | {[ key: string ]: string};
 ```
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildOptions`](#@mrgrain/cdk-esbuild.EsbuildOptions)
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
 
 ---
 
-##### `image`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundling.property.image"></a>
+##### `image`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.image"></a>
 
 ```typescript
 public readonly image: DockerImage;
@@ -1554,13 +1221,23 @@ public readonly image: DockerImage;
 
 ---
 
-##### `local`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundling.property.local"></a>
+##### `local`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.local"></a>
 
 ```typescript
-public readonly local: LocalBundler;
+public readonly local: ILocalBundling;
 ```
 
-- *Type:* [`@mrgrain/cdk-esbuild.LocalBundler`](#@mrgrain/cdk-esbuild.LocalBundler)
+- *Type:* [`@aws-cdk/core.ILocalBundling`](#@aws-cdk/core.ILocalBundling)
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.props"></a>
+
+```typescript
+public readonly props: BundlerProps;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
 ---
 
@@ -1676,7 +1353,7 @@ new InlineTypeScriptCode(code: string, transformOptions?: TransformOptions)
 ```typescript
 import { JavaScriptAsset } from '@mrgrain/cdk-esbuild'
 
-new JavaScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
+new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
 ```
 
 ##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
@@ -1691,9 +1368,9 @@ new JavaScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
 
 ---
 
-##### `__2`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.__2"></a>
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildAssetProps`](#@mrgrain/cdk-esbuild.EsbuildAssetProps)
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
 
 ---
 
@@ -1708,7 +1385,7 @@ new JavaScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
 ```typescript
 import { JavaScriptCode } from '@mrgrain/cdk-esbuild'
 
-new JavaScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, props?: EsbuildProps)
+new JavaScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, props?: JavaScriptCodeProps)
 ```
 
 ##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.entryPoints"></a>
@@ -1719,7 +1396,7 @@ new JavaScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildProps`](#@mrgrain/cdk-esbuild.EsbuildProps)
+- *Type:* [`@mrgrain/cdk-esbuild.JavaScriptCodeProps`](#@mrgrain/cdk-esbuild.JavaScriptCodeProps)
 
 ---
 
@@ -1788,7 +1465,7 @@ public readonly isInline: boolean;
 ```typescript
 import { JavaScriptSource } from '@mrgrain/cdk-esbuild'
 
-new JavaScriptSource(entryPoints: string | string[] | {[ key: string ]: string}, props?: EsbuildProps)
+new JavaScriptSource(entryPoints: string | string[] | {[ key: string ]: string}, props?: JavaScriptSourceProps)
 ```
 
 ##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSource.parameter.entryPoints"></a>
@@ -1799,7 +1476,7 @@ new JavaScriptSource(entryPoints: string | string[] | {[ key: string ]: string},
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSource.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildProps`](#@mrgrain/cdk-esbuild.EsbuildProps)
+- *Type:* [`@mrgrain/cdk-esbuild.JavaScriptSourceProps`](#@mrgrain/cdk-esbuild.JavaScriptSourceProps)
 
 ---
 
@@ -1837,74 +1514,6 @@ public readonly assetClass: JavaScriptAsset;
 ---
 
 
-### LocalBundler <a name="@mrgrain/cdk-esbuild.LocalBundler"></a>
-
-- *Implements:* [`@aws-cdk/core.ILocalBundling`](#@aws-cdk/core.ILocalBundling)
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.LocalBundler.Initializer"></a>
-
-```typescript
-import { LocalBundler } from '@mrgrain/cdk-esbuild'
-
-new LocalBundler(buildOptions: EsbuildOptions, props?: EsbuildBundlingProps)
-```
-
-##### `buildOptions`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.parameter.buildOptions"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildOptions`](#@mrgrain/cdk-esbuild.EsbuildOptions)
-
----
-
-##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildBundlingProps`](#@mrgrain/cdk-esbuild.EsbuildBundlingProps)
-
----
-
-#### Methods <a name="Methods"></a>
-
-##### `tryBundle` <a name="@mrgrain/cdk-esbuild.LocalBundler.tryBundle"></a>
-
-```typescript
-public tryBundle(outputDir: string, _options: BundlingOptions)
-```
-
-###### `outputDir`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.parameter.outputDir"></a>
-
-- *Type:* `string`
-
----
-
-###### `_options`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.parameter._options"></a>
-
-- *Type:* [`@aws-cdk/core.BundlingOptions`](#@aws-cdk/core.BundlingOptions)
-
----
-
-
-#### Properties <a name="Properties"></a>
-
-##### `buildOptions`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.property.buildOptions"></a>
-
-```typescript
-public readonly buildOptions: EsbuildOptions;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildOptions`](#@mrgrain/cdk-esbuild.EsbuildOptions)
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.LocalBundler.property.props"></a>
-
-```typescript
-public readonly props: EsbuildBundlingProps;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildBundlingProps`](#@mrgrain/cdk-esbuild.EsbuildBundlingProps)
-
----
-
-
 ### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
@@ -1912,7 +1521,7 @@ public readonly props: EsbuildBundlingProps;
 ```typescript
 import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
 
-new TypeScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
+new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
 ```
 
 ##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
@@ -1927,9 +1536,9 @@ new TypeScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
 
 ---
 
-##### `__2`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.__2"></a>
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildAssetProps`](#@mrgrain/cdk-esbuild.EsbuildAssetProps)
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
 
 ---
 
@@ -1944,7 +1553,7 @@ new TypeScriptAsset(scope: Construct, id: string, __2: EsbuildAssetProps)
 ```typescript
 import { TypeScriptCode } from '@mrgrain/cdk-esbuild'
 
-new TypeScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, props?: EsbuildProps)
+new TypeScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, props?: TypeScriptCodeProps)
 ```
 
 ##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.entryPoints"></a>
@@ -1955,7 +1564,7 @@ new TypeScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildProps`](#@mrgrain/cdk-esbuild.EsbuildProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TypeScriptCodeProps`](#@mrgrain/cdk-esbuild.TypeScriptCodeProps)
 
 ---
 
@@ -2024,7 +1633,7 @@ public readonly isInline: boolean;
 ```typescript
 import { TypeScriptSource } from '@mrgrain/cdk-esbuild'
 
-new TypeScriptSource(entryPoints: string | string[] | {[ key: string ]: string}, props?: EsbuildProps)
+new TypeScriptSource(entryPoints: string | string[] | {[ key: string ]: string}, props?: TypeScriptSourceProps)
 ```
 
 ##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSource.parameter.entryPoints"></a>
@@ -2035,7 +1644,7 @@ new TypeScriptSource(entryPoints: string | string[] | {[ key: string ]: string},
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSource.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.EsbuildProps`](#@mrgrain/cdk-esbuild.EsbuildProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TypeScriptSourceProps`](#@mrgrain/cdk-esbuild.TypeScriptSourceProps)
 
 ---
 

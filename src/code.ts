@@ -2,47 +2,48 @@ import { ResourceBindOptions } from '@aws-cdk/aws-lambda';
 import { Location } from '@aws-cdk/aws-s3';
 import { CfnResource, Construct, Stack } from '@aws-cdk/core';
 import {
-  EsbuildAssetProps,
-  EsbuildProps,
+  AssetBaseProps,
+  AssetProps,
   JavaScriptAsset as JSAsset,
   TypeScriptAsset as TSAsset,
 } from './asset';
-import { EsbuildOptions } from './bundlers';
+import { EntryPoints } from './bundler';
+import { BuildOptions } from './esbuild-types';
 
 function nodeMajorVersion(): number {
   return parseInt(process.versions.node.split('.')[0], 10);
 }
 
 export interface CodeConfig {
-  s3Location: Location;
+  readonly s3Location: Location;
 }
 
-type JavaScriptCodeProps = EsbuildProps;
-type TypeScriptCodeProps = EsbuildProps;
+export interface JavaScriptCodeProps extends AssetBaseProps {};
+export interface TypeScriptCodeProps extends AssetBaseProps {};
 
 abstract class Code<
-  Props extends EsbuildProps,
+  Props extends JavaScriptCodeProps | TypeScriptCodeProps,
   Asset extends JSAsset | TSAsset
 > {
   protected abstract readonly assetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps
+    props: AssetProps
   ) => Asset;
 
-  protected props: EsbuildAssetProps;
+  protected props: AssetProps;
 
   protected asset!: Asset;
 
-  public isInline: false = false;
+  public isInline: boolean = false;
 
   /**
    *
    * @param entryPoints - Relative path to the asset code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Asset properties.
    */
-  constructor(entryPoints: EsbuildAssetProps['entryPoints'], props: Props) {
-    const defaultOptions: Partial<EsbuildOptions> = {
+  constructor(public readonly entryPoints: EntryPoints, props: Props) {
+    const defaultOptions: Partial<BuildOptions> = {
       ...(!props.buildOptions?.platform ||
       props.buildOptions?.platform === 'node'
         ? { platform: 'node', target: 'node' + nodeMajorVersion() }
@@ -50,8 +51,8 @@ abstract class Code<
     };
 
     this.props = {
-      entryPoints,
       ...props,
+      entryPoints,
       buildOptions: {
         ...defaultOptions,
         ...props.buildOptions,
@@ -97,7 +98,7 @@ export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
   assetClass = JSAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps['entryPoints'],
+    entryPoints: EntryPoints,
     props: JavaScriptCodeProps = {},
   ) {
     super(entryPoints, props);
@@ -107,7 +108,7 @@ export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
   assetClass = TSAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps['entryPoints'],
+    entryPoints: EntryPoints,
     props: TypeScriptCodeProps = {},
   ) {
     super(entryPoints, props);
