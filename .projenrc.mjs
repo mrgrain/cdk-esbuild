@@ -50,6 +50,9 @@ const project = new AwsCdkConstructLibrary({
   majorVersion: 2,
   prerelease: 'alpha',
   releaseEveryCommit: false,
+  catalog: {
+    twitter: '@mrgrain',
+  },
   // release: undefined /* Add release management to this project. */,
 
   // Dependencies
