@@ -35,6 +35,7 @@ jspm_packages/
 cdk.out
 .cdk.staging
 examples/template
+!/.github/workflows/manual-release.yml
 !/.projenrc.js
 /test-reports/
 junit.xml

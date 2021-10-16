@@ -4,6 +4,7 @@ import {
   AwsCdkConstructLibrary,
   JsonFile,
   NodePackageManager,
+  release,
   TextFile,
   vscode,
 } from 'projen';
@@ -49,31 +50,30 @@ const project = new AwsCdkConstructLibrary({
   defaultReleaseBranch: 'next',
   majorVersion: 2,
   prerelease: 'alpha',
-  releaseEveryCommit: false,
+  releaseTrigger: release.ReleaseTrigger.manual(),
   catalog: {
     twitter: '@mrgrain',
   },
   workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
-  // release: undefined /* Add release management to this project. */,
 
   // Dependencies
   cdkVersion: '1.99.0',
   cdkDependencies: [
-    '@aws-cdk/core',
     '@aws-cdk/aws-lambda',
     '@aws-cdk/aws-s3',
     '@aws-cdk/aws-s3-assets',
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/aws-synthetics',
+    '@aws-cdk/core',
   ],
   cdkTestDependencies: [
-    '@aws-cdk/core',
-    '@aws-cdk/aws-lambda',
     '@aws-cdk/assert',
+    '@aws-cdk/aws-lambda',
     '@aws-cdk/aws-s3',
     '@aws-cdk/aws-s3-assets',
     '@aws-cdk/aws-s3-deployment',
     '@aws-cdk/aws-synthetics',
+    '@aws-cdk/core',
   ],
   devDeps: [
     '@types/eslint',
@@ -88,6 +88,7 @@ const project = new AwsCdkConstructLibrary({
     'cdk.out',
     '.cdk.staging',
     'examples/template',
+    '!/.github/workflows/manual-release.yml',
   ],
   npmignore: [
     '.npmrc',
