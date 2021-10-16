@@ -150,6 +150,9 @@
       "rootDir": "src"
     }
   },
+  "awscdkio": {
+    "twitter": "@mrgrain"
+  },
   "optionalDependencies": {
     "esbuild": "^0.13.0"
   },
