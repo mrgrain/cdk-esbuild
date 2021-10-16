@@ -53,6 +53,7 @@ const project = new AwsCdkConstructLibrary({
   catalog: {
     twitter: '@mrgrain',
   },
+  workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
   // release: undefined /* Add release management to this project. */,
 
   // Dependencies
