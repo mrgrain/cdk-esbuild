@@ -3,7 +3,7 @@
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
 [Getting started](#getting-started) | [Upgrading from 1.x](#upgrading-from-1x) |
-[Documentation](#documentation) | [API Reference](./API.md) | [Versioning](#versioning)
+[Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
 
 ## Why?
 
@@ -121,19 +121,19 @@ For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` 
 
 - 🧺 `TypeScriptSource` & `JavaScriptSource`
 
-> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options:_
+> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options._
 
-Underlying classes the power the other features. You normally won't have to use them, but they are there if you need them:
+Underlying classes power the other features. You normally won't have to use them, but they are there if you need them:
 
 - `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
   creates an asset uploaded to S3 which can be referenced by other constructs
 
-- `EsbuildBundling` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
-  provides a _esbuild_ bundling interface wherever needed
+- `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
+  provides an interface for a _esbuild_ bundler wherever needed
 
-## [API Reference](./API.md)
+## [API Reference](API.md)
 
-Auto-generated reference for all classes and structs. This information is also available within the code completion of your IDE.
+Auto-generated reference for classes and structs. This information is also available within the code completion of your IDE.
 
 ## Upgrading from 1.x
 
