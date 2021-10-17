@@ -18,6 +18,7 @@ export interface EsbuildAssetProps extends Partial<IAsset> {
    * Priority order of available bundlers. Defaults to attempt local first, then docker.
    *
    * @default BundlerPriority.AttemptLocal
+   * @deprecated "Docker support will be removed in v2. Set to `BundlerPriority.LocalOnly` to be prepared."
    */
   bundlerPriority?: BundlerPriority;
 
@@ -75,7 +76,7 @@ abstract class Asset<Props extends EsbuildAssetProps> extends S3Asset {
         {
           priority: bundlerPriority,
           copyDir,
-        }
+        },
       ),
     });
   }

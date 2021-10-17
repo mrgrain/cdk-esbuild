@@ -16,6 +16,7 @@ export type BuildOptions = MarkRequired<EsbuildOptions, "entryPoints">;
 export enum BundlerPriority {
   /**
    * Only use the Docker bundler
+   * @deprecated "Docker support will be removed in v2. Set to `BundlerPriority.LocalOnly` to be prepared."
    */
   DockerOnly,
 
@@ -26,6 +27,7 @@ export enum BundlerPriority {
 
   /**
    * Attempts to first use the local bundler, only use Docker bundler if local fails.
+   * @deprecated "Docker support will be removed in v2. Set to `BundlerPriority.LocalOnly` to be prepared."
    */
   AttemptLocal,
 }
@@ -48,6 +50,7 @@ export interface BundlerProps {
    * Priority order of available bundlers. Defaults to attempt local first, then docker.
    *
    * @default BundlerPriority.AttemptLocal
+   * @deprecated "Docker support will be removed in v2. Set to `BundlerPriority.LocalOnly` to be prepared."
    */
   priority?: BundlerPriority;
 }
