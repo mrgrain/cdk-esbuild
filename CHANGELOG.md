@@ -1,3 +1,19 @@
+
+## [2.0.0-alpha.2](https://github.com/mrgrain/cdk-esbuild/compare/v1.128.0...v2.0.0-alpha.2) (2021-10-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Alpha release of a jsii version of this package. Aim is
+that migration will be minimal, however probably not avoidable.
+
+### Features
+
+* jsii compatibility ([bdcba25](https://github.com/mrgrain/cdk-esbuild/commit/bdcba25981a3a32d36ba0054bfee5023b69b6497))
+* jsii project with projen ([f0ff7cb](https://github.com/mrgrain/cdk-esbuild/commit/f0ff7cb07e73f4e7b936d218f8aad7a2d8aa21f4))
+* more explict prop types ([680460a](https://github.com/mrgrain/cdk-esbuild/commit/680460a8ceabb5e45567784df8dca53ff974483c))
+* reduce number of exported structs ([c6e0cde](https://github.com/mrgrain/cdk-esbuild/commit/c6e0cdea4a39e5909ab102e15b5c4ba5acd02d14))
+
 ## [1.128.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.127.0...v1.128.0) (2021-10-16)
 
 - works with cdk-1.128.0
