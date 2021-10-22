@@ -125,6 +125,10 @@
       "type": "build"
     },
     {
+      "name": "ts-morph",
+      "type": "build"
+    },
+    {
       "name": "ts-node",
       "version": "^9",
       "type": "build"

@@ -175,7 +175,7 @@
       "description": "Runs eslint against the codebase",
       "steps": [
         {
-          "exec": "eslint --ext .ts,.tsx,.mjs --fix --no-error-on-unmatched-pattern src .projenrc.mjs test build-tools"
+          "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern src projenrc .projenrc.ts test build-tools"
         }
       ]
     },
@@ -183,7 +183,7 @@
       "name": "default",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.mjs"
+          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
         }
       ]
     },
@@ -297,7 +297,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/assert @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest ts-node typescript @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core constructs @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core"
+          "exec": "npm update @aws-cdk/assert @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest ts-morph ts-node typescript @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core constructs @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-s3 @aws-cdk/aws-synthetics @aws-cdk/core"
         },
         {
           "exec": "npx projen"

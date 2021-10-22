@@ -28,7 +28,7 @@
     ".projenrc.js",
     "src/**/*.ts",
     "test/**/*.ts",
-    ".projenrc.mjs",
+    ".projenrc.ts",
     "projenrc/**/*.ts"
   ],
   "exclude": [
