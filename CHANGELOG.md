@@ -1,4 +1,11 @@
 
+## [2.0.0-alpha.4](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0-alpha.2...v2.0.0-alpha.4) (2021-10-22)
+
+
+### Features
+
+* synthesize esbuild types from source ([#117](https://github.com/mrgrain/cdk-esbuild/issues/117)) ([af44d55](https://github.com/mrgrain/cdk-esbuild/commit/af44d55e97db6fd8fbda916eb0f25dae55513cba))
+
 ## [2.0.0-alpha.2](https://github.com/mrgrain/cdk-esbuild/compare/v1.128.0...v2.0.0-alpha.2) (2021-10-17)
 
 
