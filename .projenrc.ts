@@ -1,23 +1,21 @@
-import { readFileSync } from 'fs';
-import { ESLint } from 'eslint';
 import {
   AwsCdkConstructLibrary,
   JsonFile,
   NodePackageManager,
   release,
-  TextFile,
   vscode,
 } from 'projen';
+import { SourceFile } from 'ts-morph';
+import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
 
 const project = new AwsCdkConstructLibrary({
   projenrcTs: true,
   projenrcTsOptions: {
-    filename: '.projenrc.mjs',
+    filename: '.projenrc.ts',
   },
   eslintOptions: {
     lintProjenRc: false,
-    fileExtensions: ['.ts', '.tsx', '.mjs'],
-    dirs: ['src', '.projenrc.mjs'],
+    dirs: ['src', 'projenrc', '.projenrc.ts'],
   },
 
   // Project info
@@ -78,6 +76,7 @@ const project = new AwsCdkConstructLibrary({
   devDeps: [
     '@types/eslint',
     'esbuild@^0.13.0',
+    'ts-morph',
   ],
 
   // Ignore files
@@ -106,36 +105,20 @@ const project = new AwsCdkConstructLibrary({
 });
 
 const packageJson = project.tryFindObjectFile('package.json');
-packageJson.addOverride('optionalDependencies', {
+packageJson?.addOverride('optionalDependencies', {
   esbuild: '^0.13.0',
 });
-packageJson.addOverride('jest.testPathIgnorePatterns.1', '/examples/');
+packageJson?.addOverride('jest.testPathIgnorePatterns.1', '/examples/');
 
 const eslintRc = project.tryFindObjectFile('.eslintrc.json');
-eslintRc.addOverride('parserOptions.extraFileExtensions', ['.mjs']);
-eslintRc.addOverride('ignorePatterns', [
+eslintRc?.addOverride('ignorePatterns', [
   '*.js',
   '*.d.ts',
   'node_modules/',
   '*.generated.ts',
   'coverage',
-  '!.projenrc.mjs',
+  '!.projenrc.ts',
 ]);
-
-const linter = new ESLint({ fix: true });
-const esbuildTypes = (
-  await linter.lintText(
-    readFileSync('node_modules/esbuild/lib/main.d.ts').toString(),
-    {
-      filePath: 'src/esbuild-types-raw.ts',
-    },
-  )
-).pop().output;
-
-new TextFile(project, 'src/esbuild-types-raw.ts', {
-  editGitignore: false,
-  lines: [esbuildTypes],
-});
 
 new JsonFile(project, '.vscode/extensions.json', {
   readonly: false,
@@ -170,6 +153,28 @@ new vscode.VsCode(project).launchConfiguration.addConfiguration({
   internalConsoleOptions: vscode.InternalConsoleOptions.NEVER_OPEN,
   program: '${workspaceFolder}/node_modules/.bin/jest',
   args: ['--runInBand', '--watchAll=false'],
+});
+
+
+new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
+  source: 'node_modules/esbuild/lib/main.d.ts',
+  editGitignore: false,
+  transformer: (esbuildTypes: SourceFile) => {
+    const readonlyInterface = (name: string) => {
+      esbuildTypes.getInterface(name)?.getProperties().forEach(property => property.setIsReadonly(true));
+    };
+
+    const removeFromInterface = (name: string, properties: string[]) => {
+      const interfaceDeclaration = esbuildTypes.getInterface(name);
+
+      properties.forEach(property => interfaceDeclaration?.getProperty(property)?.remove());
+    };
+
+
+    ['CommonOptions', 'BuildOptions', 'TransformOptions'].forEach(readonlyInterface);
+    removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
+    esbuildTypes.getInterface('TransformOptions')?.getProperty('tsconfigRaw')?.setType('string');
+  },
 });
 
 project.synth();

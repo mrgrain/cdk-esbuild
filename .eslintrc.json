@@ -12,10 +12,7 @@
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.dev.json",
-    "extraFileExtensions": [
-      ".mjs"
-    ]
+    "project": "./tsconfig.dev.json"
   },
   "extends": [
     "plugin:import/typescript"
@@ -40,7 +37,7 @@
     "node_modules/",
     "*.generated.ts",
     "coverage",
-    "!.projenrc.mjs"
+    "!.projenrc.ts"
   ],
   "rules": {
     "indent": [
@@ -148,7 +145,7 @@
         "devDependencies": [
           "**/test/**",
           "**/build-tools/**",
-          ".projenrc.mjs",
+          ".projenrc.ts",
           "projenrc/**/*.ts"
         ],
         "optionalDependencies": false,
