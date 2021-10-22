@@ -2,7 +2,7 @@
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-[Getting started](#getting-started) | [Upgrading from 1.x](#upgrading-from-1x) |
+[Getting started](#getting-started) | [Migrating to v2](#migrating-to-v2) |
 [Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
 
 ## Why?
@@ -14,9 +14,9 @@ AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/c
 
 This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. The approach is quicker and easier to use for Node.js users, but incompatible with other languages.
 
-**⚠️ Regarding stability**
+**⚠️ A note on stability**
 
-This package is generally stable. However _esbuild_ is still on major version zero, which you should consider. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
+This package is generally stable and ready to be used in production as many do. However _esbuild_ is still on major version zero, which you should consider. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
 
 Notably upgrades of the _esbuild_ version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
 
@@ -135,15 +135,41 @@ Underlying classes power the other features. You normally won't have to use them
 
 Auto-generated reference for classes and structs. This information is also available within the code completion of your IDE.
 
-## Upgrading from 1.x
+## Migrating to v2
 
-tbd
+The main changes in cdk-esbuild v2 are:
+
+- The package is now `jsii` compliant and published in the [Construct Hub](https://constructs.dev/). This will also enable a possible feature release for other languages.
+- Deprecated properties and classes have been removed, most notably the previous support for bundling via a Docker container. The implementation had a few issues that cannot be easily resolved. However more generic support for custom executables might arrive in later versions.
+- `esbuild` is now installed as an optional dependency. It's not optional at all, but this is a ramification of using `jsii`. In practice this will have no impact on most people.
+- Interfaces have been streamlined and the names and setup of internal types have been changed. In the unlikely case that someone was relying on these, upgrading will be straight forward.
+
+### Upgrading
+
+- Update the package dependency to v2: `npm install --save @mrgrain/cdk-esbuild@^2.0.0`
+- `esbuild` is now installed as an optional dependency. If your setup does not automatically install optional dependencies, add it as an explicit dependency.
+- Remove any use of `bundlerPriority`.
+- Unstable construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
 
 ## Versioning
 
 This package _mostly_ follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
 
 Although great care is taken to avoid this, all features marked as `@unstable` may change with minor versions. Please note that the unstable flag is applied to all new or experimental features and internal classes.
+
+### Npm Tags
+
+Some users prefer to use tags over version ranges. The following stable tags are available for use:
+
+- `cdk-v1`, `cdk-v2` are provided for the latest release compatible with each version of the AWS CDK.
+
+- `latest` is the most recent stable release.
+
+These tags also exist, but usage is strongly not recommended:
+
+- `unstable`, `next` are used for pre-release of the current and next major version respectively.
+
+- ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
 
 ## Future releases
 
