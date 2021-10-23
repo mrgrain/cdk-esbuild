@@ -61,6 +61,10 @@ public readonly entryPoints: string | string[] | {[ key: string ]: string};
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
 ---
 
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.assetHash"></a>
@@ -1253,6 +1257,20 @@ Props to change the behaviour of the bundler.
 
 #### Properties <a name="Properties"></a>
 
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string | string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
+---
+
 ##### ~~`image`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.image"></a>
 
 - *Deprecated:* This value is ignored since the bundler is always using a locally installed version of esbuild. However the property is required to comply with the `BundlingOptions` interface.
@@ -1274,6 +1292,18 @@ public readonly local: ILocalBundling;
 - *Type:* [`@aws-cdk/core.ILocalBundling`](#@aws-cdk/core.ILocalBundling)
 
 Implementation of `ILocalBundling` interface, responsible for calling esbuild functions.
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.props"></a>
+
+```typescript
+public readonly props: BundlerProps;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
+
+Props to change the behaviour of the bundler.
 
 ---
 
@@ -1305,8 +1335,8 @@ The inline code to be transformed.
 Transform options passed on to esbuild.
 
 Please refer to the esbuild Transform API docs for details. \
-Default transform options:
-- `loader: 'js'`
+Default values for `transformOptions`:
+- `loader='js'`
 
 > https://esbuild.github.io/api/#transform-api
 
@@ -1343,8 +1373,8 @@ The inline code to be transformed.
 Transform options passed on to esbuild.
 
 Please refer to the esbuild Transform API docs for details. \
-Default transform options:
-- `loader: 'jsx'`
+Default values for `transformOptions`:
+- `loader='jsx'`
 
 > https://esbuild.github.io/api/#transform-api
 
@@ -1381,8 +1411,8 @@ The inline code to be transformed.
 Transform options passed on to esbuild.
 
 Please refer to the esbuild Transform API docs for details. \
-Default transform options:
-- `loader: 'tsx'`
+Default values for `transformOptions`:
+- `loader='tsx'`
 
 > https://esbuild.github.io/api/#transform-api
 
@@ -1419,8 +1449,8 @@ The inline code to be transformed.
 Transform options passed on to esbuild.
 
 Please refer to the esbuild Transform API docs for details. \
-Default transform options:
-- `loader: 'ts'`
+Default values for `transformOptions`:
+- `loader='ts'`
 
 > https://esbuild.github.io/api/#transform-api
 
@@ -1494,8 +1524,8 @@ E.g. `src/index.ts`.
 
 Props to change the behavior of the bundler.
 
-Default build options:
-- `bundle: true`
+Default values for `props.buildOptions`:
+- `bundle=true`
 - `platform=node`
 - `target=nodeX` with X being the major node version running locally
 
@@ -1672,6 +1702,11 @@ E.g. `src/index.ts`.
 - *Type:* [`@mrgrain/cdk-esbuild.TypeScriptCodeProps`](#@mrgrain/cdk-esbuild.TypeScriptCodeProps)
 
 Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
 
 ---
 
