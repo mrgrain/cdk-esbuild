@@ -3,56 +3,6 @@
 
 ## Structs <a name="Structs"></a>
 
-### AssetBaseProps <a name="@mrgrain/cdk-esbuild.AssetBaseProps"></a>
-
-#### Initializer <a name="[object Object].Initializer"></a>
-
-```typescript
-import { AssetBaseProps } from '@mrgrain/cdk-esbuild'
-
-const assetBaseProps: AssetBaseProps = { ... }
-```
-
-##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.buildOptions"></a>
-
-```typescript
-public readonly buildOptions: BuildOptions;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
-
-Options passed on to esbuild.
-
----
-
-##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.copyDir"></a>
-
-```typescript
-public readonly copyDir: string;
-```
-
-- *Type:* `string`
-
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
-
----
-
-##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetBaseProps.property.assetHash"></a>
-
-```typescript
-public readonly assetHash: string;
-```
-
-- *Type:* `string`
-
-A hash of this asset, which is available at construction time.
-
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
-
----
-
 ### AssetProps <a name="@mrgrain/cdk-esbuild.AssetProps"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -71,7 +21,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -83,7 +47,23 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
+
+---
+
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string | string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
 
 ---
 
@@ -97,21 +77,9 @@ public readonly assetHash: string;
 
 A hash of this asset, which is available at construction time.
 
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
 
----
-
-##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.entryPoints"></a>
-
-```typescript
-public readonly entryPoints: string | string[] | {[ key: string ]: string};
-```
-
-- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
-
-Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 
@@ -643,7 +611,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -655,7 +637,9 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
 
 ---
 
@@ -677,6 +661,8 @@ public readonly s3Location: Location;
 
 - *Type:* [`@aws-cdk/aws-s3.Location`](#@aws-cdk/aws-s3.Location)
 
+The location of the code in S3.
+
 ---
 
 ### JavaScriptCodeProps <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps"></a>
@@ -697,7 +683,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -709,7 +709,9 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
 
 ---
 
@@ -723,9 +725,9 @@ public readonly assetHash: string;
 
 A hash of this asset, which is available at construction time.
 
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
+
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 
@@ -747,7 +749,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -759,7 +775,9 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
 
 ---
 
@@ -773,9 +791,9 @@ public readonly assetHash: string;
 
 A hash of this asset, which is available at construction time.
 
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
+
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 
@@ -1087,7 +1105,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -1099,7 +1131,9 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
 
 ---
 
@@ -1113,9 +1147,9 @@ public readonly assetHash: string;
 
 A hash of this asset, which is available at construction time.
 
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
+
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 
@@ -1137,7 +1171,21 @@ public readonly buildOptions: BuildOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
 
-Options passed on to esbuild.
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+`buildOptions.outdir: string` \
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+- `buildOptions.outfile: string` \
+Relative path to a file inside the CDK asset output directory. \
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+- `buildOptions.absWorkingDir: string` \
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> https://esbuild.github.io/api/#build-api
 
 ---
 
@@ -1149,7 +1197,9 @@ public readonly copyDir: string;
 
 - *Type:* `string`
 
-Relative path to a directory copied to the output BEFORE esbuild is run (i.e esbuild will overwrite existing files).
+Copy additional files to the output directory, before the build runs.
+
+Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
 
 ---
 
@@ -1163,15 +1213,19 @@ public readonly assetHash: string;
 
 A hash of this asset, which is available at construction time.
 
-As this is a plain string, it
-can be used in construct IDs in order to enforce creation of a new resource when the content
-hash has changed.
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
+
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 
 ## Classes <a name="Classes"></a>
 
 ### EsbuildBundler <a name="@mrgrain/cdk-esbuild.EsbuildBundler"></a>
+
+Low-level construct that can be used where `BundlingOptions` are required.
+
+This class directly interfaces with esbuild and provides almost no configuration safeguards.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildBundler.Initializer"></a>
 
@@ -1185,13 +1239,17 @@ new EsbuildBundler(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
 
 ---
 
 ##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.parameter.props"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
+
+Props to change the behaviour of the bundler.
 
 ---
 
@@ -1207,11 +1265,15 @@ public readonly entryPoints: string | string[] | {[ key: string ]: string};
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-Relative paths to the entrypoints of your code, e.g. `src/index.ts`.
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
 
 ---
 
-##### `image`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.image"></a>
+##### ~~`image`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.image"></a>
+
+- *Deprecated:* This value is ignored since the bundler is always using a locally installed version of esbuild. However the property is required to comply with the `BundlingOptions` interface.
 
 ```typescript
 public readonly image: DockerImage;
@@ -1229,6 +1291,8 @@ public readonly local: ILocalBundling;
 
 - *Type:* [`@aws-cdk/core.ILocalBundling`](#@aws-cdk/core.ILocalBundling)
 
+Implementation of `ILocalBundling` interface, responsible for calling esbuild functions.
+
 ---
 
 ##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildBundler.property.props"></a>
@@ -1239,10 +1303,14 @@ public readonly props: BundlerProps;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
+Props to change the behaviour of the bundler.
+
 ---
 
 
 ### InlineJavaScriptCode <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode"></a>
+
+An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.Initializer"></a>
 
@@ -1256,11 +1324,21 @@ new InlineJavaScriptCode(code: string, transformOptions?: TransformOptions)
 
 - *Type:* `string`
 
+The inline code to be transformed.
+
 ---
 
 ##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.transformOptions"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details. \
+Default values for `transformOptions`:
+- `loader='js'`
+
+> https://esbuild.github.io/api/#transform-api
 
 ---
 
@@ -1269,6 +1347,8 @@ new InlineJavaScriptCode(code: string, transformOptions?: TransformOptions)
 
 
 ### InlineJsxCode <a name="@mrgrain/cdk-esbuild.InlineJsxCode"></a>
+
+An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.InlineJsxCode.Initializer"></a>
 
@@ -1282,11 +1362,21 @@ new InlineJsxCode(code: string, transformOptions?: TransformOptions)
 
 - *Type:* `string`
 
+The inline code to be transformed.
+
 ---
 
 ##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.transformOptions"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details. \
+Default values for `transformOptions`:
+- `loader='jsx'`
+
+> https://esbuild.github.io/api/#transform-api
 
 ---
 
@@ -1295,6 +1385,8 @@ new InlineJsxCode(code: string, transformOptions?: TransformOptions)
 
 
 ### InlineTsxCode <a name="@mrgrain/cdk-esbuild.InlineTsxCode"></a>
+
+An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.InlineTsxCode.Initializer"></a>
 
@@ -1308,11 +1400,21 @@ new InlineTsxCode(code: string, transformOptions?: TransformOptions)
 
 - *Type:* `string`
 
+The inline code to be transformed.
+
 ---
 
 ##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.transformOptions"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details. \
+Default values for `transformOptions`:
+- `loader='tsx'`
+
+> https://esbuild.github.io/api/#transform-api
 
 ---
 
@@ -1321,6 +1423,8 @@ new InlineTsxCode(code: string, transformOptions?: TransformOptions)
 
 
 ### InlineTypeScriptCode <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode"></a>
+
+An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.Initializer"></a>
 
@@ -1334,11 +1438,21 @@ new InlineTypeScriptCode(code: string, transformOptions?: TransformOptions)
 
 - *Type:* `string`
 
+The inline code to be transformed.
+
 ---
 
 ##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.transformOptions"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details. \
+Default values for `transformOptions`:
+- `loader='ts'`
+
+> https://esbuild.github.io/api/#transform-api
 
 ---
 
@@ -1347,6 +1461,10 @@ new InlineTypeScriptCode(code: string, transformOptions?: TransformOptions)
 
 
 ### JavaScriptAsset <a name="@mrgrain/cdk-esbuild.JavaScriptAsset"></a>
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.Initializer"></a>
 
@@ -1380,6 +1498,8 @@ new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
 
 ### JavaScriptCode <a name="@mrgrain/cdk-esbuild.JavaScriptCode"></a>
 
+Represents the deployed JavaScript Code.
+
 #### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptCode.Initializer"></a>
 
 ```typescript
@@ -1392,11 +1512,22 @@ new JavaScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
 ---
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.props"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.JavaScriptCodeProps`](#@mrgrain/cdk-esbuild.JavaScriptCodeProps)
+
+Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
 
 ---
 
@@ -1435,23 +1566,17 @@ public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
 
 #### Properties <a name="Properties"></a>
 
-##### `assetClass`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.assetClass"></a>
+##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.isInline"></a>
 
-```typescript
-public readonly assetClass: JavaScriptAsset;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.JavaScriptAsset`](#@mrgrain/cdk-esbuild.JavaScriptAsset)
-
----
-
-##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.isInline"></a>
+- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
 
 ```typescript
 public readonly isInline: boolean;
 ```
 
 - *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
 
 ---
 
@@ -1516,6 +1641,10 @@ public readonly assetClass: JavaScriptAsset;
 
 ### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
 
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
+
 #### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
 
 ```typescript
@@ -1548,6 +1677,8 @@ new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
 
 ### TypeScriptCode <a name="@mrgrain/cdk-esbuild.TypeScriptCode"></a>
 
+Represents the deployed TypeScript Code.
+
 #### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptCode.Initializer"></a>
 
 ```typescript
@@ -1560,11 +1691,22 @@ new TypeScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
 ---
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.props"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TypeScriptCodeProps`](#@mrgrain/cdk-esbuild.TypeScriptCodeProps)
+
+Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
 
 ---
 
@@ -1603,23 +1745,17 @@ public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
 
 #### Properties <a name="Properties"></a>
 
-##### `assetClass`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.property.assetClass"></a>
+##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.property.isInline"></a>
 
-```typescript
-public readonly assetClass: TypeScriptAsset;
-```
-
-- *Type:* [`@mrgrain/cdk-esbuild.TypeScriptAsset`](#@mrgrain/cdk-esbuild.TypeScriptAsset)
-
----
-
-##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.property.isInline"></a>
+- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
 
 ```typescript
 public readonly isInline: boolean;
 ```
 
 - *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
 
 ---
 

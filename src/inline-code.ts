@@ -26,37 +26,117 @@ abstract class BaseInlineCode extends InlineCode {
 }
 
 /**
- * @experimental
+ * An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
+ *
+ * @stability experimental
  */
 export class InlineJavaScriptCode extends BaseInlineCode {
-  public constructor(code: string, transformOptions?: TransformOptions) {
+  public constructor(
+    /**
+     * The inline code to be transformed.
+     *
+     * @stability experimental
+     */
+    code: string,
+    /**
+     * Transform options passed on to esbuild.
+     *
+     * Please refer to the esbuild Transform API docs for details. \
+     * Default values for `transformOptions`:
+     * - `loader='js'`
+     *
+     * @see https://esbuild.github.io/api/#transform-api
+     * @stability experimental
+     */
+    transformOptions?: TransformOptions,
+  ) {
     super(code, 'js', transformOptions);
   }
 }
 
 /**
- * @experimental
+ * An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
+ *
+ * @stability experimental
  */
 export class InlineJsxCode extends BaseInlineCode {
-  public constructor(code: string, transformOptions?: TransformOptions) {
+  public constructor(
+    /**
+     * The inline code to be transformed.
+     *
+     * @stability experimental
+     */
+    code: string,
+    /**
+     * Transform options passed on to esbuild.
+     *
+     * Please refer to the esbuild Transform API docs for details. \
+     * Default values for `transformOptions`:
+     * - `loader='jsx'`
+     *
+     * @see https://esbuild.github.io/api/#transform-api
+     * @stability experimental
+     */
+    transformOptions?: TransformOptions,
+  ) {
     super(code, 'jsx', transformOptions);
   }
 }
 
 /**
- * @experimental
+ * An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
+ *
+ * @stability experimental
  */
 export class InlineTypeScriptCode extends BaseInlineCode {
-  public constructor(code: string, transformOptions?: TransformOptions) {
+  public constructor(
+    /**
+     * The inline code to be transformed.
+     *
+     * @stability experimental
+     */
+    code: string,
+    /**
+     * Transform options passed on to esbuild.
+     *
+     * Please refer to the esbuild Transform API docs for details. \
+     * Default values for `transformOptions`:
+     * - `loader='ts'`
+     *
+     * @see https://esbuild.github.io/api/#transform-api
+     * @stability experimental
+     */
+    transformOptions?: TransformOptions,
+  ) {
     super(code, 'ts', transformOptions);
   }
 }
 
 /**
- * @experimental
+ * An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
+ *
+ * @stability experimental
  */
 export class InlineTsxCode extends BaseInlineCode {
-  public constructor(code: string, transformOptions?: TransformOptions) {
+  public constructor(
+    /**
+     * The inline code to be transformed.
+     *
+     * @stability experimental
+     */
+    code: string,
+    /**
+     * Transform options passed on to esbuild.
+     *
+     * Please refer to the esbuild Transform API docs for details. \
+     * Default values for `transformOptions`:
+     * - `loader='tsx'`
+     *
+     * @see https://esbuild.github.io/api/#transform-api
+     * @stability experimental
+     */
+    transformOptions?: TransformOptions,
+  ) {
     super(code, 'tsx', transformOptions);
   }
 }
