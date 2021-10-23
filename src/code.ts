@@ -15,6 +15,11 @@ function nodeMajorVersion(): number {
 }
 
 export interface CodeConfig {
+  /**
+   * The location of the code in S3.
+   *
+   * @stability stable
+   */
   readonly s3Location: Location;
 }
 
@@ -35,6 +40,11 @@ abstract class Code<
 
   protected asset!: Asset;
 
+  /**
+   * Determines whether this Code is inline code or not.
+   *
+   * @deprecated this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
+   */
   public isInline: boolean = false;
 
   /**
@@ -84,6 +94,14 @@ abstract class Code<
     };
   }
 
+  /**
+   * Called after the CFN function resource has been created to allow the code class to bind to it.
+   *
+   * Specifically it's required to allow assets to add
+   * metadata for tooling like SAM CLI to be able to find their origins.
+   *
+   * @stability stable
+   */
   bindToResource(resource: CfnResource, options?: ResourceBindOptions) {
     if (!this.asset) {
       throw new Error('bindToResource() must be called after bind()');
@@ -94,21 +112,64 @@ abstract class Code<
   }
 }
 
+/**
+ * Represents the deployed JavaScript Code.
+ *
+ * @stability stable
+ */
 export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
-  assetClass = JSAsset;
+  protected readonly assetClass = JSAsset;
 
   constructor(
+    /**
+     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+     * E.g. `src/index.ts`.
+     *
+     * @stability stable
+     */
     entryPoints: EntryPoints,
+    /**
+     * Props to change the behavior of the bundler.
+     *
+     * Default values for `props.buildOptions`:
+     * - `bundle=true`
+     * - `platform=node`
+     * - `target=nodeX` with X being the major node version running locally
+     *
+     * @stability stable
+     */
     props: JavaScriptCodeProps = {},
   ) {
     super(entryPoints, props);
   }
 }
+
+/**
+ * Represents the deployed TypeScript Code.
+ *
+ * @stability stable
+ */
 export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
-  assetClass = TSAsset;
+  protected readonly assetClass = TSAsset;
 
   constructor(
+    /**
+     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+     * E.g. `src/index.ts`.
+     *
+     * @stability stable
+     */
     entryPoints: EntryPoints,
+    /**
+     * Props to change the behavior of the bundler.
+     *
+     * Default values for `props.buildOptions`:
+     * - `bundle=true`
+     * - `platform=node`
+     * - `target=nodeX` with X being the major node version running locally
+     *
+     * @stability stable
+     */
     props: TypeScriptCodeProps = {},
   ) {
     super(entryPoints, props);

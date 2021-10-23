@@ -180,3 +180,18 @@ The monolithic version 2 of CDK (aka Mono-CDK) is on the horizon. A new major re
 ### Stable esbuild
 
 Once `esbuild` has reached a stable version 1.0, a new major version will be released for _all_ breaking changes, including updates to minimum (peer) dependencies.
+
+## Library authors
+
+When developing a library consumed by other packages, you'll most likely have to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
+
+```ts
+// file: project/src/index.ts
+const props = {
+  buildOptions: {
+    absWorkingDir: path.resolve(__dirname, ".."), // now: /user/project
+  },
+};
+```
+
+This will dynamically resolve to the correct path, wherever the package is installed.
