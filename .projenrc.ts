@@ -47,7 +47,7 @@ const project = new AwsCdkConstructLibrary({
   npmDistTag: 'next',
   defaultReleaseBranch: 'next',
   majorVersion: 2,
-  prerelease: 'alpha',
+  prerelease: 'rc',
   releaseTrigger: release.ReleaseTrigger.manual(),
   catalog: {
     twitter: '@mrgrain',
