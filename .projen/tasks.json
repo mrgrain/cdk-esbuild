@@ -227,7 +227,7 @@
       "env": {
         "RELEASE": "true",
         "MAJOR": "2",
-        "PRERELEASE": "alpha"
+        "PRERELEASE": "rc"
       },
       "steps": [
         {
