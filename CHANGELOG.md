@@ -32,6 +32,19 @@ that migration will be minimal, however probably not avoidable.
 * more explict prop types ([680460a](https://github.com/mrgrain/cdk-esbuild/commit/680460a8ceabb5e45567784df8dca53ff974483c))
 * reduce number of exported structs ([c6e0cde](https://github.com/mrgrain/cdk-esbuild/commit/c6e0cdea4a39e5909ab102e15b5c4ba5acd02d14))
 
+## [1.129.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.128.0...v1.129.0) (2021-10-28)
+
+### ⚠ IMPORTANT NOTICE
+
+This will be the final release tagged with a specific version of AWS CDK (i.e. `cdk-1.29.0`). From now on, a single tag `cdk-v1` will point to the latest stable release for v1 of AWS CDK.
+
+Please also note, that a new major version of this package already has a release candidate. Using the `cdk-v1` will result in BREAKING CHANGES once the new version is stable.
+
+### Features
+
+- works with cdk-1.129.0 ([d7631d4](https://github.com/mrgrain/cdk-esbuild/commit/d7631d4119e6ef66e0da02a35f9680196e94f124))
+- deprecated Docker bundler ([6715463](https://github.com/mrgrain/cdk-esbuild/commit/6715463ee90f339ac261622597e39b2ee6c46d71))
+
 ## [1.128.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.127.0...v1.128.0) (2021-10-16)
 
 - works with cdk-1.128.0
