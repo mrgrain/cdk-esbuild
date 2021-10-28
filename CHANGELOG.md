@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.129.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.128.0...v1.129.0) (2021-10-28)
+
+
+### Features
+
+* deprecate Docker bundler ([6715463](https://github.com/mrgrain/cdk-esbuild/commit/6715463ee90f339ac261622597e39b2ee6c46d71))
+* works with cdk-1.129.0 ([d7631d4](https://github.com/mrgrain/cdk-esbuild/commit/d7631d4119e6ef66e0da02a35f9680196e94f124))
+
 ## [1.128.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.127.0...v1.128.0) (2021-10-16)
 
 - works with cdk-1.128.0
