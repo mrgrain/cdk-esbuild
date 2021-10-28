@@ -1,4 +1,11 @@
 
+## [2.0.0-rc.1](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2021-10-28)
+
+
+### Features
+
+* generated docs for esbuild link to documentation ([#123](https://github.com/mrgrain/cdk-esbuild/issues/123)) ([95f2fd0](https://github.com/mrgrain/cdk-esbuild/commit/95f2fd07330cf9624dd05f23345bfe0f5754fc57))
+
 ## [2.0.0-rc.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0-alpha.5...v2.0.0-rc.0) (2021-10-24)
 
 ## [2.0.0-alpha.5](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0-alpha.4...v2.0.0-alpha.5) (2021-10-23)
