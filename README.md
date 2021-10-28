@@ -287,7 +287,21 @@ The package tracks the **minor** version number of CDK releases. It might work w
 
 Any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to all new or experimental features and internal classes.
 
-### Future
+### Npm Tags
+
+Some users prefer to use tags over version ranges. The following stable tags are available for use:
+
+- `cdk-v1`, `cdk-v2` are provided for the latest release compatible with each version of the AWS CDK.
+
+- `latest` is the most recent stable release.
+
+These tags also exist, but usage is strongly not recommended:
+
+- `unstable`, `next` are used for pre-release of the current and next major version respectively.
+
+- ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
+
+## Future
 
 ### `jsii` compatibility
 
