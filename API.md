@@ -101,6 +101,8 @@ public readonly absWorkingDir: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#working-directory.
+
 ---
 
 ##### `allowOverwrite`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.allowOverwrite"></a>
@@ -110,6 +112,8 @@ public readonly allowOverwrite: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#allow-overwrite.
 
 ---
 
@@ -121,6 +125,8 @@ public readonly assetNames: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#asset-names.
+
 ---
 
 ##### `banner`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.banner"></a>
@@ -130,6 +136,8 @@ public readonly banner: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#banner.
 
 ---
 
@@ -141,6 +149,8 @@ public readonly bundle: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#bundle.
+
 ---
 
 ##### `charset`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.charset"></a>
@@ -150,6 +160,8 @@ public readonly charset: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#charset.
 
 ---
 
@@ -161,6 +173,8 @@ public readonly chunkNames: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#chunk-names.
+
 ---
 
 ##### `color`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.color"></a>
@@ -170,6 +184,8 @@ public readonly color: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#color.
 
 ---
 
@@ -181,6 +197,8 @@ public readonly conditions: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#conditions.
+
 ---
 
 ##### `define`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.define"></a>
@@ -190,6 +208,8 @@ public readonly define: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#define.
 
 ---
 
@@ -201,6 +221,8 @@ public readonly entryNames: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#entry-names.
+
 ---
 
 ##### `external`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.external"></a>
@@ -210,6 +232,8 @@ public readonly external: string[];
 ```
 
 - *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#external.
 
 ---
 
@@ -221,6 +245,8 @@ public readonly footer: {[ key: string ]: string};
 
 - *Type:* {[ key: string ]: `string`}
 
+Documentation: https://esbuild.github.io/api/#footer.
+
 ---
 
 ##### `format`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.format"></a>
@@ -230,6 +256,8 @@ public readonly format: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#format.
 
 ---
 
@@ -241,6 +269,8 @@ public readonly globalName: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#globalName.
+
 ---
 
 ##### `ignoreAnnotations`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.ignoreAnnotations"></a>
@@ -250,6 +280,8 @@ public readonly ignoreAnnotations: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#ignore-annotations.
 
 ---
 
@@ -261,6 +293,8 @@ public readonly incremental: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#incremental.
+
 ---
 
 ##### `inject`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.inject"></a>
@@ -270,6 +304,8 @@ public readonly inject: string[];
 ```
 
 - *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#inject.
 
 ---
 
@@ -281,6 +317,8 @@ public readonly jsx: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#jsx.
+
 ---
 
 ##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.jsxFactory"></a>
@@ -290,6 +328,8 @@ public readonly jsxFactory: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-factory.
 
 ---
 
@@ -301,6 +341,8 @@ public readonly jsxFragment: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#jsx-fragment.
+
 ---
 
 ##### `keepNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.keepNames"></a>
@@ -310,6 +352,8 @@ public readonly keepNames: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#keep-names.
 
 ---
 
@@ -321,6 +365,8 @@ public readonly legalComments: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#legal-comments.
+
 ---
 
 ##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.loader"></a>
@@ -330,6 +376,8 @@ public readonly loader: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#loader.
 
 ---
 
@@ -341,6 +389,8 @@ public readonly logLevel: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#log-level.
+
 ---
 
 ##### `logLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.logLimit"></a>
@@ -350,6 +400,8 @@ public readonly logLimit: number;
 ```
 
 - *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#log-limit.
 
 ---
 
@@ -361,6 +413,8 @@ public readonly mainFields: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#mainFields.
+
 ---
 
 ##### `metafile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.metafile"></a>
@@ -370,6 +424,8 @@ public readonly metafile: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#metafile.
 
 ---
 
@@ -381,6 +437,8 @@ public readonly minify: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#minify.
+
 ---
 
 ##### `minifyIdentifiers`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.minifyIdentifiers"></a>
@@ -390,6 +448,8 @@ public readonly minifyIdentifiers: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
 
 ---
 
@@ -401,6 +461,8 @@ public readonly minifySyntax: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#minify.
+
 ---
 
 ##### `minifyWhitespace`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.minifyWhitespace"></a>
@@ -410,6 +472,8 @@ public readonly minifyWhitespace: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
 
 ---
 
@@ -421,6 +485,8 @@ public readonly nodePaths: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#node-paths.
+
 ---
 
 ##### `outbase`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.outbase"></a>
@@ -430,6 +496,8 @@ public readonly outbase: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#outbase.
 
 ---
 
@@ -441,6 +509,8 @@ public readonly outdir: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#outdir.
+
 ---
 
 ##### `outExtension`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.outExtension"></a>
@@ -450,6 +520,8 @@ public readonly outExtension: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#out-extension.
 
 ---
 
@@ -461,6 +533,8 @@ public readonly outfile: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#outfile.
+
 ---
 
 ##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.platform"></a>
@@ -470,6 +544,8 @@ public readonly platform: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#platform.
 
 ---
 
@@ -481,6 +557,8 @@ public readonly preserveSymlinks: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#preserve-symlinks.
+
 ---
 
 ##### `publicPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.publicPath"></a>
@@ -490,6 +568,8 @@ public readonly publicPath: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#public-path.
 
 ---
 
@@ -501,6 +581,8 @@ public readonly pure: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#pure.
+
 ---
 
 ##### `resolveExtensions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.resolveExtensions"></a>
@@ -510,6 +592,8 @@ public readonly resolveExtensions: string[];
 ```
 
 - *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#resolve-extensions.
 
 ---
 
@@ -521,6 +605,8 @@ public readonly sourcemap: boolean | string;
 
 - *Type:* `boolean` | `string`
 
+Documentation: https://esbuild.github.io/api/#sourcemap.
+
 ---
 
 ##### `sourceRoot`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.sourceRoot"></a>
@@ -530,6 +616,8 @@ public readonly sourceRoot: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#source-root.
 
 ---
 
@@ -541,6 +629,8 @@ public readonly sourcesContent: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#sources-content.
+
 ---
 
 ##### `splitting`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.splitting"></a>
@@ -550,6 +640,8 @@ public readonly splitting: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#splitting.
 
 ---
 
@@ -561,6 +653,8 @@ public readonly target: string | string[];
 
 - *Type:* `string` | `string`[]
 
+Documentation: https://esbuild.github.io/api/#target.
+
 ---
 
 ##### `treeShaking`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.treeShaking"></a>
@@ -570,6 +664,8 @@ public readonly treeShaking: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#tree-shaking.
 
 ---
 
@@ -581,6 +677,8 @@ public readonly tsconfig: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#tsconfig.
+
 ---
 
 ##### `write`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.write"></a>
@@ -590,6 +688,8 @@ public readonly write: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#write.
 
 ---
 
@@ -825,6 +925,8 @@ public readonly charset: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#charset.
+
 ---
 
 ##### `color`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.color"></a>
@@ -835,6 +937,8 @@ public readonly color: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#color.
+
 ---
 
 ##### `define`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.define"></a>
@@ -844,6 +948,8 @@ public readonly define: {[ key: string ]: string};
 ```
 
 - *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#define.
 
 ---
 
@@ -865,6 +971,8 @@ public readonly format: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#format.
+
 ---
 
 ##### `globalName`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.globalName"></a>
@@ -874,6 +982,8 @@ public readonly globalName: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#globalName.
 
 ---
 
@@ -885,6 +995,8 @@ public readonly ignoreAnnotations: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#ignore-annotations.
+
 ---
 
 ##### `jsx`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsx"></a>
@@ -894,6 +1006,8 @@ public readonly jsx: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx.
 
 ---
 
@@ -905,6 +1019,8 @@ public readonly jsxFactory: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#jsx-factory.
+
 ---
 
 ##### `jsxFragment`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsxFragment"></a>
@@ -914,6 +1030,8 @@ public readonly jsxFragment: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-fragment.
 
 ---
 
@@ -925,6 +1043,8 @@ public readonly keepNames: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#keep-names.
+
 ---
 
 ##### `legalComments`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.legalComments"></a>
@@ -934,6 +1054,8 @@ public readonly legalComments: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#legal-comments.
 
 ---
 
@@ -955,6 +1077,8 @@ public readonly logLevel: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#log-level.
+
 ---
 
 ##### `logLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.logLimit"></a>
@@ -964,6 +1088,8 @@ public readonly logLimit: number;
 ```
 
 - *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#log-limit.
 
 ---
 
@@ -975,6 +1101,8 @@ public readonly minify: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#minify.
+
 ---
 
 ##### `minifyIdentifiers`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.minifyIdentifiers"></a>
@@ -984,6 +1112,8 @@ public readonly minifyIdentifiers: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
 
 ---
 
@@ -995,6 +1125,8 @@ public readonly minifySyntax: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#minify.
+
 ---
 
 ##### `minifyWhitespace`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.minifyWhitespace"></a>
@@ -1005,6 +1137,8 @@ public readonly minifyWhitespace: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#minify.
+
 ---
 
 ##### `pure`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.pure"></a>
@@ -1014,6 +1148,8 @@ public readonly pure: string[];
 ```
 
 - *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#pure.
 
 ---
 
@@ -1035,6 +1171,8 @@ public readonly sourcemap: boolean | string;
 
 - *Type:* `boolean` | `string`
 
+Documentation: https://esbuild.github.io/api/#sourcemap.
+
 ---
 
 ##### `sourceRoot`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.sourceRoot"></a>
@@ -1044,6 +1182,8 @@ public readonly sourceRoot: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#source-root.
 
 ---
 
@@ -1055,6 +1195,8 @@ public readonly sourcesContent: boolean;
 
 - *Type:* `boolean`
 
+Documentation: https://esbuild.github.io/api/#sources-content.
+
 ---
 
 ##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.target"></a>
@@ -1065,6 +1207,8 @@ public readonly target: string | string[];
 
 - *Type:* `string` | `string`[]
 
+Documentation: https://esbuild.github.io/api/#target.
+
 ---
 
 ##### `treeShaking`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.treeShaking"></a>
@@ -1074,6 +1218,8 @@ public readonly treeShaking: boolean;
 ```
 
 - *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#tree-shaking.
 
 ---
 
