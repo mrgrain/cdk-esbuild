@@ -4,11 +4,6 @@
 - `npm run release -- --release-as minor` or `npm run release -- --release-as minor --prerelease beta`
 - `git push --follow-tags origin main`
 - `npm publish`
-
-Optional:
-
-- `npm run tag:cdk`
-- `npm run tag:latest`
 - `npm run github-release`
 
 In the background, the publish command will execute the following steps:

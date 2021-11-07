@@ -22,8 +22,6 @@
     "prepublishOnly": "npm run clean && npm run build && npm t",
     "postpublish": "npm run clean",
     "release": "standard-version -s",
-    "tag:cdk": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version cdk-v1",
-    "tag:latest": "npm dist-tag add @mrgrain/cdk-esbuild@$npm_package_version",
     "test": "jest",
     "test-cycle": "npm i && npm run clean && npm run build && npm t && npm run clean"
   },
@@ -47,8 +45,7 @@
     "typescript": "^4.4.3"
   },
   "publishConfig": {
-    "access": "public",
-    "tag": "unstable"
+    "access": "public"
   },
   "keywords": [
     "aws-cdk",
