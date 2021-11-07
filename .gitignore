@@ -57,4 +57,4 @@ tsconfig.json
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json
-!/.github/workflows/upgrade-next.yml
+!/.github/workflows/upgrade-main.yml
