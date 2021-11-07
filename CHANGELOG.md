@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.131.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.130.0...v1.131.0) (2021-11-07)
 
+- works with cdk-1.131.0
+
+### ⚠ IMPORTANT NOTICE
+
+This is a release on the legacy v1 branch. Please upgrade to v2 as soon as possible.
+
+If you're using the tag `cdk-v1`, you will already receive the latest stable v2 release. If you're using a versioned tag (e.g. `cdk-1.29.0`), this tag format is deprecated and future releases won't be tagged like this.
+
 ## [1.130.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.129.0...v1.130.0) (2021-11-07)
 
 - works with cdk-1.130.0
