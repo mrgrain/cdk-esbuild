@@ -2,7 +2,7 @@
 
 - `npm run test-cycle`
 - `npm run release -- --release-as minor` or `npm run release -- --release-as minor --prerelease beta`
-- `git push --follow-tags origin main`
+- `git push --follow-tags origin v1`
 - `npm publish`
 - `npm run github-release`
 
