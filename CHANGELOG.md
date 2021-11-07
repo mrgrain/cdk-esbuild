@@ -1,4 +1,48 @@
 
+## [2.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.129.0...v2.0.0) (2021-11-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* Alpha release of a jsii version of this package. Aim is
+that migration will be minimal, however probably not avoidable.
+
+* feat: jsii compatibility
+
+* docs: note about alpha status
+
+* chore: announce releases on twitter
+
+* chore: upgrade projen version
+
+* chore: workflow container to use node14
+
+* chore: upgrade package versions
+
+* chore: remove standard-version files that are incompatible with release
+
+* chore: remove docker fallback code
+
+* chore(examples/lambda): use new jsii construct
+
+* feat: reduce number of exported structs
+
+* feat: more explict prop types
+
+* docs: re-write for jsii package
+
+* chore: manual release
+
+* docs: fix links and typos
+
+* chore: re-add changelog
+
+* ci: remove unnecessary check from manual release workflow
+
+* chore(release): 2.0.0-alpha.2
+
+* JSII compatibility & v2 GA (#114) ([727c78a](https://github.com/mrgrain/cdk-esbuild/commit/727c78aefa2079d0f561b8b664d75eb6c669e46b)), closes [#114](https://github.com/mrgrain/cdk-esbuild/issues/114) [#117](https://github.com/mrgrain/cdk-esbuild/issues/117) [#119](https://github.com/mrgrain/cdk-esbuild/issues/119) [#120](https://github.com/mrgrain/cdk-esbuild/issues/120) [#123](https://github.com/mrgrain/cdk-esbuild/issues/123)
+
 ## [2.0.0-rc.1](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0-rc.0...v2.0.0-rc.1) (2021-10-28)
 
 
