@@ -14,11 +14,11 @@ AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/c
 
 This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. The approach is quicker and easier to use for Node.js users, but incompatible with other languages.
 
-**⚠️ A note on stability**
+**Production readiness**
 
-This package is generally stable and ready to be used in production as many do. However _esbuild_ is still on major version zero, which you should consider. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
+This package is generally stable and ready to be used in production, as many do. However _esbuild_ not yet released a version 1.0.0 yet and its API is still in active development. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
 
-Notably upgrades of the _esbuild_ version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
+Notably upgrades of the _esbuild_ minimum version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
 
 ## Getting started
 
