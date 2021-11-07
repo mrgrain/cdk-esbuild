@@ -23,8 +23,8 @@
     "compat": "npx projen compat",
     "publish:npm": "npx projen publish:npm",
     "docgen": "npx projen docgen",
-    "release:next": "npx projen release:next",
-    "publish:git:next": "npx projen publish:git:next",
+    "release": "npx projen release",
+    "publish:git": "npx projen publish:git",
     "upgrade": "npx projen upgrade",
     "upgrade-projen": "npx projen upgrade-projen",
     "projen": "npx projen"
@@ -100,9 +100,6 @@
   "main": "lib/index.js",
   "license": "MIT",
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
-  "publishConfig": {
-    "tag": "next"
-  },
   "version": "0.0.0",
   "jest": {
     "testMatch": [
