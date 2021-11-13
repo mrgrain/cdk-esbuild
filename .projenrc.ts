@@ -18,12 +18,7 @@ const project = new AwsCdkConstructLibrary({
     dirs: ['src', 'projenrc', '.projenrc.ts'],
   },
   depsUpgradeOptions: {
-    workflowOptions: {
-      container: {
-        image:
-          'jsii/superchain:1-buster-slim-node16',
-      },
-    },
+    workflow: false,
   },
 
   // Project info
