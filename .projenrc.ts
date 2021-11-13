@@ -17,6 +17,14 @@ const project = new AwsCdkConstructLibrary({
     lintProjenRc: false,
     dirs: ['src', 'projenrc', '.projenrc.ts'],
   },
+  depsUpgradeOptions: {
+    workflowOptions: {
+      container: {
+        image:
+          'jsii/superchain:1-buster-slim-node16',
+      },
+    },
+  },
 
   // Project info
   name: '@mrgrain/cdk-esbuild',
