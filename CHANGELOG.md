@@ -4,7 +4,28 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.133.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.132.0...v1.133.0) (2021-11-21)
 
+- **This is a release on the legacy v1 branch. Please upgrade to v2 as soon as possible.**
+- works with cdk-1.133.0
+
+### ⛔ EXTREMELY IMPORTANT NOTICE FOR USERS WHO HAVE NOT UPGRADE TO v2 OF THIS PACKAGE
+
+**tl;dr No more "versioned" release on this legacy branch.**
+
+Until now, I have release a new version of this package every time a new CDK version was released. Even if no updates where necessary. This practice will stop with this release and I will only release a new version on the legacy v1 branch, if an update is required for compatibility. **Please upgrade to v2 of this package as soon as possible!**
+
+[**Upgrading instructions to v2 of this package**](https://github.com/mrgrain/cdk-esbuild#migrating-to-v2)
+
+If you're using the tag `cdk-v1`, you will already receive the latest stable v2 release. If you're using a versioned tag (e.g. `cdk-1.29.0`), this tag format is deprecated and release have not been tagged for a while now.
+
 ## [1.132.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.131.0...v1.132.0) (2021-11-21)
+
+- works with cdk-1.132.0
+
+### ⚠ IMPORTANT NOTICE
+
+This is a release on the legacy v1 branch. Please upgrade to v2 as soon as possible.
+
+If you're using the tag `cdk-v1`, you will already receive the latest stable v2 release. If you're using a versioned tag (e.g. `cdk-1.29.0`), this tag format is deprecated and future releases won't be tagged like this.
 
 ## [1.131.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.130.0...v1.131.0) (2021-11-07)
 
