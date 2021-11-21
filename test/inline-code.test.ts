@@ -12,7 +12,28 @@ jest.mock('../src/formatMessages', () => ({
   printBuildMessages: jest.fn(),
 }));
 
-describe('inline-code', () => {
+describe('using transformOptions', () => {
+  beforeEach(() => {
+    mocked(printBuildMessages).mockReset();
+  });
+
+  describe('given a banner code', () => {
+    it('should add the banner before the code', () => {
+      const code = new InlineJavaScriptCode(
+        "const banana = 'fruit' ?? 'vegetable'",
+        {
+          banner: '/** BANNER */',
+        },
+      );
+
+      const { inlineCode } = code.bind(new Stack());
+
+      expect(inlineCode).toBe('/** BANNER */\nconst banana = "fruit";\n');
+    });
+  });
+});
+
+describe('using transformerProps', () => {
   beforeEach(() => {
     mocked(printBuildMessages).mockReset();
   });
@@ -75,6 +96,42 @@ describe('inline-code', () => {
       }).toThrowError('Failed to transform InlineCode');
 
       expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('given a banner code', () => {
+    it('should add the banner before the code', () => {
+      const code = new InlineJavaScriptCode(
+        "const banana = 'fruit' ?? 'vegetable'",
+        {
+          transformOptions: { banner: '/** BANNER */' },
+        },
+      );
+
+      const { inlineCode } = code.bind(new Stack());
+
+      expect(inlineCode).toBe('/** BANNER */\nconst banana = "fruit";\n');
+    });
+  });
+
+  describe('given a custom transform function', () => {
+    it('should call my transform function', () => {
+      const customTransform = jest.fn().mockImplementation(() => ({
+        code: 'console.log("test");',
+        map: '',
+        warnings: [],
+      }));
+
+      const code = new InlineTypeScriptCode('let x: number = 1', {
+        transformFn: customTransform,
+      });
+      const { inlineCode } = code.bind(new Stack());
+
+      expect(inlineCode).toBe('console.log("test");');
+      expect(mocked(customTransform)).toHaveBeenCalledWith(
+        expect.stringContaining('let x: number = 1'),
+        expect.anything(),
+      );
     });
   });
 });

@@ -47,6 +47,7 @@ abstract class Asset<Props extends AssetProps> extends S3Asset {
       assetHash,
       copyDir,
       buildOptions: options = {},
+      buildFn,
     } = props;
     const entryPoints: string[] | Record<string, string> =
       typeof props.entryPoints === 'string' ? [props.entryPoints] : props.entryPoints;
@@ -78,6 +79,7 @@ abstract class Asset<Props extends AssetProps> extends S3Asset {
         {
           buildOptions,
           copyDir,
+          buildFn,
         },
       ),
     });

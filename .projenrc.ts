@@ -1,5 +1,6 @@
 import {
   AwsCdkConstructLibrary,
+  IgnoreFile,
   JsonFile,
   NodePackageManager,
   release,
@@ -126,10 +127,15 @@ eslintRc?.addOverride('ignorePatterns', [
   '*.js',
   '*.d.ts',
   'node_modules/',
+  'examples/',
   '*.generated.ts',
   'coverage',
   '!.projenrc.ts',
 ]);
+
+(project.tryFindFile('.gitignore') as IgnoreFile).addPatterns(
+  '!/examples/**',
+);
 
 new JsonFile(project, '.vscode/extensions.json', {
   readonly: false,

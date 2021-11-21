@@ -13,6 +13,22 @@ import { AssetProps } from '@mrgrain/cdk-esbuild'
 const assetProps: AssetProps = { ... }
 ```
 
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
+
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildOptions"></a>
 
 ```typescript
@@ -703,6 +719,22 @@ import { BundlerProps } from '@mrgrain/cdk-esbuild'
 const bundlerProps: BundlerProps = { ... }
 ```
 
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
+
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildOptions"></a>
 
 ```typescript
@@ -775,6 +807,22 @@ import { JavaScriptCodeProps } from '@mrgrain/cdk-esbuild'
 const javaScriptCodeProps: JavaScriptCodeProps = { ... }
 ```
 
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
+
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildOptions"></a>
 
 ```typescript
@@ -841,6 +889,22 @@ import { JavaScriptSourceProps } from '@mrgrain/cdk-esbuild'
 const javaScriptSourceProps: JavaScriptSourceProps = { ... }
 ```
 
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
+
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildOptions"></a>
 
 ```typescript
@@ -894,6 +958,48 @@ A hash of this asset, which is available at construction time.
 As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
 
 Defaults to a hash of all files in the resulting bundle.
+
+---
+
+### TransformerProps <a name="@mrgrain/cdk-esbuild.TransformerProps"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { TransformerProps } from '@mrgrain/cdk-esbuild'
+
+const transformerProps: TransformerProps = { ... }
+```
+
+##### `transformFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformFn"></a>
+
+```typescript
+public readonly transformFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.transformSync
+
+Escape hatch to provide the bundler with a custom transform function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however a TransformResult must be returned to integrate with CDK.
+Must throw a `TransformFailure` on failure to correctly inform the bundler.
+
+---
+
+##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformOptions"></a>
+
+```typescript
+public readonly transformOptions: TransformOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details.
+
+> https://esbuild.github.io/api/#transform-api
 
 ---
 
@@ -1243,6 +1349,22 @@ import { TypeScriptCodeProps } from '@mrgrain/cdk-esbuild'
 const typeScriptCodeProps: TypeScriptCodeProps = { ... }
 ```
 
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
+
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildOptions"></a>
 
 ```typescript
@@ -1308,6 +1430,22 @@ import { TypeScriptSourceProps } from '@mrgrain/cdk-esbuild'
 
 const typeScriptSourceProps: TypeScriptSourceProps = { ... }
 ```
+
+##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildFn"></a>
+
+```typescript
+public readonly buildFn: any;
+```
+
+- *Type:* `any`
+- *Default:* esbuild.buildSync
+
+Escape hatch to provide the bundler with a custom build function.
+
+The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+Must throw a `BuildFailure` on failure to correctly inform the bundler.
+
+---
 
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildOptions"></a>
 
@@ -1463,7 +1601,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineJavaScriptCode } from '@mrgrain/cdk-esbuild'
 
-new InlineJavaScriptCode(code: string, transformOptions?: TransformOptions)
+new InlineJavaScriptCode(code: string, props?: TransformOptions | TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.code"></a>
@@ -1474,14 +1612,15 @@ The inline code to be transformed.
 
 ---
 
-##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.transformOptions"></a>
+##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Transform options passed on to esbuild.
+Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
 
-Please refer to the esbuild Transform API docs for details. \
-Default values for `transformOptions`:
+Props to change the behaviour of the transformer.
+
+Default values for `props.transformOptions`:
 - `loader='js'`
 
 > https://esbuild.github.io/api/#transform-api
@@ -1501,7 +1640,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineJsxCode } from '@mrgrain/cdk-esbuild'
 
-new InlineJsxCode(code: string, transformOptions?: TransformOptions)
+new InlineJsxCode(code: string, props?: TransformOptions | TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.code"></a>
@@ -1512,13 +1651,14 @@ The inline code to be transformed.
 
 ---
 
-##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.transformOptions"></a>
+##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Transform options passed on to esbuild.
+Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
 
-Please refer to the esbuild Transform API docs for details. \
+Props to change the behaviour of the transformer.
+
 Default values for `transformOptions`:
 - `loader='jsx'`
 
@@ -1539,7 +1679,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineTsxCode } from '@mrgrain/cdk-esbuild'
 
-new InlineTsxCode(code: string, transformOptions?: TransformOptions)
+new InlineTsxCode(code: string, props?: TransformOptions | TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.code"></a>
@@ -1550,13 +1690,14 @@ The inline code to be transformed.
 
 ---
 
-##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.transformOptions"></a>
+##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Transform options passed on to esbuild.
+Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
 
-Please refer to the esbuild Transform API docs for details. \
+Props to change the behaviour of the transformer.
+
 Default values for `transformOptions`:
 - `loader='tsx'`
 
@@ -1577,7 +1718,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineTypeScriptCode } from '@mrgrain/cdk-esbuild'
 
-new InlineTypeScriptCode(code: string, transformOptions?: TransformOptions)
+new InlineTypeScriptCode(code: string, props?: TransformOptions | TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.code"></a>
@@ -1588,13 +1729,14 @@ The inline code to be transformed.
 
 ---
 
-##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.transformOptions"></a>
+##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Transform options passed on to esbuild.
+Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
 
-Please refer to the esbuild Transform API docs for details. \
+Props to change the behaviour of the transformer.
+
 Default values for `transformOptions`:
 - `loader='ts'`
 

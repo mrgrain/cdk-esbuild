@@ -47,6 +47,20 @@ export interface BundlerProps {
    * @stability stable
    */
   readonly copyDir?: string;
+
+
+  /**
+   * Escape hatch to provide the bundler with a custom build function.
+   * The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
+   * Must throw a `BuildFailure` on failure to correctly inform the bundler.
+   *
+   * @stability experimental
+   * @type esbuild.buildSync
+   * @returns esbuild.BuildResult
+   * @throws esbuild.BuildFailure
+   * @default esbuild.buildSync
+   */
+  readonly buildFn?: any;
 }
 
 /**
@@ -93,6 +107,8 @@ export class EsbuildBundler {
       throw new Error('Cannot use both "outfile" and "outdir"');
     }
 
+    const { buildFn = buildSync } = this.props;
+
     this.local = {
       tryBundle: (outputDir: string, _options: BundlingOptions): boolean => {
         try {
@@ -106,7 +122,7 @@ export class EsbuildBundler {
             );
           }
 
-          const buildResult: BuildResult = buildSync({
+          const buildResult: BuildResult = buildFn({
             entryPoints,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),

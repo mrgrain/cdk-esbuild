@@ -7,7 +7,9 @@ import {
   Test,
 } from '@aws-cdk/aws-synthetics';
 import { Stack } from '@aws-cdk/core';
+import { mocked } from 'ts-jest/utils';
 import { JavaScriptCode, TypeScriptCode } from '../src/code';
+import { buildSync } from '../src/esbuild-wrapper';
 
 describe('code', () => {
   describe('entry is an absolute path', () => {
@@ -84,6 +86,33 @@ describe('code', () => {
           code,
         });
       }).not.toThrow();
+    });
+  });
+
+  describe('Given a custom build function', () => {
+    it('should call my build function', () => {
+      const customBuild = jest.fn(buildSync);
+
+      expect(() => {
+        const stack = new Stack();
+
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+          buildOptions: { absWorkingDir: resolve(__dirname) },
+          buildFn: customBuild,
+        });
+
+        new Function(stack, 'MyFunction', {
+          runtime: LambdaRuntime.NODEJS_14_X,
+          handler: 'index.handler',
+          code,
+        });
+      }).not.toThrow();
+
+      expect(mocked(customBuild)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          entryPoints: ['fixtures/handlers/ts-handler.ts'],
+        }),
+      );
     });
   });
 });
