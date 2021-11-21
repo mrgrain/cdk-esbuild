@@ -149,13 +149,13 @@ The main changes in cdk-esbuild v2 are:
 - Update the package dependency to v2: `npm install --save @mrgrain/cdk-esbuild@^2.0.0`
 - `esbuild` is now installed as an optional dependency. If your setup does not automatically install optional dependencies, add it as an explicit dependency.
 - Remove any use of `bundlerPriority`.
-- Unstable construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
+- Experimental construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
 
 ## Versioning
 
 This package _mostly_ follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
 
-Although great care is taken to avoid this, all features marked as `@unstable` may change with minor versions. Please note that the unstable flag is applied to all new or experimental features and internal classes.
+Although great care is taken to avoid this, all features marked with `@stability experimental` may change with minor versions. The flag is only applied to new and experimental features and internal classes.
 
 ### Npm Tags
 
