@@ -32,49 +32,53 @@ describe('source', () => {
 
   describe('using a TypeScriptSource', () => {
     it('does not throw', () => {
-      const stack = new Stack();
+      expect(() => {
+        const stack = new Stack();
 
-      const website = new TypeScriptSource('fixtures/handlers/ts-handler.ts', {
-        buildOptions: {
-          absWorkingDir: resolve(__dirname),
-        },
-      });
+        const website = new TypeScriptSource('fixtures/handlers/ts-handler.ts', {
+          buildOptions: {
+            absWorkingDir: resolve(__dirname),
+          },
+        });
 
-      const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
-        autoDeleteObjects: true,
-        publicReadAccess: true,
-        removalPolicy: RemovalPolicy.DESTROY,
-        websiteIndexDocument: 'index.html',
-      });
+        const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
+          autoDeleteObjects: true,
+          publicReadAccess: true,
+          removalPolicy: RemovalPolicy.DESTROY,
+          websiteIndexDocument: 'index.html',
+        });
 
-      new BucketDeployment(stack, 'DeployWebsite', {
-        destinationBucket: websiteBucket,
-        sources: [website],
-      });
+        new BucketDeployment(stack, 'DeployWebsite', {
+          destinationBucket: websiteBucket,
+          sources: [website],
+        });
+      }).not.toThrow();
     });
   });
 
   describe('using a JavaScriptSource', () => {
     it('does not throw', () => {
-      const stack = new Stack();
+      expect(() => {
+        const stack = new Stack();
 
-      const website = new JavaScriptSource('fixtures/handlers/js-handler.js', {
-        buildOptions: {
-          absWorkingDir: resolve(__dirname),
-        },
-      });
+        const website = new JavaScriptSource('fixtures/handlers/js-handler.js', {
+          buildOptions: {
+            absWorkingDir: resolve(__dirname),
+          },
+        });
 
-      const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
-        autoDeleteObjects: true,
-        publicReadAccess: true,
-        removalPolicy: RemovalPolicy.DESTROY,
-        websiteIndexDocument: 'index.html',
-      });
+        const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
+          autoDeleteObjects: true,
+          publicReadAccess: true,
+          removalPolicy: RemovalPolicy.DESTROY,
+          websiteIndexDocument: 'index.html',
+        });
 
-      new BucketDeployment(stack, 'DeployWebsite', {
-        destinationBucket: websiteBucket,
-        sources: [website],
-      });
+        new BucketDeployment(stack, 'DeployWebsite', {
+          destinationBucket: websiteBucket,
+          sources: [website],
+        });
+      }).not.toThrow();
     });
   });
 
