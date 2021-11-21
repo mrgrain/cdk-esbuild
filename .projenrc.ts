@@ -45,6 +45,15 @@ const project = new AwsCdkConstructLibrary({
   license: 'MIT',
   copyrightOwner: 'Moritz Kornher',
 
+  // Testing & Linting
+  githubOptions: {
+    pullRequestLintOptions: {
+      semanticTitleOptions: {
+        types: ['feat', 'fix', 'chore', 'docs', 'ci'],
+      },
+    },
+  },
+
   // Release
   packageManager: NodePackageManager.NPM,
   npmDistTag: 'latest',
