@@ -75,5 +75,14 @@ jobs:
           NPM_DIST_TAG: latest
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Update tags
+        run: |
+          version=`cat dist/version.txt`
+          echo $version
+          npm dist-tag add @mrgrain/cdk-esbuild@$version next
+          npm dist-tag add @mrgrain/cdk-esbuild@$version unstable
+        env:
+          NPM_REGISTRY: registry.npmjs.org
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     container:
       image: jsii/superchain:1-buster-slim-node14
