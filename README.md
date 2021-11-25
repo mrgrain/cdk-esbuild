@@ -147,6 +147,8 @@ For these situations, this package offers an escape hatch to bypass regular the 
 
 ### Custom build function
 
+> 💡 See [Using esbuild with plugins](examples/esbuild-with-plugin) for a complete working example of a custom build function using this escape hatch.
+
 Constructs that result in starting a build, take a `buildFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `buildSync` function.
 
 ```ts

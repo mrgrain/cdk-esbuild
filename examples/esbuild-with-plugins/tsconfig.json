@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2020",
+  },
+  "include": ["*.ts"],
+  "exclude": ["cdk.out", "node_modules"]
+}
