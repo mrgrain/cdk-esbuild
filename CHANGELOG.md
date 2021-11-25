@@ -1,17 +1,9 @@
-
 ## [2.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0...v2.1.0) (2021-11-25)
-
 
 ### Features
 
-* escape hatch to provide a custom build or transform function ([#141](https://github.com/mrgrain/cdk-esbuild/issues/141)) ([aacfac1](https://github.com/mrgrain/cdk-esbuild/commit/aacfac1b71f1de78fbfdc1161c6e8cf32fd0629e))
-
-
-### Bug Fixes
-
-* make source tests more explicit ([#140](https://github.com/mrgrain/cdk-esbuild/issues/140)) ([b8cea99](https://github.com/mrgrain/cdk-esbuild/commit/b8cea99c39382fdef71e12c1f314d313e2f7e6f9))
-* upgrade-main is broken, remove it ([#135](https://github.com/mrgrain/cdk-esbuild/issues/135)) ([1259907](https://github.com/mrgrain/cdk-esbuild/commit/12599075c73648af8162e016fe1979b625481cf5))
-* use image with npm8 ([#134](https://github.com/mrgrain/cdk-esbuild/issues/134)) ([eb961cd](https://github.com/mrgrain/cdk-esbuild/commit/eb961cd147a990966f72bb6ca3aa5d698e67100d))
+- escape hatch to provide a custom build or transform function ([#141](https://github.com/mrgrain/cdk-esbuild/issues/141)) ([aacfac1](https://github.com/mrgrain/cdk-esbuild/commit/aacfac1b71f1de78fbfdc1161c6e8cf32fd0629e))
+- `Inline*Code` now takes `TransformerProps` as second parameter, passing in `TransformOptions` is still supported but deprecated ([#141](https://github.com/mrgrain/cdk-esbuild/issues/141)) ([aacfac1](https://github.com/mrgrain/cdk-esbuild/commit/aacfac1b71f1de78fbfdc1161c6e8cf32fd0629e))
 
 ## [2.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.129.0...v2.0.0) (2021-11-07)
 
