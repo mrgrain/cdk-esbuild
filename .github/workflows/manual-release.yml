@@ -79,6 +79,7 @@ jobs:
         run: |
           version=`cat dist/version.txt`
           echo $version
+          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v1
           npm dist-tag add @mrgrain/cdk-esbuild@$version next
           npm dist-tag add @mrgrain/cdk-esbuild@$version unstable
         env:
