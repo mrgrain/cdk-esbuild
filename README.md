@@ -135,6 +135,56 @@ Underlying classes power the other features. You normally won't have to use them
 
 Auto-generated reference for classes and structs. This information is also available within the code completion of your IDE.
 
+## Escape hatches
+
+It's possible that you want to use a implementation of esbuild that's different to the default one. Common reasons are:
+
+- The current version constraints for esbuild are not suitable
+- To use version of esbuild that is installed by any other means than `npm`, including Docker
+- Plugin support is needed for the building
+
+For these situations, this package offers an escape hatch to bypass regular the implementation and provide a custom build and transform function.
+
+### Custom build function
+
+Constructs that result in starting a build, take a `buildFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `buildSync` function.
+
+```ts
+new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+  buildFn: (options: BuildOptions): BuildResult => {
+    try {
+      // custom implementation returning BuildResult
+    } catch (error) {
+      // throw BuildFailure exception here
+    }
+  },
+});
+```
+
+Instead of esbuild, the provided function will be invoked with the calculated build options. The custom build function can amend, change or discard any of these. However integration with CDK relies heavily on the values `outdir`/`outfile` are set to and it's usually required to use them unchanged.
+
+Failures have to cause a `BuildFailure` exception in order to be fully handled.
+
+### Custom transform function
+
+Constructs that result in starting a transformation, take a `transformFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `transformSync` function.
+
+```ts
+new InlineTypeScriptCode("let x: number = 1", {
+  transformFn: (options: TransformOptions): TransformResult => {
+    try {
+      // custom implementation returning TransformResult
+    } catch (error) {
+      // throw TransformFailure exception here
+    }
+  },,
+});
+```
+
+Instead of esbuild, the provided function will be invoked with the calculated transform options. The custom transform function can amend, change or discard any of these.
+
+Failures have to cause a `TransformFailure` exception in order to be fully handled.
+
 ## Migrating to v2
 
 The main changes in cdk-esbuild v2 are:
