@@ -55,6 +55,7 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+!/examples/**
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json

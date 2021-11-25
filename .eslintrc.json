@@ -36,6 +36,7 @@
     "*.js",
     "*.d.ts",
     "node_modules/",
+    "examples/",
     "*.generated.ts",
     "coverage",
     "!.projenrc.ts"

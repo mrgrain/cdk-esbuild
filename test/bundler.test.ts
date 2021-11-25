@@ -101,4 +101,31 @@ describe('bundling', () => {
       }).toThrowError('Cannot use both "outfile" and "outdir"');
     });
   });
+
+
+  describe('Given a custom build function', () => {
+    it('should call my build function', () => {
+      const customBuild = jest.fn().mockImplementation(() => ({
+        errors: [],
+        warnings: [],
+      }));
+
+
+      const bundler = new EsbuildBundler(
+        ['index.ts'],
+        {
+          buildOptions: { absWorkingDir: '/project', outdir: 'js' },
+          buildFn: customBuild,
+        },
+      );
+
+      bundler.local?.tryBundle('cdk.out/123456', bundler);
+
+      expect(mocked(customBuild)).toHaveBeenCalledWith(
+        expect.objectContaining({
+          outdir: 'cdk.out/123456/js',
+        }),
+      );
+    });
+  });
 });

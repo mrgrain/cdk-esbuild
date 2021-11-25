@@ -14,6 +14,7 @@ export {
 } from './code';
 
 export {
+  TransformerProps,
   InlineJavaScriptCode,
   InlineJsxCode,
   InlineTsxCode,
