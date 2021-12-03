@@ -87,7 +87,7 @@ const project = new AwsCdkConstructLibrary({
   ],
   devDeps: [
     '@types/eslint',
-    'esbuild@^0.13.0',
+    'esbuild@^0.14.0',
     'ts-morph',
   ],
 
@@ -118,7 +118,7 @@ const project = new AwsCdkConstructLibrary({
 
 const packageJson = project.tryFindObjectFile('package.json');
 packageJson?.addOverride('optionalDependencies', {
-  esbuild: '^0.13.0',
+  esbuild: '^0.14.0',
 });
 packageJson?.addOverride('jest.testPathIgnorePatterns.1', '/examples/');
 
