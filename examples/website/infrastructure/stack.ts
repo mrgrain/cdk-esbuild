@@ -1,16 +1,16 @@
-import { Bucket } from "@aws-cdk/aws-s3";
-import { BucketDeployment } from "@aws-cdk/aws-s3-deployment";
-import { Canary, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics";
-import { Alarm, ComparisonOperator } from "@aws-cdk/aws-cloudwatch";
+import { Canary, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics-alpha";
+import { TypeScriptCode, TypeScriptSource } from "@mrgrain/cdk-esbuild";
+import { Bucket } from "aws-cdk-lib/aws-s3";
+import { BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
+import { Alarm, ComparisonOperator } from "aws-cdk-lib/aws-cloudwatch";
 import {
   CfnOutput,
-  Construct,
   Duration,
   RemovalPolicy,
   Stack,
   StackProps,
-} from "@aws-cdk/core";
-import { TypeScriptCode, TypeScriptSource } from "@mrgrain/cdk-esbuild";
+} from "aws-cdk-lib/core";
+import { Construct } from "constructs";
 
 export class WebsiteStack extends Stack {
   constructor(scope?: Construct, id?: string, props?: StackProps) {
@@ -46,9 +46,7 @@ export class WebsiteStack extends Stack {
         code: new TypeScriptCode("./src/canary.ts", {
           buildOptions: {
             outdir: "nodejs/node_modules",
-            external: [
-              "Synthetics",
-            ],
+            external: ["Synthetics"],
           },
         }),
         handler: "canary.handler",
