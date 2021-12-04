@@ -1,11 +1,11 @@
-
 ## [2.2.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.1.0...v2.2.0) (2021-12-04)
 
+**This release contains an upgrade of esbuild with backwards-incompatible changes.** This is inline with the versioning strategy for this package, which is to release esbuild upgrades with minor versions as long as esbuild has not reached version 1.0.0. The backwards-incompatible changes are fairly obscure this time around, but please make sure to read the [0.14.0 release notes](https://github.com/evanw/esbuild/releases/tag/v0.14.0).
 
 ### Features
 
-* **examples/esbuild-with-plugins:** example of how to use the escape hatch to run esbuild with plugins ([#142](https://github.com/mrgrain/cdk-esbuild/issues/142)) ([0876f0e](https://github.com/mrgrain/cdk-esbuild/commit/0876f0e4d4bd65a792deef8adf43229568ab899b))
-* upgrade esbuild to ^0.14.0 ([#143](https://github.com/mrgrain/cdk-esbuild/issues/143)) ([4568b92](https://github.com/mrgrain/cdk-esbuild/commit/4568b92011a3e38f23d85998dcbbca1afa06918e))
+- upgrade esbuild to [^0.14.0](https://github.com/evanw/esbuild/releases/tag/v0.14.0) ([#143](https://github.com/mrgrain/cdk-esbuild/issues/143)) ([4568b92](https://github.com/mrgrain/cdk-esbuild/commit/4568b92011a3e38f23d85998dcbbca1afa06918e))
+- **examples/esbuild-with-plugins:** example of how to use the escape hatch to run esbuild with plugins ([#142](https://github.com/mrgrain/cdk-esbuild/issues/142)) ([0876f0e](https://github.com/mrgrain/cdk-esbuild/commit/0876f0e4d4bd65a792deef8adf43229568ab899b))
 
 ## [2.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0...v2.1.0) (2021-11-25)
 

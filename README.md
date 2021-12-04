@@ -25,13 +25,13 @@ Notably upgrades of the _esbuild_ minimum version requirement will be introduced
 Install `cdk-esbuild`:
 
 ```
-npm install @mrgrain/cdk-esbuild
+npm install @mrgrain/cdk-esbuild@^2.0.0
 ```
 
 If _peer_ and _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
 
 ```
-npm install @mrgrain/cdk-esbuild esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
+npm install @mrgrain/cdk-esbuild@^2.0.0 esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
 ```
 
 ### AWS Lambda: Serverless function
