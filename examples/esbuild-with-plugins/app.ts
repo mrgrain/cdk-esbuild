@@ -1,12 +1,13 @@
 #!/usr/bin/env node
-import * as cdk from "@aws-cdk/core";
-import { Function, Runtime } from "@aws-cdk/aws-lambda";
+import { App, CfnOutput, Stack, StackProps } from "aws-cdk-lib/core";
+import { Function, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Construct } from "constructs";
 import { BuildOptions, TypeScriptCode } from "@mrgrain/cdk-esbuild";
 import { execSync } from "child_process";
 import { BuildResult } from "esbuild";
 
-export class LambdaStack extends cdk.Stack {
-  constructor(scope?: cdk.Construct, id?: string, props?: cdk.StackProps) {
+export class LambdaStack extends Stack {
+  constructor(scope?: Construct, id?: string, props?: StackProps) {
     super(scope, id, props);
 
     const lambda = new Function(this, "Lambda", {
@@ -26,11 +27,11 @@ export class LambdaStack extends cdk.Stack {
       }),
     });
 
-    new cdk.CfnOutput(this, "LambdaArn", {
+    new CfnOutput(this, "LambdaArn", {
       value: lambda.functionArn,
     });
   }
 }
 
-const app = new cdk.App();
+const app = new App();
 new LambdaStack(app, "Function");
