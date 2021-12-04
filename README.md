@@ -1,10 +1,10 @@
-# cdk-esbuild@v2 (version for AWS CDK v1)
+# cdk-esbuild
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-> ⚠️ This is the documentation for the version compatible with AWS CDK v1. For the latest, AWS CDK v2 compatible release, see [cdk-esbuild@v3](https://github.com/mrgrain/cdk-esbuild/tree/next)
+> ⚠️ This is the documentation for the version compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2)
 
-[Getting started](#getting-started) | [Migrating to v2](#migrating-to-v2) |
+[Getting started](#getting-started) | [Migrating to v3](#migrating-to-v3) |
 [Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
 
 ## Why?
@@ -27,13 +27,13 @@ Notably upgrades of the _esbuild_ minimum version requirement will be introduced
 Install `cdk-esbuild`:
 
 ```
-npm install @mrgrain/cdk-esbuild@^2.0.0
+npm install @mrgrain/cdk-esbuild@^3.0.0
 ```
 
 If _peer_ and _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
 
 ```
-npm install @mrgrain/cdk-esbuild@^2.0.0 esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
+npm install @mrgrain/cdk-esbuild@^3.0.0 esbuild
 ```
 
 ### AWS Lambda: Serverless function
@@ -189,27 +189,29 @@ Instead of esbuild, the provided function will be invoked with the calculated tr
 
 Failures have to cause a `TransformFailure` exception in order to be fully handled.
 
-## Migrating to v2
+## Migrating to v3
 
-The main changes in cdk-esbuild v2 are:
-
-- The package is now `jsii` compliant and published in the [Construct Hub](https://constructs.dev/). This will also enable a possible feature release for other languages.
-- Deprecated properties and classes have been removed, most notably the previous support for bundling via a Docker container. The implementation had a few issues that cannot be easily resolved. However more generic support for custom executables might arrive in later versions.
-- `esbuild` is now installed as an optional dependency. It's not optional at all, but this is a ramification of using `jsii`. In practice this will have no impact on most people.
-- Interfaces have been streamlined and the names and setup of internal types have been changed. In the unlikely case that someone was relying on these, upgrading will be straight forward.
+The release of cdk-esbuild v3 brings compatibility with AWS CDK v2. Furthermore all deprecated properties and classes have been removed. In particular `InlineCode` classes now take `TransformerProps` as second parameter instead of transform options.
 
 ### Upgrading
 
-- Update the package dependency to v2: `npm install --save @mrgrain/cdk-esbuild@^2.0.0`
-- `esbuild` is now installed as an optional dependency. If your setup does not automatically install optional dependencies, add it as an explicit dependency.
-- Remove any use of `bundlerPriority`.
-- Experimental construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
+- This version requires AWS CDK v2. Follow the [official migration guide](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html) to upgrade.
+- Update the package dependency to v3: `npm install --save @mrgrain/cdk-esbuild@^3.0.0`
+- `esbuild` is installed as an optional dependency. If your setup does not automatically install optional dependencies, make sure to add it as an explicit dependency.
+- Any use of `InlineCode` variations has to be updated. Previously the second parameter was either of type `TransformerProps` or `TransformOptions`. Now it must be `TransformerProps`.\
+  If the passed value is of type `TransformOptions`, turn it into the correct type like this:
+
+  ```ts
+  const oldOptions: TransformOptions = {...}
+
+  new InlineTypeScriptCode('// inline code', {
+    transformOptions: oldOptions
+  });
+  ```
 
 ## Versioning
 
 This package _mostly_ follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
-
-Although great care is taken to avoid this, all features marked with `@stability experimental` may change with minor versions. The flag is only applied to new and experimental features and internal classes.
 
 ### Npm Tags
 
@@ -226,10 +228,6 @@ These tags also exist, but usage is strongly not recommended:
 - ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
 
 ## Future releases
-
-### AWS CDK v2
-
-The monolithic version 2 of CDK (aka Mono-CDK) is on the horizon. A new major release of this package will be marked alongside CDK. Support for AWS CDK v1.x.x will be continued, however no new features will be added.
 
 ### Stable esbuild
 
