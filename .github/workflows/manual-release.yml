@@ -21,15 +21,14 @@ jobs:
           git config user.email "github-actions@github.com"
       - name: Install dependencies
         run: npm ci
-      - name: release:next
-        run: npx projen release:next
+      - name: release
+        run: npx projen release
       - name: Check for new commits
         id: git_remote
         run:
           echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{
           github.ref }} | cut -f1)"
       - name: Upload artifact
-        if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
         uses: actions/upload-artifact@v2.1.1
         with:
           name: dist
@@ -42,7 +41,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v2
@@ -65,7 +63,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: needs.release.outputs.latest_commit == github.sha
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v2
@@ -75,7 +72,16 @@ jobs:
       - name: Release
         run: npx -p jsii-release@latest jsii-release-npm
         env:
-          NPM_DIST_TAG: next
+          NPM_DIST_TAG: latest
+          NPM_REGISTRY: registry.npmjs.org
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Update tags
+        run: |
+          version=`cat dist/version.txt`
+          echo $version
+          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v1
+          npm dist-tag add @mrgrain/cdk-esbuild@$version unstable
+        env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     container:

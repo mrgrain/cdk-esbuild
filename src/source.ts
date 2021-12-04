@@ -2,38 +2,37 @@ import {
   DeploymentSourceContext,
   ISource,
   SourceConfig,
-} from "@aws-cdk/aws-s3-deployment";
-import { Construct, Stack } from "@aws-cdk/core";
-import { EsbuildAssetProps, JavaScriptAsset, TypeScriptAsset } from "./asset";
-import { BuildOptions } from "./bundlers";
+} from '@aws-cdk/aws-s3-deployment';
+import { Construct, Stack } from '@aws-cdk/core';
+import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
+import { EntryPoints } from './bundler';
+import { BuildOptions } from './esbuild-types';
 
-type SourceProps = Omit<EsbuildAssetProps, "entryPoints">;
-
-type JavaScriptSourceProps = SourceProps;
-type TypeScriptSourceProps = SourceProps;
+export interface JavaScriptSourceProps extends AssetBaseProps{};
+export interface TypeScriptSourceProps extends AssetBaseProps{};
 
 abstract class Source<
-  Props extends SourceProps,
-  Asset extends JavaScriptAsset | TypeScriptAsset
+  Props extends JavaScriptSourceProps | TypeScriptSourceProps,
+  Asset extends JavaScriptAsset | TypeScriptAsset,
 > implements ISource {
-  protected abstract AssetClass: new (
+  protected readonly abstract assetClass: new (
     scope: Construct,
     id: string,
-    props: EsbuildAssetProps
+    props: AssetProps,
   ) => Asset;
 
-  protected props: EsbuildAssetProps;
+  protected props: AssetProps;
 
-  protected asset: Asset;
+  protected asset!: Asset;
 
   /**
    *
    * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
    * @param props - Source properties.
    */
-  constructor(entryPoints: EsbuildAssetProps["entryPoints"], props: Props) {
+  constructor(entryPoints: EntryPoints, props: Props) {
     const defaultOptions: Partial<BuildOptions> = {
-      platform: "browser",
+      platform: 'browser',
     };
 
     this.props = {
@@ -49,22 +48,22 @@ abstract class Source<
   bind(scope: Construct, context?: DeploymentSourceContext): SourceConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
-      this.asset = new this.AssetClass(
+      this.asset = new this.assetClass(
         scope,
         this.constructor.name,
-        this.props
+        this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
       throw new Error(
         `Asset is already associated with another stack '${
           Stack.of(this.asset).stackName
-        }'. ` + "Create a new Asset instance for every stack."
+        }'. ` + 'Create a new Asset instance for every stack.',
       );
     }
 
     if (!context) {
       throw new Error(
-        `To use a ${this.constructor.name}, context must be provided`
+        `To use a ${this.constructor.name}, context must be provided`,
       );
     }
 
@@ -81,28 +80,28 @@ abstract class Source<
 }
 
 export class JavaScriptSource extends Source<
-  JavaScriptSourceProps,
-  JavaScriptAsset
+JavaScriptSourceProps,
+JavaScriptAsset
 > {
-  protected AssetClass = JavaScriptAsset;
+  assetClass = JavaScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
-    props: JavaScriptSourceProps = {}
+    entryPoints: EntryPoints,
+    props: JavaScriptSourceProps = {},
   ) {
     super(entryPoints, props);
   }
 }
 
 export class TypeScriptSource extends Source<
-  TypeScriptSourceProps,
-  TypeScriptAsset
+TypeScriptSourceProps,
+TypeScriptAsset
 > {
-  protected AssetClass = TypeScriptAsset;
+  assetClass = TypeScriptAsset;
 
   constructor(
-    entryPoints: EsbuildAssetProps["entryPoints"],
-    props: TypeScriptSourceProps = {}
+    entryPoints: EntryPoints,
+    props: TypeScriptSourceProps = {},
   ) {
     super(entryPoints, props);
   }

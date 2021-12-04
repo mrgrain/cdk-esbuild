@@ -1,8 +1,11 @@
-# cdk-esbuild
+# cdk-esbuild@v2 (version for AWS CDK v1)
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-[Getting started](#getting-started) | [Documentation](#documentation) | [Versioning](#versioning)
+> ⚠️ This is the documentation for the version compatible with AWS CDK v1. For the latest, AWS CDK v2 compatible release, see [cdk-esbuild@v3](https://github.com/mrgrain/cdk-esbuild/tree/next)
+
+[Getting started](#getting-started) | [Migrating to v2](#migrating-to-v2) |
+[Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
 
 ## Why?
 
@@ -13,18 +16,24 @@ AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/c
 
 This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. The approach is quicker and easier to use for Node.js users, but incompatible with other languages.
 
+**Production readiness**
+
+This package is generally stable and ready to be used in production, as many do. However _esbuild_ not yet released a version 1.0.0 yet and its API is still in active development. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
+
+Notably upgrades of the _esbuild_ minimum version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
+
 ## Getting started
 
 Install `cdk-esbuild`:
 
 ```
-npm install @mrgrain/cdk-esbuild
+npm install @mrgrain/cdk-esbuild@^2.0.0
 ```
 
-⚠️ When using an older version of npm (4-6), the required peer dependencies have to be installed manually. Use this command instead:
+If _peer_ and _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
 
 ```
-npm install @mrgrain/cdk-esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
+npm install @mrgrain/cdk-esbuild@^2.0.0 esbuild @aws-cdk/core @aws-cdk/aws-lambda @aws-cdk/aws-s3-assets @aws-cdk/aws-s3-deployment @aws-cdk/aws-synthetics
 ```
 
 ### AWS Lambda: Serverless function
@@ -74,9 +83,6 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 ### Amazon CloudWatch Synthetics: Canary monitoring
 
-> ⚠️ **Status: Experimental** \
-> Expect the interface to change. Please report any issues!
-
 > 💡 See [Monitored Website](examples/website) for a complete working example of a deployed and monitored website.
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
@@ -117,175 +123,93 @@ For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` 
 
 - 🧺 `TypeScriptSource` & `JavaScriptSource`
 
-> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options:_
+> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options._
 
-Underlying classes the power the other features. You normally won't have to use them, but they are there if you need them:
+Underlying classes power the other features. You normally won't have to use them, but they are there if you need them:
 
 - `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
   creates an asset uploaded to S3 which can be referenced by other constructs
 
-- `EsbuildBundling` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
-  provides a _esbuild_ bundling interface wherever needed
+- `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
+  provides an interface for a _esbuild_ bundler wherever needed
 
-## `TypeScriptCode`, `JavaScriptCode`
+## [API Reference](API.md)
 
-> ℹ️ _Although these classes are currently identical, please use the appropriate class as functionality might diverge in future releases._
+Auto-generated reference for classes and structs. This information is also available within the code completion of your IDE.
 
-**Default build options:**
+## Escape hatches
 
-- `bundle=true`
-- `platform=node`
-- `target=nodeX` with `X` being the major node version running the code
+It's possible that you want to use a implementation of esbuild that's different to the default one. Common reasons are:
 
-### Parameters
+- The current version constraints for esbuild are not suitable
+- To use version of esbuild that is installed by any other means than `npm`, including Docker
+- Plugin support is needed for the building
 
-- `entryPoints: string | string[] | Record<string, string>` \
-  A single or list of relative paths to the entry points of your code from the root of the project.
+For these situations, this package offers an escape hatch to bypass regular the implementation and provide a custom build and transform function.
 
-### Props
+### Custom build function
 
-- `props.buildOptions?` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
-  **All build options are optional.** \
-  Same defaults and functionalities apply, with a few changes as noted below. Generally speaking usage of entry and output options are different, as these are inferred by CDK.
+> 💡 See [Using esbuild with plugins](examples/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
 
-- ❌ `buildOptions.entryPoints` \
-  _Not available. Option is exposed as parameter._
+Constructs that result in starting a build, take a `buildFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `buildSync` function.
 
-- `buildOptions.outdir: string` \
-  The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
-  For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
-  _Cannot be used together with `outfile`._
+```ts
+new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+  buildFn: (options: BuildOptions): BuildResult => {
+    try {
+      // custom implementation returning BuildResult
+    } catch (error) {
+      // throw BuildFailure exception here
+    }
+  },
+});
+```
 
-- `buildOptions.outfile: string` \
-  Relative path to a file inside the CDK asset output directory. \
-  For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point.\
-  _Cannot be used with multiple `entryPoints` or together with `outdir`._
+Instead of esbuild, the provided function will be invoked with the calculated build options. The custom build function can amend, change or discard any of these. However integration with CDK relies heavily on the values `outdir`/`outfile` are set to and it's usually required to use them unchanged.
 
-- `buildOptions.absWorkingDir: string` \
-  Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory).\
-  Docker-based builds also use this path to mount local files into the container. A large `absWorkingDir` can slow down the Docker build. \
-  If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set `absWorkingDir` is to use a combination of `resolve` and `__dirname` (see "A note for library authors" below).
+Failures have to cause a `BuildFailure` exception in order to be fully handled.
 
-> **⚠️ A note for library authors**
->
-> When developing a library consumed by other packages, you'll most likely have to set `absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
->
-> ```ts
-> // file: project/src/index.ts
-> const props = {
->   buildOptions: {
->     absWorkingDir: path.resolve(__dirname, ".."), // now: /user/project
->   },
-> };
-> ```
->
-> This will dynamically resolve to the correct path, wherever the package is installed.
+### Custom transform function
 
-- `props.copyDir?: string` \
-  **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
-  Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
+Constructs that result in starting a transformation, take a `transformFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `transformSync` function.
 
-- `props.bundlerPriority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
-  Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
+```ts
+new InlineTypeScriptCode("let x: number = 1", {
+  transformFn: (options: TransformOptions): TransformResult => {
+    try {
+      // custom implementation returning TransformResult
+    } catch (error) {
+      // throw TransformFailure exception here
+    }
+  },,
+});
+```
 
-## `TypeScriptSource`, `JavaScriptSource`
+Instead of esbuild, the provided function will be invoked with the calculated transform options. The custom transform function can amend, change or discard any of these.
 
-> ℹ️ _Although these classes are currently identical, please use the appropriate class as functionality might diverge in future releases._
+Failures have to cause a `TransformFailure` exception in order to be fully handled.
 
-**Default build options:**
+## Migrating to v2
 
-- `bundle=true`
-- `platform=browser`
+The main changes in cdk-esbuild v2 are:
 
-> 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
+- The package is now `jsii` compliant and published in the [Construct Hub](https://constructs.dev/). This will also enable a possible feature release for other languages.
+- Deprecated properties and classes have been removed, most notably the previous support for bundling via a Docker container. The implementation had a few issues that cannot be easily resolved. However more generic support for custom executables might arrive in later versions.
+- `esbuild` is now installed as an optional dependency. It's not optional at all, but this is a ramification of using `jsii`. In practice this will have no impact on most people.
+- Interfaces have been streamlined and the names and setup of internal types have been changed. In the unlikely case that someone was relying on these, upgrading will be straight forward.
 
-### Parameters & Props
+### Upgrading
 
-➡️ _Code and Source constructs share the same set of parameters, props and build options. Please see above for details._
-
-## `InlineTypeScriptCode`, `InlineJavaScriptCode`, `InlineTsxCode`, `InlineJsxCode`
-
-**⚠️ Status: Unstable**
-
-An implementation of `lambda.InlineCode` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.InlineCode.html)) using the esbuild Transform API.
-Inline function code is limited to 4 KiB _after_ transformation.
-
-### Parameters
-
-- `code: string` \
-  The inline code to be transformed.
-
-- `transformOptions: TransformOptions` \
-  Options from the [esbuild Transform API](https://esbuild.github.io/api/#transform-api).
-
-  **Default transform options:** \
-  • `loader=ts|js|tsx|jsx` (one of `ts,js,tsx,jsx` depending on the used class)
-
-## `TypeScriptAsset`, `JavaScriptAsset`
-
-Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment. The asset can be used by other constructs.
-
-> ℹ️ _The high-level constructs for `TypeScriptSource` and `TypeScriptCode` (and respective JavaScript classes) actually just use this asset._
-
-**Default build options:**
-
-- `bundle=true`
-
-### Parameters
-
-- `scope: cdk.Construct`
-- `id: string`
-- `props: TypeScriptAssetProps|JavaScriptAssetProps`
-
-### Props
-
-- `props.entryPoints: string | string[] | Record<string, string>` \
-  A single or list of relative paths to the entry points of your code from the root of the project.
-
-- `props.copyDir?: string` \
-   **⚠️ Experimental** - _Likely to change once esbuild supports this natively_ \
-   Relative path to a directory copied to the output before the build is run (i.e esbuild will overwrite existing files).
-
-- `props.bundlerPriority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
-  Set the priority order of available bundlers. It can be useful to limit use to one of the bundlers. For Docker, the `absWorkingDir` path (or current working directory) will be mounted into the container as context. By default bundling with a locally installed binary is attempted first and Docker will only be used if the local bundling fails.
-
-- `props.buildOptions?` as per esbuild [(reference)](https://esbuild.github.io/getting-started/#build-scripts) \
-  **All build options are optional.** \
-  ➡️ See `TypeScriptCode` for detailed explanation on options.
-
-## `EsbuildBundling`
-
-**⚠️ Status: Unstable**
-
-Low-level class that can be used where a `BundlingOptions` are required. This class provides the local und Docker-based bundling but doesn't come with any kind of safeguards.
-
-### Parameters
-
-- `buildOptions?` \
-  All esbuild options are available, with adapted functionality as described above.
-
-- `props.priority?: BundlerPriority (BundlerPriority.AttemptLocal)` \
-  Priority order of available bundlers. Default `BundlerPriority.AttemptLocal` is to attempt using a locally installed binary first, retrying with Docker in case of failure. Can be set to only use either the local or Docker bundler.
-
-- `props.copyDir?: string` \
-  Copy additional files to the output directory, before the build runs.
-
-- `props.esbuildVersion?: string` \
-  _Docker build only._ A npm compatible version constraint. If not provided will attempt to read from a `package-lock.json` or `package.json` in the `absWorkingDir`. Otherwise uses the constraint provided by this package (usually `^0.x.0`).
+- Update the package dependency to v2: `npm install --save @mrgrain/cdk-esbuild@^2.0.0`
+- `esbuild` is now installed as an optional dependency. If your setup does not automatically install optional dependencies, add it as an explicit dependency.
+- Remove any use of `bundlerPriority`.
+- Experimental construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
 
 ## Versioning
 
-**⚠️ Status: Unstable**
+This package _mostly_ follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
 
-_Because esbuild is still in major version zero, this package must be considered unstable. Notably updates to the minimal version requirement of esbuild will be introduced in minor versions of this package and thus will contain any breaking changes esbuild introduces._
-
-**Upcoming changes to versioning! See Future section below.**
-
-The package tracks the **minor** version number of CDK releases. It might work with newer versions of CDK, but has not been tested. Features changes, including breaking changes, will only be introduced alongside minor releases.
-
-**Patches releases** will contain fixes to this library only and do not necessarily reflect CDK patches.
-
-Any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to all new or experimental features and internal classes.
+Although great care is taken to avoid this, all features marked with `@stability experimental` may change with minor versions. The flag is only applied to new and experimental features and internal classes.
 
 ### Npm Tags
 
@@ -301,28 +225,27 @@ These tags also exist, but usage is strongly not recommended:
 
 - ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
 
-## Future
-
-### `jsii` compatibility
-
-I am actively working on a [jsii](https://aws.github.io/jsii/) compatible version of this constructs library, see the [next branch](https://github.com/mrgrain/cdk-esbuild/tree/next) for further details. Amongst other things, this will allow me to publish the package to the [Construct Hub](https://constructs.dev/).
-
-**The release of this will be in a new major version 2.** Versioning will evolve further towards semantic versioning,with `esbuild` upgrades being the exception. They will continue to be shipped as part of minor version updates and might include breaking changes.
-
-**Most of the package will remain the same** and migration will be easy. However some interfaces need to be updated for `jsii` and deprecated features will be removed.
+## Future releases
 
 ### AWS CDK v2
 
-With the monolithic version 2 of CDK (aka Mono-CDK) on the horizon, versioning for this library will change as well.
-
-A major release will be marked alongside CDK. From that point on, this package will mostly use _semantic versioning_ and not longer align version numbers with AWS CDK.
-
-The big exceptions will be updates to the minimal version requirement of esbuild. As long as esbuild is still in major version zero, these requirement updates will be introduced as minor version updates.
-
-Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental features and internal classes.
+The monolithic version 2 of CDK (aka Mono-CDK) is on the horizon. A new major release of this package will be marked alongside CDK. Support for AWS CDK v1.x.x will be continued, however no new features will be added.
 
 ### Stable esbuild
 
-Once `esbuild` has reached a stable version 1.0, a new major version will be released for _all_ breaking changes, including updated of minimum (peer) dependencies.
+Once `esbuild` has reached a stable version 1.0, a new major version will be released for _all_ breaking changes, including updates to minimum (peer) dependencies.
 
-Additionally any parts of the code marked as `unstable` can change at any time. Please note that the unstable flag is applied to new experimental features and internal classes.
+## Library authors
+
+When developing a library consumed by other packages, you'll most likely have to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
+
+```ts
+// file: project/src/index.ts
+const props = {
+  buildOptions: {
+    absWorkingDir: path.resolve(__dirname, ".."), // now: /user/project
+  },
+};
+```
+
+This will dynamically resolve to the correct path, wherever the package is installed.

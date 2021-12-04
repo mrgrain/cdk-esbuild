@@ -2,12 +2,12 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the latest release of each major version is supported.
 
-| Plugin Version | CDK Version | Supported                                        |
-| -------------- | ----------- | ------------------------------------------------ |
-| 1.x.x          | 1.x.x       | :white_check_mark: only the latest minor version |
+| Plugin Version | CDK Version | Supported                   |
+| -------------- | ----------- | --------------------------- |
+| v1             | ^1.99.0     | until release of AWS CDK v2 |
+| v2             | ^1.99.0     | :white_check_mark:          |
 
 ## Reporting a Vulnerability
 

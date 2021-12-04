@@ -1,6 +1,41 @@
-# Changelog
+## [2.2.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.1.0...v2.2.0) (2021-12-04)
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+**This release contains an upgrade of esbuild with backwards-incompatible changes.** This is inline with the versioning strategy for this package, which is to release esbuild upgrades with minor versions as long as esbuild has not reached version 1.0.0. The backwards-incompatible changes are fairly obscure this time around, but please make sure to read the [0.14.0 release notes](https://github.com/evanw/esbuild/releases/tag/v0.14.0).
+
+### Features
+
+- upgrade esbuild to [^0.14.0](https://github.com/evanw/esbuild/releases/tag/v0.14.0) ([#143](https://github.com/mrgrain/cdk-esbuild/issues/143)) ([4568b92](https://github.com/mrgrain/cdk-esbuild/commit/4568b92011a3e38f23d85998dcbbca1afa06918e))
+- **examples/esbuild-with-plugins:** example of how to use the escape hatch to run esbuild with plugins ([#142](https://github.com/mrgrain/cdk-esbuild/issues/142)) ([0876f0e](https://github.com/mrgrain/cdk-esbuild/commit/0876f0e4d4bd65a792deef8adf43229568ab899b))
+
+## [2.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0...v2.1.0) (2021-11-25)
+
+### Features
+
+- escape hatch to provide a custom build or transform function ([#141](https://github.com/mrgrain/cdk-esbuild/issues/141)) ([aacfac1](https://github.com/mrgrain/cdk-esbuild/commit/aacfac1b71f1de78fbfdc1161c6e8cf32fd0629e))
+- `Inline*Code` now takes `TransformerProps` as second parameter, passing in `TransformOptions` is still supported but deprecated ([#141](https://github.com/mrgrain/cdk-esbuild/issues/141)) ([aacfac1](https://github.com/mrgrain/cdk-esbuild/commit/aacfac1b71f1de78fbfdc1161c6e8cf32fd0629e))
+
+## [2.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.129.0...v2.0.0) (2021-11-07)
+
+### ⚠ BREAKING CHANGES
+
+- Major release of this package to make it JSII compatible (#114) ([727c78a](https://github.com/mrgrain/cdk-esbuild/commit/727c78aefa2079d0f561b8b664d75eb6c669e46b)), closes [#114](https://github.com/mrgrain/cdk-esbuild/issues/114) [#117](https://github.com/mrgrain/cdk-esbuild/issues/117) [#119](https://github.com/mrgrain/cdk-esbuild/issues/119) [#120](https://github.com/mrgrain/cdk-esbuild/issues/120) [#123](https://github.com/mrgrain/cdk-esbuild/issues/123)
+
+- Deprecated features from v1 have been removed. Please see upgrading instructions below.
+
+### Upgrading to v2
+
+- Update the package dependency to v2: `npm install --save @mrgrain/cdk-esbuild@^2.0.0`
+- `esbuild` is now installed as an optional dependency. If your setup does not automatically install optional dependencies, add it as an explicit dependency.
+- Remove any use of `bundlerPriority`.
+- Unstable construct `EsbuildBundling` has been renamed to `EsbuildBundler` and its interface has slightly changed. Like most other constructs, it now takes `entryPoints` as first parameter, with an optional `props` object as the second.
+
+### Features
+
+- JSII compatibility & v2 GA (#114) ([727c78a](https://github.com/mrgrain/cdk-esbuild/commit/727c78aefa2079d0f561b8b664d75eb6c669e46b)), closes [#114](https://github.com/mrgrain/cdk-esbuild/issues/114) [#117](https://github.com/mrgrain/cdk-esbuild/issues/117) [#119](https://github.com/mrgrain/cdk-esbuild/issues/119) [#120](https://github.com/mrgrain/cdk-esbuild/issues/120) [#123](https://github.com/mrgrain/cdk-esbuild/issues/123)
+
+- Synthesize `esbuild` types from source ([#117](https://github.com/mrgrain/cdk-esbuild/issues/117)) ([af44d55](https://github.com/mrgrain/cdk-esbuild/commit/af44d55e97db6fd8fbda916eb0f25dae55513cba))
+
+- Generated docs now contain links to esbuild documentation ([#123](https://github.com/mrgrain/cdk-esbuild/issues/123)) ([95f2fd0](https://github.com/mrgrain/cdk-esbuild/commit/95f2fd07330cf9624dd05f23345bfe0f5754fc57))
 
 ## [1.133.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.132.0...v1.133.0) (2021-11-21)
 
