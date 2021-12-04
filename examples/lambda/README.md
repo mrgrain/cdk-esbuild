@@ -4,7 +4,7 @@ Create a basic Lambda function that can be invoked using the `aws-cli` or AWS Co
 
 ## Getting started
 
-Run `npm install` to get setup.
+Run `npm ci` to get setup.
 
 Have a look at the Lambda code in `./src/index.ts`. Maybe change the returned text to make it more personal. Also have a look at the values in `input.json`, we will use this later.
 

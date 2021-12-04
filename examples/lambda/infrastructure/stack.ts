@@ -1,19 +1,19 @@
-import * as cdk from "@aws-cdk/core";
-import { Function, Runtime } from "@aws-cdk/aws-lambda";
 import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
+import { CfnOutput, Stack, StackProps } from "aws-cdk-lib/core";
+import { Function, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Construct } from "constructs";
 
-export class LambdaStack extends cdk.Stack {
-  constructor(scope?: cdk.Construct, id?: string, props?: cdk.StackProps) {
+export class LambdaStack extends Stack {
+  constructor(scope?: Construct, id?: string, props?: StackProps) {
     super(scope, id, props);
-
 
     const lambda = new Function(this, "Lambda", {
       runtime: Runtime.NODEJS_14_X,
-      handler: 'index.handler',
+      handler: "index.handler",
       code: new TypeScriptCode("./src/index.tsx"),
     });
 
-    new cdk.CfnOutput(this, "LambdaArn", {
+    new CfnOutput(this, "LambdaArn", {
       value: lambda.functionArn,
     });
   }
