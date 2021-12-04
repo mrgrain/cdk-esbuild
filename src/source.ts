@@ -2,8 +2,9 @@ import {
   DeploymentSourceContext,
   ISource,
   SourceConfig,
-} from '@aws-cdk/aws-s3-deployment';
-import { Construct, Stack } from '@aws-cdk/core';
+} from 'aws-cdk-lib/aws-s3-deployment';
+import { Stack } from 'aws-cdk-lib/core';
+import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';

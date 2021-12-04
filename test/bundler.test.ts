@@ -1,4 +1,3 @@
-import '@aws-cdk/assert/jest';
 import { mocked } from 'ts-jest/utils';
 import { EsbuildBundler } from '../src/bundler';
 import { BuildOptions, BuildResult } from '../src/esbuild-types';
