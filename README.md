@@ -1,6 +1,8 @@
-# cdk-esbuild
+# cdk-esbuild@v2 (version for AWS CDK v1)
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
+
+> ⚠️ This is the documentation for the version compatible with AWS CDK v1. For the latest, AWS CDK v2 compatible release, see [cdk-esbuild@v3](https://github.com/mrgrain/cdk-esbuild/tree/next)
 
 [Getting started](#getting-started) | [Migrating to v2](#migrating-to-v2) |
 [Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
