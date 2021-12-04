@@ -1,4 +1,4 @@
-import { Stack } from '@aws-cdk/core';
+import { Stack } from 'aws-cdk-lib/core';
 import { mocked } from 'ts-jest/utils';
 import {
   InlineJavaScriptCode,

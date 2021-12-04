@@ -1,6 +1,7 @@
 import { isAbsolute } from 'path';
-import { Asset as S3Asset } from '@aws-cdk/aws-s3-assets';
-import { AssetHashType, Construct, ConstructNode } from '@aws-cdk/core';
+import { AssetHashType } from 'aws-cdk-lib';
+import { Asset as S3Asset } from 'aws-cdk-lib/aws-s3-assets';
+import { Construct, Node } from 'constructs';
 import { EsbuildBundler, BundlerProps, EntryPoints } from './bundler';
 
 /**
@@ -52,7 +53,7 @@ abstract class Asset<Props extends AssetProps> extends S3Asset {
     const entryPoints: string[] | Record<string, string> =
       typeof props.entryPoints === 'string' ? [props.entryPoints] : props.entryPoints;
 
-    const name = scope.node.path + ConstructNode.PATH_SEP + id;
+    const name = scope.node.path + Node.PATH_SEP + id;
 
     Object.values(entryPoints).forEach((entryPoint: string) => {
       if (isAbsolute(entryPoint)) {
