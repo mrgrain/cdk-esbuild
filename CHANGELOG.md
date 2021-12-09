@@ -1,4 +1,6 @@
 
+## [3.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.0.0-rc.1...v3.0.0) (2021-12-09)
+
 ## [3.0.0-rc.1](https://github.com/mrgrain/cdk-esbuild/compare/v2.2.0...v3.0.0-rc.1) (2021-12-09)
 
 
