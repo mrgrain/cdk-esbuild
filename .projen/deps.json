@@ -69,6 +69,10 @@
       "type": "build"
     },
     {
+      "name": "jest-mock",
+      "type": "build"
+    },
+    {
       "name": "jsii",
       "type": "build"
     },

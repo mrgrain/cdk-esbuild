@@ -52,6 +52,7 @@
     "eslint-plugin-import": "^2.25.3",
     "jest": "^27.3.1",
     "jest-junit": "^13",
+    "jest-mock": "^27.4.2",
     "jsii": "^1.45.0",
     "jsii-diff": "^1.45.0",
     "jsii-docgen": "^3.8.31",
