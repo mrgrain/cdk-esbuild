@@ -4,7 +4,7 @@ Make a static website with React and deploy it with a single command using cdk.
 
 ## Getting started
 
-Run `npm install` to get setup.
+Run `npm ci` to get setup.
 
 Have a look at the React code in `./src`. Maybe change the content in `App.tsx`.
 
@@ -14,7 +14,11 @@ Once you are happy, deploy your app with `npx cdk deploy`. If you haven't used t
 
 As part of the deployment, a URL will be displayed. Open it to view your deployed website!
 
+## Clean up
+
 Don't forget to tear everything down with `npx cdk destroy` - otherwise you might occur costs.
+
+Additionally, Amazon CloudWatch Synthetics creates a number of dependent resources that are not automatically removed when you destroy the stack. These are documented in [this AWS blog post](https://aws.amazon.com/blogs/mt/delete-amazon-cloudwatch-synthetics-dependent-resources-when-you-delete-a-cloudformation-stack/).
 
 ## Useful commands
 
