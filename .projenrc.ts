@@ -57,10 +57,9 @@ const project = new AwsCdkConstructLibrary({
 
   // Release
   packageManager: NodePackageManager.NPM,
-  npmDistTag: 'next',
-  defaultReleaseBranch: 'next',
+  npmDistTag: 'latest',
+  defaultReleaseBranch: 'main',
   majorVersion: 3,
-  prerelease: 'rc',
   releaseTrigger: release.ReleaseTrigger.manual(),
   catalog: {
     twitter: '@mrgrain',

@@ -139,8 +139,8 @@
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
     },
-    "publish:git:next": {
-      "name": "publish:git:next",
+    "publish:git": {
+      "name": "publish:git",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
       "env": {
         "CHANGELOG": "dist/changelog.md",
@@ -156,7 +156,7 @@
           "builtin": "release/tag-version"
         },
         {
-          "exec": "git push --follow-tags origin next"
+          "exec": "git push --follow-tags origin main"
         }
       ]
     },
@@ -178,7 +178,7 @@
       "name": "publish:npm",
       "description": "Publish this package to npm",
       "env": {
-        "NPM_DIST_TAG": "next",
+        "NPM_DIST_TAG": "latest",
         "NPM_REGISTRY": "registry.npmjs.org"
       },
       "requiredEnv": [
@@ -190,13 +190,12 @@
         }
       ]
     },
-    "release:next": {
-      "name": "release:next",
-      "description": "Prepare a release from \"next\" branch",
+    "release": {
+      "name": "release",
+      "description": "Prepare a release from \"main\" branch",
       "env": {
         "RELEASE": "true",
-        "MAJOR": "3",
-        "PRERELEASE": "rc"
+        "MAJOR": "3"
       },
       "steps": [
         {
@@ -212,7 +211,7 @@
           "spawn": "unbump"
         },
         {
-          "spawn": "publish:git:next"
+          "spawn": "publish:git"
         },
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
