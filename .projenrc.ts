@@ -80,6 +80,7 @@ const project = new AwsCdkConstructLibrary({
     'aws-cdk-lib@2.0.0',
     'constructs@10.0.5',
     'esbuild@^0.14.0',
+    'jest-mock',
     'ts-morph',
   ],
 

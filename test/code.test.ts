@@ -6,7 +6,7 @@ import {
 } from '@aws-cdk/aws-synthetics-alpha';
 import { Stack } from 'aws-cdk-lib';
 import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import { JavaScriptCode, TypeScriptCode } from '../src/code';
 import { buildSync } from '../src/esbuild-wrapper';
 

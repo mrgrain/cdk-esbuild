@@ -1,4 +1,4 @@
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 import { EsbuildBundler } from '../src/bundler';
 import { BuildOptions, BuildResult } from '../src/esbuild-types';
 import { buildSync } from '../src/esbuild-wrapper';

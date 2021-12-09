@@ -289,7 +289,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/aws-synthetics-alpha @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk-lib constructs esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "exec": "npm update @aws-cdk/aws-synthetics-alpha @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser aws-cdk-lib constructs esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jest-mock jsii jsii-diff jsii-docgen jsii-pacmak json-schema npm-check-updates standard-version ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
