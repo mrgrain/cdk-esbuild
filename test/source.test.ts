@@ -1,8 +1,7 @@
-import '@aws-cdk/assert/jest';
 import { resolve } from 'path';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { BucketDeployment } from '@aws-cdk/aws-s3-deployment';
-import { RemovalPolicy, Stack } from '@aws-cdk/core';
+import { RemovalPolicy, Stack } from 'aws-cdk-lib';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { JavaScriptSource, TypeScriptSource } from '../src/source';
 
 describe('source', () => {

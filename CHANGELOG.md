@@ -1,3 +1,39 @@
+
+## [3.0.0-rc.1](https://github.com/mrgrain/cdk-esbuild/compare/v2.2.0...v3.0.0-rc.1) (2021-12-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* package now requires  AWS CDK v2
+
+### Features
+
+* upgrade to AWS CDK v2 ([c83b3e4](https://github.com/mrgrain/cdk-esbuild/commit/c83b3e47ad5d6d325a1ca1fa4e450bd92d7276d2))
+
+
+### Bug Fixes
+
+* remove imports from aws-cdk-lib/core ([68ee09a](https://github.com/mrgrain/cdk-esbuild/commit/68ee09ab7dbf9cf5d0e8e8ca9eda5ea24fedae69))
+
+## [1.133.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.132.0...v1.133.0) (2021-11-21)
+
+## [1.132.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.0.0...v1.132.0) (2021-11-21)
+
+## [1.131.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.130.0...v1.131.0) (2021-11-07)
+
+## [1.130.0](https://github.com/mrgrain/cdk-esbuild/compare/v1.129.0...v1.130.0) (2021-11-07)
+
+## [3.0.0-rc.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.2.0...v3.0.0-rc.0) (2021-12-04)
+
+
+### ⚠ BREAKING CHANGES
+
+* package now requires  AWS CDK v2
+
+### Features
+
+* upgrade to AWS CDK v2 ([134caa8](https://github.com/mrgrain/cdk-esbuild/commit/134caa8848708a132c28d9140d2d569f90a2b178))
+
 ## [2.2.0](https://github.com/mrgrain/cdk-esbuild/compare/v2.1.0...v2.2.0) (2021-12-04)
 
 **This release contains an upgrade of esbuild with backwards-incompatible changes.** This is inline with the versioning strategy for this package, which is to release esbuild upgrades with minor versions as long as esbuild has not reached version 1.0.0. The backwards-incompatible changes are fairly obscure this time around, but please make sure to read the [0.14.0 release notes](https://github.com/evanw/esbuild/releases/tag/v0.14.0).

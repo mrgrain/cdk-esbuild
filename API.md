@@ -791,7 +791,7 @@ const codeConfig: CodeConfig = { ... }
 public readonly s3Location: Location;
 ```
 
-- *Type:* [`@aws-cdk/aws-s3.Location`](#@aws-cdk/aws-s3.Location)
+- *Type:* [`aws-cdk-lib.aws_s3.Location`](#aws-cdk-lib.aws_s3.Location)
 
 The location of the code in S3.
 
@@ -1563,7 +1563,7 @@ E.g. `src/index.ts`.
 public readonly image: DockerImage;
 ```
 
-- *Type:* [`@aws-cdk/core.DockerImage`](#@aws-cdk/core.DockerImage)
+- *Type:* [`aws-cdk-lib.DockerImage`](#aws-cdk-lib.DockerImage)
 
 ---
 
@@ -1573,7 +1573,7 @@ public readonly image: DockerImage;
 public readonly local: ILocalBundling;
 ```
 
-- *Type:* [`@aws-cdk/core.ILocalBundling`](#@aws-cdk/core.ILocalBundling)
+- *Type:* [`aws-cdk-lib.ILocalBundling`](#aws-cdk-lib.ILocalBundling)
 
 Implementation of `ILocalBundling` interface, responsible for calling esbuild functions.
 
@@ -1764,7 +1764,7 @@ new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
 
 ##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -1829,7 +1829,7 @@ public bind(scope: Construct)
 
 ###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -1841,13 +1841,13 @@ public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
 
 ###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.resource"></a>
 
-- *Type:* [`@aws-cdk/core.CfnResource`](#@aws-cdk/core.CfnResource)
+- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
 
 ---
 
 ###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.options"></a>
 
-- *Type:* [`@aws-cdk/aws-lambda.ResourceBindOptions`](#@aws-cdk/aws-lambda.ResourceBindOptions)
+- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
 
 ---
 
@@ -1871,7 +1871,7 @@ Determines whether this Code is inline code or not.
 
 ### JavaScriptSource <a name="@mrgrain/cdk-esbuild.JavaScriptSource"></a>
 
-- *Implements:* [`@aws-cdk/aws-s3-deployment.ISource`](#@aws-cdk/aws-s3-deployment.ISource)
+- *Implements:* [`aws-cdk-lib.aws_s3_deployment.ISource`](#aws-cdk-lib.aws_s3_deployment.ISource)
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptSource.Initializer"></a>
 
@@ -1903,13 +1903,13 @@ public bind(scope: Construct, context?: DeploymentSourceContext)
 
 ###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSource.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
 ###### `context`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSource.parameter.context"></a>
 
-- *Type:* [`@aws-cdk/aws-s3-deployment.DeploymentSourceContext`](#@aws-cdk/aws-s3-deployment.DeploymentSourceContext)
+- *Type:* [`aws-cdk-lib.aws_s3_deployment.DeploymentSourceContext`](#aws-cdk-lib.aws_s3_deployment.DeploymentSourceContext)
 
 ---
 
@@ -1943,7 +1943,7 @@ new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
 
 ##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -2008,7 +2008,7 @@ public bind(scope: Construct)
 
 ###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
@@ -2020,13 +2020,13 @@ public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
 
 ###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.resource"></a>
 
-- *Type:* [`@aws-cdk/core.CfnResource`](#@aws-cdk/core.CfnResource)
+- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
 
 ---
 
 ###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.options"></a>
 
-- *Type:* [`@aws-cdk/aws-lambda.ResourceBindOptions`](#@aws-cdk/aws-lambda.ResourceBindOptions)
+- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
 
 ---
 
@@ -2050,7 +2050,7 @@ Determines whether this Code is inline code or not.
 
 ### TypeScriptSource <a name="@mrgrain/cdk-esbuild.TypeScriptSource"></a>
 
-- *Implements:* [`@aws-cdk/aws-s3-deployment.ISource`](#@aws-cdk/aws-s3-deployment.ISource)
+- *Implements:* [`aws-cdk-lib.aws_s3_deployment.ISource`](#aws-cdk-lib.aws_s3_deployment.ISource)
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptSource.Initializer"></a>
 
@@ -2082,13 +2082,13 @@ public bind(scope: Construct, context?: DeploymentSourceContext)
 
 ###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSource.parameter.scope"></a>
 
-- *Type:* [`@aws-cdk/core.Construct`](#@aws-cdk/core.Construct)
+- *Type:* [`constructs.Construct`](#constructs.Construct)
 
 ---
 
 ###### `context`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSource.parameter.context"></a>
 
-- *Type:* [`@aws-cdk/aws-s3-deployment.DeploymentSourceContext`](#@aws-cdk/aws-s3-deployment.DeploymentSourceContext)
+- *Type:* [`aws-cdk-lib.aws_s3_deployment.DeploymentSourceContext`](#aws-cdk-lib.aws_s3_deployment.DeploymentSourceContext)
 
 ---
 

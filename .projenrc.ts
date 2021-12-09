@@ -57,9 +57,10 @@ const project = new AwsCdkConstructLibrary({
 
   // Release
   packageManager: NodePackageManager.NPM,
-  npmDistTag: 'latest',
-  defaultReleaseBranch: 'main',
-  majorVersion: 2,
+  npmDistTag: 'next',
+  defaultReleaseBranch: 'next',
+  majorVersion: 3,
+  prerelease: 'rc',
   releaseTrigger: release.ReleaseTrigger.manual(),
   catalog: {
     twitter: '@mrgrain',
@@ -67,26 +68,18 @@ const project = new AwsCdkConstructLibrary({
   workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
 
   // Dependencies
-  cdkVersion: '1.99.0',
-  cdkDependencies: [
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-s3',
-    '@aws-cdk/aws-s3-assets',
-    '@aws-cdk/aws-s3-deployment',
-    '@aws-cdk/aws-synthetics',
-    '@aws-cdk/core',
+  cdkVersion: '2.0.0',
+  peerDeps: [
+    'aws-cdk-lib@^2.0.0',
   ],
-  cdkTestDependencies: [
-    '@aws-cdk/assert',
-    '@aws-cdk/aws-lambda',
-    '@aws-cdk/aws-s3',
-    '@aws-cdk/aws-s3-assets',
-    '@aws-cdk/aws-s3-deployment',
-    '@aws-cdk/aws-synthetics',
-    '@aws-cdk/core',
-  ],
+  cdkDependencies: [],
+  cdkTestDependencies: [],
+  cdkAssert: false,
   devDeps: [
+    '@aws-cdk/aws-synthetics-alpha',
     '@types/eslint',
+    'aws-cdk-lib@2.0.0',
+    'constructs@10.0.5',
     'esbuild@^0.14.0',
     'ts-morph',
   ],

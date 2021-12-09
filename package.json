@@ -17,10 +17,10 @@
     "package": "npx projen package",
     "post-compile": "npx projen post-compile",
     "pre-compile": "npx projen pre-compile",
-    "publish:git": "npx projen publish:git",
+    "publish:git:next": "npx projen publish:git:next",
     "publish:github": "npx projen publish:github",
     "publish:npm": "npx projen publish:npm",
-    "release": "npx projen release",
+    "release:next": "npx projen release:next",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",
@@ -37,32 +37,28 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.99.0",
-    "@aws-cdk/aws-lambda": "^1.99.0",
-    "@aws-cdk/aws-s3": "^1.99.0",
-    "@aws-cdk/aws-s3-assets": "^1.99.0",
-    "@aws-cdk/aws-s3-deployment": "^1.99.0",
-    "@aws-cdk/aws-synthetics": "^1.99.0",
-    "@aws-cdk/core": "^1.99.0",
+    "@aws-cdk/aws-synthetics-alpha": "^2.0.0-alpha.11",
     "@types/eslint": "^7.29.0",
     "@types/jest": "^27.0.3",
     "@types/node": "^14.17.0",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
+    "@typescript-eslint/eslint-plugin": "^5",
+    "@typescript-eslint/parser": "^5",
+    "aws-cdk-lib": "2.0.0",
+    "constructs": "10.0.5",
     "esbuild": "^0.14.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8",
     "eslint-import-resolver-node": "^0.3.6",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.3",
     "jest": "^27.3.1",
-    "jest-junit": "^12",
+    "jest-junit": "^13",
     "jsii": "^1.45.0",
     "jsii-diff": "^1.45.0",
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.45.0",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^11",
-    "projen": "^0.34.12",
+    "projen": "^0.36.6",
     "standard-version": "^9",
     "ts-jest": "^27.0.7",
     "ts-morph": "^12.2.0",
@@ -70,21 +66,8 @@
     "typescript": "^4.5.2"
   },
   "peerDependencies": {
-    "@aws-cdk/aws-lambda": "^1.99.0",
-    "@aws-cdk/aws-s3": "^1.99.0",
-    "@aws-cdk/aws-s3-assets": "^1.99.0",
-    "@aws-cdk/aws-s3-deployment": "^1.99.0",
-    "@aws-cdk/aws-synthetics": "^1.99.0",
-    "@aws-cdk/core": "^1.99.0",
-    "constructs": "^3.2.27"
-  },
-  "dependencies": {
-    "@aws-cdk/aws-lambda": "^1.99.0",
-    "@aws-cdk/aws-s3": "^1.99.0",
-    "@aws-cdk/aws-s3-assets": "^1.99.0",
-    "@aws-cdk/aws-s3-deployment": "^1.99.0",
-    "@aws-cdk/aws-synthetics": "^1.99.0",
-    "@aws-cdk/core": "^1.99.0"
+    "aws-cdk-lib": "^2.0.0",
+    "constructs": "^10.0.5"
   },
   "bundledDependencies": [],
   "keywords": [
@@ -101,6 +84,9 @@
   "main": "lib/index.js",
   "license": "MIT",
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
+  "publishConfig": {
+    "tag": "next"
+  },
   "version": "0.0.0",
   "jest": {
     "testMatch": [

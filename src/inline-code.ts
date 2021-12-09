@@ -1,4 +1,4 @@
-import { InlineCode } from '@aws-cdk/aws-lambda';
+import { InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { TransformOptions, Loader, TransformFailure } from './esbuild-types';
 import { transformSync } from './esbuild-wrapper';
 import { printBuildMessages } from './formatMessages';
