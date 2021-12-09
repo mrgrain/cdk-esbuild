@@ -1,9 +1,9 @@
+import { Stack } from 'aws-cdk-lib';
 import {
   DeploymentSourceContext,
   ISource,
   SourceConfig,
 } from 'aws-cdk-lib/aws-s3-deployment';
-import { Stack } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
 import { EntryPoints } from './bundler';

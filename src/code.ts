@@ -1,6 +1,6 @@
+import { CfnResource, Stack } from 'aws-cdk-lib';
 import { ResourceBindOptions } from 'aws-cdk-lib/aws-lambda';
 import { Location } from 'aws-cdk-lib/aws-s3';
-import { CfnResource, Stack } from 'aws-cdk-lib/core';
 import { Construct } from 'constructs';
 import {
   AssetBaseProps,

@@ -4,7 +4,7 @@ import {
   DockerImage,
   FileSystem,
   ILocalBundling,
-} from 'aws-cdk-lib/core';
+} from 'aws-cdk-lib';
 import { BuildFailure, BuildOptions, BuildResult } from './esbuild-types';
 import { buildSync } from './esbuild-wrapper';
 import { printBuildMessages } from './formatMessages';
