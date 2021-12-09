@@ -2,7 +2,7 @@
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-> ⚠️ This is the documentation for the version compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2)
+> ⚠️ This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2)
 
 [Getting started](#getting-started) | [Migrating to v3](#migrating-to-v3) |
 [Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
@@ -40,10 +40,10 @@ npm install @mrgrain/cdk-esbuild@^3.0.0 esbuild
 
 > 💡 See [Lambda Function](examples/lambda) for a complete working example of a how to deploy a lambda function.
 
-Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Function.html#code):
+Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Function.html#code):
 
 ```ts
-import * as lambda from "@aws-cdk/aws-lambda";
+import * as lambda from "aws-cdk-lib/aws-lambda";
 import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 
 const bundledCode = new TypeScriptCode("src/index.ts");
@@ -62,8 +62,8 @@ const fn = new lambda.Function(stack, "MyFunction", {
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
 ```ts
-import * as s3 from "@aws-cdk/aws-s3";
-import * as s3deploy from "@aws-cdk/aws-s3-deployment";
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
 
 const websiteBundle = new TypeScriptSource("src/index.tsx");
@@ -87,8 +87,14 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
+> ℹ️ This feature depends on the `@aws-cdk/aws-synthetics-alpha` package which is a developer preview. You may need to update your source code when upgrading to a newer version of this package.
+>
+> ```
+> npm i @aws-cdk/aws-synthetics-alpha
+> ```
+
 ```ts
-import * as synthetics from "@aws-cdk/aws-synthetics";
+import * as synthetics from "@aws-cdk/aws-synthetics-alpha";
 import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 
 const bundledCode = new TypeScriptCode("src/index.ts", {
@@ -110,7 +116,7 @@ const canary = new synthetics.Canary(stack, "MyCanary", {
 
 The package exports various different constructs for use with existing CDK features. A major guiding design principal for this package is to _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
 
-For use in **Lambda Functions** and **Synthetic Canaries**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-synthetics.Code.html)):
+For use in **Lambda Functions** and **Synthetic Canaries**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-synthetics-alpha.Code.html)):
 
 - `TypeScriptCode` & `JavaScriptCode`
 
@@ -121,16 +127,16 @@ Inline code is only supported by **Lambda**:
 
 For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)):
 
-- 🧺 `TypeScriptSource` & `JavaScriptSource`
+- `TypeScriptSource` & `JavaScriptSource`
 
 > _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options._
 
 Underlying classes power the other features. You normally won't have to use them, but they are there if you need them:
 
-- `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_aws-s3-assets.Asset.html)) \
+- `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.Asset.html)) \
   creates an asset uploaded to S3 which can be referenced by other constructs
 
-- `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/@aws-cdk_core.BundlingOptions.html)) \
+- `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.BundlingOptions.html)) \
   provides an interface for a _esbuild_ bundler wherever needed
 
 ## [API Reference](API.md)
