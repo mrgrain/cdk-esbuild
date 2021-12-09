@@ -9,7 +9,7 @@ import {
   RemovalPolicy,
   Stack,
   StackProps,
-} from "aws-cdk-lib/core";
+} from "aws-cdk-lib";
 import { Construct } from "constructs";
 
 export class WebsiteStack extends Stack {

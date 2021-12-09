@@ -8,7 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@mrgrain/cdk-esbuild": "^3.0.0-rc.0",
+    "@mrgrain/cdk-esbuild": "^3.0.0",
     "aws-cdk-lib": "2.0.0",
     "esbuild": "^0.14.0",
     "esbuild-plugin-cache": "^0.2.9",

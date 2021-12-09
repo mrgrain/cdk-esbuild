@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { App, CfnOutput, Stack, StackProps } from "aws-cdk-lib/core";
+import { App, CfnOutput, Stack, StackProps } from "aws-cdk-lib";
 import { Function, Runtime } from "aws-cdk-lib/aws-lambda";
 import { Construct } from "constructs";
 import { BuildOptions, TypeScriptCode } from "@mrgrain/cdk-esbuild";

@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@aws-cdk/aws-synthetics-alpha": "^2.0.0-alpha.11",
-    "@mrgrain/cdk-esbuild": "^3.0.0-rc.0",
+    "@mrgrain/cdk-esbuild": "^3.0.0",
     "aws-cdk-lib": "^2.0.0",
     "esbuild": "^0.14.2",
     "react": "^17.0.1",

@@ -7,7 +7,7 @@
     "cdk": "cdk"
   },
   "dependencies": {
-    "@mrgrain/cdk-esbuild": "^3.0.0-rc.0",
+    "@mrgrain/cdk-esbuild": "^3.0.0",
     "aws-cdk-lib": "^2.0.0"
   },
   "devDependencies": {
