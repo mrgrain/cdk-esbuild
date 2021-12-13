@@ -10,7 +10,7 @@ export class LambdaStack extends Stack {
     const lambda = new Function(this, "Lambda", {
       runtime: Runtime.NODEJS_14_X,
       handler: "index.handler",
-      code: new TypeScriptCode("./src/index.tsx"),
+      code: new TypeScriptCode("./src/index.ts"),
     });
 
     new CfnOutput(this, "LambdaArn", {
