@@ -2,6 +2,7 @@
 !/.gitattributes
 !/.projen/tasks.json
 !/.projen/deps.json
+!/.projen/files.json
 !/.github/workflows/pull-request-lint.yml
 !/.github/workflows/stale.yml
 !/package.json
@@ -37,6 +38,7 @@ cdk.out
 .cdk.staging
 examples/template
 !/.github/workflows/manual-release.yml
+!/examples/**
 !/.projenrc.js
 /test-reports/
 junit.xml
@@ -55,7 +57,6 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
-!/examples/**
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json

@@ -35,7 +35,7 @@ export class TypeScriptSourceFile extends FileBase {
     }
 
     return [
-      ...(this.options.marker ? [`// ${TypeScriptSourceFile.PROJEN_MARKER}`] : []),
+      ...(this.options.marker ? [`// ${this.marker}`] : []),
       '',
       sourceFile.getFullText(),
     ].join('\n');

@@ -229,6 +229,16 @@ Documentation: https://esbuild.github.io/api/#define.
 
 ---
 
+##### `drop`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.drop"></a>
+
+```typescript
+public readonly drop: string[];
+```
+
+- *Type:* `string`[]
+
+---
+
 ##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.entryNames"></a>
 
 ```typescript
@@ -1056,6 +1066,16 @@ public readonly define: {[ key: string ]: string};
 - *Type:* {[ key: string ]: `string`}
 
 Documentation: https://esbuild.github.io/api/#define.
+
+---
+
+##### `drop`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.drop"></a>
+
+```typescript
+public readonly drop: string[];
+```
+
+- *Type:* `string`[]
 
 ---
 

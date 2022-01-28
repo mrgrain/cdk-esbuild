@@ -5,6 +5,7 @@ export type Format = 'iife' | 'cjs' | 'esm';
 export type Loader = 'js' | 'jsx' | 'ts' | 'tsx' | 'css' | 'json' | 'text' | 'base64' | 'file' | 'dataurl' | 'binary' | 'default';
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'silent';
 export type Charset = 'ascii' | 'utf8';
+export type Drop = 'console' | 'debugger';
 
 interface CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#sourcemap */
@@ -23,6 +24,7 @@ interface CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#target */
   readonly target?: string | string[];
 
+  readonly drop?: Drop[];
   /** Documentation: https://esbuild.github.io/api/#minify */
   readonly minify?: boolean;
   /** Documentation: https://esbuild.github.io/api/#minify */
@@ -246,6 +248,8 @@ export interface Plugin {
 
 export interface PluginBuild {
   initialOptions: BuildOptions;
+  resolve(path: string, options?: ResolveOptions): Promise<ResolveResult>;
+
   onStart(callback: () =>
   (OnStartResult | null | void | Promise<OnStartResult | null | void>)): void;
   onEnd(callback: (result: BuildResult) =>
@@ -254,6 +258,42 @@ export interface PluginBuild {
   (OnResolveResult | null | undefined | Promise<OnResolveResult | null | undefined>)): void;
   onLoad(options: OnLoadOptions, callback: (args: OnLoadArgs) =>
   (OnLoadResult | null | undefined | Promise<OnLoadResult | null | undefined>)): void;
+
+  // This is a full copy of the esbuild library in case you need it
+  esbuild: {
+    serve: typeof serve;
+    build: typeof build;
+    buildSync: typeof buildSync;
+    transform: typeof transform;
+    transformSync: typeof transformSync;
+    formatMessages: typeof formatMessages;
+    formatMessagesSync: typeof formatMessagesSync;
+    analyzeMetafile: typeof analyzeMetafile;
+    analyzeMetafileSync: typeof analyzeMetafileSync;
+    initialize: typeof initialize;
+    version: typeof version;
+  };
+}
+
+export interface ResolveOptions {
+  pluginName?: string;
+  importer?: string;
+  namespace?: string;
+  resolveDir?: string;
+  kind?: ImportKind;
+  pluginData?: any;
+}
+
+export interface ResolveResult {
+  errors: Message[];
+  warnings: Message[];
+
+  path: string;
+  external: boolean;
+  sideEffects: boolean;
+  namespace: string;
+  suffix: string;
+  pluginData: any;
 }
 
 export interface OnStartResult {
@@ -298,6 +338,7 @@ export interface OnResolveResult {
   external?: boolean;
   sideEffects?: boolean;
   namespace?: string;
+  suffix?: string;
   pluginData?: any;
 
   watchFiles?: string[];
@@ -312,6 +353,7 @@ export interface OnLoadOptions {
 export interface OnLoadArgs {
   path: string;
   namespace: string;
+  suffix: string;
   pluginData: any;
 }
 
@@ -393,7 +435,9 @@ export interface AnalyzeMetafileOptions {
  * Documentation: https://esbuild.github.io/api/#build-api
  */
 export declare function build(options: BuildOptions & { write: false }): Promise<BuildResult & { outputFiles: OutputFile[] }>;
+export declare function build(options: BuildOptions & { incremental: true; metafile: true }): Promise<BuildIncremental & { metafile: Metafile }>;
 export declare function build(options: BuildOptions & { incremental: true }): Promise<BuildIncremental>;
+export declare function build(options: BuildOptions & { metafile: true }): Promise<BuildResult & { metafile: Metafile }>;
 export declare function build(options: BuildOptions): Promise<BuildResult>;
 
 /**
