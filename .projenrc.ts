@@ -1,15 +1,15 @@
 import {
-  AwsCdkConstructLibrary,
+  awscdk,
   IgnoreFile,
+  javascript,
   JsonFile,
-  NodePackageManager,
   release,
   vscode,
 } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
 
-const project = new AwsCdkConstructLibrary({
+const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   projenrcTsOptions: {
     filename: '.projenrc.ts',
@@ -56,7 +56,7 @@ const project = new AwsCdkConstructLibrary({
   },
 
   // Release
-  packageManager: NodePackageManager.NPM,
+  packageManager: javascript.NodePackageManager.NPM,
   npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 3,
@@ -65,15 +65,16 @@ const project = new AwsCdkConstructLibrary({
     twitter: '@mrgrain',
   },
   workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
+  workflowBootstrapSteps: [{
+    name: 'Update npm',
+    run: 'sudo npm i -g npm',
+  }],
 
   // Dependencies
   cdkVersion: '2.0.0',
   peerDeps: [
     'aws-cdk-lib@^2.0.0',
   ],
-  cdkDependencies: [],
-  cdkTestDependencies: [],
-  cdkAssert: false,
   devDeps: [
     '@aws-cdk/aws-synthetics-alpha',
     '@types/eslint',
@@ -115,6 +116,9 @@ packageJson?.addOverride('optionalDependencies', {
 });
 packageJson?.addOverride('jest.testPathIgnorePatterns.1', '/examples/');
 
+project.eslint?.addRules({
+  '@typescript-eslint/member-ordering': 'off',
+});
 const eslintRc = project.tryFindObjectFile('.eslintrc.json');
 eslintRc?.addOverride('ignorePatterns', [
   '*.js',
