@@ -87,6 +87,14 @@
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
   "version": "0.0.0",
   "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/examples/"
+    ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
       "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
@@ -101,13 +109,6 @@
       "text"
     ],
     "coverageDirectory": "coverage",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/examples/"
-    ],
     "watchPathIgnorePatterns": [
       "/node_modules/"
     ],

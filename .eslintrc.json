@@ -36,10 +36,11 @@
     "*.js",
     "*.d.ts",
     "node_modules/",
-    "examples/",
     "*.generated.ts",
     "coverage",
-    "!.projenrc.ts"
+    "examples/",
+    "!.projenrc.ts",
+    "!projenrc/**/*.ts"
   ],
   "rules": {
     "indent": [

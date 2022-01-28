@@ -1,6 +1,5 @@
 import {
   awscdk,
-  IgnoreFile,
   javascript,
   JsonFile,
   release,
@@ -13,10 +12,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
   projenrcTsOptions: {
     filename: '.projenrc.ts',
-  },
-  eslintOptions: {
-    lintProjenRc: false,
-    dirs: ['src', 'projenrc', '.projenrc.ts'],
   },
   depsUpgradeOptions: {
     workflow: false,
@@ -53,6 +48,24 @@ const project = new awscdk.AwsCdkConstructLibrary({
         types: ['feat', 'fix', 'chore', 'docs', 'ci'],
       },
     },
+  },
+  jestOptions: {
+    jestConfig: {
+      testPathIgnorePatterns: ['/node_modules/', '/examples/'],
+      coveragePathIgnorePatterns: ['/node_modules/', '/examples/'],
+    },
+  },
+  eslintOptions: {
+    lintProjenRc: false,
+    dirs: ['src', 'projenrc', '.projenrc.ts'],
+    ignorePatterns: [
+      '*.js',
+      '*.d.ts',
+      'node_modules/',
+      '*.generated.ts',
+      'coverage',
+      'examples/',
+    ],
   },
 
   // Release
@@ -94,6 +107,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '.cdk.staging',
     'examples/template',
     '!/.github/workflows/manual-release.yml',
+    '!/examples/**',
   ],
   npmignore: [
     '.npmrc',
@@ -110,30 +124,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
-const packageJson = project.tryFindObjectFile('package.json');
-packageJson?.addOverride('optionalDependencies', {
-  esbuild: '^0.14.0',
-});
-packageJson?.addOverride('jest.testPathIgnorePatterns.1', '/examples/');
 
-project.eslint?.addRules({
-  '@typescript-eslint/member-ordering': 'off',
-});
-const eslintRc = project.tryFindObjectFile('.eslintrc.json');
-eslintRc?.addOverride('ignorePatterns', [
-  '*.js',
-  '*.d.ts',
-  'node_modules/',
-  'examples/',
-  '*.generated.ts',
-  'coverage',
-  '!.projenrc.ts',
-]);
-
-(project.tryFindFile('.gitignore') as IgnoreFile).addPatterns(
-  '!/examples/**',
-);
-
+// VSCode config
 new JsonFile(project, '.vscode/extensions.json', {
   readonly: false,
   marker: false,
@@ -170,6 +162,15 @@ new vscode.VsCode(project).launchConfiguration.addConfiguration({
 });
 
 
+// esbuild
+project.tryFindObjectFile('package.json')?.addOverride('optionalDependencies', {
+  esbuild: '^0.14.0',
+});
+
+project.eslint?.addRules({
+  '@typescript-eslint/member-ordering': 'off',
+});
+
 new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   source: 'node_modules/esbuild/lib/main.d.ts',
   editGitignore: false,
@@ -191,4 +192,6 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
+
+// Synth project
 project.synth();
