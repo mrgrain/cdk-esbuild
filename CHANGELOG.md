@@ -1,3 +1,17 @@
+
+## [3.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.0.0...v3.1.0) (2022-01-28)
+
+
+### Features
+
+* support new build option `drop` from esbuild ([54445ad](https://github.com/mrgrain/cdk-esbuild/commit/54445ad2490e7cba81e54a555a91ba86553ec67f))
+
+
+### Bug Fixes
+
+* replace mocked with version from jest-mock ([2e9761d](https://github.com/mrgrain/cdk-esbuild/commit/2e9761d5f53293a6a840897e218c2e79a6b71c66))
+* replace removed Node.js type ([e58b268](https://github.com/mrgrain/cdk-esbuild/commit/e58b2685c519cb9c4d7e1a148c4fc9f388d3ff90))
+
 ## [3.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.0.0-rc.1...v3.0.0) (2021-12-09)
 
 ### Features
