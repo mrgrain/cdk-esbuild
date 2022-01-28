@@ -1,4 +1,4 @@
-import { join, normalize, resolve, posix, PlatformPath } from 'path';
+import { join, normalize, resolve, posix } from 'path';
 import {
   BundlingOptions,
   DockerImage,
@@ -140,7 +140,7 @@ export class EsbuildBundler {
 
   private getOutputOptions(
     cdkOutputDir: string,
-    path: Pick<PlatformPath, 'normalize' | 'join'> = posix,
+    path: Pick<typeof posix, 'normalize' | 'join'> = posix,
   ): BuildOptions {
     if (this.props?.buildOptions?.outfile) {
       return {
