@@ -39,7 +39,7 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/aws-synthetics-alpha": "^2.9.0-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "^2.10.0-alpha.0",
     "@types/eslint": "^7.29.0",
     "@types/jest": "^27.4.0",
     "@types/node": "^12",

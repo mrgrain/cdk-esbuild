@@ -237,6 +237,8 @@ public readonly drop: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#drop.
+
 ---
 
 ##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.entryNames"></a>
@@ -443,6 +445,30 @@ Documentation: https://esbuild.github.io/api/#mainFields.
 
 ---
 
+##### `mangleCache`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.mangleCache"></a>
+
+```typescript
+public readonly mangleCache: {[ key: string ]: string | boolean};
+```
+
+- *Type:* {[ key: string ]: `string` | `boolean`}
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.mangleProps"></a>
+
+```typescript
+public readonly mangleProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
 ##### `metafile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.metafile"></a>
 
 ```typescript
@@ -608,6 +634,18 @@ public readonly pure: string[];
 - *Type:* `string`[]
 
 Documentation: https://esbuild.github.io/api/#pure.
+
+---
+
+##### `reserveProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.reserveProps"></a>
+
+```typescript
+public readonly reserveProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
 
 ---
 
@@ -1077,6 +1115,8 @@ public readonly drop: string[];
 
 - *Type:* `string`[]
 
+Documentation: https://esbuild.github.io/api/#drop.
+
 ---
 
 ##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.footer"></a>
@@ -1219,6 +1259,30 @@ Documentation: https://esbuild.github.io/api/#log-limit.
 
 ---
 
+##### `mangleCache`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.mangleCache"></a>
+
+```typescript
+public readonly mangleCache: {[ key: string ]: string | boolean};
+```
+
+- *Type:* {[ key: string ]: `string` | `boolean`}
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.mangleProps"></a>
+
+```typescript
+public readonly mangleProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
 ##### `minify`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.minify"></a>
 
 ```typescript
@@ -1276,6 +1340,18 @@ public readonly pure: string[];
 - *Type:* `string`[]
 
 Documentation: https://esbuild.github.io/api/#pure.
+
+---
+
+##### `reserveProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.reserveProps"></a>
+
+```typescript
+public readonly reserveProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
 
 ---
 
