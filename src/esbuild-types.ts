@@ -24,6 +24,13 @@ interface CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#target */
   readonly target?: string | string[];
 
+  /** Documentation: https://esbuild.github.io/api/#mangle-props */
+  readonly mangleProps?: any;
+  /** Documentation: https://esbuild.github.io/api/#mangle-props */
+  readonly reserveProps?: any;
+  /** Documentation: https://esbuild.github.io/api/#mangle-props */
+  readonly mangleCache?: Record<string, string | false>;
+  /** Documentation: https://esbuild.github.io/api/#drop */
   readonly drop?: Drop[];
   /** Documentation: https://esbuild.github.io/api/#minify */
   readonly minify?: boolean;
@@ -189,6 +196,8 @@ export interface BuildResult {
   stop?: () => void;
   /** Only when "metafile: true" */
   metafile?: Metafile;
+  /** Only when "mangleCache" is present */
+  mangleCache?: Record<string, string | false>;
 }
 
 export interface BuildFailure extends Error {
@@ -234,6 +243,8 @@ export interface TransformResult {
   code: string;
   map: string;
   warnings: Message[];
+  /** Only when "mangleCache" is present */
+  mangleCache?: Record<string, string | false>;
 }
 
 export interface TransformFailure extends Error {

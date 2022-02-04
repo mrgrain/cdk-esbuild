@@ -188,6 +188,8 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 
     ['CommonOptions', 'BuildOptions', 'TransformOptions'].forEach(readonlyInterface);
     removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
+    esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
+    esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
     esbuildTypes.getInterface('TransformOptions')?.getProperty('tsconfigRaw')?.setType('string');
   },
 });
