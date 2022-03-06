@@ -469,6 +469,18 @@ Documentation: https://esbuild.github.io/api/#mangle-props.
 
 ---
 
+##### `mangleQuoted`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.mangleQuoted"></a>
+
+```typescript
+public readonly mangleQuoted: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
 ##### `metafile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.metafile"></a>
 
 ```typescript
@@ -1278,6 +1290,18 @@ public readonly mangleProps: any;
 ```
 
 - *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleQuoted`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.mangleQuoted"></a>
+
+```typescript
+public readonly mangleQuoted: boolean;
+```
+
+- *Type:* `boolean`
 
 Documentation: https://esbuild.github.io/api/#mangle-props.
 
