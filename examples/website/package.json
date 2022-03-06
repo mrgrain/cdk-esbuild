@@ -8,7 +8,7 @@
     "cdk": "cdk"
   },
   "dependencies": {
-    "@aws-cdk/aws-synthetics-alpha": "^2.0.0-alpha.11",
+    "@aws-cdk/aws-synthetics-alpha": "^2.0.0-alpha.15",
     "@mrgrain/cdk-esbuild": "^3.0.0",
     "aws-cdk-lib": "^2.0.0",
     "esbuild": "^0.14.2",
