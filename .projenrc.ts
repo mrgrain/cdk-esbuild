@@ -85,14 +85,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Dependencies
   cdkVersion: '2.0.0',
-  peerDeps: [
-    'aws-cdk-lib@^2.0.0',
-  ],
   devDeps: [
-    '@aws-cdk/aws-synthetics-alpha',
+    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
-    'aws-cdk-lib@2.0.0',
-    'constructs@10.0.5',
     'esbuild@^0.14.0',
     'jest-mock',
     'ts-morph',
@@ -191,6 +186,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
     esbuildTypes.getInterface('TransformOptions')?.getProperty('tsconfigRaw')?.setType('string');
+    esbuildTypes.getInterface('InitializeOptions')?.getProperty('wasmModule')?.setType('any');
   },
 });
 
