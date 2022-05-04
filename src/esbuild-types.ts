@@ -558,6 +558,16 @@ export interface InitializeOptions {
   wasmURL?: string;
 
   /**
+   * The result of calling "new WebAssembly.Module(buffer)" where "buffer"
+   * is a typed array or ArrayBuffer containing the binary code of the
+   * "esbuild.wasm" file.
+   *
+   * You can use this as an alternative to "wasmURL" for environments where it's
+   * not possible to download the WebAssembly module.
+   */
+  wasmModule?: any;
+
+  /**
    * By default esbuild runs the WebAssembly-based browser API in a web worker
    * to avoid blocking the UI thread. This can be disabled by setting "worker"
    * to false.
