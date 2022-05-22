@@ -49,7 +49,7 @@ import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
 const bundledCode = new TypeScriptCode("src/index.ts");
 
 const fn = new lambda.Function(stack, "MyFunction", {
-  runtime: lambda.Runtime.NODEJS_14_X,
+  runtime: lambda.Runtime.NODEJS_16_X,
   handler: "index.handler",
   code: bundledCode,
 });

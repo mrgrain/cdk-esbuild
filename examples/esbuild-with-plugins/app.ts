@@ -11,7 +11,7 @@ export class LambdaStack extends Stack {
     super(scope, id, props);
 
     const lambda = new Function(this, "Lambda", {
-      runtime: Runtime.NODEJS_14_X,
+      runtime: Runtime.NODEJS_16_X,
       handler: "lambda.handler",
       code: new TypeScriptCode("./lambda.ts", {
         buildFn: (options: BuildOptions): BuildResult => {
