@@ -2,10 +2,10 @@
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-> ⚠️ This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2)
-
 [Getting started](#getting-started) | [Migrating to v3](#migrating-to-v3) |
 [Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
+
+> This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2).
 
 ## Why?
 
@@ -18,7 +18,7 @@ This package is running _esbuild_ directly in Node.js and bypasses Docker which 
 
 **Production readiness**
 
-This package is generally stable and ready to be used in production, as many do. However _esbuild_ not yet released a version 1.0.0 yet and its API is still in active development. Please check their guide on [production readiness](https://esbuild.github.io/faq/#production-readiness).
+This package is stable and ready to be used in production, as many do. However _esbuild_ has not yet released a version 1.0.0 and its API is still in active development. Please read the guide on [esbuild's production readiness](https://esbuild.github.io/faq/#production-readiness).
 
 Notably upgrades of the _esbuild_ minimum version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
 
@@ -30,7 +30,7 @@ Install `cdk-esbuild`:
 npm install @mrgrain/cdk-esbuild@3
 ```
 
-If _peer_ and _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
+If _peer_ or _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
 
 ```
 npm install @mrgrain/cdk-esbuild@3 esbuild
@@ -112,7 +112,7 @@ const canary = new synthetics.Canary(stack, "MyCanary", {
 });
 ```
 
-# Documentation
+## Documentation
 
 The package exports various different constructs for use with existing CDK features. A major guiding design principal for this package is to _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
 
@@ -129,9 +129,9 @@ For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` 
 
 - `TypeScriptSource` & `JavaScriptSource`
 
-> _Code and Source constructs seamlessly plugin to high-level CDK features. They share the same set of parameters, props and build options._
+> _Code and Source constructs seamlessly plug-in to other high-level CDK constructs. They share the same set of parameters, props and build options._
 
-Underlying classes power the other features. You normally won't have to use them, but they are there if you need them:
+The following classes power the other features. You normally won't have to use them, but they are there if you need them:
 
 - `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.Asset.html)) \
   creates an asset uploaded to S3 which can be referenced by other constructs
@@ -139,21 +139,21 @@ Underlying classes power the other features. You normally won't have to use them
 - `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.BundlingOptions.html)) \
   provides an interface for a _esbuild_ bundler wherever needed
 
-## [API Reference](API.md)
+### [API Reference](API.md)
 
-Auto-generated reference for classes and structs. This information is also available within the code completion of your IDE.
+Auto-generated reference for classes and structs. This information is also available as part of your IDE's code completion.
 
-## Escape hatches
+### Escape hatches
 
-It's possible that you want to use a implementation of esbuild that's different to the default one. Common reasons are:
+It's possible that you want to use an implementation of esbuild that's different to the default one. Common reasons are:
 
 - The current version constraints for esbuild are not suitable
-- To use version of esbuild that is installed by any other means than `npm`, including Docker
-- Plugin support is needed for the building
+- To use a version of esbuild that is installed by any other means than `npm`, including Docker
+- Plugin support is needed for building
 
 For these situations, this package offers an escape hatch to bypass regular the implementation and provide a custom build and transform function.
 
-### Custom build function
+#### Custom build function
 
 > 💡 See [Using esbuild with plugins](examples/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
 
@@ -175,7 +175,7 @@ Instead of esbuild, the provided function will be invoked with the calculated bu
 
 Failures have to cause a `BuildFailure` exception in order to be fully handled.
 
-### Custom transform function
+#### Custom transform function
 
 Constructs that result in starting a transformation, take a `transformFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `transformSync` function.
 
@@ -195,11 +195,11 @@ Instead of esbuild, the provided function will be invoked with the calculated tr
 
 Failures have to cause a `TransformFailure` exception in order to be fully handled.
 
-## Migrating to v3
+### Migrating to v3
 
 The release of cdk-esbuild v3 brings compatibility with AWS CDK v2. Furthermore all deprecated properties and classes have been removed. In particular `InlineCode` classes now take `TransformerProps` as second parameter instead of transform options.
 
-### Upgrading
+#### Upgrading
 
 - This version requires AWS CDK v2. Follow the [official migration guide](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html) to upgrade.
 - Update the package dependency to v3: `npm install --save @mrgrain/cdk-esbuild@^3.0.0`
@@ -217,7 +217,7 @@ The release of cdk-esbuild v3 brings compatibility with AWS CDK v2. Furthermore 
 
 ## Versioning
 
-This package _mostly_ follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
+This package follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
 
 ### Npm Tags
 
@@ -233,15 +233,15 @@ These tags also exist, but usage is strongly not recommended:
 
 - ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
 
-## Future releases
+## Roadmap & Contributions
 
-### Stable esbuild
+[The project's roadmap is available on GitHub.](https://github.com/mrgrain/cdk-esbuild/projects/1) Please submit any feature requests as issues to the repository.
 
-Once `esbuild` has reached a stable version 1.0, a new major version will be released for _all_ breaking changes, including updates to minimum (peer) dependencies.
+All contributions are welcome, no matter if they are for already planned or completely new features.
 
 ## Library authors
 
-When developing a library consumed by other packages, you'll most likely have to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
+Building a library consumed by other packages that relies on `cdk-esbuild` might require you to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the calling file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
 
 ```ts
 // file: project/src/index.ts
@@ -253,3 +253,5 @@ const props = {
 ```
 
 This will dynamically resolve to the correct path, wherever the package is installed.
+
+Please open an issue if you encounter any difficulties.
