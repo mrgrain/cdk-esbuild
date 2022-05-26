@@ -1,4 +1,11 @@
 
+## [3.4.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.3.0...v3.4.0) (2022-05-26)
+
+
+### Features
+
+* copyDir supports more complex scenarios ([08c59fb](https://github.com/mrgrain/cdk-esbuild/commit/08c59fba7bf1ee68ca103520b3e0b7ea5359a925))
+
 ## [3.3.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.2.0...v3.3.0) (2022-03-06)
 
 
