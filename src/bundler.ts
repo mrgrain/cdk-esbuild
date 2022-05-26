@@ -1,4 +1,5 @@
-import { join, normalize, resolve, posix } from 'path';
+import { mkdirSync } from 'fs';
+import { join, normalize, relative, resolve, posix, isAbsolute } from 'path';
 import {
   BundlingOptions,
   DockerImage,
@@ -23,15 +24,15 @@ export interface BundlerProps {
   /**
    * Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
    *
-   * - `buildOptions.outdir: string`
+   * * `buildOptions.outdir: string`
    * The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
    * For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
    * *Cannot be used together with `outfile`*.
-   * - `buildOptions.outfile: string`
+   * * `buildOptions.outfile: string`
    * Relative path to a file inside the CDK asset output directory.
    * For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
    * *Cannot be used with multiple entryPoints or together with `outdir`.*
-   * - `buildOptions.absWorkingDir: string`
+   * * `buildOptions.absWorkingDir: string`
    * Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
    * If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
    *
@@ -41,12 +42,27 @@ export interface BundlerProps {
   readonly buildOptions?: BuildOptions;
 
   /**
-   * Copy additional files to the output directory, before the build runs.
+   * Copy additional files to the code [asset staging directory](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.AssetStaging.html#absolutestagedpath), before the build runs.
    * Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
+   *
+   * * When provided with a `string` or `array`, all files are copied to the root of asset staging directory.
+   * * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
+   *
+   * Therefore the following values for `copyDir` are all equivalent:
+   * ```ts
+   * { copyDir: "path/to/source" }
+   * { copyDir: ["path/to/source"] }
+   * { copyDir: { ".": "path/to/source" } }
+   * { copyDir: { ".": ["path/to/source"] } }
+   * ```
+   * The destination cannot be outside of the asset staging directory.
+   * If you are receiving the error "Cannot copy files to outside of the asset staging directory."
+   * you are likely using `..` or an absolute path as key on the `copyDir` map.
+   * Instead use only relative paths and avoid `..`.
    *
    * @stability stable
    */
-  readonly copyDir?: string;
+  readonly copyDir?: string | string[] | Record<string, string | string []>;
 
 
   /**
@@ -111,17 +127,28 @@ export class EsbuildBundler {
 
     this.local = {
       tryBundle: (outputDir: string, _options: BundlingOptions): boolean => {
-        try {
-          if (this.props.copyDir) {
-            FileSystem.copyDirectory(
-              resolve(
-                this.props?.buildOptions?.absWorkingDir ?? process.cwd(),
-                this.props.copyDir,
-              ),
-              outputDir,
-            );
-          }
 
+        if (this.props.copyDir) {
+          const copyDir = this.getCopyDirList(this.props.copyDir);
+
+          copyDir.forEach(([dest, src]) => {
+            const srcDir = resolve(
+              this.props?.buildOptions?.absWorkingDir ?? process.cwd(),
+              src,
+            );
+            const destDir = resolve(outputDir, dest) ;
+
+            const destToOutput = relative(outputDir, destDir);
+            if (destToOutput.startsWith('..') || isAbsolute(destToOutput)) {
+              throw new Error('Cannot copy files to outside of the asset staging directory. See docs for details.');
+            }
+
+            mkdirSync(destDir, { recursive: true });
+            FileSystem.copyDirectory(srcDir, destDir);
+          });
+        }
+
+        try {
           const buildResult: BuildResult = buildFn({
             entryPoints,
             ...(this.props?.buildOptions || {}),
@@ -136,6 +163,38 @@ export class EsbuildBundler {
         return true;
       },
     };
+  }
+
+  private getCopyDirList(copyDir: BundlerProps['copyDir']): Array<[string, string]> {
+    // Nothing to copy
+    if (!copyDir) {
+      return [];
+    }
+
+    // List of strings
+    if (Array.isArray(copyDir)) {
+      return copyDir.map((src: string) => ['.', src]);
+    }
+
+    // A map
+    if (
+      typeof copyDir === 'object' &&
+      !Array.isArray(copyDir) &&
+      copyDir !== null
+    ) {
+      return Object
+        .entries(copyDir)
+        .flatMap(([dest, sources]) => {
+          if (Array.isArray(sources)) {
+            return sources.map((src) => [dest, src]) as Array<[string, string]>;
+          }
+
+          return [[dest, sources]];
+        });
+    }
+
+    // A single string
+    return [['.', copyDir as string]];
   }
 
   private getOutputOptions(
