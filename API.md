@@ -446,6 +446,18 @@ Documentation: https://esbuild.github.io/api/#log-limit.
 
 ---
 
+##### `logOverride`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.logOverride"></a>
+
+```typescript
+public readonly logOverride: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#log-override.
+
+---
+
 ##### `mainFields`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.mainFields"></a>
 
 ```typescript
@@ -1320,6 +1332,18 @@ public readonly logLimit: number;
 - *Type:* `number`
 
 Documentation: https://esbuild.github.io/api/#log-limit.
+
+---
+
+##### `logOverride`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.logOverride"></a>
+
+```typescript
+public readonly logOverride: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#log-override.
 
 ---
 
