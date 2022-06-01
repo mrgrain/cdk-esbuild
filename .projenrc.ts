@@ -58,14 +58,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   eslintOptions: {
     lintProjenRc: false,
     dirs: ['src', 'projenrc', '.projenrc.ts'],
-    ignorePatterns: [
-      '*.js',
-      '*.d.ts',
-      'node_modules/',
-      '*.generated.ts',
-      'coverage',
-      'examples/',
-    ],
   },
 
   // Release
@@ -161,10 +153,22 @@ new vscode.VsCode(project).launchConfiguration.addConfiguration({
 project.tryFindObjectFile('package.json')?.addOverride('optionalDependencies', {
   esbuild: '^0.14.0',
 });
+project.tryFindObjectFile('package.json')?.addOverride('overrides', {
+  '@types/prettier': '2.6.0',
+});
 
 project.eslint?.addRules({
   '@typescript-eslint/member-ordering': 'off',
 });
+project.eslint?.addOverride({
+  files: ['projenrc/*.ts'],
+  rules: {
+    '@typescript-eslint/no-require-imports': 'off',
+    'import/no-extraneous-dependencies': 'off',
+  },
+});
+project.eslint?.addIgnorePattern('examples/');
+project.eslint?.addIgnorePattern('!projenrc/*.ts');
 
 new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   source: 'node_modules/esbuild/lib/main.d.ts',
