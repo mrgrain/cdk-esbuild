@@ -38,9 +38,7 @@
     "node_modules/",
     "*.generated.ts",
     "coverage",
-    "examples/",
-    "!.projenrc.ts",
-    "!projenrc/**/*.ts"
+    "examples/"
   ],
   "rules": {
     "indent": [
@@ -147,9 +145,7 @@
       {
         "devDependencies": [
           "**/test/**",
-          "**/build-tools/**",
-          ".projenrc.ts",
-          "projenrc/**/*.ts"
+          "**/build-tools/**"
         ],
         "optionalDependencies": false,
         "peerDependencies": true
@@ -209,7 +205,7 @@
   "overrides": [
     {
       "files": [
-        ".projenrc.js"
+        ".projenrc.ts"
       ],
       "rules": {
         "@typescript-eslint/no-require-imports": "off",
