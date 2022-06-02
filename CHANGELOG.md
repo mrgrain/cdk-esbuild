@@ -1,4 +1,11 @@
 
+## [3.5.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.4.0...v3.5.0) (2022-06-02)
+
+
+### Features
+
+* support logOverride buildOption ([d1cad61](https://github.com/mrgrain/cdk-esbuild/commit/d1cad614a28f0e07b9646ff62dd47393f5616b99))
+
 ## [3.4.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.3.0...v3.4.0) (2022-05-26)
 
 
