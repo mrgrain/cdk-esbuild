@@ -34,13 +34,13 @@
   },
   "ignorePatterns": [
     "*.js",
+    "!.projenrc.ts",
     "*.d.ts",
     "node_modules/",
     "*.generated.ts",
     "coverage",
     "examples/",
-    "!.projenrc.ts",
-    "!projenrc/**/*.ts"
+    "!projenrc/*.ts"
   ],
   "rules": {
     "indent": [
@@ -147,9 +147,7 @@
       {
         "devDependencies": [
           "**/test/**",
-          "**/build-tools/**",
-          ".projenrc.ts",
-          "projenrc/**/*.ts"
+          "**/build-tools/**"
         ],
         "optionalDependencies": false,
         "peerDependencies": true
@@ -209,7 +207,16 @@
   "overrides": [
     {
       "files": [
-        ".projenrc.js"
+        ".projenrc.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-require-imports": "off",
+        "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": [
+        "projenrc/*.ts"
       ],
       "rules": {
         "@typescript-eslint/no-require-imports": "off",
