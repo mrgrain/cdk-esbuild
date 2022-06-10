@@ -147,7 +147,8 @@
       {
         "devDependencies": [
           "**/test/**",
-          "**/build-tools/**"
+          "**/build-tools/**",
+          "projenrc/**"
         ],
         "optionalDependencies": false,
         "peerDependencies": true
@@ -208,15 +209,6 @@
     {
       "files": [
         ".projenrc.ts"
-      ],
-      "rules": {
-        "@typescript-eslint/no-require-imports": "off",
-        "import/no-extraneous-dependencies": "off"
-      }
-    },
-    {
-      "files": [
-        "projenrc/*.ts"
       ],
       "rules": {
         "@typescript-eslint/no-require-imports": "off",
