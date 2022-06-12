@@ -19,7 +19,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Project info
   name: '@mrgrain/cdk-esbuild',
-  repositoryUrl: 'git@github.com:mrgrain/cdk-esbuild.git',
+  repositoryUrl: 'https://github.com/mrgrain/cdk-esbuild',
   description:
     'CDK constructs for esbuild, an extremely fast JavaScript bundler',
   homepage: 'https://github.com/mrgrain/cdk-esbuild',
