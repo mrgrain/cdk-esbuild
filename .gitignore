@@ -36,7 +36,6 @@ jspm_packages/
 cdk.out
 .cdk.staging
 examples/template
-!/.github/workflows/manual-release.yml
 !/examples/**
 !/.projenrc.js
 /test-reports/
@@ -45,6 +44,7 @@ junit.xml
 !/.github/workflows/build.yml
 /dist/changelog.md
 /dist/version.txt
+!/.github/workflows/release.yml
 !/.mergify.yml
 !/.github/pull_request_template.md
 !/test/

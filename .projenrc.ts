@@ -2,10 +2,11 @@ import {
   awscdk,
   javascript,
   JsonFile,
-  release,
   vscode,
 } from 'projen';
+import { ReleaseTrigger } from 'projen/lib/release';
 import { SourceFile } from 'ts-morph';
+import { tagOnNpm } from './projenrc/release';
 import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -61,7 +62,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 3,
-  releaseTrigger: release.ReleaseTrigger.manual(),
+  releaseTrigger: {
+    isContinuous: false,
+  } as ReleaseTrigger,
   catalog: {
     twitter: '@mrgrain',
   },
@@ -89,7 +92,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'cdk.out',
     '.cdk.staging',
     'examples/template',
-    '!/.github/workflows/manual-release.yml',
     '!/examples/**',
   ],
   npmignore: [
@@ -106,6 +108,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '.vscode',
   ],
 });
+
+// release only via manual trigger
+project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
+  'jobs.release_npm.steps',
+  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
+);
 
 // eslint
 project.eslint?.addRules({
