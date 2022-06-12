@@ -66,6 +66,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTrigger: {
     isContinuous: false,
   } as ReleaseTrigger,
+  publishToPypi: {
+    distName: 'mrgrain.cdk-esbuild',
+    module: 'mrgrain.cdk_esbuild',
+  },
   catalog: {
     twitter: '@mrgrain',
   },

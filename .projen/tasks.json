@@ -145,6 +145,9 @@
       "steps": [
         {
           "spawn": "package:js"
+        },
+        {
+          "spawn": "package:python"
         }
       ]
     },
@@ -154,6 +157,15 @@
       "steps": [
         {
           "exec": "jsii-pacmak -v --target js"
+        }
+      ]
+    },
+    "package:python": {
+      "name": "package:python",
+      "description": "Create python language bindings",
+      "steps": [
+        {
+          "exec": "jsii-pacmak -v --target python"
         }
       ]
     },
