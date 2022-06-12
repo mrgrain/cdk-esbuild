@@ -24,7 +24,7 @@
     "post-upgrade": "npx projen post-upgrade",
     "pre-compile": "npx projen pre-compile",
     "publish:git": "npx projen publish:git",
-    "release": "npx projen release",
+    "release:support-other-langs": "npx projen release:support-other-langs",
     "test": "npx projen test",
     "test:update": "npx projen test:update",
     "test:watch": "npx projen test:watch",

@@ -25,8 +25,8 @@ jobs:
         run: sudo npm i -g npm
       - name: Install dependencies
         run: npm ci
-      - name: release
-        run: npx projen release
+      - name: release:support-other-langs
+        run: npx projen release:support-other-langs
       - name: Check for new commits
         id: git_remote
         run: echo ::set-output name=latest_commit::"$(git ls-remote origin -h ${{ github.ref }} | cut -f1)"
@@ -93,15 +93,13 @@ jobs:
       - name: Release
         run: npx -p publib@latest publib-npm
         env:
-          NPM_DIST_TAG: latest
+          NPM_DIST_TAG: next
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Update tags
         run: |-
           version=`cat dist/version.txt`
           echo $version
-          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
-          npm dist-tag add @mrgrain/cdk-esbuild@$version unstable
           npm dist-tag add @mrgrain/cdk-esbuild@$version next
         env:
           NPM_REGISTRY: registry.npmjs.org
