@@ -55,10 +55,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
       coveragePathIgnorePatterns: ['/node_modules/', '/examples/'],
     },
   },
-  eslintOptions: {
-    lintProjenRc: false,
-    dirs: ['src', 'projenrc', '.projenrc.ts'],
-  },
 
   // Release
   packageManager: javascript.NodePackageManager.NPM,
@@ -112,12 +108,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 // eslint
-project.eslint?.allowDevDeps('projenrc/**');
 project.eslint?.addRules({
   '@typescript-eslint/member-ordering': 'off',
 });
 project.eslint?.addIgnorePattern('examples/');
-project.eslint?.addIgnorePattern('!projenrc/*.ts');
 
 
 // VSCode config
