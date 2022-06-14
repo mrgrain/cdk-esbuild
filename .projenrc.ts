@@ -106,6 +106,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '/examples',
     'PUBLISHING.md',
     '.vscode',
+    'projenrc',
   ],
 });
 
