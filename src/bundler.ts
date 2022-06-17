@@ -77,6 +77,15 @@ export interface BundlerProps {
    * @default esbuild.buildSync
    */
   readonly buildFn?: any;
+
+  /**
+   * Path to the binary used by esbuild.
+   *
+   * This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+   *
+   * @stability experimental
+   */
+  readonly esbuildBinaryPath?: string;
 }
 
 /**
@@ -148,6 +157,11 @@ export class EsbuildBundler {
           });
         }
 
+        const originalEsbuildBinaryPath = process.env.ESBUILD_BINARY_PATH;
+        if (this.props.esbuildBinaryPath) {
+          process.env.ESBUILD_BINARY_PATH = this.props.esbuildBinaryPath;
+        }
+
         try {
           const buildResult: BuildResult = buildFn({
             entryPoints,
@@ -159,6 +173,8 @@ export class EsbuildBundler {
         } catch (error) {
           printBuildMessages(error as BuildFailure, { prefix: 'Build ' });
         }
+
+        process.env.ESBUILD_BINARY_PATH = originalEsbuildBinaryPath;
 
         return true;
       },
