@@ -153,6 +153,16 @@ It's possible that you want to use an implementation of esbuild that's different
 
 For these situations, this package offers an escape hatch to bypass regular the implementation and provide a custom build and transform function.
 
+#### Esbuild binary path
+
+It is possible to override the binary used by esbuild. The usual way to do this is to set the `ESBUILD_BINARY_PATH` environment variable. For convenience this package allows to set the binary path as a prop:
+
+```ts
+new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
+  esbuildBinaryPath: "path/to/esbuild/binary"
+});
+```
+
 #### Custom build function
 
 > 💡 See [Using esbuild with plugins](examples/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
