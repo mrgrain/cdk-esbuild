@@ -2,10 +2,10 @@
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-[Getting started](#getting-started) | [Migrating to v3](#migrating-to-v3) |
-[Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning)
+[Getting started](#getting-started)
+[Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning) | [Upgrading from AWS CDK v1](#upgrading-from-aws-cdk-v1)
 
-> This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2).
+[![View on Construct Hub](https://constructs.dev/badge?package=%40mrgrain%2Fcdk-esbuild)](https://constructs.dev/packages/@mrgrain/cdk-esbuild)
 
 ## Why?
 
@@ -205,11 +205,11 @@ Instead of esbuild, the provided function will be invoked with the calculated tr
 
 Failures have to cause a `TransformFailure` exception in order to be fully handled.
 
-### Migrating to v3
+### Upgrading from AWS CDK v1
 
-The release of cdk-esbuild v3 brings compatibility with AWS CDK v2. Furthermore all deprecated properties and classes have been removed. In particular `InlineCode` classes now take `TransformerProps` as second parameter instead of transform options.
+This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2).
 
-#### Upgrading
+To upgrade from AWS CDK v1 and cdk-esbuild@v2, please follow these steps:
 
 - This version requires AWS CDK v2. Follow the [official migration guide](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html) to upgrade.
 - Update the package dependency to v3: `npm install --save @mrgrain/cdk-esbuild@^3.0.0`
