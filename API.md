@@ -746,6 +746,18 @@ Documentation: https://esbuild.github.io/api/#splitting.
 
 ---
 
+##### `supported`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.supported"></a>
+
+```typescript
+public readonly supported: {[ key: string ]: boolean};
+```
+
+- *Type:* {[ key: string ]: `boolean`}
+
+Documentation: https://esbuild.github.io/api/#supported.
+
+---
+
 ##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.target"></a>
 
 ```typescript
@@ -1498,6 +1510,18 @@ public readonly sourcesContent: boolean;
 - *Type:* `boolean`
 
 Documentation: https://esbuild.github.io/api/#sources-content.
+
+---
+
+##### `supported`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.supported"></a>
+
+```typescript
+public readonly supported: {[ key: string ]: boolean};
+```
+
+- *Type:* {[ key: string ]: `boolean`}
+
+Documentation: https://esbuild.github.io/api/#supported.
 
 ---
 
