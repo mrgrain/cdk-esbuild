@@ -119,6 +119,8 @@ const publishTask = project.release?.publisher?.publishToGit({
   gitBranch: 'main',
 });
 project.tasks.tryFind('release')?.spawn(publishTask!);
+
+// add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
   'jobs.release_npm.steps',
   tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
