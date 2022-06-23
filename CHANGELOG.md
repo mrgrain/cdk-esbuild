@@ -1,3 +1,15 @@
+## [3.6.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.5.0...v3.6.0) (2022-06-23)
+
+
+### Features
+
+* allow setting of esbuildBinaryPath via Construct interface ([f4eeebe](https://github.com/mrgrain/cdk-esbuild/commit/f4eeebe613bf20b8b28313a81b328bdcd1c1a8e6))
+* upgrade esbuild to support `supported` buildOption and new `copy` loader ([3ac5d92](https://github.com/mrgrain/cdk-esbuild/commit/3ac5d925342505669dbb3d3e88249f6e495b8566))
+
+
+### Bug Fixes
+
+* make TypeScriptCode and JavaScriptCode correctly extend aws_lambda.Code in jsii ([d04db27](https://github.com/mrgrain/cdk-esbuild/commit/d04db2798559b38d424a2012ebb96d14ebde4fb0))
 
 ## [3.5.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.4.0...v3.5.0) (2022-06-02)
 
