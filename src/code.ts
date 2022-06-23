@@ -20,7 +20,9 @@ export interface JavaScriptCodeProps extends AssetBaseProps {};
 export interface TypeScriptCodeProps extends AssetBaseProps {};
 
 /**
- * Represents the a generic Esbuild Code bundle.
+ * Represents a generic esbuild code bundle.
+ *
+ * You should always use `TypeScriptCode` or `JavaScriptCode`.
  *
  * @stability experimental
  */

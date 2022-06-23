@@ -33,7 +33,9 @@ type JavaScriptAssetProps = AssetProps;
 type TypeScriptAssetProps = AssetProps;
 
 /**
- * Represents the a generic Esbuild Asset.
+ * Represents a generic esbuild asset.
+ *
+ * You should always use `TypeScriptAsset` or `JavaScriptAsset`.
  *
  * @stability experimental
  */

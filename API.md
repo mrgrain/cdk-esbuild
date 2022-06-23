@@ -4,7 +4,9 @@
 
 ### EsbuildAsset <a name="@mrgrain/cdk-esbuild.EsbuildAsset"></a>
 
-Represents the a generic Esbuild Asset.
+Represents a generic esbuild asset.
+
+You should always use `TypeScriptAsset` or `JavaScriptAsset`.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildAsset.Initializer"></a>
 
@@ -2060,7 +2062,9 @@ Props to change the behaviour of the bundler.
 
 ### EsbuildCode <a name="@mrgrain/cdk-esbuild.EsbuildCode"></a>
 
-Represents the a generic Esbuild Code bundle.
+Represents a generic esbuild code bundle.
+
+You should always use `TypeScriptCode` or `JavaScriptCode`.
 
 #### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildCode.Initializer"></a>
 
