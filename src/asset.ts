@@ -33,9 +33,11 @@ type JavaScriptAssetProps = AssetProps;
 type TypeScriptAssetProps = AssetProps;
 
 /**
- * @stability stable
+ * Represents the a generic Esbuild Asset.
+ *
+ * @stability experimental
  */
-abstract class Asset<Props extends AssetProps> extends S3Asset {
+export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
   /**
    * @stability stable
    */
@@ -94,7 +96,7 @@ abstract class Asset<Props extends AssetProps> extends S3Asset {
  *
  * @stability stable
  */
-export class JavaScriptAsset extends Asset<JavaScriptAssetProps> {}
+export class JavaScriptAsset extends EsbuildAsset<JavaScriptAssetProps> {}
 
 /**
  * Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
@@ -103,4 +105,4 @@ export class JavaScriptAsset extends Asset<JavaScriptAssetProps> {}
  *
  * @stability stable
  */
-export class TypeScriptAsset extends Asset<TypeScriptAssetProps> {}
+export class TypeScriptAsset extends EsbuildAsset<TypeScriptAssetProps> {}

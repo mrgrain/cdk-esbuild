@@ -1,5 +1,112 @@
 # API Reference <a name="API Reference"></a>
 
+## Constructs <a name="Constructs"></a>
+
+### EsbuildAsset <a name="@mrgrain/cdk-esbuild.EsbuildAsset"></a>
+
+Represents the a generic Esbuild Asset.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildAsset.Initializer"></a>
+
+```typescript
+import { EsbuildAsset } from '@mrgrain/cdk-esbuild'
+
+new EsbuildAsset(scope: Construct, id: string, props: AssetProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
+
+---
+
+
+
+
+
+### JavaScriptAsset <a name="@mrgrain/cdk-esbuild.JavaScriptAsset"></a>
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.Initializer"></a>
+
+```typescript
+import { JavaScriptAsset } from '@mrgrain/cdk-esbuild'
+
+new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
+
+---
+
+
+
+
+
+### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
+
+```typescript
+import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
+
+new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
+
+---
+
+
+
+
 
 ## Structs <a name="Structs"></a>
 
@@ -915,6 +1022,8 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ### CodeConfig <a name="@mrgrain/cdk-esbuild.CodeConfig"></a>
 
+Result of binding `Code` into a `Function`.
+
 #### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
@@ -923,15 +1032,42 @@ import { CodeConfig } from '@mrgrain/cdk-esbuild'
 const codeConfig: CodeConfig = { ... }
 ```
 
-##### `s3Location`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.s3Location"></a>
+##### `image`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.image"></a>
+
+```typescript
+public readonly image: CodeImageConfig;
+```
+
+- *Type:* [`aws-cdk-lib.aws_lambda.CodeImageConfig`](#aws-cdk-lib.aws_lambda.CodeImageConfig)
+- *Default:* code is not an ECR container image
+
+Docker image configuration (mutually exclusive with `s3Location` and `inlineCode`).
+
+---
+
+##### `inlineCode`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.inlineCode"></a>
+
+```typescript
+public readonly inlineCode: string;
+```
+
+- *Type:* `string`
+- *Default:* code is not inline code
+
+Inline code (mutually exclusive with `s3Location` and `image`).
+
+---
+
+##### `s3Location`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CodeConfig.property.s3Location"></a>
 
 ```typescript
 public readonly s3Location: Location;
 ```
 
 - *Type:* [`aws-cdk-lib.aws_s3.Location`](#aws-cdk-lib.aws_s3.Location)
+- *Default:* code is not an s3 location
 
-The location of the code in S3.
+The location of the code in S3 (mutually exclusive with `inlineCode` and `image`).
 
 ---
 
@@ -1922,6 +2058,105 @@ Props to change the behaviour of the bundler.
 ---
 
 
+### EsbuildCode <a name="@mrgrain/cdk-esbuild.EsbuildCode"></a>
+
+Represents the a generic Esbuild Code bundle.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildCode.Initializer"></a>
+
+```typescript
+import { EsbuildCode } from '@mrgrain/cdk-esbuild'
+
+new EsbuildCode(entryPoints: string | string[] | {[ key: string ]: string}, props: JavaScriptCodeProps | TypeScriptCodeProps)
+```
+
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.entryPoints"></a>
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.JavaScriptCodeProps`](#@mrgrain/cdk-esbuild.JavaScriptCodeProps) | [`@mrgrain/cdk-esbuild.TypeScriptCodeProps`](#@mrgrain/cdk-esbuild.TypeScriptCodeProps)
+
+Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
+
+---
+
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.EsbuildCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `bindToResource` <a name="@mrgrain/cdk-esbuild.EsbuildCode.bindToResource"></a>
+
+```typescript
+public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
+```
+
+###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.resource"></a>
+
+- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
+
+---
+
+###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.options"></a>
+
+- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
+
+---
+
+
+#### Properties <a name="Properties"></a>
+
+##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string | string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
+
+A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+
+E.g. `src/index.ts`.
+
+---
+
+##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.property.isInline"></a>
+
+- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
+
+
 ### InlineJavaScriptCode <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode"></a>
 
 An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
@@ -2078,42 +2313,6 @@ Default values for `transformOptions`:
 
 
 
-### JavaScriptAsset <a name="@mrgrain/cdk-esbuild.JavaScriptAsset"></a>
-
-Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
-
-The asset can be used by other constructs.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.Initializer"></a>
-
-```typescript
-import { JavaScriptAsset } from '@mrgrain/cdk-esbuild'
-
-new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
-```
-
-##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
-
----
-
-
-
-
-
 ### JavaScriptCode <a name="@mrgrain/cdk-esbuild.JavaScriptCode"></a>
 
 Represents the deployed JavaScript Code.
@@ -2149,54 +2348,8 @@ Default values for `props.buildOptions`:
 
 ---
 
-#### Methods <a name="Methods"></a>
-
-##### `bind` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bind"></a>
-
-```typescript
-public bind(scope: Construct)
-```
-
-###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `bindToResource` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bindToResource"></a>
-
-```typescript
-public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
-```
-
-###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.resource"></a>
-
-- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
-
----
-
-###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.options"></a>
-
-- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
-
----
 
 
-#### Properties <a name="Properties"></a>
-
-##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.isInline"></a>
-
-- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
-
-```typescript
-public readonly isInline: boolean;
-```
-
-- *Type:* `boolean`
-
-Determines whether this Code is inline code or not.
-
----
 
 
 ### JavaScriptSource <a name="@mrgrain/cdk-esbuild.JavaScriptSource"></a>
@@ -2257,42 +2410,6 @@ public readonly assetClass: JavaScriptAsset;
 ---
 
 
-### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
-
-Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
-
-The asset can be used by other constructs.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
-
-```typescript
-import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
-
-new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
-```
-
-##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
-
----
-
-
-
-
-
 ### TypeScriptCode <a name="@mrgrain/cdk-esbuild.TypeScriptCode"></a>
 
 Represents the deployed TypeScript Code.
@@ -2328,54 +2445,8 @@ Default values for `props.buildOptions`:
 
 ---
 
-#### Methods <a name="Methods"></a>
-
-##### `bind` <a name="@mrgrain/cdk-esbuild.TypeScriptCode.bind"></a>
-
-```typescript
-public bind(scope: Construct)
-```
-
-###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `bindToResource` <a name="@mrgrain/cdk-esbuild.TypeScriptCode.bindToResource"></a>
-
-```typescript
-public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
-```
-
-###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.resource"></a>
-
-- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
-
----
-
-###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.options"></a>
-
-- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
-
----
 
 
-#### Properties <a name="Properties"></a>
-
-##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.property.isInline"></a>
-
-- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
-
-```typescript
-public readonly isInline: boolean;
-```
-
-- *Type:* `boolean`
-
-Determines whether this Code is inline code or not.
-
----
 
 
 ### TypeScriptSource <a name="@mrgrain/cdk-esbuild.TypeScriptSource"></a>

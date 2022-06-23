@@ -1,8 +1,8 @@
 import { CfnResource, Stack } from 'aws-cdk-lib';
-import { ResourceBindOptions } from 'aws-cdk-lib/aws-lambda';
-import { Location } from 'aws-cdk-lib/aws-s3';
+import { ResourceBindOptions, Code, CodeConfig } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import {
+  EsbuildAsset,
   AssetBaseProps,
   AssetProps,
   JavaScriptAsset as JSAsset,
@@ -15,31 +15,29 @@ function nodeMajorVersion(): number {
   return parseInt(process.versions.node.split('.')[0], 10);
 }
 
-export interface CodeConfig {
-  /**
-   * The location of the code in S3.
-   *
-   * @stability stable
-   */
-  readonly s3Location: Location;
-}
-
+export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 export interface JavaScriptCodeProps extends AssetBaseProps {};
 export interface TypeScriptCodeProps extends AssetBaseProps {};
 
-abstract class Code<
+/**
+ * Represents the a generic Esbuild Code bundle.
+ *
+ * @stability experimental
+ */
+export class EsbuildCode<
   Props extends JavaScriptCodeProps | TypeScriptCodeProps,
-  Asset extends JSAsset | TSAsset
-> {
-  protected abstract readonly assetClass: new (
-    scope: Construct,
-    id: string,
-    props: AssetProps
-  ) => Asset;
+> extends Code {
+  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
+    return new EsbuildAsset(
+      scope,
+      this.constructor.name,
+      this.props,
+    );
+  }
 
   protected props: AssetProps;
 
-  protected asset!: Asset;
+  protected asset!: EsbuildAsset<AssetProps>;
 
   /**
    * Determines whether this Code is inline code or not.
@@ -48,12 +46,29 @@ abstract class Code<
    */
   public isInline: boolean = false;
 
-  /**
-   *
-   * @param entryPoints - Relative path to the asset code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
-   * @param props - Asset properties.
-   */
-  constructor(public readonly entryPoints: EntryPoints, props: Props) {
+  constructor(
+    /**
+     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+     * E.g. `src/index.ts`.
+     *
+     * @stability stable
+     */
+    readonly entryPoints: EntryPoints,
+
+    /**
+     * Props to change the behavior of the bundler.
+     *
+     * Default values for `props.buildOptions`:
+     * - `bundle=true`
+     * - `platform=node`
+     * - `target=nodeX` with X being the major node version running locally
+     *
+     * @stability stable
+     */
+    props: Props,
+  ) {
+    super();
+
     const defaultOptions: Partial<BuildOptions> = {
       ...(!props.buildOptions?.platform ||
       props.buildOptions?.platform === 'node'
@@ -74,11 +89,7 @@ abstract class Code<
   bind(scope: Construct): CodeConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
-      this.asset = new this.assetClass(
-        scope,
-        this.constructor.name,
-        this.props,
-      );
+      this.asset = this.getAsset(scope);
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
       throw new Error(
         `Asset is already associated with another stack '${
@@ -118,8 +129,14 @@ abstract class Code<
  *
  * @stability stable
  */
-export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
-  protected readonly assetClass = JSAsset;
+export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
+  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
+    return new JSAsset(
+      scope,
+      this.constructor.name,
+      this.props,
+    );
+  }
 
   constructor(
     /**
@@ -150,8 +167,14 @@ export class JavaScriptCode extends Code<JavaScriptCodeProps, JSAsset> {
  *
  * @stability stable
  */
-export class TypeScriptCode extends Code<TypeScriptCodeProps, TSAsset> {
-  protected readonly assetClass = TSAsset;
+export class TypeScriptCode extends EsbuildCode<TypeScriptCodeProps> {
+  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
+    return new TSAsset(
+      scope,
+      this.constructor.name,
+      this.props,
+    );
+  }
 
   constructor(
     /**
