@@ -1,4 +1,4 @@
-import { isAbsolute } from 'path';
+import { isAbsolute, relative } from 'path';
 import { AssetHashType } from 'aws-cdk-lib';
 import { Asset as S3Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { Construct, Node } from 'constructs';
@@ -22,7 +22,18 @@ export interface AssetBaseProps extends BundlerProps {
 
 export interface AssetProps extends AssetBaseProps {
   /**
-   * A relative path or list or map of relative paths to the entry points of your code from the root of the project. E.g. `src/index.ts`.
+   * A path or list or map of paths to the entry points of your code.
+   *
+   * Relative paths are by default resolved from the current working directory.
+   * To change the working directory, see `buildOptions.absWorkingDir`.
+   *
+   * Absolute paths can be used if files are part of the working directory.
+   *
+   * Examples:
+   *  - `'src/index.ts'`
+   *  - `require.resolve('./lambda')`
+   *  - `['src/index.ts', 'src/util.ts']`
+   *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
    *
    * @stability stable
    */
@@ -59,15 +70,32 @@ export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
 
     const name = scope.node.path + Node.PATH_SEP + id;
 
-    Object.values(entryPoints).forEach((entryPoint: string) => {
-      if (isAbsolute(entryPoint)) {
+    const absWorkingDir = options.absWorkingDir ?? process.cwd();
+
+    const forceRelativeEntrypointPath = (entryPoint: string): string => {
+      if (!isAbsolute(entryPoint)) {
+        return entryPoint;
+      }
+
+      const relativeEntryPoint = relative(absWorkingDir, entryPoint);
+      if (relativeEntryPoint.startsWith('..') || isAbsolute(relativeEntryPoint)) {
         throw new Error(
-          `${name}: Entry points must be a relative path. If you need to define an absolute path, please use \`buildOptions.absWorkingDir\` accordingly.`,
+          `${name}: Entry points must be part of the working directory. See \`buildOptions.absWorkingDir\` to set a working directory different to the current one.`,
         );
       }
-    });
 
-    const absWorkingDir = options.absWorkingDir ?? process.cwd();
+      return relativeEntryPoint;
+    };
+
+    const relativeEntryPoints =
+      Array.isArray(entryPoints) ?
+        entryPoints.map(forceRelativeEntrypointPath) :
+        Object.fromEntries(
+          Object.entries(entryPoints)
+            .map(([out, entryPoint]) => ([out, forceRelativeEntrypointPath(entryPoint)]),
+            ),
+        );
+
 
     const buildOptions = {
       bundle: true,
@@ -80,7 +108,7 @@ export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
       assetHash,
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
       bundling: new EsbuildBundler(
-        entryPoints,
+        relativeEntryPoints,
         {
           buildOptions,
           copyDir,

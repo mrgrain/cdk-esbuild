@@ -2,30 +2,73 @@ import { resolve } from 'path';
 import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
+import { mocked } from 'jest-mock';
+import { buildSync } from '../src/esbuild-wrapper';
 import { JavaScriptSource, TypeScriptSource } from '../src/source';
 
 describe('source', () => {
-  describe('entry is an absolute path', () => {
-    it('should throw an exception', () => {
-      expect(() => {
-        const stack = new Stack();
+  describe('entrypoint is an absolute path', () => {
+    describe('outside of the esbuild working dir', () => {
+      it('should throw an exception', () => {
+        expect(() => {
+          const stack = new Stack();
 
-        const website = new TypeScriptSource('/root/handlers/ts-handler.ts');
+          const website = new TypeScriptSource('/root/handlers/ts-handler.ts');
 
-        const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
-          autoDeleteObjects: true,
-          publicReadAccess: true,
-          removalPolicy: RemovalPolicy.DESTROY,
-          websiteIndexDocument: 'index.html',
-        });
+          const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
+            autoDeleteObjects: true,
+            publicReadAccess: true,
+            removalPolicy: RemovalPolicy.DESTROY,
+            websiteIndexDocument: 'index.html',
+          });
 
-        new BucketDeployment(stack, 'DeployWebsite', {
-          destinationBucket: websiteBucket,
-          sources: [website],
-        });
-      }).toThrow(
-        /DeployWebsite\/TypeScriptSource: Entry points must be a relative path/,
-      );
+          new BucketDeployment(stack, 'DeployWebsite', {
+            destinationBucket: websiteBucket,
+            sources: [website],
+          });
+        }).toThrow(
+          /DeployWebsite\/TypeScriptSource: Entry points must be part of the working directory/,
+        );
+      });
+    });
+
+    describe('within of the esbuild working dir', () => {
+      it('should be fine and rewrite the entrypoint', () => {
+        const customBuild = jest.fn(buildSync);
+
+        expect(() => {
+          const stack = new Stack();
+
+          // require.resolve() will return an absolute path
+          const website = new TypeScriptSource({
+            js: require.resolve('./fixtures/handlers/js-handler'),
+            ts: require.resolve('./fixtures/handlers/ts-handler'),
+          }, {
+            buildFn: customBuild,
+          });
+
+          const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
+            autoDeleteObjects: true,
+            publicReadAccess: true,
+            removalPolicy: RemovalPolicy.DESTROY,
+            websiteIndexDocument: 'index.html',
+          });
+
+          new BucketDeployment(stack, 'DeployWebsite', {
+            destinationBucket: websiteBucket,
+            sources: [website],
+          });
+        }).not.toThrow();
+
+        expect(mocked(customBuild)).toHaveBeenCalledWith(
+          expect.objectContaining({
+            entryPoints: expect.objectContaining({
+              js: 'test/fixtures/handlers/js-handler.js',
+              ts: 'test/fixtures/handlers/ts-handler.ts',
+            }),
+          }),
+        );
+      });
     });
   });
 

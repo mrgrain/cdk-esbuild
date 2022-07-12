@@ -50,8 +50,18 @@ export class EsbuildCode<
 
   constructor(
     /**
-     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
-     * E.g. `src/index.ts`.
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
      *
      * @stability stable
      */
@@ -142,12 +152,23 @@ export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
 
   constructor(
     /**
-     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
-     * E.g. `src/index.ts`.
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
      *
      * @stability stable
      */
     entryPoints: EntryPoints,
+
     /**
      * Props to change the behavior of the bundler.
      *
@@ -180,12 +201,23 @@ export class TypeScriptCode extends EsbuildCode<TypeScriptCodeProps> {
 
   constructor(
     /**
-     * A relative path or list or map of relative paths to the entry points of your code from the root of the project.
-     * E.g. `src/index.ts`.
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
      *
      * @stability stable
      */
     entryPoints: EntryPoints,
+
     /**
      * Props to change the behavior of the bundler.
      *

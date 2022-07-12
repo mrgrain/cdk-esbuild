@@ -11,21 +11,50 @@ import { JavaScriptCode, TypeScriptCode } from '../src/code';
 import { buildSync } from '../src/esbuild-wrapper';
 
 describe('code', () => {
-  describe('entry is an absolute path', () => {
-    it('should throw an exception', () => {
-      expect(() => {
-        const stack = new Stack();
+  describe('entrypoint is an absolute path', () => {
+    describe('outside of the esbuild working dir', () => {
+      it('should throw an exception', () => {
+        expect(() => {
+          const stack = new Stack();
 
-        const code = new JavaScriptCode('/project/index.js');
+          const code = new JavaScriptCode('/project/index.js');
 
-        new Function(stack, 'MyFunction', {
-          runtime: LambdaRuntime.NODEJS_14_X,
-          handler: 'index.handler',
-          code,
-        });
-      }).toThrow(
-        /MyFunction\/JavaScriptCode: Entry points must be a relative path/,
-      );
+          new Function(stack, 'MyFunction', {
+            runtime: LambdaRuntime.NODEJS_14_X,
+            handler: 'index.handler',
+            code,
+          });
+        }).toThrow(
+          /MyFunction\/JavaScriptCode: Entry points must be part of the working directory/,
+        );
+      });
+    });
+
+    describe('within the esbuild working dir', () => {
+      it('should be fine and rewrite the entrypoint', () => {
+        const customBuild = jest.fn(buildSync);
+
+        expect(() => {
+          const stack = new Stack();
+
+          // require.resolve() will return an absolute path
+          const code = new TypeScriptCode(require.resolve('./fixtures/handlers/ts-handler'), {
+            buildFn: customBuild,
+          });
+
+          new Function(stack, 'MyFunction', {
+            runtime: LambdaRuntime.NODEJS_14_X,
+            handler: 'index.handler',
+            code,
+          });
+        }).not.toThrow();
+
+        expect(mocked(customBuild)).toHaveBeenCalledWith(
+          expect.objectContaining({
+            entryPoints: ['test/fixtures/handlers/ts-handler.ts'],
+          }),
+        );
+      });
     });
   });
 

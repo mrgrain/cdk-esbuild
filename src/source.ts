@@ -26,12 +26,36 @@ abstract class Source<
 
   protected asset!: Asset;
 
-  /**
-   *
-   * @param entryPoints - Relative path to the source code. Use `props.buildOptions.absWorkingDir` if an absolute path is required.
-   * @param props - Source properties.
-   */
-  constructor(entryPoints: EntryPoints, props: Props) {
+  constructor(
+    /**
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+     *
+     * @stability stable
+     */
+    entryPoints: EntryPoints,
+
+    /**
+     * Props to change the behavior of the bundler.
+     *
+     * Default values for `props.buildOptions`:
+     * - `bundle=true`
+     * - `platform=browser`
+     *
+     * @stability stable
+     */
+    props: Props,
+  ) {
     const defaultOptions: Partial<BuildOptions> = {
       platform: 'browser',
     };
@@ -87,7 +111,34 @@ JavaScriptAsset
   assetClass = JavaScriptAsset;
 
   constructor(
+
+    /**
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+     *
+     * @stability stable
+     */
     entryPoints: EntryPoints,
+
+    /**
+      * Props to change the behavior of the bundler.
+      *
+      * Default values for `props.buildOptions`:
+      * - `bundle=true`
+      * - `platform=browser`
+      *
+      * @stability stable
+      */
     props: JavaScriptSourceProps = {},
   ) {
     super(entryPoints, props);
@@ -101,7 +152,33 @@ TypeScriptAsset
   assetClass = TypeScriptAsset;
 
   constructor(
+    /**
+     * A path or list or map of paths to the entry points of your code.
+     *
+     * Relative paths are by default resolved from the current working directory.
+     * To change the working directory, see `buildOptions.absWorkingDir`.
+     *
+     * Absolute paths can be used if files are part of the working directory.
+     *
+     * Examples:
+     *  - `'src/index.ts'`
+     *  - `require.resolve('./lambda')`
+     *  - `['src/index.ts', 'src/util.ts']`
+     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+     *
+     * @stability stable
+     */
     entryPoints: EntryPoints,
+
+    /**
+     * Props to change the behavior of the bundler.
+     *
+     * Default values for `props.buildOptions`:
+     * - `bundle=true`
+     * - `platform=browser`
+     *
+     * @stability stable
+     */
     props: TypeScriptSourceProps = {},
   ) {
     super(entryPoints, props);

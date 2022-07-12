@@ -213,9 +213,18 @@ public readonly entryPoints: string | string[] | {[ key: string ]: string};
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -1991,9 +2000,18 @@ new EsbuildBundler(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2017,9 +2035,18 @@ public readonly entryPoints: string | string[] | {[ key: string ]: string};
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2078,9 +2105,18 @@ new EsbuildCode(entryPoints: string | string[] | {[ key: string ]: string}, prop
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2140,9 +2176,18 @@ public readonly entryPoints: string | string[] | {[ key: string ]: string};
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2333,9 +2378,18 @@ new JavaScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2372,11 +2426,30 @@ new JavaScriptSource(entryPoints: string | string[] | {[ key: string ]: string},
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
+A path or list or map of paths to the entry points of your code.
+
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+
 ---
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSource.parameter.props"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.JavaScriptSourceProps`](#@mrgrain/cdk-esbuild.JavaScriptSourceProps)
+
+Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=browser`
 
 ---
 
@@ -2430,9 +2503,18 @@ new TypeScriptCode(entryPoints: string | string[] | {[ key: string ]: string}, p
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
-A relative path or list or map of relative paths to the entry points of your code from the root of the project.
+A path or list or map of paths to the entry points of your code.
 
-E.g. `src/index.ts`.
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -2469,11 +2551,30 @@ new TypeScriptSource(entryPoints: string | string[] | {[ key: string ]: string},
 
 - *Type:* `string` | `string`[] | {[ key: string ]: `string`}
 
+A path or list or map of paths to the entry points of your code.
+
+Relative paths are by default resolved from the current working directory.
+To change the working directory, see `buildOptions.absWorkingDir`.
+
+Absolute paths can be used if files are part of the working directory.
+
+Examples:
+  - `'src/index.ts'`
+  - `require.resolve('./lambda')`
+  - `['src/index.ts', 'src/util.ts']`
+  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+
 ---
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSource.parameter.props"></a>
 
 - *Type:* [`@mrgrain/cdk-esbuild.TypeScriptSourceProps`](#@mrgrain/cdk-esbuild.TypeScriptSourceProps)
+
+Props to change the behavior of the bundler.
+
+Default values for `props.buildOptions`:
+- `bundle=true`
+- `platform=browser`
 
 ---
 
