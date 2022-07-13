@@ -1,3 +1,11 @@
+
+## [3.7.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.6.0...v3.7.0) (2022-07-13)
+
+
+### Features
+
+* support absolute entry points, as long as they are within the working directory ([0e56b44](https://github.com/mrgrain/cdk-esbuild/commit/0e56b442a9b5c1874ee853721986f7f24d2ed455))
+
 ## [3.6.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.5.0...v3.6.0) (2022-06-23)
 
 
