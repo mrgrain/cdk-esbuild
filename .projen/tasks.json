@@ -178,10 +178,10 @@
       "name": "publish:git",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
       "env": {
-        "CHANGELOG": "dist/changelog.md",
-        "RELEASE_TAG_FILE": "dist/releasetag.txt",
+        "CHANGELOG": "dist/dist/changelog.md",
+        "RELEASE_TAG_FILE": "dist/dist/releasetag.txt",
         "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
-        "VERSION_FILE": "dist/version.txt"
+        "VERSION_FILE": "dist/dist/version.txt"
       },
       "steps": [
         {
@@ -217,9 +217,6 @@
         },
         {
           "exec": "git diff --ignore-space-at-eol --exit-code"
-        },
-        {
-          "spawn": "publish:git"
         }
       ]
     },

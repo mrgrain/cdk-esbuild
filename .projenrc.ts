@@ -111,14 +111,20 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 
 // release only via manual trigger
-const publishTask = project.release?.publisher?.publishToGit({
-  changelogFile: 'dist/changelog.md',
-  versionFile: 'dist/version.txt',
-  releaseTagFile: 'dist/releasetag.txt',
+project.release?.publisher?.publishToGit({
+  changelogFile: 'dist/dist/changelog.md',
+  versionFile: 'dist/dist/version.txt',
+  releaseTagFile: 'dist/dist/releasetag.txt',
   projectChangelogFile: 'CHANGELOG.md',
   gitBranch: 'main',
 });
-project.tasks.tryFind('release')?.spawn(publishTask!);
+project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
+  'jobs.release.steps',
+  {
+    name: 'Publish tag',
+    run: 'npx projen publish:git',
+  },
+);
 
 // add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
