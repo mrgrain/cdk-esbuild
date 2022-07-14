@@ -40,7 +40,7 @@
   "devDependencies": {
     "@aws-cdk/aws-synthetics-alpha": "2.0.0-alpha.11",
     "@types/eslint": "^7.29.0",
-    "@types/jest": "^27.5.2",
+    "@types/jest": "^27",
     "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
@@ -54,13 +54,13 @@
     "jest": "^27",
     "jest-junit": "^13",
     "jest-mock": "^27.5.1",
-    "jsii": "^1.61.0",
-    "jsii-diff": "^1.61.0",
+    "jsii": "^1.62.0",
+    "jsii-diff": "^1.62.0",
     "jsii-docgen": "^3.8.31",
-    "jsii-pacmak": "^1.61.0",
+    "jsii-pacmak": "^1.62.0",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
-    "projen": "^0.58.15",
+    "projen": "^0.58.29",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^15.1.0",
@@ -97,7 +97,7 @@
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.ts?(x)",
-      "<rootDir>/(test|src)/**/?(*.)+(spec|test).ts?(x)"
+      "<rootDir>/(test|src)/**/*(*.)@(spec|test).ts?(x)"
     ],
     "clearMocks": true,
     "collectCoverage": true,

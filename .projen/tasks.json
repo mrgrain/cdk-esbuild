@@ -193,7 +193,8 @@
         {
           "exec": "git push --follow-tags origin main"
         }
-      ]
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
     "release": {
       "name": "release",

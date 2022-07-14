@@ -442,7 +442,7 @@ public readonly globalName: string;
 
 - *Type:* `string`
 
-Documentation: https://esbuild.github.io/api/#globalName.
+Documentation: https://esbuild.github.io/api/#global-name.
 
 ---
 
@@ -598,7 +598,7 @@ public readonly mainFields: string[];
 
 - *Type:* `string`[]
 
-Documentation: https://esbuild.github.io/api/#mainFields.
+Documentation: https://esbuild.github.io/api/#main-fields.
 
 ---
 
@@ -1440,7 +1440,7 @@ public readonly globalName: string;
 
 - *Type:* `string`
 
-Documentation: https://esbuild.github.io/api/#globalName.
+Documentation: https://esbuild.github.io/api/#global-name.
 
 ---
 
