@@ -110,6 +110,34 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+// test against latest versions
+const REPO_TEMP_DIRECTORY = '.repo';
+project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
+  runsOn: ['ubuntu-latest'],
+  permissions: {},
+  tools: {
+    node: { version: '18.x' },
+  },
+  steps: [
+    {
+      name: 'Prepare Repository',
+      run: `mv ${project.artifactsDirectory} ${'.repo'}`,
+    },
+    {
+      name: 'Bump CDK versions',
+      run: `cd ${REPO_TEMP_DIRECTORY} && npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"`,
+    },
+    {
+      name: 'Install Dependencies',
+      run: `cd ${REPO_TEMP_DIRECTORY} && ${project.package.installAndUpdateLockfileCommand}`,
+    },
+    {
+      name: 'Run tests',
+      run: `cd ${REPO_TEMP_DIRECTORY} && ${project.runTaskCommand(project.testTask)}`,
+    },
+  ],
+});
+
 // release only via manual trigger
 project.release?.publisher?.publishToGit({
   changelogFile: 'dist/dist/changelog.md',

@@ -100,3 +100,25 @@ jobs:
         run: cd .repo && npx projen package:js
       - name: Collect js Artifact
         run: mv .repo/dist dist
+  test-latest-versions:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions: {}
+    if: "! needs.build.outputs.self_mutation_happened"
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: dist
+      - name: Prepare Repository
+        run: mv dist .repo
+      - name: Bump CDK versions
+        run: cd .repo && npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
+      - name: Install Dependencies
+        run: cd .repo && npm install
+      - name: Run tests
+        run: cd .repo && npx projen test
