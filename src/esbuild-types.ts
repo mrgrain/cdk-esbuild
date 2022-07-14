@@ -19,7 +19,7 @@ interface CommonOptions {
 
   /** Documentation: https://esbuild.github.io/api/#format */
   readonly format?: Format;
-  /** Documentation: https://esbuild.github.io/api/#globalName */
+  /** Documentation: https://esbuild.github.io/api/#global-name */
   readonly globalName?: string;
   /** Documentation: https://esbuild.github.io/api/#target */
   readonly target?: string | string[];
@@ -98,7 +98,7 @@ export interface BuildOptions extends CommonOptions {
   readonly loader?: { [ext: string]: Loader };
   /** Documentation: https://esbuild.github.io/api/#resolve-extensions */
   readonly resolveExtensions?: string[];
-  /** Documentation: https://esbuild.github.io/api/#mainFields */
+  /** Documentation: https://esbuild.github.io/api/#main-fields */
   readonly mainFields?: string[];
   /** Documentation: https://esbuild.github.io/api/#conditions */
   readonly conditions?: string[];
