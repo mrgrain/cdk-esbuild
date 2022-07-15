@@ -1,4 +1,11 @@
 
+### [3.7.1](https://github.com/mrgrain/cdk-esbuild/compare/v3.7.0...v3.7.1) (2022-07-15)
+
+
+### Bug Fixes
+
+* only reset esbuild bin path if it was overwritten ([#190](https://github.com/mrgrain/cdk-esbuild/issues/190)) ([59c3c80](https://github.com/mrgrain/cdk-esbuild/commit/59c3c80b893c2b24180f7a61757de774157779dd))
+
 ## [3.7.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.6.0...v3.7.0) (2022-07-13)
 
 
