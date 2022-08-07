@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/ShimilSAbraham/Cube.CSS@45d9c3f/cube.css"
+    />
+    <style>
+      .cube.esbuild .top svg {
+        transform: rotate(90deg) scale(0.45) translate(-66%, 65%);
+      }
+      .cube.esbuild .top {
+        background: #ffb400;
+      }
+      .cube.esbuild .front {
+        background: #ffcf00;
+      }
+      .cube.esbuild .front div {
+        white-space: nowrap;
+      }
+      .cube.esbuild .side {
+        background: #ff9800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cube esbuild">
+      <div class="front esbuild"></div>
+      <div class="side esbuild"></div>
+      <div class="top esbuild">
+        <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M47.5 52.5L95 100l-47.5 47.5m60-95L155 100l-47.5 47.5"
+            fill="none"
+            stroke="#191919"
+            stroke-width="24"
+          />
+        </svg>
+      </div>
+    </div>
+  </body>
+</html>
