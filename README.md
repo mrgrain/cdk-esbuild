@@ -1,9 +1,13 @@
-# cdk-esbuild
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./images/wordmark-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="./images/wordmark-light.svg">
+  <img src="wordmark.svg" alt="cdk-esbuild">
+</picture>
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
-[Getting started](#getting-started)
-[Documentation](#documentation) | [API Reference](#api-reference) | [Versioning](#versioning) | [Upgrading from AWS CDK v1](#upgrading-from-aws-cdk-v1)
+[Getting started](#getting-started) |
+[Documentation](#documentation) | [API Reference](#api-reference) | [Upgrading from AWS CDK v1](#upgrading-from-aws-cdk-v1)
 
 [![View on Construct Hub](https://constructs.dev/badge?package=%40mrgrain%2Fcdk-esbuild)](https://constructs.dev/packages/@mrgrain/cdk-esbuild)
 
