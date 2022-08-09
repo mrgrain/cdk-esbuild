@@ -107,6 +107,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'PUBLISHING.md',
     '.vscode',
     'projenrc',
+    '/images',
   ],
 });
 
@@ -191,6 +192,10 @@ new JsonFile(project, '.vscode/settings.json', {
     },
     'jest.autoRun': 'off',
     'jest.jestCommandLine': './node_modules/.bin/jest',
+    'svg.preview.background': 'dark-transparent',
+    '[svg]': {
+      'editor.defaultFormatter': 'jock.svg',
+    },
   },
 });
 
