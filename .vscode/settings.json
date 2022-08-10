@@ -9,5 +9,9 @@
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "jest.autoRun": "off",
-  "jest.jestCommandLine": "./node_modules/.bin/jest"
+  "jest.jestCommandLine": "./node_modules/.bin/jest",
+  "svg.preview.background": "dark-transparent",
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg"
+  }
 }

@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./images/wordmark-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="./images/wordmark-light.svg">
-  <img src="wordmark.svg" alt="cdk-esbuild">
+  <img height="100" src="./images/wordmark.svg" alt="cdk-esbuild">
 </picture>
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
