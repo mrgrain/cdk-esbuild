@@ -207,7 +207,11 @@
       "error"
     ],
     "@typescript-eslint/member-ordering": "off",
-    "no-console": "error"
+    "no-console": "error",
+    "eol-last": [
+      "error",
+      "always"
+    ]
   },
   "overrides": [
     {

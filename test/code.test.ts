@@ -9,7 +9,10 @@ import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
 import { mocked } from 'jest-mock';
 import { JavaScriptCode, TypeScriptCode } from '../src/code';
 import { BuildOptions } from '../src/esbuild-types';
-import { buildSync } from '../src/esbuild-wrapper';
+import * as provider from '../src/esbuild-wrapper';
+
+const esbuildSpy = jest.spyOn(provider, 'esbuild');
+const buildSync = provider.esbuild().buildSync;
 
 describe('code', () => {
   describe('entrypoint is an absolute path', () => {
@@ -146,7 +149,6 @@ describe('code', () => {
   });
 });
 
-
 describe('given a custom esbuildBinaryPath', () => {
   it('should set the ESBUILD_BINARY_PATH env variable', () => {
     const mockLogger = jest.fn();
@@ -173,6 +175,94 @@ describe('given a custom esbuildBinaryPath', () => {
 
     expect(mockLogger).toHaveBeenCalledTimes(1);
     expect(mockLogger).toHaveBeenCalledWith('dummy-binary');
+  });
+});
+
+describe('with an esbuild module path from', () => {
+  let stack: Stack;
+  beforeEach(() => {
+    esbuildSpy.mockClear();
+    stack = new Stack();
+  });
+  afterAll(() => {
+    esbuildSpy.mockRestore();
+  });
+
+  describe('the default', () => {
+    it('should call the esbuild provider with "esbuild"', () => {
+      const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+        buildOptions: { absWorkingDir: resolve(__dirname) },
+      });
+
+      new Function(stack, 'MyFunction', {
+        runtime: LambdaRuntime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      expect(esbuildSpy).toHaveBeenCalledTimes(1);
+      expect(esbuildSpy).toHaveBeenCalledWith('esbuild');
+    });
+  });
+
+  describe('`esbuildModulePath` prop', () => {
+    it('should use the path from the prop', () => {
+      const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+        buildOptions: { absWorkingDir: resolve(__dirname) },
+        esbuildModulePath: '../node_modules/esbuild',
+      });
+
+      new Function(stack, 'MyFunction', {
+        runtime: LambdaRuntime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      expect(esbuildSpy).toHaveBeenCalledTimes(1);
+      expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+    });
+  });
+
+  describe('`CDK_ESBUILD_MODULE_PATH` env var', () => {
+    beforeEach(() => {
+      process.env.CDK_ESBUILD_MODULE_PATH = '../node_modules/esbuild';
+    });
+    afterEach(() => {
+      delete process.env.CDK_ESBUILD_MODULE_PATH;
+    });
+
+    it('should use the path from the env var', () => {
+      const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+        buildOptions: { absWorkingDir: resolve(__dirname) },
+      });
+
+      new Function(stack, 'MyFunction', {
+        runtime: LambdaRuntime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      expect(esbuildSpy).toHaveBeenCalledTimes(1);
+      expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+    });
+
+    describe('and `esbuildModulePath` prop', () => {
+      it('should prefer the path from prop', () => {
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+          buildOptions: { absWorkingDir: resolve(__dirname) },
+          esbuildModulePath: '../test/../node_modules/esbuild',
+        });
+
+        new Function(stack, 'MyFunction', {
+          runtime: LambdaRuntime.NODEJS_14_X,
+          handler: 'index.handler',
+          code,
+        });
+
+        expect(esbuildSpy).toHaveBeenCalledTimes(1);
+        expect(esbuildSpy).toHaveBeenCalledWith('../test/../node_modules/esbuild');
+      });
+    });
   });
 });
 

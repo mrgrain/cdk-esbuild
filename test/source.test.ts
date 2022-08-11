@@ -3,8 +3,10 @@ import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { mocked } from 'jest-mock';
-import { buildSync } from '../src/esbuild-wrapper';
+import { esbuild } from '../src/esbuild-wrapper';
 import { JavaScriptSource, TypeScriptSource } from '../src/source';
+
+const buildSync = esbuild().buildSync;
 
 describe('source', () => {
   describe('entrypoint is an absolute path', () => {

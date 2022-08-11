@@ -13,14 +13,14 @@ Like every Construct, *cdk-esbuild* is a [jsii](https://github.com/aws/jsii) pro
 Sometimes it is required to test these generated packages in a real life environment.
 All paths in the instructions below, will assume you are testing with one of the examples.
 
-### NodeJs
+### Node.js
 
 **Option 1:**
 
 *This is the preferred approach, as it is more consistent and closer to how npm would behave for a real user.*
 
 - `pj build`
-- The NodeJS package can be found in `dist/js`
+- The Node.js package can be found in `dist/js`
 - In your Python app, run `npm install ../../dist/js/cdk-esbuild@0.0.0.jsii.tgz` (path to the file in dist)
 - `npx cdk synth` will use the locally build version
 
