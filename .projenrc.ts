@@ -215,6 +215,7 @@ new JsonFile(project, '.vscode/settings.json', {
     '[svg]': {
       'editor.defaultFormatter': 'jock.svg',
     },
+    'python.formatting.provider': 'black',
   },
 });
 

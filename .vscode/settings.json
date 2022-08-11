@@ -13,5 +13,6 @@
   "svg.preview.background": "dark-transparent",
   "[svg]": {
     "editor.defaultFormatter": "jock.svg"
-  }
+  },
+  "python.formatting.provider": "black"
 }
