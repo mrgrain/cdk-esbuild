@@ -178,6 +178,7 @@ export class EsbuildBundler {
           const { buildFn = buildSync } = this.props;
           wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
             entryPoints,
+            color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
           });

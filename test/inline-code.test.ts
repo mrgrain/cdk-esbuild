@@ -192,4 +192,58 @@ describe('using transformerProps', () => {
       });
     });
   });
+
+  describe('with process.env.NO_COLOR', () => {
+    describe.each([
+      ['1', true],
+      ['0', true], // NO_COLOR spec says any value
+      ['', undefined], // except empty string
+      [undefined, undefined],
+    ])('set to %j', (noColorValue, derivedColor) => {
+      beforeEach(() => {
+        process.env.NO_COLOR = noColorValue;
+        if (noColorValue === undefined) {
+          delete process.env.NO_COLOR;
+        }
+      });
+      afterEach(() => {
+        delete process.env.NO_COLOR;
+      });
+
+      it(`should set the color option to "${derivedColor}"`, () => {
+        const transformFn = jest.fn(transformSync);
+
+        const code = new InlineTypeScriptCode('let x: number = 1', {
+          transformFn,
+        });
+        code.bind(new Stack());
+
+        expect(transformFn).toHaveBeenCalledWith(
+          expect.anything(),
+          expect.objectContaining({
+            color: derivedColor,
+          }),
+        );
+      });
+
+      it('should respect an explicit option', () => {
+        const transformFn = jest.fn(transformSync);
+
+        const code = new InlineTypeScriptCode('let x: number = 1', {
+          transformFn,
+          transformOptions: {
+            color: false,
+          },
+        });
+        code.bind(new Stack());
+
+        expect(transformFn).toHaveBeenCalledWith(
+          expect.anything(),
+          expect.objectContaining({
+            color: false,
+          }),
+        );
+      });
+    });
+  });
 });

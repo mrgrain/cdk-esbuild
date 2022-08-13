@@ -51,6 +51,7 @@ abstract class BaseInlineCode extends InlineCode {
 
     try {
       const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
+        color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
         logLevel: 'warning',
         ...transformOptions,
       });
