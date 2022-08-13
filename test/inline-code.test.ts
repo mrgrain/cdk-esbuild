@@ -134,4 +134,26 @@ describe('using transformerProps', () => {
       );
     });
   });
+
+  describe('given a custom esbuildBinaryPath', () => {
+    it('should set the ESBUILD_BINARY_PATH env variable', () => {
+      const mockLogger = jest.fn();
+      const customTransform = () => {
+        mockLogger(process.env.ESBUILD_BINARY_PATH);
+        return {
+          code: 'console.log("test");',
+          map: '',
+          warnings: [],
+        };
+      };
+
+      new InlineTypeScriptCode('let x: number = 1', {
+        transformFn: customTransform,
+        esbuildBinaryPath: 'dummy-binary',
+      });
+
+      expect(mockLogger).toHaveBeenCalledTimes(1);
+      expect(mockLogger).toHaveBeenCalledWith('dummy-binary');
+    });
+  });
 });

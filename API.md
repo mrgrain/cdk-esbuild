@@ -1334,6 +1334,20 @@ import { TransformerProps } from '@mrgrain/cdk-esbuild'
 const transformerProps: TransformerProps = { ... }
 ```
 
+##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.esbuildBinaryPath"></a>
+
+```typescript
+public readonly esbuildBinaryPath: string;
+```
+
+- *Type:* `string`
+
+Path to the binary used by esbuild.
+
+This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+
+---
+
 ##### `transformFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformFn"></a>
 
 ```typescript

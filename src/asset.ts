@@ -61,9 +61,7 @@ export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
   ) {
     const {
       assetHash,
-      copyDir,
       buildOptions: options = {},
-      buildFn,
     } = props;
     const entryPoints: string[] | Record<string, string> =
       typeof props.entryPoints === 'string' ? [props.entryPoints] : props.entryPoints;
@@ -110,9 +108,8 @@ export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
       bundling: new EsbuildBundler(
         relativeEntryPoints,
         {
+          ...props,
           buildOptions,
-          copyDir,
-          buildFn,
         },
       ),
     });

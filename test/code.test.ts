@@ -8,6 +8,7 @@ import { Stack } from 'aws-cdk-lib';
 import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
 import { mocked } from 'jest-mock';
 import { JavaScriptCode, TypeScriptCode } from '../src/code';
+import { BuildOptions } from '../src/esbuild-types';
 import { buildSync } from '../src/esbuild-wrapper';
 
 describe('code', () => {
@@ -142,6 +143,36 @@ describe('code', () => {
         }),
       );
     });
+  });
+});
+
+
+describe('given a custom esbuildBinaryPath', () => {
+  it('should set the ESBUILD_BINARY_PATH env variable', () => {
+    const mockLogger = jest.fn();
+    const customBuild = (options: BuildOptions) => {
+      mockLogger(process.env.ESBUILD_BINARY_PATH);
+      return buildSync(options);
+    };
+
+    expect(() => {
+      const stack = new Stack();
+
+      const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+        buildOptions: { absWorkingDir: resolve(__dirname) },
+        buildFn: customBuild,
+        esbuildBinaryPath: 'dummy-binary',
+      });
+
+      new Function(stack, 'MyFunction', {
+        runtime: LambdaRuntime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+    }).not.toThrow();
+
+    expect(mockLogger).toHaveBeenCalledTimes(1);
+    expect(mockLogger).toHaveBeenCalledWith('dummy-binary');
   });
 });
 
