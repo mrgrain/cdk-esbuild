@@ -1,4 +1,17 @@
 
+## [3.8.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.7.2...v3.8.0) (2022-08-13)
+
+
+### Features
+
+* support new esbuild options: `platform`, `jsxDev`, `jsxImportSource` ([#209](https://github.com/mrgrain/cdk-esbuild/issues/209)) ([a7d14e7](https://github.com/mrgrain/cdk-esbuild/commit/a7d14e7bbf1655850951c3f5d041b045309b0ced))
+
+
+### Bug Fixes
+
+* `esbuildBinaryPath` not working with `Code`, not available for `InlineCode` ([#210](https://github.com/mrgrain/cdk-esbuild/issues/210)) ([dc2609b](https://github.com/mrgrain/cdk-esbuild/commit/dc2609bf48956e3bc05a1d5fdb4851672cec3883)), closes [#203](https://github.com/mrgrain/cdk-esbuild/issues/203)
+* esbuild messages printed out twice ([#212](https://github.com/mrgrain/cdk-esbuild/issues/212)) ([2596368](https://github.com/mrgrain/cdk-esbuild/commit/25963686f9f41e18af0f928e465263d1c87db611))
+
 ### [3.7.2](https://github.com/mrgrain/cdk-esbuild/compare/v3.7.0...v3.7.2) (2022-07-15)
 
 
