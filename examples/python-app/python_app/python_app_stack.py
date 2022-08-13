@@ -8,12 +8,16 @@ from mrgrain.cdk_esbuild import (
     InlineTypeScriptCode,
     TypeScriptCode,
     TypeScriptSource,
+    TransformerProps,
+    EsbuildSource,
 )
 
 
 class PythonAppStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
+
+        EsbuildSource.default = EsbuildSource.global_paths
 
         s3_deployment.BucketDeployment(
             self,
@@ -22,6 +26,7 @@ class PythonAppStack(Stack):
                 TypeScriptSource(
                     "lambda-handler/index.ts",
                     copy_dir="lambda-handler",
+                    esbuild_module_path=None,  # Use default
                 )
             ],
             destination_bucket=s3.Bucket(
@@ -38,11 +43,13 @@ class PythonAppStack(Stack):
             code=TypeScriptCode(
                 "lambda-handler/index.ts",
                 build_options=BuildOptions(
-                    format="esm", outfile="index.mjs", external=["aws-sdk"]
+                    format="esm",
+                    outfile="index.mjs",
+                    external=["aws-sdk"],
+                    log_level="verbose",
                 ),
-                # Override the global setting with a specific path per Construct
-                # This can be useful if a Construct requires a different version of esbuild
-                esbuild_module_path="/project/node_modules/esbuild@13",
+                # Override the default setting with a specific path per Construct
+                esbuild_module_path=EsbuildSource.install,
             ),
         )
 
@@ -57,6 +64,10 @@ class PythonAppStack(Stack):
                 export function handler() {
                     console.log(hello);
                 }
-                """
+                """,
+                props=TransformerProps(
+                    # Try to find the package anywhere, but don't install it
+                    esbuild_module_path=EsbuildSource.anywhere
+                ),
             ),
         )

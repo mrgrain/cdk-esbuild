@@ -1,8 +1,8 @@
 import { Lazy, Stack } from 'aws-cdk-lib';
 import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { Construct, Node } from 'constructs';
+import { EsbuildProvider } from './esbuild-provider';
 import { TransformOptions, Loader } from './esbuild-types';
-import { detectEsbuildModulePath, esbuild, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
 import { errorHasCode } from './utils';
 
 /**
@@ -40,9 +40,9 @@ export interface TransformerProps {
   readonly esbuildBinaryPath?: string;
 
   /**
-   * Path used to import the esbuild module.
+   * Absolute path to the esbuild module JS file.
    *
-   * Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+   * @example "/home/user/.npm/node_modules/esbuild/lib/main.js"
    *
    * If not set, the module path will be determined in the following order:
    *
@@ -72,16 +72,13 @@ abstract class BaseInlineCode extends InlineCode {
     this.inlineCode = Lazy.string({
       produce: () => {
         try {
-          const {
-            transformFn = esbuild(detectEsbuildModulePath(props.esbuildModulePath)).transformSync,
-            transformOptions = {},
-            esbuildBinaryPath,
-          } = props;
+          const transformFn = props.transformFn ?? EsbuildProvider.require(props.esbuildModulePath).transformSync;
+          const transformSync = EsbuildProvider.withEsbuildBinaryPath(transformFn, props.esbuildBinaryPath);
 
-          const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
+          const transformedCode = transformSync(code, {
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             logLevel: 'warning',
-            ...transformOptions,
+            ...(props.transformOptions || {}),
           });
 
           return transformedCode.code;

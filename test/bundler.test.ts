@@ -1,15 +1,13 @@
 import { FileSystem } from 'aws-cdk-lib';
+import * as esbuild from 'esbuild';
 import { mocked } from 'jest-mock';
 import { EsbuildBundler } from '../src/bundler';
+import { EsbuildProvider } from '../src/esbuild-provider';
 import { BuildOptions, BuildResult } from '../src/esbuild-types';
-import { esbuild } from '../src/esbuild-wrapper';
 
-jest.mock('esbuild', () => ({
-  buildSync: jest.fn(),
-}));
-
-const buildSync = esbuild().buildSync;
-const realEsbuild = jest.requireActual('esbuild');
+const providerSpy = jest.spyOn(EsbuildProvider, '_require');
+const buildSync = jest.fn();
+providerSpy.mockReturnValue({ buildSync } as any);
 
 describe('bundling', () => {
   describe('Given a project root path', () => {
@@ -69,9 +67,7 @@ describe('bundling', () => {
   describe('Given an outdir and outfile', () => {
     beforeEach(() => {
       mocked(buildSync).mockImplementationOnce(
-        (options: BuildOptions): BuildResult => {
-          return realEsbuild.buildSync(options);
-        },
+        (options: BuildOptions): BuildResult => esbuild.buildSync(options),
       );
     });
     afterEach(() => {

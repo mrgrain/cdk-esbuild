@@ -9,6 +9,7 @@ import { InternalConsoleOptions } from 'projen/lib/vscode';
 import { SourceFile } from 'ts-morph';
 import { tagOnNpm } from './projenrc/release';
 import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
+import { Esbuild } from './src/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   projenrcTs: true,
@@ -89,7 +90,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
-    'esbuild@^0.15.0',
+    Esbuild.spec,
     'jest-mock',
     'ts-morph',
   ],
@@ -252,7 +253,7 @@ launchConfig?.addOverride('configurations.0.cwd', '${workspaceFolder}');
 
 // esbuild
 project.tryFindObjectFile('package.json')?.addOverride('optionalDependencies', {
-  esbuild: '^0.15.0',
+  [Esbuild.name]: Esbuild.version,
 });
 
 new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {

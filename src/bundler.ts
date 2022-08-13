@@ -6,8 +6,8 @@ import {
   FileSystem,
   ILocalBundling,
 } from 'aws-cdk-lib';
+import { EsbuildProvider } from './esbuild-provider';
 import { BuildOptions } from './esbuild-types';
-import { detectEsbuildModulePath, esbuild, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
 import { errorHasCode } from './utils';
 
 /**
@@ -99,9 +99,9 @@ export interface BundlerProps {
   readonly esbuildBinaryPath?: string;
 
   /**
-   * Path used to import the esbuild module.
+   * Absolute path to the esbuild module JS file.
    *
-   * Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+   * @example "/home/user/.npm/node_modules/esbuild/lib/main.js"
    *
    * If not set, the module path will be determined in the following order:
    *
@@ -195,8 +195,10 @@ export class EsbuildBundler {
         }
 
         try {
-          const { buildFn = esbuild(detectEsbuildModulePath(props.esbuildModulePath)).buildSync } = this.props;
-          wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
+          const buildFn = this.props.buildFn ?? EsbuildProvider.require(props.esbuildModulePath).buildSync;
+          const buildSync = EsbuildProvider.withEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath);
+
+          buildSync({
             entryPoints,
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             ...(this.props?.buildOptions || {}),
