@@ -1,6 +1,6 @@
 import { InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { TransformOptions, Loader, TransformFailure } from './esbuild-types';
-import { transformSync } from './esbuild-wrapper';
+import { transformSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
 import { printBuildMessages } from './formatMessages';
 
 /**
@@ -27,6 +27,15 @@ export interface TransformerProps {
    * @default esbuild.transformSync
    */
   readonly transformFn?: any;
+
+  /**
+   * Path to the binary used by esbuild.
+   *
+   * This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+   *
+   * @stability experimental
+   */
+  readonly esbuildBinaryPath?: string;
 }
 
 abstract class BaseInlineCode extends InlineCode {
@@ -35,10 +44,14 @@ abstract class BaseInlineCode extends InlineCode {
     props: TransformerProps,
   ) {
 
-    const { transformFn = transformSync, transformOptions = {} } = props;
+    const {
+      transformFn = transformSync,
+      transformOptions = {},
+      esbuildBinaryPath,
+    } = props;
 
     try {
-      const transformedCode = transformFn(code, {
+      const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
         ...transformOptions,
       });
       printBuildMessages(transformedCode, { prefix: 'Transform ' });
@@ -53,7 +66,15 @@ abstract class BaseInlineCode extends InlineCode {
 }
 
 function instanceOfTransformerProps(object: any): object is TransformerProps {
-  return 'transformOptions' in object || 'transformFn' in object;
+  return [
+    'transformOptions',
+    'transformFn',
+    'esbuildBinaryPath',
+  ].reduce(
+    (isTransformerProps: boolean, propToCheck: string): boolean =>
+      (isTransformerProps || (propToCheck in object)),
+    false,
+  );
 }
 
 function transformerProps(loader: Loader, props?: TransformerProps | TransformOptions): TransformerProps {

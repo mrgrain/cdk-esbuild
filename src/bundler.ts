@@ -7,7 +7,7 @@ import {
   ILocalBundling,
 } from 'aws-cdk-lib';
 import { BuildFailure, BuildOptions, BuildResult } from './esbuild-types';
-import { buildSync } from './esbuild-wrapper';
+import { buildSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
 import { printBuildMessages } from './formatMessages';
 
 /**
@@ -152,9 +152,6 @@ export class EsbuildBundler {
     if (props?.buildOptions?.outfile && props?.buildOptions?.outdir) {
       throw new Error('Cannot use both "outfile" and "outdir"');
     }
-
-    const { buildFn = buildSync } = this.props;
-
     this.local = {
       tryBundle: (outputDir: string, _options: BundlingOptions): boolean => {
 
@@ -178,13 +175,9 @@ export class EsbuildBundler {
           });
         }
 
-        const originalEsbuildBinaryPath = process.env.ESBUILD_BINARY_PATH;
-        if (this.props.esbuildBinaryPath) {
-          process.env.ESBUILD_BINARY_PATH = this.props.esbuildBinaryPath;
-        }
-
         try {
-          const buildResult: BuildResult = buildFn({
+          const { buildFn = buildSync } = this.props;
+          const buildResult: BuildResult = wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
             entryPoints,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
@@ -193,14 +186,6 @@ export class EsbuildBundler {
           printBuildMessages(buildResult, { prefix: 'Build ' });
         } catch (error) {
           printBuildMessages(error as BuildFailure, { prefix: 'Build ' });
-        }
-
-        /**
-         * only reset `ESBUILD_BINARY_PATH` if it was explicitly set via the construct props
-         * since `esbuild` itself sometimes sets it (eg. when running in yarn 2 plug&play)
-         */
-        if (this.props.esbuildBinaryPath) {
-          process.env.ESBUILD_BINARY_PATH = originalEsbuildBinaryPath;
         }
 
         return true;
