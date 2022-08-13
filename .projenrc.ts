@@ -5,6 +5,7 @@ import {
   vscode,
 } from 'projen';
 import { ReleaseTrigger } from 'projen/lib/release';
+import { InternalConsoleOptions } from 'projen/lib/vscode';
 import { SourceFile } from 'ts-morph';
 import { tagOnNpm } from './projenrc/release';
 import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
@@ -113,7 +114,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'API.md',
     'CHANGELOG.md',
     'CONTRIBUTING.md',
-    'SECURITY.md'
+    'SECURITY.md',
   ],
 });
 
@@ -205,14 +206,30 @@ new JsonFile(project, '.vscode/settings.json', {
   },
 });
 
-new vscode.VsCode(project).launchConfiguration.addConfiguration({
-  type: 'node',
-  name: 'vscode-jest-tests',
-  request: 'launch',
-  internalConsoleOptions: vscode.InternalConsoleOptions.NEVER_OPEN,
-  program: '${workspaceFolder}/node_modules/.bin/jest',
-  args: ['--runInBand', '--watchAll=false'],
-});
+new vscode.VsCode(project).launchConfiguration.addConfiguration(
+  {
+    type: 'node',
+    name: 'vscode-jest-tests.v2',
+    request: 'launch',
+    internalConsoleOptions: InternalConsoleOptions.NEVER_OPEN,
+    program: '${workspaceFolder}/node_modules/.bin/jest',
+    args: [
+      '--runInBand',
+      '--watchAll=false',
+      '--testNamePattern',
+      '${jest.testNamePattern}',
+      '--runTestsByPath',
+      '${jest.testFile}',
+    ],
+    // Not supported by projen:
+    // console: 'integratedTerminal',
+    // disableOptimisticBPs: true,
+    // cwd: '${workspaceFolder}',
+  });
+const launchConfig = project.tryFindObjectFile('.vscode/launch.json');
+launchConfig?.addOverride('configurations.0.console', 'integratedTerminal');
+launchConfig?.addOverride('configurations.0.disableOptimisticBPs', true);
+launchConfig?.addOverride('configurations.0.cwd', '${workspaceFolder}');
 
 
 // esbuild
