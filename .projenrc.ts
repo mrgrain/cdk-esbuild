@@ -170,7 +170,14 @@ project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
 
 // eslint
 project.eslint?.addRules({
+  'no-console': 'error',
   '@typescript-eslint/member-ordering': 'off',
+});
+project.eslint?.addOverride({
+  files: ['test/**'],
+  rules: {
+    'no-console': 'off',
+  },
 });
 project.eslint?.addIgnorePattern('examples/');
 
