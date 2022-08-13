@@ -98,6 +98,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '.npmrc',
     '.nvmrc',
     '.versionrc',
+    '.gitattributes',
     '*.tgz',
     '*.gz',
     '*.zip',
@@ -106,8 +107,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '/examples',
     'PUBLISHING.md',
     '.vscode',
+    '.projenrc.ts',
     'projenrc',
     '/images',
+    'API.md',
+    'CHANGELOG.md',
+    'CONTRIBUTING.md',
+    'SECURITY.md'
   ],
 });
 

@@ -2,6 +2,7 @@
 .npmrc
 .nvmrc
 .versionrc
+.gitattributes
 *.tgz
 *.gz
 *.zip
@@ -10,8 +11,13 @@ cdk.out
 /examples
 PUBLISHING.md
 .vscode
+.projenrc.ts
 projenrc
 /images
+API.md
+CHANGELOG.md
+CONTRIBUTING.md
+SECURITY.md
 /.projen/
 /test-reports/
 junit.xml
