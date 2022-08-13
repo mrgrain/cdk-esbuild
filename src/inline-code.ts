@@ -1,7 +1,6 @@
 import { InlineCode } from 'aws-cdk-lib/aws-lambda';
-import { TransformOptions, Loader, TransformFailure } from './esbuild-types';
+import { TransformOptions, Loader } from './esbuild-types';
 import { transformSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
-import { printBuildMessages } from './formatMessages';
 
 /**
  * @stability experimental
@@ -51,15 +50,15 @@ abstract class BaseInlineCode extends InlineCode {
     } = props;
 
     try {
+      console.log = () => {};
+      console.error = () => {};
       const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
+        logLevel: 'warning',
         ...transformOptions,
       });
-      printBuildMessages(transformedCode, { prefix: 'Transform ' });
 
       super(transformedCode.code);
     } catch (error) {
-      printBuildMessages(error as TransformFailure, { prefix: 'Transform ' });
-
       throw new Error('Failed to transform InlineCode');
     }
   }

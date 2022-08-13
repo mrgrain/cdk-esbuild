@@ -1,22 +1,14 @@
 import { Stack } from 'aws-cdk-lib';
 import { mocked } from 'jest-mock';
+import { transformSync } from '../lib/esbuild-wrapper';
 import {
   InlineJavaScriptCode,
   InlineJsxCode,
   InlineTsxCode,
   InlineTypeScriptCode,
 } from '../src';
-import { printBuildMessages } from '../src/formatMessages';
-
-jest.mock('../src/formatMessages', () => ({
-  printBuildMessages: jest.fn(),
-}));
 
 describe('using transformOptions', () => {
-  beforeEach(() => {
-    mocked(printBuildMessages).mockReset();
-  });
-
   describe('given a banner code', () => {
     it('should add the banner before the code', () => {
       const code = new InlineJavaScriptCode(
@@ -34,10 +26,6 @@ describe('using transformOptions', () => {
 });
 
 describe('using transformerProps', () => {
-  beforeEach(() => {
-    mocked(printBuildMessages).mockReset();
-  });
-
   describe('given some js code', () => {
     it('should transform the code', () => {
       const code = new InlineJavaScriptCode(
@@ -89,13 +77,27 @@ describe('using transformerProps', () => {
   });
 
   describe('given some broken ts code', () => {
-    it('should display errors and warnings', () => {
+    it('should throws', () => {
+      expect(() => {
+        const code = new InlineTypeScriptCode('let : d ===== 1');
+        code.bind(new Stack());
+      }).toThrowError('Failed to transform InlineCode');
+    });
+
+    // Currently no way to capture esbuild output,
+    // See https://github.com/evanw/esbuild/issues/2466
+    it.skip('should display an error', () => {
+      const originalConsole = console.error;
+      console.error = jest.fn();
+
       expect(() => {
         const code = new InlineTypeScriptCode('let : d ===== 1');
         code.bind(new Stack());
       }).toThrowError('Failed to transform InlineCode');
 
-      expect(mocked(printBuildMessages)).toHaveBeenCalledTimes(1);
+      expect(console.error).toBeCalledWith(expect.stringContaining('Unexpected "=="'));
+
+      console.error = originalConsole;
     });
   });
 
@@ -154,6 +156,40 @@ describe('using transformerProps', () => {
 
       expect(mockLogger).toHaveBeenCalledTimes(1);
       expect(mockLogger).toHaveBeenCalledWith('dummy-binary');
+    });
+  });
+
+
+  describe('with logLevel', () => {
+    describe('not provided', () => {
+      it('should default to "warning"', () => {
+        const transformFn = jest.fn(transformSync);
+        const code = new InlineJavaScriptCode("const fruit = 'banana';", {
+          transformFn,
+        });
+        code.bind(new Stack());
+
+        expect(transformFn).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({
+          logLevel: 'warning',
+        }));
+      });
+    });
+
+    describe('provided', () => {
+      it('should use the provided logLevel', () => {
+        const transformFn = jest.fn(transformSync);
+        const code = new InlineJavaScriptCode("const fruit = 'banana';", {
+          transformFn,
+          transformOptions: {
+            logLevel: 'silent',
+          },
+        });
+        code.bind(new Stack());
+
+        expect(transformFn).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({
+          logLevel: 'silent',
+        }));
+      });
     });
   });
 });

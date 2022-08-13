@@ -3,11 +3,6 @@ import { mocked } from 'jest-mock';
 import { EsbuildBundler } from '../src/bundler';
 import { BuildOptions, BuildResult } from '../src/esbuild-types';
 import { buildSync } from '../src/esbuild-wrapper';
-import { printBuildMessages } from '../src/formatMessages';
-
-jest.mock('../src/formatMessages', () => ({
-  printBuildMessages: jest.fn(),
-}));
 
 jest.mock('esbuild', () => ({
   buildSync: jest.fn(),
@@ -16,10 +11,6 @@ jest.mock('esbuild', () => ({
 const realEsbuild = jest.requireActual('esbuild');
 
 describe('bundling', () => {
-  beforeEach(() => {
-    mocked(printBuildMessages).mockReset();
-  });
-
   describe('Given a project root path', () => {
     it('should keep the relative path for the local bundler', () => {
       const bundler = new EsbuildBundler(

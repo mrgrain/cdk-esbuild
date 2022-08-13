@@ -6,9 +6,8 @@ import {
   FileSystem,
   ILocalBundling,
 } from 'aws-cdk-lib';
-import { BuildFailure, BuildOptions, BuildResult } from './esbuild-types';
+import { BuildOptions } from './esbuild-types';
 import { buildSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
-import { printBuildMessages } from './formatMessages';
 
 /**
  * A path or list or map of paths to the entry points of your code.
@@ -177,15 +176,12 @@ export class EsbuildBundler {
 
         try {
           const { buildFn = buildSync } = this.props;
-          const buildResult: BuildResult = wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
+          wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
             entryPoints,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
           });
-
-          printBuildMessages(buildResult, { prefix: 'Build ' });
-        } catch (error) {
-          printBuildMessages(error as BuildFailure, { prefix: 'Build ' });
+        } catch (_unused) {
         }
 
         return true;

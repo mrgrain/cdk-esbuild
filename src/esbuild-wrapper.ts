@@ -6,7 +6,6 @@ function esbuild() {
 }
 
 export const buildSync = esbuild().buildSync;
-export const formatMessagesSync = esbuild().formatMessagesSync;
 export const transformSync = esbuild().transformSync;
 
 export function wrapWithEsbuildBinaryPath<T extends CallableFunction>(fn: T, esbuildBinaryPath?: string) {
