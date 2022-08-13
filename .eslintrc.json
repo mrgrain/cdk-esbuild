@@ -206,7 +206,8 @@
     "no-bitwise": [
       "error"
     ],
-    "@typescript-eslint/member-ordering": "off"
+    "@typescript-eslint/member-ordering": "off",
+    "no-console": "error"
   },
   "overrides": [
     {
@@ -216,6 +217,14 @@
       "rules": {
         "@typescript-eslint/no-require-imports": "off",
         "import/no-extraneous-dependencies": "off"
+      }
+    },
+    {
+      "files": [
+        "test/**"
+      ],
+      "rules": {
+        "no-console": "off"
       }
     }
   ]
