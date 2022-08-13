@@ -50,8 +50,6 @@ abstract class BaseInlineCode extends InlineCode {
     } = props;
 
     try {
-      console.log = () => {};
-      console.error = () => {};
       const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
         logLevel: 'warning',
         ...transformOptions,
