@@ -79,7 +79,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   devDeps: [
     '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
-    'esbuild@^0.14.0',
+    'esbuild@^0.15.0',
     'jest-mock',
     'ts-morph',
   ],
@@ -211,7 +211,7 @@ new vscode.VsCode(project).launchConfiguration.addConfiguration({
 
 // esbuild
 project.tryFindObjectFile('package.json')?.addOverride('optionalDependencies', {
-  esbuild: '^0.14.0',
+  esbuild: '^0.15.0',
 });
 
 new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
