@@ -494,6 +494,18 @@ Documentation: https://esbuild.github.io/api/#jsx.
 
 ---
 
+##### `jsxDev`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.jsxDev"></a>
+
+```typescript
+public readonly jsxDev: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-development.
+
+---
+
 ##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.jsxFactory"></a>
 
 ```typescript
@@ -515,6 +527,18 @@ public readonly jsxFragment: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#jsx-fragment.
+
+---
+
+##### `jsxImportSource`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.jsxImportSource"></a>
+
+```typescript
+public readonly jsxImportSource: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-import-source.
 
 ---
 
@@ -1468,6 +1492,18 @@ Documentation: https://esbuild.github.io/api/#jsx.
 
 ---
 
+##### `jsxDev`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsxDev"></a>
+
+```typescript
+public readonly jsxDev: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-development.
+
+---
+
 ##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsxFactory"></a>
 
 ```typescript
@@ -1489,6 +1525,18 @@ public readonly jsxFragment: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#jsx-fragment.
+
+---
+
+##### `jsxImportSource`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsxImportSource"></a>
+
+```typescript
+public readonly jsxImportSource: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-import-source.
 
 ---
 
@@ -1643,6 +1691,18 @@ public readonly minifyWhitespace: boolean;
 - *Type:* `boolean`
 
 Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.platform"></a>
+
+```typescript
+public readonly platform: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#platform.
 
 ---
 

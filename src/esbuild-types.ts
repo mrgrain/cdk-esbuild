@@ -25,6 +25,8 @@ interface CommonOptions {
   readonly target?: string | string[];
   /** Documentation: https://esbuild.github.io/api/#supported */
   readonly supported?: Record<string, boolean>;
+  /** Documentation: https://esbuild.github.io/api/#platform */
+  readonly platform?: Platform;
 
   /** Documentation: https://esbuild.github.io/api/#mangle-props */
   readonly mangleProps?: any;
@@ -52,11 +54,15 @@ interface CommonOptions {
   readonly ignoreAnnotations?: boolean;
 
   /** Documentation: https://esbuild.github.io/api/#jsx */
-  readonly jsx?: 'transform' | 'preserve';
+  readonly jsx?: 'transform' | 'preserve' | 'automatic';
   /** Documentation: https://esbuild.github.io/api/#jsx-factory */
   readonly jsxFactory?: string;
   /** Documentation: https://esbuild.github.io/api/#jsx-fragment */
   readonly jsxFragment?: string;
+  /** Documentation: https://esbuild.github.io/api/#jsx-import-source */
+  readonly jsxImportSource?: string;
+  /** Documentation: https://esbuild.github.io/api/#jsx-development */
+  readonly jsxDev?: boolean;
 
   /** Documentation: https://esbuild.github.io/api/#define */
   readonly define?: { [key: string]: string };
@@ -90,8 +96,6 @@ export interface BuildOptions extends CommonOptions {
   readonly outdir?: string;
   /** Documentation: https://esbuild.github.io/api/#outbase */
   readonly outbase?: string;
-  /** Documentation: https://esbuild.github.io/api/#platform */
-  readonly platform?: Platform;
   /** Documentation: https://esbuild.github.io/api/#external */
   readonly external?: string[];
   /** Documentation: https://esbuild.github.io/api/#loader */
@@ -137,7 +141,7 @@ export interface WatchMode {
 }
 
 export interface StdinOptions {
-  contents: string;
+  contents: string | Uint8Array;
   resolveDir?: string;
   sourcefile?: string;
   loader?: Loader;
@@ -481,7 +485,7 @@ export declare function serve(serveOptions: ServeOptions, buildOptions: BuildOpt
  *
  * Documentation: https://esbuild.github.io/api/#transform-api
  */
-export declare function transform(input: string, options?: TransformOptions): Promise<TransformResult>;
+export declare function transform(input: string | Uint8Array, options?: TransformOptions): Promise<TransformResult>;
 
 /**
  * Converts log messages to formatted message strings suitable for printing in
