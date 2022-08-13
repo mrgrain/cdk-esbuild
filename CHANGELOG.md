@@ -1,4 +1,11 @@
 
+### [3.8.1](https://github.com/mrgrain/cdk-esbuild/compare/v3.8.0...v3.8.1) (2022-08-13)
+
+
+### Bug Fixes
+
+* remove console object overwrites from InlineCode ([#214](https://github.com/mrgrain/cdk-esbuild/issues/214)) ([dde3fdf](https://github.com/mrgrain/cdk-esbuild/commit/dde3fdf23780c77e13e7454fb42eb2a9fda84d7e))
+
 ## [3.8.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.7.2...v3.8.0) (2022-08-13)
 
 
