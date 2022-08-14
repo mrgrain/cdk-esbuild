@@ -4,19 +4,9 @@
             font-family: -apple-system, BlinkMacSystemFont, " Segoe UI", Helvetica, Arial, sans-serif;
             font-weight: 700;
             font-size: 90px;
-            fill: #191919;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            text {
-                fill: #f0f6fc;
-            }
-        }
-
-        @media (prefers-color-scheme: light) {
-            text {
-                fill: #191919;
-            }
+            fill: #f0f6fc;
+            stroke: #191919;
+            stroke-width: 2px;
         }
     </style>
 
