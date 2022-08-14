@@ -1,4 +1,4 @@
-<img src="./images/wordmark-outline.svg" alt="cdk-esbuild">
+<img src="./images/wordmark-dynamic.svg" alt="cdk-esbuild">
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
