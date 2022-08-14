@@ -1,4 +1,6 @@
-import { InlineCode } from 'aws-cdk-lib/aws-lambda';
+import { Lazy, Stack } from 'aws-cdk-lib';
+import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
+import { Construct, Node } from 'constructs';
 import { TransformOptions, Loader } from './esbuild-types';
 import { transformSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
 
@@ -38,28 +40,45 @@ export interface TransformerProps {
 }
 
 abstract class BaseInlineCode extends InlineCode {
+  public readonly isInline = true;
+  private readonly inlineCode: string;
+
   public constructor(
     code: string,
     props: TransformerProps,
   ) {
+    super(code);
 
-    const {
-      transformFn = transformSync,
-      transformOptions = {},
-      esbuildBinaryPath,
-    } = props;
+    this.inlineCode = Lazy.string({
+      produce: () => {
+        try {
+          const {
+            transformFn = transformSync,
+            transformOptions = {},
+            esbuildBinaryPath,
+          } = props;
 
-    try {
-      const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
-        color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
-        logLevel: 'warning',
-        ...transformOptions,
-      });
+          const transformedCode = wrapWithEsbuildBinaryPath(transformFn, esbuildBinaryPath)(code, {
+            color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
+            logLevel: 'warning',
+            ...transformOptions,
+          });
 
-      super(transformedCode.code);
-    } catch (error) {
-      throw new Error('Failed to transform InlineCode');
-    }
+          return transformedCode.code;
+        } catch (error) {
+          throw new Error(`Failed to transform ${this.constructor.name}`);
+        }
+      },
+    });
+  }
+
+  public bind(scope: Construct): CodeConfig {
+    const name = scope.node.path + Node.PATH_SEP + this.constructor.name;
+    process.stderr.write(`Transforming inline code ${name}...\n`);
+
+    return {
+      inlineCode: Stack.of(scope).resolve(this.inlineCode),
+    };
   }
 }
 

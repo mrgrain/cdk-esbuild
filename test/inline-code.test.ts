@@ -1,4 +1,5 @@
-import { Stack } from 'aws-cdk-lib';
+import { App, Stack } from 'aws-cdk-lib';
+import { Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { mocked } from 'jest-mock';
 import { transformSync } from '../lib/esbuild-wrapper';
 import {
@@ -32,9 +33,10 @@ describe('using transformerProps', () => {
         "const banana = 'fruit' ?? 'vegetable'",
       );
 
-      const { inlineCode } = code.bind(new Stack());
+      const stack = new Stack();
+      const { inlineCode } = code.bind(stack);
 
-      expect(inlineCode).toBe('const banana = "fruit";\n');
+      expect(stack.resolve(inlineCode)).toBe('const banana = "fruit";\n');
     });
   });
 
@@ -60,6 +62,54 @@ describe('using transformerProps', () => {
 
       expect(inlineCode).toBe('let x = 1;\n');
     });
+
+    it('should announce the transforming step', () => {
+      const processStdErrWriteSpy = jest.spyOn(process.stderr, 'write');
+      const stack = new Stack(new App(), 'Stack');
+      const code = new InlineTypeScriptCode('let x: number = 1');
+
+      new Function(stack, 'MyFunction', {
+        runtime: Runtime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      expect(processStdErrWriteSpy).toHaveBeenCalledWith(
+        'Transforming inline code Stack/MyFunction/InlineTypeScriptCode...\n',
+      );
+      processStdErrWriteSpy.mockRestore();
+    });
+
+    it('should not do the work twice', () => {
+      const processStdErrWriteSpy = jest.spyOn(process.stderr, 'write');
+      const transformFn = jest.fn(transformSync);
+
+      const stack = new Stack(new App(), 'Stack');
+      const code = new InlineTypeScriptCode('let x: number = 1', {
+        transformFn,
+      });
+
+      new Function(stack, 'One', {
+        runtime: Runtime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      new Function(stack, 'Two', {
+        runtime: Runtime.NODEJS_14_X,
+        handler: 'index.handler',
+        code,
+      });
+
+      expect(transformFn).toHaveBeenCalledTimes(1);
+      expect(processStdErrWriteSpy).toHaveBeenCalledWith(
+        'Transforming inline code Stack/One/InlineTypeScriptCode...\n',
+      );
+      expect(processStdErrWriteSpy).toHaveBeenCalledWith(
+        'Transforming inline code Stack/Two/InlineTypeScriptCode...\n',
+      );
+      processStdErrWriteSpy.mockRestore();
+    });
   });
 
   describe('given some tsx code', () => {
@@ -81,23 +131,22 @@ describe('using transformerProps', () => {
       expect(() => {
         const code = new InlineTypeScriptCode('let : d ===== 1');
         code.bind(new Stack());
-      }).toThrowError('Failed to transform InlineCode');
+      }).toThrowError('Failed to transform InlineTypeScriptCode');
     });
 
     // Currently no way to capture esbuild output,
     // See https://github.com/evanw/esbuild/issues/2466
     it.skip('should display an error', () => {
-      const originalConsole = console.error;
-      console.error = jest.fn();
+      const processStdErrWriteSpy = jest.spyOn(process.stderr, 'write');
 
       expect(() => {
         const code = new InlineTypeScriptCode('let : d ===== 1');
         code.bind(new Stack());
-      }).toThrowError('Failed to transform InlineCode');
+      }).toThrowError('Failed to transform InlineTypeScriptCode');
 
-      expect(console.error).toBeCalledWith(expect.stringContaining('Unexpected "=="'));
+      expect(processStdErrWriteSpy).toBeCalledWith(expect.stringContaining('Unexpected "=="'));
 
-      console.error = originalConsole;
+      processStdErrWriteSpy.mockRestore();
     });
   });
 
@@ -149,10 +198,11 @@ describe('using transformerProps', () => {
         };
       };
 
-      new InlineTypeScriptCode('let x: number = 1', {
+      const code = new InlineTypeScriptCode('let x: number = 1', {
         transformFn: customTransform,
         esbuildBinaryPath: 'dummy-binary',
       });
+      code.bind(new Stack());
 
       expect(mockLogger).toHaveBeenCalledTimes(1);
       expect(mockLogger).toHaveBeenCalledWith('dummy-binary');
