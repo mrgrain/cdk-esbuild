@@ -1,13 +1,16 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { mocked } from 'jest-mock';
-import { transformSync } from '../lib/esbuild-wrapper';
 import {
   InlineJavaScriptCode,
   InlineJsxCode,
   InlineTsxCode,
   InlineTypeScriptCode,
 } from '../src';
+import * as provider from '../src/esbuild-wrapper';
+
+const esbuildSpy = jest.spyOn(provider, 'esbuild');
+const transformSync = provider.esbuild().transformSync;
 
 describe('using transformOptions', () => {
   describe('given a banner code', () => {
@@ -209,6 +212,65 @@ describe('using transformerProps', () => {
     });
   });
 
+  describe('with an esbuild module path from', () => {
+    beforeEach(() => {
+      esbuildSpy.mockClear();
+    });
+    afterAll(() => {
+      esbuildSpy.mockRestore();
+    });
+
+    describe('the default', () => {
+      it('should call the esbuild provider with "esbuild"', () => {
+        const code = new InlineTypeScriptCode('let x: number = 1');
+        code.bind(new Stack());
+
+        expect(esbuildSpy).toHaveBeenCalledTimes(1);
+        expect(esbuildSpy).toHaveBeenCalledWith('esbuild');
+      });
+    });
+
+    describe('`esbuildModulePath` prop', () => {
+      it('should use the path from the prop', () => {
+        const code = new InlineTypeScriptCode('let x: number = 1', {
+          esbuildModulePath: '../node_modules/esbuild',
+        });
+        code.bind(new Stack());
+
+        expect(esbuildSpy).toHaveBeenCalledTimes(1);
+        expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+      });
+    });
+
+    describe('`CDK_ESBUILD_MODULE_PATH` env var', () => {
+      beforeEach(() => {
+        process.env.CDK_ESBUILD_MODULE_PATH = '../node_modules/esbuild';
+      });
+      afterEach(() => {
+        delete process.env.CDK_ESBUILD_MODULE_PATH;
+      });
+
+      it('should use the path from the env var', () => {
+        const code = new InlineTypeScriptCode('let x: number = 1');
+        code.bind(new Stack());
+
+        expect(esbuildSpy).toHaveBeenCalledTimes(1);
+        expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+      });
+
+      describe('and `esbuildModulePath` prop', () => {
+        it('should prefer the path from prop', () => {
+          const code = new InlineTypeScriptCode('let x: number = 1', {
+            esbuildModulePath: '../test/../node_modules/esbuild',
+          });
+          code.bind(new Stack());
+
+          expect(esbuildSpy).toHaveBeenCalledTimes(1);
+          expect(esbuildSpy).toHaveBeenCalledWith('../test/../node_modules/esbuild');
+        });
+      });
+    });
+  });
 
   describe('with logLevel', () => {
     describe('not provided', () => {

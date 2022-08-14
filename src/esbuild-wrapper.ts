@@ -1,12 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import { analyzeMetafileSync, buildSync, transformSync, version } from './esbuild-types';
 
-function esbuild() {
+export function esbuild(modulePath: string = 'esbuild'): {
+  buildSync: typeof buildSync;
+  transformSync: typeof transformSync;
+  analyzeMetafileSync: typeof analyzeMetafileSync;
+  version: typeof version;
+} {
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require('esbuild');
+  return require(modulePath);
 }
-
-export const buildSync = esbuild().buildSync;
-export const transformSync = esbuild().transformSync;
 
 export function wrapWithEsbuildBinaryPath<T extends CallableFunction>(fn: T, esbuildBinaryPath?: string) {
   if (!esbuildBinaryPath) {
@@ -31,4 +33,8 @@ export function wrapWithEsbuildBinaryPath<T extends CallableFunction>(fn: T, esb
 
     return result;
   };
+}
+
+export function detectEsbuildModulePath(esbuildBinaryPath?: string) {
+  return esbuildBinaryPath || process.env.CDK_ESBUILD_MODULE_PATH || 'esbuild';
 }

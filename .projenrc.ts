@@ -175,6 +175,7 @@ project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
 // eslint
 project.eslint?.addRules({
   'no-console': 'error',
+  'eol-last': ['error', 'always'],
   '@typescript-eslint/member-ordering': 'off',
 });
 project.eslint?.addOverride({
@@ -214,6 +215,7 @@ new JsonFile(project, '.vscode/settings.json', {
     '[svg]': {
       'editor.defaultFormatter': 'jock.svg',
     },
+    'python.formatting.provider': 'black',
   },
 });
 

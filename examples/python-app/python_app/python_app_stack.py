@@ -19,7 +19,10 @@ class PythonAppStack(Stack):
             self,
             "Website",
             sources=[
-                TypeScriptSource("lambda-handler/index.ts", copy_dir="lambda-handler")
+                TypeScriptSource(
+                    "lambda-handler/index.ts",
+                    copy_dir="lambda-handler",
+                )
             ],
             destination_bucket=s3.Bucket(
                 self,
@@ -37,6 +40,9 @@ class PythonAppStack(Stack):
                 build_options=BuildOptions(
                     format="esm", outfile="index.mjs", external=["aws-sdk"]
                 ),
+                # Override the global setting with a specific path per Construct
+                # This can be useful if a Construct requires a different version of esbuild
+                esbuild_module_path="/project/node_modules/esbuild@13",
             ),
         )
 

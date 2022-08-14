@@ -9,20 +9,20 @@ All interfaces are available, but the esbuild binary must be available in path, 
 
 To set up a new virtualenv, run
 
-```
-$ python3 -m venv .venv
+```bash
+python3 -m venv .venv
 ```
 
 Then activate the venv and install all dependencies:
 
-```
-$ source .venv/bin/activate
-$ pip install -r requirements.txt
-$ npm install --location=global esbuild
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dev.txt
+npm install -g esbuild
 ```
 
-Finally run the CDK app:
+Run the CDK app providing the `CDK_ESBUILD_MODULE_PATH`:
 
-```
-$ cdk synth
+```bash
+CDK_ESBUILD_MODULE_PATH="$(npm prefix -g)/lib/node_modules/esbuild" cdk synth
 ```

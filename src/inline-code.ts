@@ -2,7 +2,8 @@ import { Lazy, Stack } from 'aws-cdk-lib';
 import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { Construct, Node } from 'constructs';
 import { TransformOptions, Loader } from './esbuild-types';
-import { transformSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
+import { detectEsbuildModulePath, esbuild, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
+import { errorHasCode } from './utils';
 
 /**
  * @stability experimental
@@ -25,7 +26,7 @@ export interface TransformerProps {
    * @type esbuild.transformSync
    * @returns esbuild.TransformResult
    * @throws esbuild.TransformFailure
-   * @default esbuild.transformSync
+   * @default `esbuild.transformSync`
    */
   readonly transformFn?: any;
 
@@ -37,6 +38,25 @@ export interface TransformerProps {
    * @stability experimental
    */
   readonly esbuildBinaryPath?: string;
+
+  /**
+   * Path used to import the esbuild module.
+   *
+   * Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+   *
+   * If not set, the module path will be determined in the following order:
+   *
+   * - Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+   * - In TypeScript, fallback to the default Node.js package resolution mechanism
+   * - All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   *   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   *   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   *   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+   *
+   * @stability experimental
+   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+   */
+  readonly esbuildModulePath?: string;
 }
 
 abstract class BaseInlineCode extends InlineCode {
@@ -53,7 +73,7 @@ abstract class BaseInlineCode extends InlineCode {
       produce: () => {
         try {
           const {
-            transformFn = transformSync,
+            transformFn = esbuild(detectEsbuildModulePath(props.esbuildModulePath)).transformSync,
             transformOptions = {},
             esbuildBinaryPath,
           } = props;
@@ -66,6 +86,9 @@ abstract class BaseInlineCode extends InlineCode {
 
           return transformedCode.code;
         } catch (error) {
+          if (errorHasCode(error, 'MODULE_NOT_FOUND')) {
+            throw error;
+          }
           throw new Error(`Failed to transform ${this.constructor.name}`);
         }
       },
@@ -87,6 +110,7 @@ function instanceOfTransformerProps(object: any): object is TransformerProps {
     'transformOptions',
     'transformFn',
     'esbuildBinaryPath',
+    'esbuildModulePath',
   ].reduce(
     (isTransformerProps: boolean, propToCheck: string): boolean =>
       (isTransformerProps || (propToCheck in object)),

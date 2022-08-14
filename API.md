@@ -129,7 +129,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -202,6 +202,30 @@ public readonly esbuildBinaryPath: string;
 Path to the binary used by esbuild.
 
 This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+
+---
+
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 ---
 
@@ -979,7 +1003,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -1055,6 +1079,30 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ---
 
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+---
+
 ### CodeConfig <a name="@mrgrain/cdk-esbuild.CodeConfig"></a>
 
 Result of binding `Code` into a `Function`.
@@ -1123,7 +1171,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -1199,6 +1247,30 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ---
 
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+---
+
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.assetHash"></a>
 
 ```typescript
@@ -1232,7 +1304,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -1308,6 +1380,30 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ---
 
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+---
+
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.assetHash"></a>
 
 ```typescript
@@ -1348,6 +1444,30 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ---
 
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+---
+
 ##### `transformFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformFn"></a>
 
 ```typescript
@@ -1355,7 +1475,7 @@ public readonly transformFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.transformSync
+- *Default:* `esbuild.transformSync`
 
 Escape hatch to provide the bundler with a custom transform function.
 
@@ -1853,7 +1973,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -1929,6 +2049,30 @@ This is the same as setting the ESBUILD_BINARY_PATH environment variable.
 
 ---
 
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+---
+
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.assetHash"></a>
 
 ```typescript
@@ -1962,7 +2106,7 @@ public readonly buildFn: any;
 ```
 
 - *Type:* `any`
-- *Default:* esbuild.buildSync
+- *Default:* `esbuild.buildSync`
 
 Escape hatch to provide the bundler with a custom build function.
 
@@ -2035,6 +2179,30 @@ public readonly esbuildBinaryPath: string;
 Path to the binary used by esbuild.
 
 This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+
+---
+
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Path used to import the esbuild module.
+
+Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 ---
 

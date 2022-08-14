@@ -7,7 +7,8 @@ import {
   ILocalBundling,
 } from 'aws-cdk-lib';
 import { BuildOptions } from './esbuild-types';
-import { buildSync, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
+import { detectEsbuildModulePath, esbuild, wrapWithEsbuildBinaryPath } from './esbuild-wrapper';
+import { errorHasCode } from './utils';
 
 /**
  * A path or list or map of paths to the entry points of your code.
@@ -72,7 +73,7 @@ export interface BundlerProps {
    *
    * @stability stable
    */
-  readonly copyDir?: string | string[] | Record<string, string | string []>;
+  readonly copyDir?: string | string[] | Record<string, string | string[]>;
 
 
   /**
@@ -84,7 +85,7 @@ export interface BundlerProps {
    * @type esbuild.buildSync
    * @returns esbuild.BuildResult
    * @throws esbuild.BuildFailure
-   * @default esbuild.buildSync
+   * @default `esbuild.buildSync`
    */
   readonly buildFn?: any;
 
@@ -96,6 +97,25 @@ export interface BundlerProps {
    * @stability experimental
    */
   readonly esbuildBinaryPath?: string;
+
+  /**
+   * Path used to import the esbuild module.
+   *
+   * Python, Go, .NET and Java should use an absolute path, because the jsii execution environment uses a temporary working directory.
+   *
+   * If not set, the module path will be determined in the following order:
+   *
+   * - Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+   * - In TypeScript, fallback to the default Node.js package resolution mechanism
+   * - All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   *   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   *   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   *   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+   *
+   * @stability experimental
+   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+   */
+  readonly esbuildModulePath?: string;
 }
 
 /**
@@ -162,7 +182,7 @@ export class EsbuildBundler {
               this.props?.buildOptions?.absWorkingDir ?? process.cwd(),
               src,
             );
-            const destDir = resolve(outputDir, dest) ;
+            const destDir = resolve(outputDir, dest);
 
             const destToOutput = relative(outputDir, destDir);
             if (destToOutput.startsWith('..') || isAbsolute(destToOutput)) {
@@ -175,14 +195,17 @@ export class EsbuildBundler {
         }
 
         try {
-          const { buildFn = buildSync } = this.props;
+          const { buildFn = esbuild(detectEsbuildModulePath(props.esbuildModulePath)).buildSync } = this.props;
           wrapWithEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath)({
             entryPoints,
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
           });
-        } catch (_unused) {
+        } catch (error) {
+          if (errorHasCode(error, 'MODULE_NOT_FOUND')) {
+            throw error;
+          }
         }
 
         return true;
