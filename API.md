@@ -2315,8 +2315,34 @@ Default values for `props.transformOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.property.isInline"></a>
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### InlineJsxCode <a name="@mrgrain/cdk-esbuild.InlineJsxCode"></a>
@@ -2354,8 +2380,34 @@ Default values for `transformOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.InlineJsxCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.property.isInline"></a>
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### InlineTsxCode <a name="@mrgrain/cdk-esbuild.InlineTsxCode"></a>
@@ -2393,8 +2445,34 @@ Default values for `transformOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.InlineTsxCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.property.isInline"></a>
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### InlineTypeScriptCode <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode"></a>
@@ -2432,8 +2510,34 @@ Default values for `transformOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### `isInline`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.property.isInline"></a>
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### JavaScriptCode <a name="@mrgrain/cdk-esbuild.JavaScriptCode"></a>
