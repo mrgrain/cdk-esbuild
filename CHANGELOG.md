@@ -1,4 +1,13 @@
 
+## [3.9.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.8.1...v3.9.0) (2022-08-14)
+
+
+### Features
+
+* lazy evaluate `InlineCode` and show message before transforming ([#217](https://github.com/mrgrain/cdk-esbuild/issues/217)) ([98f7d1d](https://github.com/mrgrain/cdk-esbuild/commit/98f7d1d23fd51967aa27c4fad62fafcb6a8cf802))
+* support NO_COLOR ([#213](https://github.com/mrgrain/cdk-esbuild/issues/213)) ([1abd267](https://github.com/mrgrain/cdk-esbuild/commit/1abd2676f9aed67f31df70dc99671bafeb9929d5)), closes [#211](https://github.com/mrgrain/cdk-esbuild/issues/211)
+* upgrade esbuild to ^0.15.0 ([#207](https://github.com/mrgrain/cdk-esbuild/issues/207)) ([7d74485](https://github.com/mrgrain/cdk-esbuild/commit/7d7448533a58a7422a2e5edb3858a74c232026d2)), closes [#204](https://github.com/mrgrain/cdk-esbuild/issues/204)
+
 ### [3.8.1](https://github.com/mrgrain/cdk-esbuild/compare/v3.8.0...v3.8.1) (2022-08-13)
 
 
