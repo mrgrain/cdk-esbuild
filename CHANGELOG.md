@@ -1,4 +1,11 @@
 
+## [3.10.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.9.0...v3.10.0) (2022-08-14)
+
+
+### Features
+
+* support custom esbuild module path ([#220](https://github.com/mrgrain/cdk-esbuild/issues/220)) ([9cc071e](https://github.com/mrgrain/cdk-esbuild/commit/9cc071edbb8f173288ec4b68162b1bbd1f0e18c2))
+
 ## [3.9.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.8.1...v3.9.0) (2022-08-14)
 
 
