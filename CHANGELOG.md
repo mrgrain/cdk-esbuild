@@ -1,4 +1,11 @@
 
+## [3.11.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.10.0...v3.11.0) (2022-08-20)
+
+
+### Features
+
+* auto install esbuild on jsii platforms ([#226](https://github.com/mrgrain/cdk-esbuild/issues/226)) ([d97688a](https://github.com/mrgrain/cdk-esbuild/commit/d97688a32cf62212b2756b91297c27248363619c))
+
 ## [3.10.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.9.0...v3.10.0) (2022-08-14)
 
 
