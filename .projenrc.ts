@@ -70,6 +70,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
   },
+  publishToNuget: {
+    dotNetNamespace: 'Mrgrain.CdkEsbuild',
+    packageId: 'Mrgrain.CdkEsbuild',
+    iconUrl: 'https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/logo.png',
+  },
   catalog: {
     twitter: '@mrgrain',
   },

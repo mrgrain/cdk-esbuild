@@ -125,6 +125,31 @@ jobs:
         run: cd .repo && npx projen package:python
       - name: Collect python Artifact
         run: mv .repo/dist dist
+  package-dotnet:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions: {}
+    if: "! needs.build.outputs.self_mutation_happened"
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 3.x
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: dist
+      - name: Prepare Repository
+        run: mv dist .repo
+      - name: Install Dependencies
+        run: cd .repo && npm ci
+      - name: Create dotnet artifact
+        run: cd .repo && npx projen package:dotnet
+      - name: Collect dotnet Artifact
+        run: mv .repo/dist dist
   test-latest-versions:
     needs: build
     runs-on: ubuntu-latest
