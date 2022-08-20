@@ -4,16 +4,9 @@ export {
   TransformOptions,
 } from './esbuild-types';
 
-
 export {
   EsbuildSource,
 } from './esbuild-source';
-
-// export {
-//   DynamicPackage,
-//   DynamicPackageProps,
-// } from './dynamic-package';
-
 
 export {
   EsbuildBundler,

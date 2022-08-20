@@ -11,29 +11,27 @@ interface Esbuild {
 }
 
 export class EsbuildProvider {
-
-  private static resolve(token: string): string {
-    if (!Token.isUnresolved(token)) {
-      return token;
-    }
-
-    return Tokenization.resolve(token, {
-      scope: new Construct(undefined as any, ''),
-      resolver: new DefaultTokenResolver(new StringConcat()),
-    });
-  }
-
+  /**
+   * Load the esbuild module according to defined rules.
+   */
   public static require(path?: string): Esbuild {
     const module = path || process.env.CDK_ESBUILD_MODULE_PATH || EsbuildSource.default || Esbuild.name;
 
     return this._require(this.resolve(module));
   }
 
+  /**
+   * @internal
+   */
   public static _require(path: string): Esbuild {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require(path);
   }
 
+  /**
+   * Invoke a function with a specific `process.env.ESBUILD_BINARY_PATH`
+   * and restore the env var afterwards.
+   */
   public static withEsbuildBinaryPath<T extends CallableFunction>(fn: T, esbuildBinaryPath?: string) {
     if (!esbuildBinaryPath) {
       return fn;
@@ -48,14 +46,28 @@ export class EsbuildProvider {
       const result = fn(...args);
 
       /**
-     * only reset `ESBUILD_BINARY_PATH` if it was explicitly set via the construct props
-     * since `esbuild` itself sometimes sets it (eg. when running in yarn 2 plug&play)
-     */
+       * only reset `ESBUILD_BINARY_PATH` if it was explicitly set via the construct props
+       * since `esbuild` itself sometimes sets it (eg. when running in yarn 2 plug&play)
+       */
       if (esbuildBinaryPath) {
         process.env.ESBUILD_BINARY_PATH = originalEsbuildBinaryPath;
       }
 
       return result;
     };
+  }
+
+  /**
+   * Resolve a token without context
+   */
+  private static resolve(token: string): string {
+    if (!Token.isUnresolved(token)) {
+      return token;
+    }
+
+    return Tokenization.resolve(token, {
+      scope: new Construct(undefined as any, ''),
+      resolver: new DefaultTokenResolver(new StringConcat()),
+    });
   }
 }

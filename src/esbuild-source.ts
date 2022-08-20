@@ -10,7 +10,6 @@ export const Esbuild = {
 
 export class EsbuildSource {
   private static dynamicPackage = dynamicEsbuild;
-
   private static _default?: string;
 
   /**

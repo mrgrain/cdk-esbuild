@@ -101,7 +101,7 @@ export interface BundlerProps {
   /**
    * Absolute path to the esbuild module JS file.
    *
-   * @example "/home/user/.npm/node_modules/esbuild/lib/main.js"
+   * E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
    *
    * If not set, the module path will be determined in the following order:
    *
