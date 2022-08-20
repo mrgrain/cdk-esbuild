@@ -5,6 +5,10 @@ export {
 } from './esbuild-types';
 
 export {
+  EsbuildSource,
+} from './esbuild-source';
+
+export {
   EsbuildBundler,
   BundlerProps,
 } from './bundler';

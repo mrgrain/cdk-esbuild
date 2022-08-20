@@ -1,5 +1,6 @@
 import { App, Stack } from 'aws-cdk-lib';
 import { Function, Runtime } from 'aws-cdk-lib/aws-lambda';
+import * as esbuild from 'esbuild';
 import { mocked } from 'jest-mock';
 import {
   InlineJavaScriptCode,
@@ -7,10 +8,9 @@ import {
   InlineTsxCode,
   InlineTypeScriptCode,
 } from '../src';
-import * as provider from '../src/esbuild-wrapper';
+import { EsbuildProvider } from '../src/esbuild-provider';
 
-const esbuildSpy = jest.spyOn(provider, 'esbuild');
-const transformSync = provider.esbuild().transformSync;
+const providerSpy = jest.spyOn(EsbuildProvider, '_require');
 
 describe('using transformOptions', () => {
   describe('given a banner code', () => {
@@ -85,7 +85,7 @@ describe('using transformerProps', () => {
 
     it('should not do the work twice', () => {
       const processStdErrWriteSpy = jest.spyOn(process.stderr, 'write');
-      const transformFn = jest.fn(transformSync);
+      const transformFn = jest.fn(esbuild.transformSync);
 
       const stack = new Stack(new App(), 'Stack');
       const code = new InlineTypeScriptCode('let x: number = 1', {
@@ -214,10 +214,11 @@ describe('using transformerProps', () => {
 
   describe('with an esbuild module path from', () => {
     beforeEach(() => {
-      esbuildSpy.mockClear();
+      providerSpy.mockClear();
+      providerSpy.mockReturnValue(esbuild);
     });
     afterAll(() => {
-      esbuildSpy.mockRestore();
+      providerSpy.mockRestore();
     });
 
     describe('the default', () => {
@@ -225,26 +226,26 @@ describe('using transformerProps', () => {
         const code = new InlineTypeScriptCode('let x: number = 1');
         code.bind(new Stack());
 
-        expect(esbuildSpy).toHaveBeenCalledTimes(1);
-        expect(esbuildSpy).toHaveBeenCalledWith('esbuild');
+        expect(providerSpy).toHaveBeenCalledTimes(1);
+        expect(providerSpy).toHaveBeenCalledWith('esbuild');
       });
     });
 
     describe('`esbuildModulePath` prop', () => {
       it('should use the path from the prop', () => {
         const code = new InlineTypeScriptCode('let x: number = 1', {
-          esbuildModulePath: '../node_modules/esbuild',
+          esbuildModulePath: '/expected/path/from/prop',
         });
         code.bind(new Stack());
 
-        expect(esbuildSpy).toHaveBeenCalledTimes(1);
-        expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+        expect(providerSpy).toHaveBeenCalledTimes(1);
+        expect(providerSpy).toHaveBeenCalledWith('/expected/path/from/prop');
       });
     });
 
     describe('`CDK_ESBUILD_MODULE_PATH` env var', () => {
       beforeEach(() => {
-        process.env.CDK_ESBUILD_MODULE_PATH = '../node_modules/esbuild';
+        process.env.CDK_ESBUILD_MODULE_PATH = '/expected/path/from/env/var';
       });
       afterEach(() => {
         delete process.env.CDK_ESBUILD_MODULE_PATH;
@@ -254,19 +255,19 @@ describe('using transformerProps', () => {
         const code = new InlineTypeScriptCode('let x: number = 1');
         code.bind(new Stack());
 
-        expect(esbuildSpy).toHaveBeenCalledTimes(1);
-        expect(esbuildSpy).toHaveBeenCalledWith('../node_modules/esbuild');
+        expect(providerSpy).toHaveBeenCalledTimes(1);
+        expect(providerSpy).toHaveBeenCalledWith('/expected/path/from/env/var');
       });
 
       describe('and `esbuildModulePath` prop', () => {
         it('should prefer the path from prop', () => {
           const code = new InlineTypeScriptCode('let x: number = 1', {
-            esbuildModulePath: '../test/../node_modules/esbuild',
+            esbuildModulePath: '/expected/path/from/prop',
           });
           code.bind(new Stack());
 
-          expect(esbuildSpy).toHaveBeenCalledTimes(1);
-          expect(esbuildSpy).toHaveBeenCalledWith('../test/../node_modules/esbuild');
+          expect(providerSpy).toHaveBeenCalledTimes(1);
+          expect(providerSpy).toHaveBeenCalledWith('/expected/path/from/prop');
         });
       });
     });
@@ -275,7 +276,7 @@ describe('using transformerProps', () => {
   describe('with logLevel', () => {
     describe('not provided', () => {
       it('should default to "warning"', () => {
-        const transformFn = jest.fn(transformSync);
+        const transformFn = jest.fn(esbuild.transformSync);
         const code = new InlineJavaScriptCode("const fruit = 'banana';", {
           transformFn,
         });
@@ -289,7 +290,7 @@ describe('using transformerProps', () => {
 
     describe('provided', () => {
       it('should use the provided logLevel', () => {
-        const transformFn = jest.fn(transformSync);
+        const transformFn = jest.fn(esbuild.transformSync);
         const code = new InlineJavaScriptCode("const fruit = 'banana';", {
           transformFn,
           transformOptions: {
@@ -323,7 +324,7 @@ describe('using transformerProps', () => {
       });
 
       it(`should set the color option to "${derivedColor}"`, () => {
-        const transformFn = jest.fn(transformSync);
+        const transformFn = jest.fn(esbuild.transformSync);
 
         const code = new InlineTypeScriptCode('let x: number = 1', {
           transformFn,
@@ -339,7 +340,7 @@ describe('using transformerProps', () => {
       });
 
       it('should respect an explicit option', () => {
-        const transformFn = jest.fn(transformSync);
+        const transformFn = jest.fn(esbuild.transformSync);
 
         const code = new InlineTypeScriptCode('let x: number = 1', {
           transformFn,
