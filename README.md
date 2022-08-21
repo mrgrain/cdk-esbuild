@@ -1,7 +1,7 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg">
-  <img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark.svg" alt="cdk-esbuild">
+  <img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-dynamic.svg" alt="cdk-esbuild">
 </picture>
 
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_

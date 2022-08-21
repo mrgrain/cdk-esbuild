@@ -6,6 +6,18 @@
             font-size: 90px;
             fill: #6F7174;
         }
+
+        @media (prefers-color-scheme: dark) {
+            text {
+                fill: #f0f6fc;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            text {
+                fill: #191919;
+            }
+        }
     </style>
 
     <g transform="translate(50 100) scale(1.23)" shape-rendering="crispEdges">

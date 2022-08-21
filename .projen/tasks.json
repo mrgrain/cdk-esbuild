@@ -177,6 +177,9 @@
       "description": "Create python language bindings",
       "steps": [
         {
+          "exec": "if [ ! -z ${CI} ]; then npx projen prepare:readme; fi"
+        },
+        {
           "exec": "jsii-pacmak -v --target python"
         }
       ]
@@ -197,6 +200,14 @@
     "pre-compile": {
       "name": "pre-compile",
       "description": "Prepare the project for compilation"
+    },
+    "prepare:readme": {
+      "name": "prepare:readme",
+      "steps": [
+        {
+          "exec": "sed -i -e '1,5d' -e '6i <img src=\"https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg\" alt=\"cdk-esbuild\">' README.md"
+        }
+      ]
     },
     "publish:git": {
       "name": "publish:git",
