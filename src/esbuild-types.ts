@@ -242,7 +242,7 @@ export interface ServeResult {
 }
 
 export interface TransformOptions extends CommonOptions {
-  readonly tsconfigRaw?: string;
+  readonly tsconfigRaw?: string | TsconfigOptions;
 
   readonly sourcefile?: string;
   readonly loader?: Loader;
@@ -586,3 +586,15 @@ export interface InitializeOptions {
 }
 
 export let version: string;
+
+export interface CompilerOptions {
+  readonly jsxFactory?: string;
+  readonly jsxFragmentFactory?: string;
+  readonly useDefineForClassFields?: boolean;
+  readonly importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
+  readonly preserveValueImports?: boolean;
+}
+
+export interface TsconfigOptions {
+  readonly compilerOptions?: CompilerOptions;
+}

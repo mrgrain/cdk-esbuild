@@ -277,8 +277,39 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
     removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
-    esbuildTypes.getInterface('TransformOptions')?.getProperty('tsconfigRaw')?.setType('string');
     esbuildTypes.getInterface('InitializeOptions')?.getProperty('wasmModule')?.setType('any');
+
+    const compileOptions = esbuildTypes.addInterface({
+      name: 'CompilerOptions',
+      isExported: true,
+      properties: [
+        ['jsxFactory', 'string'],
+        ['jsxFragmentFactory', 'string'],
+        ['useDefineForClassFields', 'boolean'],
+        ['importsNotUsedAsValues', "'remove' | 'preserve' | 'error'"],
+        ['preserveValueImports', 'boolean'],
+      ].map(([name, type]) => ({
+        name,
+        isReadonly: true,
+        hasQuestionToken: true,
+        type,
+      })),
+    });
+    const tsconfigOptions = esbuildTypes.addInterface(
+      {
+        name: 'TsconfigOptions',
+        isExported: true,
+        properties: [{
+          name: 'compilerOptions',
+          isReadonly: true,
+          hasQuestionToken: true,
+          type: compileOptions.getName(),
+        }],
+      });
+    esbuildTypes
+      ?.getInterface('TransformOptions')
+      ?.getProperty('tsconfigRaw')
+      ?.setType(`string | ${tsconfigOptions.getName()}`);
   },
 });
 

@@ -1154,6 +1154,66 @@ The location of the code in S3 (mutually exclusive with `inlineCode` and `image`
 
 ---
 
+### CompilerOptions <a name="@mrgrain/cdk-esbuild.CompilerOptions"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { CompilerOptions } from '@mrgrain/cdk-esbuild'
+
+const compilerOptions: CompilerOptions = { ... }
+```
+
+##### `importsNotUsedAsValues`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.importsNotUsedAsValues"></a>
+
+```typescript
+public readonly importsNotUsedAsValues: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.jsxFactory"></a>
+
+```typescript
+public readonly jsxFactory: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `jsxFragmentFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.jsxFragmentFactory"></a>
+
+```typescript
+public readonly jsxFragmentFactory: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `preserveValueImports`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.preserveValueImports"></a>
+
+```typescript
+public readonly preserveValueImports: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
+##### `useDefineForClassFields`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.useDefineForClassFields"></a>
+
+```typescript
+public readonly useDefineForClassFields: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
 ### JavaScriptCodeProps <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -1949,10 +2009,30 @@ Documentation: https://esbuild.github.io/api/#tree-shaking.
 ##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.tsconfigRaw"></a>
 
 ```typescript
-public readonly tsconfigRaw: string;
+public readonly tsconfigRaw: string | TsconfigOptions;
 ```
 
-- *Type:* `string`
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+
+---
+
+### TsconfigOptions <a name="@mrgrain/cdk-esbuild.TsconfigOptions"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { TsconfigOptions } from '@mrgrain/cdk-esbuild'
+
+const tsconfigOptions: TsconfigOptions = { ... }
+```
+
+##### `compilerOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TsconfigOptions.property.compilerOptions"></a>
+
+```typescript
+public readonly compilerOptions: CompilerOptions;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.CompilerOptions`](#@mrgrain/cdk-esbuild.CompilerOptions)
 
 ---
 
