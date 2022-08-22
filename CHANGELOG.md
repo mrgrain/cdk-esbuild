@@ -1,4 +1,11 @@
 
+### [3.11.1](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.0...v3.11.1) (2022-08-22)
+
+
+### Bug Fixes
+
+* `TransformOptions.tsconfigRaw` cannot receive an object ([#230](https://github.com/mrgrain/cdk-esbuild/issues/230)) ([1584ece](https://github.com/mrgrain/cdk-esbuild/commit/1584ecedaff5251f183f08aa512151010a54df16))
+
 ## [3.11.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.10.0...v3.11.0) (2022-08-20)
 
 
