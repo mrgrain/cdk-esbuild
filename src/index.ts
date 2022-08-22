@@ -2,6 +2,8 @@
 export {
   BuildOptions,
   TransformOptions,
+  TsconfigOptions,
+  CompilerOptions,
 } from './esbuild-types';
 
 export {
