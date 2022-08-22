@@ -42,7 +42,7 @@ npm install @mrgrain/cdk-esbuild@3 esbuild
 
 ### AWS Lambda: Serverless function
 
-> 💡 See [Lambda Function](examples/lambda) for a complete working example of a how to deploy a lambda function.
+> 💡 See [Lambda Function](examples/typescript/lambda) for a complete working example of a how to deploy a lambda function.
 
 Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Function.html#code):
 
@@ -61,7 +61,7 @@ const fn = new lambda.Function(stack, "MyFunction", {
 
 ### AWS S3: Static Website
 
-> 💡 See [Static Website with React](examples/website) for a complete working example of a how to deploy a React app to S3.
+> 💡 See [Static Website with React](examples/typescript/website) for a complete working example of a how to deploy a React app to S3.
 
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
@@ -87,7 +87,7 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 ### Amazon CloudWatch Synthetics: Canary monitoring
 
-> 💡 See [Monitored Website](examples/website) for a complete working example of a deployed and monitored website.
+> 💡 See [Monitored Website](examples/typescript/website) for a complete working example of a deployed and monitored website.
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
@@ -169,7 +169,7 @@ new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
 
 #### Custom build function
 
-> 💡 See [Using esbuild with plugins](examples/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
+> 💡 See [Using esbuild with plugins](examples/typescript/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
 
 Constructs that result in starting a build, take a `buildFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `buildSync` function.
 
