@@ -1,5 +1,5 @@
 
-# CDK Python project example
+# CDK Python Lambda example
 
 This is an example how to use cdk-esbuild with Python.
 
