@@ -247,15 +247,10 @@ new vscode.VsCode(project).launchConfiguration.addConfiguration(
       '--runTestsByPath',
       '${jest.testFile}',
     ],
-    // Not supported by projen:
-    // console: 'integratedTerminal',
-    // disableOptimisticBPs: true,
-    // cwd: '${workspaceFolder}',
+    console: vscode.Console.INTEGRATED_TERMINAL,
+    disableOptimisticBPs: true,
+    cwd: '${workspaceFolder}',
   });
-const launchConfig = project.tryFindObjectFile('.vscode/launch.json');
-launchConfig?.addOverride('configurations.0.console', 'integratedTerminal');
-launchConfig?.addOverride('configurations.0.disableOptimisticBPs', true);
-launchConfig?.addOverride('configurations.0.cwd', '${workspaceFolder}');
 
 
 // esbuild
