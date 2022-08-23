@@ -87,7 +87,13 @@
       "description": "Only compile",
       "steps": [
         {
+          "exec": "if [ ! -z ${CI} ]; then npx projen prepare:readme; fi"
+        },
+        {
           "exec": "jsii --silence-warnings=reserved-word"
+        },
+        {
+          "exec": "if [ ! -z ${CI} ]; then git checkout README.md; fi"
         }
       ]
     },
@@ -176,9 +182,6 @@
       "name": "package:python",
       "description": "Create python language bindings",
       "steps": [
-        {
-          "exec": "if [ ! -z ${CI} ]; then npx projen prepare:readme; fi"
-        },
         {
           "exec": "jsii-pacmak -v --target python"
         }
