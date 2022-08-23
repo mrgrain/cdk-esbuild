@@ -183,7 +183,8 @@ const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuil
 const readme = project.tasks.addTask('prepare:readme', {
   exec: `sed -i -e '1,5d' -e '6i ${wordmark}' README.md`,
 });
-project.tasks.tryFind('package:python')?.prependExec(`if [ ! -z \${CI} ]; then npx projen ${readme.name}; fi`);
+project.tasks.tryFind('compile')?.prependExec(`if [ ! -z \${CI} ]; then npx projen ${readme.name}; fi`);
+project.tasks.tryFind('compile')?.exec('if [ ! -z ${CI} ]; then git checkout README.md; fi');
 
 // eslint
 project.eslint?.addRules({
