@@ -1,9 +1,4 @@
-import {
-  awscdk,
-  javascript,
-  JsonFile,
-  vscode,
-} from 'projen';
+import { awscdk, javascript, vscode } from 'projen';
 import { ReleaseTrigger } from 'projen/lib/release';
 import { InternalConsoleOptions } from 'projen/lib/vscode';
 import { SourceFile } from 'ts-morph';
@@ -202,38 +197,20 @@ project.eslint?.addIgnorePattern('examples/');
 
 
 // VSCode config
-new JsonFile(project, '.vscode/extensions.json', {
-  readonly: false,
-  marker: false,
-  obj: {
-    recommendations: ['dbaeumer.vscode-eslint', 'orta.vscode-jest'],
-  },
+const editor = new vscode.VsCode(project);
+editor.extensions.addRecommendations('dbaeumer.vscode-eslint', 'orta.vscode-jest');
+editor.settings.addSettings({
+  'editor.formatOnSave': true,
+  'editor.defaultFormatter': 'esbenp.prettier-vscode',
+  'eslint.format.enable': true,
+  'jest.autoRun': 'off',
+  'jest.jestCommandLine': './node_modules/.bin/jest',
+  'svg.preview.background': 'dark-transparent',
+  'python.formatting.provider': 'black',
 });
-
-new JsonFile(project, '.vscode/settings.json', {
-  readonly: false,
-  marker: false,
-  obj: {
-    'editor.formatOnSave': true,
-    'editor.defaultFormatter': 'esbenp.prettier-vscode',
-    'eslint.format.enable': true,
-    '[javascript]': {
-      'editor.defaultFormatter': 'dbaeumer.vscode-eslint',
-    },
-    '[typescript]': {
-      'editor.defaultFormatter': 'dbaeumer.vscode-eslint',
-    },
-    'jest.autoRun': 'off',
-    'jest.jestCommandLine': './node_modules/.bin/jest',
-    'svg.preview.background': 'dark-transparent',
-    '[svg]': {
-      'editor.defaultFormatter': 'jock.svg',
-    },
-    'python.formatting.provider': 'black',
-  },
-});
-
-new vscode.VsCode(project).launchConfiguration.addConfiguration(
+editor.settings.addSettings({ 'editor.defaultFormatter': 'dbaeumer.vscode-eslint' }, ['javascript', 'typescript']);
+editor.settings.addSetting('editor.defaultFormatter', 'jock.svg', 'svg');
+editor.launchConfiguration.addConfiguration(
   {
     type: 'node',
     name: 'vscode-jest-tests.v2',
