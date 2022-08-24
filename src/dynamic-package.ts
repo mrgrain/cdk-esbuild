@@ -65,19 +65,22 @@ export class DynamicPackage {
     }
   }
 
-  public auto() {
+  public auto(): string {
     return this.tryResolve() || this.findInPaths() || this.install();
   }
 
-  public nodeJs() {
+  public nodeJs(): string {
     return this.name;
   }
 
-  public findIn(paths: string[]) {
+  public findIn(paths: string[]): string | undefined {
+    paths.forEach((p) => process.stderr.write('trying... '+p+'\n'));
+    process.stderr.write('\n');
+
     return this.tryResolve([...paths].filter(Boolean) as string[]);
   }
 
-  public findInPaths() {
+  public findInPaths(): string | undefined {
     return (
       this.findInSearchPaths() ||
       this.findInLocalPaths() ||
@@ -85,15 +88,20 @@ export class DynamicPackage {
     );
   }
 
-  public findInSearchPaths() {
+  public findInSearchPaths(): string | undefined {
     return this.findIn(this.searchPaths);
   }
 
-  public findInLocalPaths() {
-    this.findIn([process.cwd(), process.env.PWD].filter(Boolean) as string[]);
+  public findInLocalPaths(): string | undefined {
+    return this.findIn([
+      process.cwd(),
+      process.env.PWD,
+      resolve(process.env.PWD || process.cwd(), 'node_modules'),
+      resolve(process.cwd(), 'node_modules'),
+    ].filter(Boolean) as string[]);
   }
 
-  public findInGlobalPaths() {
+  public findInGlobalPaths(): string | undefined {
     return this.findIn([
       process.execPath,
       resolve(process.execPath, '../..'),
@@ -104,7 +112,7 @@ export class DynamicPackage {
   }
 
   private static installedPackagePath = new Map();
-  public install() {
+  public install(): string {
     return Lazy.string({
       produce: () => {
         if (!DynamicPackage.installedPackagePath.has(this.spec)) {
