@@ -1,4 +1,11 @@
 
+### [3.11.2](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.1...v3.11.2) (2022-08-24)
+
+
+### Bug Fixes
+
+* esbuild discovery can't find module installed in project ([#234](https://github.com/mrgrain/cdk-esbuild/issues/234)) ([58d7604](https://github.com/mrgrain/cdk-esbuild/commit/58d7604096fb4f7f638a873a90a714565a078d69)), closes [#233](https://github.com/mrgrain/cdk-esbuild/issues/233)
+
 ### [3.11.1](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.0...v3.11.1) (2022-08-22)
 
 
