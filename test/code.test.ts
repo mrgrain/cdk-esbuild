@@ -280,7 +280,7 @@ describe('with an esbuild module path from', () => {
           handler: 'index.handler',
           code,
         });
-      }).toThrow("TypeError: Cannot read property 'buildSync' of undefined");
+      }).toThrow('TypeError: Cannot read');
     });
 
     it('will report bundling failures', () => {
