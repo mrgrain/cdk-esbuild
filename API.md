@@ -566,6 +566,18 @@ Documentation: https://esbuild.github.io/api/#jsx-import-source.
 
 ---
 
+##### `jsxSideEffects`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.jsxSideEffects"></a>
+
+```typescript
+public readonly jsxSideEffects: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-side-effects.
+
+---
+
 ##### `keepNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.keepNames"></a>
 
 ```typescript
@@ -1731,6 +1743,18 @@ public readonly jsxImportSource: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#jsx-import-source.
+
+---
+
+##### `jsxSideEffects`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.jsxSideEffects"></a>
+
+```typescript
+public readonly jsxSideEffects: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-side-effects.
 
 ---
 
