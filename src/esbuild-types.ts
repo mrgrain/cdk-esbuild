@@ -63,6 +63,8 @@ interface CommonOptions {
   readonly jsxImportSource?: string;
   /** Documentation: https://esbuild.github.io/api/#jsx-development */
   readonly jsxDev?: boolean;
+  /** Documentation: https://esbuild.github.io/api/#jsx-side-effects */
+  readonly jsxSideEffects?: boolean;
 
   /** Documentation: https://esbuild.github.io/api/#define */
   readonly define?: { [key: string]: string };
@@ -432,6 +434,7 @@ export interface Metafile {
       }[];
       exports: string[];
       entryPoint?: string;
+      cssBundle?: string;
     };
   };
 }
