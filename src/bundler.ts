@@ -8,7 +8,7 @@ import {
 } from 'aws-cdk-lib';
 import { EsbuildProvider } from './esbuild-provider';
 import { BuildOptions } from './esbuild-types';
-import { errorHasCode } from './utils';
+import { isEsbuildError } from './utils';
 
 /**
  * A path or list or map of paths to the entry points of your code.
@@ -205,9 +205,10 @@ export class EsbuildBundler {
             ...this.getOutputOptions(outputDir, { normalize, join }),
           });
         } catch (error) {
-          if (errorHasCode(error, 'MODULE_NOT_FOUND')) {
-            throw error;
+          if (isEsbuildError(error)) {
+            throw new Error(`Esbuild failed to bundle ${entryPoints}`);
           }
+          throw error;
         }
 
         return true;
