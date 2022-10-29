@@ -134,7 +134,7 @@ describe('using transformerProps', () => {
       expect(() => {
         const code = new InlineTypeScriptCode('let : d ===== 1');
         code.bind(new Stack());
-      }).toThrowError('Failed to transform InlineTypeScriptCode');
+      }).toThrowError('Esbuild failed to transform InlineTypeScriptCode');
     });
 
     // Currently no way to capture esbuild output,
@@ -145,7 +145,7 @@ describe('using transformerProps', () => {
       expect(() => {
         const code = new InlineTypeScriptCode('let : d ===== 1');
         code.bind(new Stack());
-      }).toThrowError('Failed to transform InlineTypeScriptCode');
+      }).toThrowError('Esbuild failed to transform InlineTypeScriptCode');
 
       expect(processStdErrWriteSpy).toBeCalledWith(expect.stringContaining('Unexpected "=="'));
 

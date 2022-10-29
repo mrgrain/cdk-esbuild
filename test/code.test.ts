@@ -265,6 +265,38 @@ describe('with an esbuild module path from', () => {
       });
     });
   });
+
+  describe('failure cases', () => {
+    it('will report issues with the module', () => {
+      providerSpy.mockReturnValue(undefined as any);
+      expect(() => {
+        const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+          buildOptions: { absWorkingDir: resolve(__dirname) },
+          esbuildModulePath: '/path/provided/by/prop',
+        });
+
+        new Function(stack, 'MyFunction', {
+          runtime: LambdaRuntime.NODEJS_14_X,
+          handler: 'index.handler',
+          code,
+        });
+      }).toThrow("TypeError: Cannot read property 'buildSync' of undefined");
+    });
+
+    it('will report bundling failures', () => {
+      expect(() => {
+        const code = new JavaScriptCode('fixtures/handlers/invalid-handler.js', {
+          buildOptions: { absWorkingDir: resolve(__dirname) },
+        });
+
+        new Function(stack, 'MyFunction', {
+          runtime: LambdaRuntime.NODEJS_14_X,
+          handler: 'index.handler',
+          code,
+        });
+      }).toThrow('Esbuild failed to bundle fixtures/handlers/invalid-handler.js');
+    });
+  });
 });
 
 describe('AWS Lambda', () => {

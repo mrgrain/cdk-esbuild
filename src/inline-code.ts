@@ -3,7 +3,7 @@ import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { Construct, Node } from 'constructs';
 import { EsbuildProvider } from './esbuild-provider';
 import { TransformOptions, Loader } from './esbuild-types';
-import { errorHasCode } from './utils';
+import { isEsbuildError } from './utils';
 
 /**
  * @stability experimental
@@ -83,10 +83,10 @@ abstract class BaseInlineCode extends InlineCode {
 
           return transformedCode.code;
         } catch (error) {
-          if (errorHasCode(error, 'MODULE_NOT_FOUND')) {
-            throw error;
+          if (isEsbuildError(error)) {
+            throw new Error(`Esbuild failed to transform ${this.constructor.name}`);
           }
-          throw new Error(`Failed to transform ${this.constructor.name}`);
+          throw error;
         }
       },
     });
