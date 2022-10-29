@@ -1,4 +1,11 @@
 
+### [3.11.3](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.2...v3.11.3) (2022-10-29)
+
+
+### Bug Fixes
+
+* bundler silently fails in case of an error ([#239](https://github.com/mrgrain/cdk-esbuild/issues/239)) ([3a63486](https://github.com/mrgrain/cdk-esbuild/commit/3a63486414f055e5a0b6b71bc443a649069fd034)), closes [#237](https://github.com/mrgrain/cdk-esbuild/issues/237)
+
 ### [3.11.2](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.1...v3.11.2) (2022-08-24)
 
 
