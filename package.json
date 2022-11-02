@@ -62,7 +62,7 @@
     "jsii-pacmak": "^1.70.0",
     "json-schema": "^0.4.0",
     "npm-check-updates": "^16",
-    "projen": "^0.65.4",
+    "projen": "^0.65.11",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^15.1.0",
@@ -154,8 +154,6 @@
     "twitter": "@mrgrain"
   },
   "overrides": {
-    "@types/responselike": "1.0.0",
-    "got": "12.3.1",
     "@types/prettier": "2.6.0"
   },
   "optionalDependencies": {
