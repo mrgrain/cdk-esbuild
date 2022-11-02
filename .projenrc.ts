@@ -1,18 +1,13 @@
-import { awscdk, javascript, vscode } from 'projen';
-import { ReleaseTrigger } from 'projen/lib/release';
-import { InternalConsoleOptions } from 'projen/lib/vscode';
+import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { tagOnNpm } from './projenrc/release';
-import { TypeScriptSourceFile } from './projenrc/TypeScriptSourceFile';
+import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
 import { Esbuild } from './src/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
+  packageManager: javascript.NodePackageManager.NPM,
   projenrcTs: true,
   projenrcTsOptions: {
     filename: '.projenrc.ts',
-  },
-  depsUpgradeOptions: {
-    workflow: false,
   },
 
   // Project info
@@ -39,14 +34,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   license: 'MIT',
   copyrightOwner: 'Moritz Kornher',
 
-  // Testing & Linting
-  githubOptions: {
-    pullRequestLintOptions: {
-      semanticTitleOptions: {
-        types: ['feat', 'fix', 'chore', 'docs', 'ci'],
-      },
-    },
-  },
+  // Testing
   jestOptions: {
     jestConfig: {
       testPathIgnorePatterns: ['/node_modules/', '/examples/'],
@@ -54,14 +42,30 @@ const project = new awscdk.AwsCdkConstructLibrary({
     },
   },
 
+  // Automation
+  githubOptions: {
+    projenCredentials: github.GithubCredentials.fromApp(),
+    pullRequestLintOptions: {
+      semanticTitleOptions: {
+        types: ['feat', 'fix', 'chore', 'docs', 'ci'],
+      },
+    },
+  },
+  autoApproveUpgrades: true,
+  autoApproveOptions: {
+    allowedUsernames: [
+      'projen-builder[bot]', // Bot account for upgrade PRs
+      'mrgrain', // Auto-approve PRs of main maintainer
+    ],
+  },
+
   // Release
-  packageManager: javascript.NodePackageManager.NPM,
   npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 3,
   releaseTrigger: {
     isContinuous: false,
-  } as ReleaseTrigger,
+  } as release.ReleaseTrigger,
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -215,7 +219,7 @@ editor.launchConfiguration.addConfiguration(
     type: 'node',
     name: 'vscode-jest-tests.v2',
     request: 'launch',
-    internalConsoleOptions: InternalConsoleOptions.NEVER_OPEN,
+    internalConsoleOptions: vscode.InternalConsoleOptions.NEVER_OPEN,
     program: '${workspaceFolder}/node_modules/.bin/jest',
     args: [
       '--runInBand',
