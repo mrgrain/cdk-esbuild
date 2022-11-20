@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Update npm
-        run: sudo npm i -g npm
+        run: sudo npm i -g npm@8
       - name: Install dependencies
         run: npm install
       - name: build
