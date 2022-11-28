@@ -290,6 +290,18 @@ Documentation: https://esbuild.github.io/api/#working-directory.
 
 ---
 
+##### `alias`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.alias"></a>
+
+```typescript
+public readonly alias: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#alias.
+
+---
+
 ##### `allowOverwrite`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.allowOverwrite"></a>
 
 ```typescript
