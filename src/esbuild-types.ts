@@ -100,8 +100,6 @@ export interface BuildOptions extends CommonOptions {
   readonly outbase?: string;
   /** Documentation: https://esbuild.github.io/api/#external */
   readonly external?: string[];
-  /** Documentation: https://esbuild.github.io/api/#packages */
-  readonly packages?: 'external';
   /** Documentation: https://esbuild.github.io/api/#alias */
   readonly alias?: Record<string, string>;
   /** Documentation: https://esbuild.github.io/api/#loader */
@@ -189,8 +187,8 @@ export interface OutputFile {
   path: string;
   /** "text" as bytes */
   contents: Uint8Array;
-  /** "contents" as text (changes automatically with "contents") */
-  get text(): string;
+  /** "contents" as text */
+  text: string;
 }
 
 export interface BuildInvalidate {
