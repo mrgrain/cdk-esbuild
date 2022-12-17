@@ -1,4 +1,6 @@
 
+### [3.11.6](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.5...v3.11.6) (2022-12-17)
+
 ### [3.11.5](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.4...v3.11.5) (2022-12-03)
 
 ### [3.11.4](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.3...v3.11.4) (2022-11-05)
