@@ -2,7 +2,7 @@
 
 export type Platform = 'browser' | 'node' | 'neutral';
 export type Format = 'iife' | 'cjs' | 'esm';
-export type Loader = 'js' | 'jsx' | 'ts' | 'tsx' | 'css' | 'json' | 'text' | 'base64' | 'file' | 'dataurl' | 'binary' | 'copy' | 'default';
+export type Loader = 'base64' | 'binary' | 'copy' | 'css' | 'dataurl' | 'default' | 'empty' | 'file' | 'js' | 'json' | 'jsx' | 'text' | 'ts' | 'tsx';
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'silent';
 export type Charset = 'ascii' | 'utf8';
 export type Drop = 'console' | 'debugger';
@@ -100,6 +100,8 @@ export interface BuildOptions extends CommonOptions {
   readonly outbase?: string;
   /** Documentation: https://esbuild.github.io/api/#external */
   readonly external?: string[];
+  /** Documentation: https://esbuild.github.io/api/#packages */
+  readonly packages?: 'external';
   /** Documentation: https://esbuild.github.io/api/#alias */
   readonly alias?: Record<string, string>;
   /** Documentation: https://esbuild.github.io/api/#loader */
@@ -181,14 +183,6 @@ export interface Location {
   length: number;
   lineText: string;
   suggestion: string;
-}
-
-export interface OutputFile {
-  path: string;
-  /** "text" as bytes */
-  contents: Uint8Array;
-  /** "contents" as text */
-  text: string;
 }
 
 export interface BuildInvalidate {
@@ -419,6 +413,7 @@ export interface Metafile {
       imports: {
         path: string;
         kind: ImportKind;
+        external?: boolean;
       }[];
     };
   };
@@ -432,7 +427,8 @@ export interface Metafile {
       };
       imports: {
         path: string;
-        kind: ImportKind;
+        kind: ImportKind | 'file-loader';
+        external?: boolean;
       }[];
       exports: string[];
       entryPoint?: string;
@@ -591,6 +587,14 @@ export interface InitializeOptions {
 }
 
 export let version: string;
+
+export interface OutputFile {
+  path: string;
+  /** "text" as bytes */
+  contents: Uint8Array;
+  /** "contents" as text (changes automatically with "contents") */
+  text: string;
+}
 
 export interface CompilerOptions {
   readonly jsxFactory?: string;

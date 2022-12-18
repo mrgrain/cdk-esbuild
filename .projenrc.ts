@@ -1,5 +1,5 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
-import { SourceFile } from 'ts-morph';
+import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
 import { Esbuild } from './src/esbuild-source';
 
@@ -254,8 +254,27 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
       properties.forEach(property => interfaceDeclaration?.getProperty(property)?.remove());
     };
 
+    const convertAccessors = (name: string) => {
+      const interfaceObj = esbuildTypes.getInterface(name);
+      if (interfaceObj) {
+        const structure = interfaceObj.getStructure();
+        const getters = interfaceObj.getMembers().filter(m => m.getKind() === SyntaxKind.GetAccessor);
+        for (const getter of getters) {
+          structure.properties?.push({
+            name: (getter as unknown as GetAccessorDeclaration).getName(),
+            type: (getter as unknown as GetAccessorDeclaration).getReturnType().getText(),
+            docs: (getter as unknown as GetAccessorDeclaration).getJsDocs().map(d => d.getStructure()),
+          });
+        }
+
+        interfaceObj.remove();
+        esbuildTypes.addInterface(structure);
+      }
+    };
+
 
     ['CommonOptions', 'BuildOptions', 'TransformOptions'].forEach(readonlyInterface);
+    ['OutputFile'].forEach(convertAccessors);
     removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
