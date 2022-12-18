@@ -2389,7 +2389,7 @@ Examples:
 
 - *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
-Props to change the behaviour of the bundler.
+Props to change the behavior of the bundler.
 
 ---
 
@@ -2452,7 +2452,7 @@ public readonly props: BundlerProps;
 
 - *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
-Props to change the behaviour of the bundler.
+Props to change the behavior of the bundler.
 
 ---
 
@@ -2684,7 +2684,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineJavaScriptCode } from '@mrgrain/cdk-esbuild'
 
-new InlineJavaScriptCode(code: string, props?: TransformOptions | TransformerProps)
+new InlineJavaScriptCode(code: string, props?: TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.code"></a>
@@ -2697,11 +2697,9 @@ The inline code to be transformed.
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-
-Props to change the behaviour of the transformer.
+Props to change the behavior of the transformer.
 
 Default values for `props.transformOptions`:
 - `loader='js'`
@@ -2749,7 +2747,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineJsxCode } from '@mrgrain/cdk-esbuild'
 
-new InlineJsxCode(code: string, props?: TransformOptions | TransformerProps)
+new InlineJsxCode(code: string, props?: TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.code"></a>
@@ -2762,11 +2760,9 @@ The inline code to be transformed.
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineJsxCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-
-Props to change the behaviour of the transformer.
+Props to change the behavior of the transformer.
 
 Default values for `transformOptions`:
 - `loader='jsx'`
@@ -2814,7 +2810,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineTsxCode } from '@mrgrain/cdk-esbuild'
 
-new InlineTsxCode(code: string, props?: TransformOptions | TransformerProps)
+new InlineTsxCode(code: string, props?: TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.code"></a>
@@ -2827,11 +2823,9 @@ The inline code to be transformed.
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTsxCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-
-Props to change the behaviour of the transformer.
+Props to change the behavior of the transformer.
 
 Default values for `transformOptions`:
 - `loader='tsx'`
@@ -2879,7 +2873,7 @@ An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline
 ```typescript
 import { InlineTypeScriptCode } from '@mrgrain/cdk-esbuild'
 
-new InlineTypeScriptCode(code: string, props?: TransformOptions | TransformerProps)
+new InlineTypeScriptCode(code: string, props?: TransformerProps)
 ```
 
 ##### `code`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.code"></a>
@@ -2892,11 +2886,9 @@ The inline code to be transformed.
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.InlineTypeScriptCode.parameter.props"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions) | [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
+- *Type:* [`@mrgrain/cdk-esbuild.TransformerProps`](#@mrgrain/cdk-esbuild.TransformerProps)
 
-Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-
-Props to change the behaviour of the transformer.
+Props to change the behavior of the transformer.
 
 Default values for `transformOptions`:
 - `loader='ts'`
