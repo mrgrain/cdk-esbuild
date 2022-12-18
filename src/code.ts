@@ -10,10 +10,7 @@ import {
 } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
-
-function nodeMajorVersion(): number {
-  return parseInt(process.versions.node.split('.')[0], 10);
-}
+import { defaultPlatformProps } from './utils';
 
 export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 export interface JavaScriptCodeProps extends AssetBaseProps {};
@@ -81,12 +78,7 @@ export class EsbuildCode<
   ) {
     super();
 
-    const defaultOptions: Partial<BuildOptions> = {
-      ...(!props.buildOptions?.platform ||
-      props.buildOptions?.platform === 'node'
-        ? { platform: 'node', target: 'node' + nodeMajorVersion() }
-        : {}),
-    };
+    const defaultOptions: Partial<BuildOptions> = defaultPlatformProps(props.buildOptions);
 
     this.props = {
       ...props,

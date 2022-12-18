@@ -2703,6 +2703,8 @@ Props to change the behavior of the transformer.
 
 Default values for `props.transformOptions`:
 - `loader='js'`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
 
 > https://esbuild.github.io/api/#transform-api
 
@@ -2766,6 +2768,8 @@ Props to change the behavior of the transformer.
 
 Default values for `transformOptions`:
 - `loader='ts'`
+- `platform=node`
+- `target=nodeX` with X being the major node version running locally
 
 > https://esbuild.github.io/api/#transform-api
 
