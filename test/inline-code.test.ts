@@ -12,23 +12,6 @@ import { EsbuildProvider } from '../src/esbuild-provider';
 
 const providerSpy = jest.spyOn(EsbuildProvider, '_require');
 
-describe('using transformOptions', () => {
-  describe('given a banner code', () => {
-    it('should add the banner before the code', () => {
-      const code = new InlineJavaScriptCode(
-        "const banana = 'fruit' ?? 'vegetable'",
-        {
-          banner: '/** BANNER */',
-        },
-      );
-
-      const { inlineCode } = code.bind(new Stack());
-
-      expect(inlineCode).toBe('/** BANNER */\nconst banana = "fruit";\n');
-    });
-  });
-});
-
 describe('using transformerProps', () => {
   describe('given some js code', () => {
     it('should transform the code', () => {

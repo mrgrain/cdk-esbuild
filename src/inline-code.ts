@@ -102,28 +102,7 @@ abstract class BaseInlineCode extends InlineCode {
   }
 }
 
-function instanceOfTransformerProps(object: any): object is TransformerProps {
-  return [
-    'transformOptions',
-    'transformFn',
-    'esbuildBinaryPath',
-    'esbuildModulePath',
-  ].reduce(
-    (isTransformerProps: boolean, propToCheck: string): boolean =>
-      (isTransformerProps || (propToCheck in object)),
-    false,
-  );
-}
-
-function transformerProps(loader: Loader, props?: TransformerProps | TransformOptions): TransformerProps {
-  if (!props) {
-    return { transformOptions: { loader } };
-  }
-
-  if (!instanceOfTransformerProps(props) ) {
-    return { transformOptions: { loader, ...props } };
-  }
-
+function transformerProps(loader: Loader, props: TransformerProps = {}): TransformerProps {
   return {
     ...props,
     transformOptions: {
@@ -132,7 +111,6 @@ function transformerProps(loader: Loader, props?: TransformerProps | TransformOp
     },
   };
 }
-
 
 /**
  * An implementation of `lambda.InlineCode` using the esbuild Transform API. Inline function code is limited to 4 KiB after transformation.
@@ -148,9 +126,7 @@ export class InlineJavaScriptCode extends BaseInlineCode {
      */
     code: string,
     /**
-     * Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-     *
-     * Props to change the behaviour of the transformer.
+     * Props to change the behavior of the transformer.
      *
      * Default values for `props.transformOptions`:
      * - `loader='js'`
@@ -158,7 +134,7 @@ export class InlineJavaScriptCode extends BaseInlineCode {
      * @see https://esbuild.github.io/api/#transform-api
      * @stability experimental
      */
-    props?: TransformerProps | TransformOptions,
+    props?: TransformerProps,
   ) {
 
     super(code, transformerProps('js', props));
@@ -179,9 +155,7 @@ export class InlineJsxCode extends BaseInlineCode {
      */
     code: string,
     /**
-     * Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-     *
-     * Props to change the behaviour of the transformer.
+     * Props to change the behavior of the transformer.
      *
      * Default values for `transformOptions`:
      * - `loader='jsx'`
@@ -189,7 +163,7 @@ export class InlineJsxCode extends BaseInlineCode {
      * @see https://esbuild.github.io/api/#transform-api
      * @stability experimental
      */
-    props?: TransformerProps | TransformOptions,
+    props?: TransformerProps,
   ) {
     super(code, transformerProps('jsx', props));
   }
@@ -209,9 +183,7 @@ export class InlineTypeScriptCode extends BaseInlineCode {
      */
     code: string,
     /**
-     * Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-     *
-     * Props to change the behaviour of the transformer.
+     * Props to change the behavior of the transformer.
      *
      * Default values for `transformOptions`:
      * - `loader='ts'`
@@ -219,7 +191,7 @@ export class InlineTypeScriptCode extends BaseInlineCode {
      * @see https://esbuild.github.io/api/#transform-api
      * @stability experimental
      */
-    props?: TransformerProps | TransformOptions,
+    props?: TransformerProps,
   ) {
     super(code, transformerProps('ts', props));
   }
@@ -239,9 +211,7 @@ export class InlineTsxCode extends BaseInlineCode {
      */
     code: string,
     /**
-     * Support for `TransformOptions` is deprecated. Please provide `TransformerProps`!
-     *
-     * Props to change the behaviour of the transformer.
+     * Props to change the behavior of the transformer.
      *
      * Default values for `transformOptions`:
      * - `loader='tsx'`
@@ -249,7 +219,7 @@ export class InlineTsxCode extends BaseInlineCode {
      * @see https://esbuild.github.io/api/#transform-api
      * @stability experimental
      */
-    props?: TransformerProps | TransformOptions,
+    props?: TransformerProps,
   ) {
     super(code, transformerProps('tsx', props));
   }

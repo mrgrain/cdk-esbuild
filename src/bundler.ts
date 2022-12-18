@@ -162,7 +162,7 @@ export class EsbuildBundler {
     public readonly entryPoints: EntryPoints,
 
     /**
-     * Props to change the behaviour of the bundler.
+     * Props to change the behavior of the bundler.
      *
      * @stability experimental
      */
