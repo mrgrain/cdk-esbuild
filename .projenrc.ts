@@ -60,9 +60,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  npmDistTag: 'latest',
+  npmDistTag: 'next',
   defaultReleaseBranch: 'main',
-  majorVersion: 3,
+  majorVersion: 4,
+  prerelease: 'alpha',
+  releaseBranches: {
+    v3: {
+      majorVersion: 3,
+    },
+  },
   releaseTrigger: {
     isContinuous: false,
   } as release.ReleaseTrigger,
@@ -174,8 +180,18 @@ project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
 // add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
   'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
+  tagOnNpm(project.package.packageName, ['unstable', 'next']),
 );
+
+// ... but release v3 weekly
+const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
+v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
+v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
+v3ReleaseWorkflow?.addToArray(
+  'jobs.release_npm.steps',
+  tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
+);
+
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';

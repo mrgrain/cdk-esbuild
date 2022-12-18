@@ -26,6 +26,7 @@
     "prepare:readme": "npx projen prepare:readme",
     "publish:git": "npx projen publish:git",
     "release": "npx projen release",
+    "release:v3": "npx projen release:v3",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
