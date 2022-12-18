@@ -3,7 +3,7 @@ import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { Construct, Node } from 'constructs';
 import { EsbuildProvider } from './esbuild-provider';
 import { TransformOptions, Loader } from './esbuild-types';
-import { isEsbuildError } from './utils';
+import { defaultPlatformProps, isEsbuildError } from './utils';
 
 /**
  * @stability stable
@@ -107,6 +107,8 @@ function transformerProps(loader: Loader, props: TransformerProps = {}): Transfo
     ...props,
     transformOptions: {
       loader,
+      format: 'cjs',
+      ...defaultPlatformProps(props.transformOptions),
       ...props.transformOptions,
     },
   };
@@ -130,13 +132,14 @@ export class InlineJavaScriptCode extends BaseInlineCode {
      *
      * Default values for `props.transformOptions`:
      * - `loader='js'`
+     * - `platform=node`
+     * - `target=nodeX` with X being the major node version running locally
      *
      * @see https://esbuild.github.io/api/#transform-api
      * @stability stable
      */
     props?: TransformerProps,
   ) {
-
     super(code, transformerProps('js', props));
   }
 }
@@ -160,6 +163,8 @@ export class InlineTypeScriptCode extends BaseInlineCode {
      *
      * Default values for `transformOptions`:
      * - `loader='ts'`
+     * - `platform=node`
+     * - `target=nodeX` with X being the major node version running locally
      *
      * @see https://esbuild.github.io/api/#transform-api
      * @stability stable
