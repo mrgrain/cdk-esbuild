@@ -1,4 +1,11 @@
 
+## [3.13.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.6...v3.13.0) (2022-12-18)
+
+
+### Features
+
+* upgrade esbuild to 0.16.0 ([#279](https://github.com/mrgrain/cdk-esbuild/issues/279)) ([20bdefa](https://github.com/mrgrain/cdk-esbuild/commit/20bdefac870d13285e4ec4e2765b493f316e2320))
+
 ### [3.11.6](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.5...v3.11.6) (2022-12-17)
 
 ### [3.11.5](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.4...v3.11.5) (2022-12-03)
