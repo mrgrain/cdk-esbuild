@@ -35,8 +35,6 @@ export {
 export {
   TransformerProps,
   InlineJavaScriptCode,
-  InlineJsxCode,
-  InlineTsxCode,
   InlineTypeScriptCode,
 } from './inline-code';
 
