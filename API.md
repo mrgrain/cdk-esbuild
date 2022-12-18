@@ -830,6 +830,18 @@ Documentation: https://esbuild.github.io/api/#outfile.
 
 ---
 
+##### `packages`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.packages"></a>
+
+```typescript
+public readonly packages: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#packages.
+
+---
+
 ##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.platform"></a>
 
 ```typescript
