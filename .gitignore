@@ -46,8 +46,10 @@ junit.xml
 /dist/changelog.md
 /dist/version.txt
 !/.github/workflows/release.yml
+!/.github/workflows/release-v3.yml
 !/.mergify.yml
 !/.github/workflows/upgrade-main.yml
+!/.github/workflows/upgrade-v3.yml
 !/.github/pull_request_template.md
 !/test/
 !/tsconfig.dev.json
