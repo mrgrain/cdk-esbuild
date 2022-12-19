@@ -1,7 +1,7 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
-import { Esbuild } from './src/esbuild-source';
+import { Esbuild } from './src/private/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -291,7 +291,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 
     ['CommonOptions', 'BuildOptions', 'TransformOptions'].forEach(readonlyInterface);
     ['OutputFile'].forEach(convertAccessors);
-    removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
+    removeFromInterface('BuildOptions', ['stdin', 'plugins', 'watch']);
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
     esbuildTypes.getInterface('InitializeOptions')?.getProperty('wasmModule')?.setType('any');

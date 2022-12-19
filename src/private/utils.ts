@@ -1,4 +1,4 @@
-import { BuildOptions, Platform, TransformOptions } from './esbuild-types';
+import { BuildOptions, Platform, TransformOptions } from '../esbuild-types';
 
 export function isEsbuildError(error: unknown): boolean {
   return !!error

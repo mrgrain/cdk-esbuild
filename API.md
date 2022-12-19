@@ -122,22 +122,6 @@ import { AssetProps } from '@mrgrain/cdk-esbuild'
 const assetProps: AssetProps = { ... }
 ```
 
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
-
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildOptions"></a>
 
 ```typescript
@@ -161,6 +145,22 @@ Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#
 If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
 
 > https://esbuild.github.io/api/#build-api
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
 
 ---
 
@@ -188,44 +188,6 @@ The destination cannot be outside of the asset staging directory.
 If you are receiving the error "Cannot copy files to outside of the asset staging directory."
 you are likely using `..` or an absolute path as key on the `copyDir` map.
 Instead use only relative paths and avoid `..`.
-
----
-
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.AssetProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 ---
 
@@ -431,6 +393,18 @@ public readonly entryNames: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#entry-names.
+
+---
+
+##### `entryPoints`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string`[] | {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#entry-points.
 
 ---
 
@@ -1032,22 +1006,6 @@ import { BundlerProps } from '@mrgrain/cdk-esbuild'
 const bundlerProps: BundlerProps = { ... }
 ```
 
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
-
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildOptions"></a>
 
 ```typescript
@@ -1071,6 +1029,22 @@ Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#
 If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
 
 > https://esbuild.github.io/api/#build-api
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
 
 ---
 
@@ -1098,44 +1072,6 @@ The destination cannot be outside of the asset staging directory.
 If you are receiving the error "Cannot copy files to outside of the asset staging directory."
 you are likely using `..` or an absolute path as key on the `copyDir` map.
 Instead use only relative paths and avoid `..`.
-
----
-
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BundlerProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 ---
 
@@ -1250,6 +1186,58 @@ public readonly useDefineForClassFields: boolean;
 
 ---
 
+### EsbuildProviderProps <a name="@mrgrain/cdk-esbuild.EsbuildProviderProps"></a>
+
+Configure the default EsbuildProvider.
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { EsbuildProviderProps } from '@mrgrain/cdk-esbuild'
+
+const esbuildProviderProps: EsbuildProviderProps = { ... }
+```
+
+##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProviderProps.property.esbuildBinaryPath"></a>
+
+```typescript
+public readonly esbuildBinaryPath: string;
+```
+
+- *Type:* `string`
+
+Path to the binary used by esbuild.
+
+This is the same as setting the ESBUILD_BINARY_PATH environment variable.
+
+---
+
+##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProviderProps.property.esbuildModulePath"></a>
+
+```typescript
+public readonly esbuildModulePath: string;
+```
+
+- *Type:* `string`
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+
+Absolute path to the esbuild module JS file.
+
+E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
+
+If not set, the module path will be determined in the following order:
+
+- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
+- In TypeScript, fallback to the default Node.js package resolution mechanism
+- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
+   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+
+Use the static methods on `EsbuildSource` to customize the default behavior.
+
+---
+
 ### JavaScriptCodeProps <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
@@ -1259,22 +1247,6 @@ import { JavaScriptCodeProps } from '@mrgrain/cdk-esbuild'
 
 const javaScriptCodeProps: JavaScriptCodeProps = { ... }
 ```
-
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
 
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildOptions"></a>
 
@@ -1299,6 +1271,22 @@ Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#
 If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
 
 > https://esbuild.github.io/api/#build-api
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
 
 ---
 
@@ -1329,44 +1317,6 @@ Instead use only relative paths and avoid `..`.
 
 ---
 
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-
----
-
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCodeProps.property.assetHash"></a>
 
 ```typescript
@@ -1393,22 +1343,6 @@ import { JavaScriptSourceProps } from '@mrgrain/cdk-esbuild'
 const javaScriptSourceProps: JavaScriptSourceProps = { ... }
 ```
 
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
-
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildOptions"></a>
 
 ```typescript
@@ -1432,6 +1366,22 @@ Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#
 If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
 
 > https://esbuild.github.io/api/#build-api
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
 
 ---
 
@@ -1462,44 +1412,6 @@ Instead use only relative paths and avoid `..`.
 
 ---
 
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-
----
-
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptSourceProps.property.assetHash"></a>
 
 ```typescript
@@ -1526,60 +1438,6 @@ import { TransformerProps } from '@mrgrain/cdk-esbuild'
 const transformerProps: TransformerProps = { ... }
 ```
 
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-
----
-
-##### `transformFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformFn"></a>
-
-```typescript
-public readonly transformFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.transformSync`
-
-Escape hatch to provide the bundler with a custom transform function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however a TransformResult must be returned to integrate with CDK.
-Must throw a `TransformFailure` on failure to correctly inform the bundler.
-
----
-
 ##### `transformOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformOptions"></a>
 
 ```typescript
@@ -1593,6 +1451,22 @@ Transform options passed on to esbuild.
 Please refer to the esbuild Transform API docs for details.
 
 > https://esbuild.github.io/api/#transform-api
+
+---
+
+##### `transformProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformerProps.property.transformProvider"></a>
+
+```typescript
+public readonly transformProvider: ITransformProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+- *Default:* new DefaultEsbuildProvider()
+
+The esbuild Transform API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `ITransformProvider` as an escape hatch.
 
 ---
 
@@ -2094,22 +1968,6 @@ import { TypeScriptCodeProps } from '@mrgrain/cdk-esbuild'
 const typeScriptCodeProps: TypeScriptCodeProps = { ... }
 ```
 
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
-
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildOptions"></a>
 
 ```typescript
@@ -2133,6 +1991,22 @@ Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#
 If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
 
 > https://esbuild.github.io/api/#build-api
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
 
 ---
 
@@ -2163,44 +2037,6 @@ Instead use only relative paths and avoid `..`.
 
 ---
 
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-
----
-
 ##### `assetHash`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCodeProps.property.assetHash"></a>
 
 ```typescript
@@ -2226,22 +2062,6 @@ import { TypeScriptSourceProps } from '@mrgrain/cdk-esbuild'
 
 const typeScriptSourceProps: TypeScriptSourceProps = { ... }
 ```
-
-##### `buildFn`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildFn"></a>
-
-```typescript
-public readonly buildFn: any;
-```
-
-- *Type:* `any`
-- *Default:* `esbuild.buildSync`
-
-Escape hatch to provide the bundler with a custom build function.
-
-The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-Must throw a `BuildFailure` on failure to correctly inform the bundler.
-
----
 
 ##### `buildOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildOptions"></a>
 
@@ -2269,6 +2089,22 @@ If paths cannot be found, a good starting point is to look at the concatenation 
 
 ---
 
+##### `buildProvider`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
+
+---
+
 ##### `copyDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.copyDir"></a>
 
 ```typescript
@@ -2293,44 +2129,6 @@ The destination cannot be outside of the asset staging directory.
 If you are receiving the error "Cannot copy files to outside of the asset staging directory."
 you are likely using `..` or an absolute path as key on the `copyDir` map.
 Instead use only relative paths and avoid `..`.
-
----
-
-##### `esbuildBinaryPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.esbuildBinaryPath"></a>
-
-```typescript
-public readonly esbuildBinaryPath: string;
-```
-
-- *Type:* `string`
-
-Path to the binary used by esbuild.
-
-This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-
----
-
-##### `esbuildModulePath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptSourceProps.property.esbuildModulePath"></a>
-
-```typescript
-public readonly esbuildModulePath: string;
-```
-
-- *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-
-Absolute path to the esbuild module JS file.
-
-E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-
-If not set, the module path will be determined in the following order:
-
-- Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-- In TypeScript, fallback to the default Node.js package resolution mechanism
-- All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 ---
 
@@ -2574,6 +2372,67 @@ public readonly isInline: boolean;
 Determines whether this Code is inline code or not.
 
 ---
+
+
+### EsbuildProvider <a name="@mrgrain/cdk-esbuild.EsbuildProvider"></a>
+
+- *Implements:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider), [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+
+Default esbuild implementation calling esbuild's JavaScript API.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildProvider.Initializer"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+new EsbuildProvider(scope?: Construct, props?: EsbuildProviderProps)
+```
+
+##### `scope`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.EsbuildProviderProps`](#@mrgrain/cdk-esbuild.EsbuildProviderProps)
+
+---
+
+#### Methods <a name="Methods"></a>
+
+##### `buildSync` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.buildSync"></a>
+
+```typescript
+public buildSync(options: BuildOptions)
+```
+
+###### `options`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.options"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+---
+
+##### `transformSync` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.transformSync"></a>
+
+```typescript
+public transformSync(input: string, options?: TransformOptions)
+```
+
+###### `input`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.input"></a>
+
+- *Type:* `string`
+
+---
+
+###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.options"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+---
+
+
 
 
 ### EsbuildSource <a name="@mrgrain/cdk-esbuild.EsbuildSource"></a>
@@ -3054,5 +2913,54 @@ public readonly assetClass: TypeScriptAsset;
 
 ---
 
+
+## Protocols <a name="Protocols"></a>
+
+### IBuildProvider <a name="@mrgrain/cdk-esbuild.IBuildProvider"></a>
+
+- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+
+Provides an implementation of the esbuild Build API.
+
+#### Methods <a name="Methods"></a>
+
+##### `buildSync` <a name="@mrgrain/cdk-esbuild.IBuildProvider.buildSync"></a>
+
+```typescript
+public buildSync(options: BuildOptions)
+```
+
+###### `options`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.IBuildProvider.parameter.options"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+
+---
+
+
+### ITransformProvider <a name="@mrgrain/cdk-esbuild.ITransformProvider"></a>
+
+- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+
+Provides an implementation of the esbuild Transform API.
+
+#### Methods <a name="Methods"></a>
+
+##### `transformSync` <a name="@mrgrain/cdk-esbuild.ITransformProvider.transformSync"></a>
+
+```typescript
+public transformSync(input: string, options?: TransformOptions)
+```
+
+###### `input`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.ITransformProvider.parameter.input"></a>
+
+- *Type:* `string`
+
+---
+
+###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ITransformProvider.parameter.options"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+
+---
 
 
