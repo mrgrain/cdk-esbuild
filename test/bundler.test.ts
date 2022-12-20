@@ -2,19 +2,17 @@ import { FileSystem } from 'aws-cdk-lib';
 import * as esbuild from 'esbuild';
 import { mocked } from 'jest-mock';
 import { EsbuildBundler } from '../src/bundler';
-import { EsbuildProvider } from '../src/esbuild-provider';
 import { BuildOptions, BuildResult } from '../src/esbuild-types';
 
-const providerSpy = jest.spyOn(EsbuildProvider, '_require');
 const buildSync = jest.fn();
-providerSpy.mockReturnValue({ buildSync } as any);
+const buildProvider = { buildSync };
 
 describe('bundling', () => {
   describe('Given a project root path', () => {
     it('should keep the relative path for the local bundler', () => {
       const bundler = new EsbuildBundler(
         ['index.ts'],
-        { buildOptions: { absWorkingDir: '/project' } },
+        { buildProvider, buildOptions: { absWorkingDir: '/project' } },
       );
       expect(bundler.entryPoints).toContain('index.ts');
     });
@@ -24,7 +22,7 @@ describe('bundling', () => {
     it('should append outdir behind the cdk asset directory', () => {
       const bundler = new EsbuildBundler(
         ['index.ts'],
-        { buildOptions: { absWorkingDir: '/project', outdir: 'js' } },
+        { buildProvider, buildOptions: { absWorkingDir: '/project', outdir: 'js' } },
       );
 
       expect(bundler.props?.buildOptions?.outdir).toBe('js');
@@ -44,6 +42,7 @@ describe('bundling', () => {
       const bundler = new EsbuildBundler(
         ['index.ts'],
         {
+          buildProvider,
           buildOptions: {
             absWorkingDir: '/project',
             outfile: 'index.js',
@@ -79,6 +78,7 @@ describe('bundling', () => {
         new EsbuildBundler(
           ['index.ts'],
           {
+            buildProvider,
             buildOptions: {
               absWorkingDir: '/project',
               outdir: 'js',
@@ -102,7 +102,7 @@ describe('bundling', () => {
         ['index.ts'],
         {
           buildOptions: { absWorkingDir: '/project', outdir: 'js' },
-          buildFn: customBuild,
+          buildProvider: { buildSync: customBuild },
         },
       );
 
@@ -134,6 +134,7 @@ describe('bundling', () => {
         const bundler = new EsbuildBundler(
           ['index.ts'],
           {
+            buildProvider,
             buildOptions: { absWorkingDir: '/project' },
             copyDir: 'additionalData',
           },
@@ -154,6 +155,7 @@ describe('bundling', () => {
         const bundler = new EsbuildBundler(
           ['index.ts'],
           {
+            buildProvider,
             buildOptions: { absWorkingDir: '/project' },
             copyDir: ['one', 'two', 'three'],
           },
@@ -174,6 +176,7 @@ describe('bundling', () => {
         const bundler = new EsbuildBundler(
           ['index.ts'],
           {
+            buildProvider,
             buildOptions: { absWorkingDir: '/project' },
             copyDir: {
               '.': ['one'],
@@ -203,6 +206,7 @@ describe('bundling', () => {
           const bundler = new EsbuildBundler(
             ['index.ts'],
             {
+              buildProvider,
               copyDir: {
                 '.': ['src'],
                 'nested/directory': ['src'],
@@ -223,6 +227,7 @@ describe('bundling', () => {
         const bundler = new EsbuildBundler(
           ['index.ts'],
           {
+            buildProvider,
             buildOptions: { absWorkingDir: '/project' },
             copyDir: {
               '..': 'not/allowed',
@@ -266,7 +271,7 @@ describe('bundling', () => {
           ['index.ts'],
           {
             buildOptions: { absWorkingDir: '/project', outdir: 'js' },
-            buildFn: customBuild,
+            buildProvider: { buildSync: customBuild },
           },
         );
 
@@ -286,7 +291,7 @@ describe('bundling', () => {
           ['index.ts'],
           {
             buildOptions: { absWorkingDir: '/project', outdir: 'js', color: false },
-            buildFn: customBuild,
+            buildProvider: { buildSync: customBuild },
           },
         );
 

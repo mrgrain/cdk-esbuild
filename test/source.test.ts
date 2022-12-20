@@ -2,11 +2,8 @@ import { resolve } from 'path';
 import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
-import { mocked } from 'jest-mock';
-import { EsbuildProvider } from '../src/esbuild-provider';
+import { EsbuildProvider } from '../src';
 import { JavaScriptSource, TypeScriptSource } from '../src/source';
-
-const buildSync = EsbuildProvider.require().buildSync;
 
 describe('source', () => {
   describe('entrypoint is an absolute path', () => {
@@ -36,7 +33,8 @@ describe('source', () => {
 
     describe('within of the esbuild working dir', () => {
       it('should be fine and rewrite the entrypoint', () => {
-        const customBuild = jest.fn(buildSync);
+        const buildProvider = new EsbuildProvider();
+        const buildSyncSpy = jest.spyOn(buildProvider, 'buildSync');
 
         expect(() => {
           const stack = new Stack();
@@ -46,7 +44,7 @@ describe('source', () => {
             js: require.resolve('./fixtures/handlers/js-handler'),
             ts: require.resolve('./fixtures/handlers/ts-handler'),
           }, {
-            buildFn: customBuild,
+            buildProvider,
           });
 
           const websiteBucket = new Bucket(stack, 'WebsiteBucket', {
@@ -62,7 +60,7 @@ describe('source', () => {
           });
         }).not.toThrow();
 
-        expect(mocked(customBuild)).toHaveBeenCalledWith(
+        expect(buildSyncSpy).toHaveBeenCalledWith(
           expect.objectContaining({
             entryPoints: expect.objectContaining({
               js: 'test/fixtures/handlers/js-handler.js',
