@@ -254,6 +254,8 @@ export interface TransformResult {
   warnings: Message[];
   /** Only when "mangleCache" is present */
   mangleCache?: Record<string, string | false>;
+  /** Only when "legalComments" is "external" */
+  legalComments?: string;
 }
 
 export interface TransformFailure extends Error {
