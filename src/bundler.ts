@@ -1,4 +1,4 @@
-import { mkdirSync } from 'fs';
+import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join, normalize, relative, resolve, posix, isAbsolute } from 'path';
 import {
   BundlingOptions,
@@ -159,6 +159,9 @@ export class EsbuildBundler {
               throw new Error('Cannot copy files to outside of the asset staging directory. See docs for details.');
             }
 
+            if (existsSync(destDir)) {
+              rmSync(destDir, { recursive: true, force: true });
+            }
             mkdirSync(destDir, { recursive: true });
             FileSystem.copyDirectory(srcDir, destDir);
           });
