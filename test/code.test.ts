@@ -141,6 +141,22 @@ describe('code', () => {
       );
     });
   });
+
+  describe('Given an incorrect entrypoint', () => {
+    it('will report build failures', () => {
+      expect(() => {
+        const code = new JavaScriptCode('fixtures/handlers/invalid-handler.js', {
+          buildOptions: { absWorkingDir: resolve(__dirname) },
+        });
+
+        new Function(new Stack(), 'MyFunction', {
+          runtime: LambdaRuntime.NODEJS_14_X,
+          handler: 'index.handler',
+          code,
+        });
+      }).toThrow('Esbuild failed to bundle fixtures/handlers/invalid-handler.js');
+    });
+  });
 });
 
 describe('AWS Lambda', () => {

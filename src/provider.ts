@@ -136,8 +136,15 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
   private require(path?: string): IBuildProvider & ITransformProvider {
     const module = path || process.env.CDK_ESBUILD_MODULE_PATH || EsbuildSource.default || Esbuild.name;
 
+    return this._require(this.resolve(module));
+  }
+
+  /**
+   * Wrapper for require
+   */
+  private _require(path: string): IBuildProvider & ITransformProvider {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    return require(this.resolve(module));
+    return require(path);
   }
 
   /**
