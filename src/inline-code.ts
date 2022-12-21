@@ -1,9 +1,9 @@
 import { Lazy, Stack } from 'aws-cdk-lib';
 import { CodeConfig, InlineCode } from 'aws-cdk-lib/aws-lambda';
 import { Construct, Node } from 'constructs';
-import { EsbuildProvider } from './esbuild-provider';
 import { TransformOptions, Loader } from './esbuild-types';
-import { defaultPlatformProps, isEsbuildError } from './utils';
+import { defaultPlatformProps, isEsbuildError } from './private/utils';
+import { EsbuildProvider, ITransformProvider } from './provider';
 
 /**
  * @stability stable
@@ -18,45 +18,16 @@ export interface TransformerProps {
   readonly transformOptions?: TransformOptions;
 
   /**
-   * Escape hatch to provide the bundler with a custom transform function.
-   * The function will receive the computed options from the bundler. It can use with these options as it wishes, however a TransformResult must be returned to integrate with CDK.
-   * Must throw a `TransformFailure` on failure to correctly inform the bundler.
+   * The esbuild Transform API implementation to be used.
    *
-   * @stability experimental
-   * @type esbuild.transformSync
-   * @returns esbuild.TransformResult
-   * @throws esbuild.TransformFailure
-   * @default `esbuild.transformSync`
+   * Configure the default `EsbuildProvider` for more options or
+   * provide a custom `ITransformProvider` as an escape hatch.
+   *
+   * @stability stable
+   *
+   * @default new DefaultEsbuildProvider()
    */
-  readonly transformFn?: any;
-
-  /**
-   * Path to the binary used by esbuild.
-   *
-   * This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-   *
-   * @stability experimental
-   */
-  readonly esbuildBinaryPath?: string;
-
-  /**
-   * Absolute path to the esbuild module JS file.
-   *
-   * E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-   *
-   * If not set, the module path will be determined in the following order:
-   *
-   * - Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-   * - In TypeScript, fallback to the default Node.js package resolution mechanism
-   * - All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   *   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   *   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   *   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-   *
-   * @stability experimental
-   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-   */
-  readonly esbuildModulePath?: string;
+  readonly transformProvider?: ITransformProvider;
 }
 
 abstract class BaseInlineCode extends InlineCode {
@@ -72,16 +43,15 @@ abstract class BaseInlineCode extends InlineCode {
     this.inlineCode = Lazy.string({
       produce: () => {
         try {
-          const transformFn = props.transformFn ?? EsbuildProvider.require(props.esbuildModulePath).transformSync;
-          const transformSync = EsbuildProvider.withEsbuildBinaryPath(transformFn, props.esbuildBinaryPath);
+          const provider = props.transformProvider ?? new EsbuildProvider();
 
-          const transformedCode = transformSync(code, {
+          const transformedCode = provider.transformSync(code, {
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             logLevel: 'warning',
             ...(props.transformOptions || {}),
           });
 
-          return transformedCode.code;
+          return transformedCode;
         } catch (error) {
           if (isEsbuildError(error)) {
             throw new Error(`Esbuild failed to transform ${this.constructor.name}`);

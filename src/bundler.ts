@@ -1,4 +1,4 @@
-import { mkdirSync } from 'fs';
+import { existsSync, mkdirSync, rmSync } from 'fs';
 import { join, normalize, relative, resolve, posix, isAbsolute } from 'path';
 import {
   BundlingOptions,
@@ -6,9 +6,9 @@ import {
   FileSystem,
   ILocalBundling,
 } from 'aws-cdk-lib';
-import { EsbuildProvider } from './esbuild-provider';
 import { BuildOptions } from './esbuild-types';
-import { isEsbuildError } from './utils';
+import { isEsbuildError } from './private/utils';
+import { EsbuildProvider, IBuildProvider } from './provider';
 
 /**
  * A path or list or map of paths to the entry points of your code.
@@ -53,6 +53,18 @@ export interface BundlerProps {
   readonly buildOptions?: BuildOptions;
 
   /**
+   * The esbuild Build API implementation to be used.
+   *
+   * Configure the default `EsbuildProvider` for more options or
+   * provide a custom `IBuildProvider` as an escape hatch.
+   *
+   * @stability stable
+   *
+   * @default new EsbuildProvider()
+   */
+  readonly buildProvider?: IBuildProvider;
+
+  /**
    * Copy additional files to the code [asset staging directory](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.AssetStaging.html#absolutestagedpath), before the build runs.
    * Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
    *
@@ -74,48 +86,6 @@ export interface BundlerProps {
    * @stability stable
    */
   readonly copyDir?: string | string[] | Record<string, string | string[]>;
-
-
-  /**
-   * Escape hatch to provide the bundler with a custom build function.
-   * The function will receive the computed options from the bundler. It can use with these options as it wishes, however `outdir`/`outfile` must be respected to integrate with CDK.
-   * Must throw a `BuildFailure` on failure to correctly inform the bundler.
-   *
-   * @stability experimental
-   * @type esbuild.buildSync
-   * @returns esbuild.BuildResult
-   * @throws esbuild.BuildFailure
-   * @default `esbuild.buildSync`
-   */
-  readonly buildFn?: any;
-
-  /**
-   * Path to the binary used by esbuild.
-   *
-   * This is the same as setting the ESBUILD_BINARY_PATH environment variable.
-   *
-   * @stability experimental
-   */
-  readonly esbuildBinaryPath?: string;
-
-  /**
-   * Absolute path to the esbuild module JS file.
-   *
-   * E.g. "/home/user/.npm/node_modules/esbuild/lib/main.js"
-   *
-   * If not set, the module path will be determined in the following order:
-   *
-   * - Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
-   * - In TypeScript, fallback to the default Node.js package resolution mechanism
-   * - All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   *   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   *   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   *   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
-   *
-   * @stability experimental
-   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
-   */
-  readonly esbuildModulePath?: string;
 }
 
 /**
@@ -189,17 +159,19 @@ export class EsbuildBundler {
               throw new Error('Cannot copy files to outside of the asset staging directory. See docs for details.');
             }
 
+            if (existsSync(destDir)) {
+              rmSync(destDir, { recursive: true, force: true });
+            }
             mkdirSync(destDir, { recursive: true });
             FileSystem.copyDirectory(srcDir, destDir);
           });
         }
 
         try {
-          const buildFn = this.props.buildFn ?? EsbuildProvider.require(props.esbuildModulePath).buildSync;
-          const buildSync = EsbuildProvider.withEsbuildBinaryPath(buildFn, this.props.esbuildBinaryPath);
+          const provider = props.buildProvider ?? new EsbuildProvider();
 
-          buildSync({
-            entryPoints,
+          provider.buildSync({
+            entryPoints: typeof entryPoints === 'string' ? [entryPoints] : entryPoints,
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
