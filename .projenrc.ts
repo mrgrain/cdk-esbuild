@@ -291,7 +291,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 
     ['CommonOptions', 'BuildOptions', 'TransformOptions'].forEach(readonlyInterface);
     ['OutputFile'].forEach(convertAccessors);
-    removeFromInterface('BuildOptions', ['stdin', 'plugins', 'watch']);
+    removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
     esbuildTypes.getInterface('InitializeOptions')?.getProperty('wasmModule')?.setType('any');

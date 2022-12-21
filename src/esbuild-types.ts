@@ -136,8 +136,6 @@ export interface BuildOptions extends CommonOptions {
   readonly footer?: { [type: string]: string };
   /** Documentation: https://esbuild.github.io/api/#incremental */
   readonly incremental?: boolean;
-  /** Documentation: https://esbuild.github.io/api/#entry-points */
-  readonly entryPoints?: string[] | Record<string, string>;
   /** Documentation: https://esbuild.github.io/api/#working-directory */
   readonly absWorkingDir?: string;
   /** Documentation: https://esbuild.github.io/api/#node-paths */

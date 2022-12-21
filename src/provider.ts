@@ -5,6 +5,16 @@ import { Esbuild, EsbuildSource } from './private/esbuild-source';
 
 export { EsbuildSource } from './private/esbuild-source';
 
+
+export interface ProviderBuildOptions extends BuildOptions {
+  /** Documentation: https://esbuild.github.io/api/#entry-points */
+  readonly entryPoints?: string[] | Record<string, string>;
+}
+
+export interface ProviderTransformOptions extends TransformOptions {
+}
+
+
 /**
  * Provides an implementation of the esbuild Build API
  */
@@ -19,7 +29,7 @@ export interface IBuildProvider {
    *
    * @throws `esbuild.BuildFailure`
    */
-  buildSync(options: BuildOptions): void;
+  buildSync(options: ProviderBuildOptions): void;
 }
 
 /**
@@ -37,7 +47,7 @@ export interface ITransformProvider {
    *
    * @throws `esbuild.TransformFailure`
    */
-  transformSync(input: string, options?: TransformOptions): string;
+  transformSync(input: string, options?: ProviderTransformOptions): string;
 }
 
 /**
@@ -87,14 +97,14 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
     this.esbuildModulePath = props.esbuildModulePath;
   }
 
-  public buildSync(options: BuildOptions): void {
+  public buildSync(options: ProviderBuildOptions): void {
     const esbuild = this.require(this.esbuildModulePath);
     const buildFn = this.withEsbuildBinaryPath(esbuild.buildSync, this.esbuildBinaryPath);
 
     buildFn(options);
   }
 
-  public transformSync(input: string, options?: TransformOptions): string {
+  public transformSync(input: string, options?: ProviderTransformOptions): string {
     const esbuild = this.require(this.esbuildModulePath);
     const transformFn = this.withEsbuildBinaryPath(esbuild.transformSync, this.esbuildBinaryPath);
 

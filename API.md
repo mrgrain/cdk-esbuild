@@ -396,18 +396,6 @@ Documentation: https://esbuild.github.io/api/#entry-names.
 
 ---
 
-##### `entryPoints`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.entryPoints"></a>
-
-```typescript
-public readonly entryPoints: string[] | {[ key: string ]: string};
-```
-
-- *Type:* `string`[] | {[ key: string ]: `string`}
-
-Documentation: https://esbuild.github.io/api/#entry-points.
-
----
-
 ##### `external`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.external"></a>
 
 ```typescript
@@ -1219,7 +1207,7 @@ public readonly esbuildModulePath: string;
 ```
 
 - *Type:* `string`
-- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+- *Default:* `CDK_ESBUILD_MODULE_PATH` or package resolution (see description)
 
 Absolute path to the esbuild module JS file.
 
@@ -1425,6 +1413,1240 @@ A hash of this asset, which is available at construction time.
 As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
 
 Defaults to a hash of all files in the resulting bundle.
+
+---
+
+### ProviderBuildOptions <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { ProviderBuildOptions } from '@mrgrain/cdk-esbuild'
+
+const providerBuildOptions: ProviderBuildOptions = { ... }
+```
+
+##### `absWorkingDir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.absWorkingDir"></a>
+
+```typescript
+public readonly absWorkingDir: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#working-directory.
+
+---
+
+##### `alias`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.alias"></a>
+
+```typescript
+public readonly alias: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#alias.
+
+---
+
+##### `allowOverwrite`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.allowOverwrite"></a>
+
+```typescript
+public readonly allowOverwrite: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#allow-overwrite.
+
+---
+
+##### `assetNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.assetNames"></a>
+
+```typescript
+public readonly assetNames: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#asset-names.
+
+---
+
+##### `banner`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.banner"></a>
+
+```typescript
+public readonly banner: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#banner.
+
+---
+
+##### `bundle`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.bundle"></a>
+
+```typescript
+public readonly bundle: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#bundle.
+
+---
+
+##### `charset`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.charset"></a>
+
+```typescript
+public readonly charset: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#charset.
+
+---
+
+##### `chunkNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.chunkNames"></a>
+
+```typescript
+public readonly chunkNames: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#chunk-names.
+
+---
+
+##### `color`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.color"></a>
+
+```typescript
+public readonly color: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#color.
+
+---
+
+##### `conditions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.conditions"></a>
+
+```typescript
+public readonly conditions: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#conditions.
+
+---
+
+##### `define`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.define"></a>
+
+```typescript
+public readonly define: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#define.
+
+---
+
+##### `drop`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.drop"></a>
+
+```typescript
+public readonly drop: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop.
+
+---
+
+##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.entryNames"></a>
+
+```typescript
+public readonly entryNames: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#entry-names.
+
+---
+
+##### `external`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.external"></a>
+
+```typescript
+public readonly external: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#external.
+
+---
+
+##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.footer"></a>
+
+```typescript
+public readonly footer: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#footer.
+
+---
+
+##### `format`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.format"></a>
+
+```typescript
+public readonly format: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#format.
+
+---
+
+##### `globalName`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.globalName"></a>
+
+```typescript
+public readonly globalName: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#global-name.
+
+---
+
+##### `ignoreAnnotations`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.ignoreAnnotations"></a>
+
+```typescript
+public readonly ignoreAnnotations: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#ignore-annotations.
+
+---
+
+##### `incremental`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.incremental"></a>
+
+```typescript
+public readonly incremental: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#incremental.
+
+---
+
+##### `inject`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.inject"></a>
+
+```typescript
+public readonly inject: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#inject.
+
+---
+
+##### `jsx`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsx"></a>
+
+```typescript
+public readonly jsx: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx.
+
+---
+
+##### `jsxDev`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsxDev"></a>
+
+```typescript
+public readonly jsxDev: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-development.
+
+---
+
+##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsxFactory"></a>
+
+```typescript
+public readonly jsxFactory: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-factory.
+
+---
+
+##### `jsxFragment`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsxFragment"></a>
+
+```typescript
+public readonly jsxFragment: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-fragment.
+
+---
+
+##### `jsxImportSource`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsxImportSource"></a>
+
+```typescript
+public readonly jsxImportSource: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-import-source.
+
+---
+
+##### `jsxSideEffects`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.jsxSideEffects"></a>
+
+```typescript
+public readonly jsxSideEffects: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-side-effects.
+
+---
+
+##### `keepNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.keepNames"></a>
+
+```typescript
+public readonly keepNames: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#keep-names.
+
+---
+
+##### `legalComments`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.legalComments"></a>
+
+```typescript
+public readonly legalComments: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#legal-comments.
+
+---
+
+##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.loader"></a>
+
+```typescript
+public readonly loader: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#loader.
+
+---
+
+##### `logLevel`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#log-level.
+
+---
+
+##### `logLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.logLimit"></a>
+
+```typescript
+public readonly logLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#log-limit.
+
+---
+
+##### `logOverride`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.logOverride"></a>
+
+```typescript
+public readonly logOverride: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#log-override.
+
+---
+
+##### `mainFields`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.mainFields"></a>
+
+```typescript
+public readonly mainFields: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#main-fields.
+
+---
+
+##### `mangleCache`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.mangleCache"></a>
+
+```typescript
+public readonly mangleCache: {[ key: string ]: string | boolean};
+```
+
+- *Type:* {[ key: string ]: `string` | `boolean`}
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.mangleProps"></a>
+
+```typescript
+public readonly mangleProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleQuoted`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.mangleQuoted"></a>
+
+```typescript
+public readonly mangleQuoted: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `metafile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.metafile"></a>
+
+```typescript
+public readonly metafile: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#metafile.
+
+---
+
+##### `minify`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.minify"></a>
+
+```typescript
+public readonly minify: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifyIdentifiers`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.minifyIdentifiers"></a>
+
+```typescript
+public readonly minifyIdentifiers: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifySyntax`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.minifySyntax"></a>
+
+```typescript
+public readonly minifySyntax: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifyWhitespace`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.minifyWhitespace"></a>
+
+```typescript
+public readonly minifyWhitespace: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `nodePaths`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.nodePaths"></a>
+
+```typescript
+public readonly nodePaths: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#node-paths.
+
+---
+
+##### `outbase`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.outbase"></a>
+
+```typescript
+public readonly outbase: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#outbase.
+
+---
+
+##### `outdir`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.outdir"></a>
+
+```typescript
+public readonly outdir: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#outdir.
+
+---
+
+##### `outExtension`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.outExtension"></a>
+
+```typescript
+public readonly outExtension: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#out-extension.
+
+---
+
+##### `outfile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.outfile"></a>
+
+```typescript
+public readonly outfile: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#outfile.
+
+---
+
+##### `packages`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.packages"></a>
+
+```typescript
+public readonly packages: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#packages.
+
+---
+
+##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.platform"></a>
+
+```typescript
+public readonly platform: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#platform.
+
+---
+
+##### `preserveSymlinks`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.preserveSymlinks"></a>
+
+```typescript
+public readonly preserveSymlinks: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#preserve-symlinks.
+
+---
+
+##### `publicPath`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.publicPath"></a>
+
+```typescript
+public readonly publicPath: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#public-path.
+
+---
+
+##### `pure`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.pure"></a>
+
+```typescript
+public readonly pure: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#pure.
+
+---
+
+##### `reserveProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.reserveProps"></a>
+
+```typescript
+public readonly reserveProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `resolveExtensions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.resolveExtensions"></a>
+
+```typescript
+public readonly resolveExtensions: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#resolve-extensions.
+
+---
+
+##### `sourcemap`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.sourcemap"></a>
+
+```typescript
+public readonly sourcemap: boolean | string;
+```
+
+- *Type:* `boolean` | `string`
+
+Documentation: https://esbuild.github.io/api/#sourcemap.
+
+---
+
+##### `sourceRoot`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.sourceRoot"></a>
+
+```typescript
+public readonly sourceRoot: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#source-root.
+
+---
+
+##### `sourcesContent`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.sourcesContent"></a>
+
+```typescript
+public readonly sourcesContent: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#sources-content.
+
+---
+
+##### `splitting`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.splitting"></a>
+
+```typescript
+public readonly splitting: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#splitting.
+
+---
+
+##### `supported`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.supported"></a>
+
+```typescript
+public readonly supported: {[ key: string ]: boolean};
+```
+
+- *Type:* {[ key: string ]: `boolean`}
+
+Documentation: https://esbuild.github.io/api/#supported.
+
+---
+
+##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.target"></a>
+
+```typescript
+public readonly target: string | string[];
+```
+
+- *Type:* `string` | `string`[]
+
+Documentation: https://esbuild.github.io/api/#target.
+
+---
+
+##### `treeShaking`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.treeShaking"></a>
+
+```typescript
+public readonly treeShaking: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#tree-shaking.
+
+---
+
+##### `tsconfig`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.tsconfig"></a>
+
+```typescript
+public readonly tsconfig: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#tsconfig.
+
+---
+
+##### `write`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.write"></a>
+
+```typescript
+public readonly write: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#write.
+
+---
+
+##### `entryPoints`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: string[] | {[ key: string ]: string};
+```
+
+- *Type:* `string`[] | {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#entry-points.
+
+---
+
+### ProviderTransformOptions <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions"></a>
+
+#### Initializer <a name="[object Object].Initializer"></a>
+
+```typescript
+import { ProviderTransformOptions } from '@mrgrain/cdk-esbuild'
+
+const providerTransformOptions: ProviderTransformOptions = { ... }
+```
+
+##### `banner`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.banner"></a>
+
+```typescript
+public readonly banner: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `charset`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.charset"></a>
+
+```typescript
+public readonly charset: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#charset.
+
+---
+
+##### `color`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.color"></a>
+
+```typescript
+public readonly color: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#color.
+
+---
+
+##### `define`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.define"></a>
+
+```typescript
+public readonly define: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#define.
+
+---
+
+##### `drop`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.drop"></a>
+
+```typescript
+public readonly drop: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop.
+
+---
+
+##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.footer"></a>
+
+```typescript
+public readonly footer: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `format`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.format"></a>
+
+```typescript
+public readonly format: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#format.
+
+---
+
+##### `globalName`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.globalName"></a>
+
+```typescript
+public readonly globalName: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#global-name.
+
+---
+
+##### `ignoreAnnotations`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.ignoreAnnotations"></a>
+
+```typescript
+public readonly ignoreAnnotations: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#ignore-annotations.
+
+---
+
+##### `jsx`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsx"></a>
+
+```typescript
+public readonly jsx: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx.
+
+---
+
+##### `jsxDev`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsxDev"></a>
+
+```typescript
+public readonly jsxDev: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-development.
+
+---
+
+##### `jsxFactory`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsxFactory"></a>
+
+```typescript
+public readonly jsxFactory: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-factory.
+
+---
+
+##### `jsxFragment`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsxFragment"></a>
+
+```typescript
+public readonly jsxFragment: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-fragment.
+
+---
+
+##### `jsxImportSource`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsxImportSource"></a>
+
+```typescript
+public readonly jsxImportSource: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#jsx-import-source.
+
+---
+
+##### `jsxSideEffects`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.jsxSideEffects"></a>
+
+```typescript
+public readonly jsxSideEffects: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#jsx-side-effects.
+
+---
+
+##### `keepNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.keepNames"></a>
+
+```typescript
+public readonly keepNames: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#keep-names.
+
+---
+
+##### `legalComments`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.legalComments"></a>
+
+```typescript
+public readonly legalComments: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#legal-comments.
+
+---
+
+##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.loader"></a>
+
+```typescript
+public readonly loader: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `logLevel`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.logLevel"></a>
+
+```typescript
+public readonly logLevel: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#log-level.
+
+---
+
+##### `logLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.logLimit"></a>
+
+```typescript
+public readonly logLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#log-limit.
+
+---
+
+##### `logOverride`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.logOverride"></a>
+
+```typescript
+public readonly logOverride: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: `string`}
+
+Documentation: https://esbuild.github.io/api/#log-override.
+
+---
+
+##### `mangleCache`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.mangleCache"></a>
+
+```typescript
+public readonly mangleCache: {[ key: string ]: string | boolean};
+```
+
+- *Type:* {[ key: string ]: `string` | `boolean`}
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.mangleProps"></a>
+
+```typescript
+public readonly mangleProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `mangleQuoted`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.mangleQuoted"></a>
+
+```typescript
+public readonly mangleQuoted: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `minify`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.minify"></a>
+
+```typescript
+public readonly minify: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifyIdentifiers`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.minifyIdentifiers"></a>
+
+```typescript
+public readonly minifyIdentifiers: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifySyntax`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.minifySyntax"></a>
+
+```typescript
+public readonly minifySyntax: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `minifyWhitespace`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.minifyWhitespace"></a>
+
+```typescript
+public readonly minifyWhitespace: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#minify.
+
+---
+
+##### `platform`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.platform"></a>
+
+```typescript
+public readonly platform: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#platform.
+
+---
+
+##### `pure`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.pure"></a>
+
+```typescript
+public readonly pure: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#pure.
+
+---
+
+##### `reserveProps`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.reserveProps"></a>
+
+```typescript
+public readonly reserveProps: any;
+```
+
+- *Type:* `any`
+
+Documentation: https://esbuild.github.io/api/#mangle-props.
+
+---
+
+##### `sourcefile`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.sourcefile"></a>
+
+```typescript
+public readonly sourcefile: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `sourcemap`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.sourcemap"></a>
+
+```typescript
+public readonly sourcemap: boolean | string;
+```
+
+- *Type:* `boolean` | `string`
+
+Documentation: https://esbuild.github.io/api/#sourcemap.
+
+---
+
+##### `sourceRoot`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.sourceRoot"></a>
+
+```typescript
+public readonly sourceRoot: string;
+```
+
+- *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#source-root.
+
+---
+
+##### `sourcesContent`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.sourcesContent"></a>
+
+```typescript
+public readonly sourcesContent: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#sources-content.
+
+---
+
+##### `supported`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.supported"></a>
+
+```typescript
+public readonly supported: {[ key: string ]: boolean};
+```
+
+- *Type:* {[ key: string ]: `boolean`}
+
+Documentation: https://esbuild.github.io/api/#supported.
+
+---
+
+##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.target"></a>
+
+```typescript
+public readonly target: string | string[];
+```
+
+- *Type:* `string` | `string`[]
+
+Documentation: https://esbuild.github.io/api/#target.
+
+---
+
+##### `treeShaking`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.treeShaking"></a>
+
+```typescript
+public readonly treeShaking: boolean;
+```
+
+- *Type:* `boolean`
+
+Documentation: https://esbuild.github.io/api/#tree-shaking.
+
+---
+
+##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.tsconfigRaw"></a>
+
+```typescript
+public readonly tsconfigRaw: string | TsconfigOptions;
+```
+
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
 
 ---
 
@@ -2385,14 +3607,8 @@ Default esbuild implementation calling esbuild's JavaScript API.
 ```typescript
 import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
 
-new EsbuildProvider(scope?: Construct, props?: EsbuildProviderProps)
+new EsbuildProvider(props?: EsbuildProviderProps)
 ```
-
-##### `scope`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
 
 ##### `props`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.props"></a>
 
@@ -2405,19 +3621,19 @@ new EsbuildProvider(scope?: Construct, props?: EsbuildProviderProps)
 ##### `buildSync` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.buildSync"></a>
 
 ```typescript
-public buildSync(options: BuildOptions)
+public buildSync(options: ProviderBuildOptions)
 ```
 
 ###### `options`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.options"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.ProviderBuildOptions`](#@mrgrain/cdk-esbuild.ProviderBuildOptions)
 
 ---
 
 ##### `transformSync` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.transformSync"></a>
 
 ```typescript
-public transformSync(input: string, options?: TransformOptions)
+public transformSync(input: string, options?: ProviderTransformOptions)
 ```
 
 ###### `input`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.input"></a>
@@ -2428,7 +3644,7 @@ public transformSync(input: string, options?: TransformOptions)
 
 ###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.options"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.ProviderTransformOptions`](#@mrgrain/cdk-esbuild.ProviderTransformOptions)
 
 ---
 
@@ -2927,12 +4143,12 @@ Provides an implementation of the esbuild Build API.
 ##### `buildSync` <a name="@mrgrain/cdk-esbuild.IBuildProvider.buildSync"></a>
 
 ```typescript
-public buildSync(options: BuildOptions)
+public buildSync(options: ProviderBuildOptions)
 ```
 
 ###### `options`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.IBuildProvider.parameter.options"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.BuildOptions`](#@mrgrain/cdk-esbuild.BuildOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.ProviderBuildOptions`](#@mrgrain/cdk-esbuild.ProviderBuildOptions)
 
 ---
 
@@ -2948,7 +4164,7 @@ Provides an implementation of the esbuild Transform API.
 ##### `transformSync` <a name="@mrgrain/cdk-esbuild.ITransformProvider.transformSync"></a>
 
 ```typescript
-public transformSync(input: string, options?: TransformOptions)
+public transformSync(input: string, options?: ProviderTransformOptions)
 ```
 
 ###### `input`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.ITransformProvider.parameter.input"></a>
@@ -2959,7 +4175,7 @@ public transformSync(input: string, options?: TransformOptions)
 
 ###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ITransformProvider.parameter.options"></a>
 
-- *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
+- *Type:* [`@mrgrain/cdk-esbuild.ProviderTransformOptions`](#@mrgrain/cdk-esbuild.ProviderTransformOptions)
 
 ---
 

@@ -39,6 +39,8 @@ export {
   EsbuildProvider,
   EsbuildProviderProps,
   EsbuildSource,
+  ProviderBuildOptions,
+  ProviderTransformOptions,
 } from './provider';
 
 export {
