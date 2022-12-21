@@ -70,7 +70,7 @@ export interface EsbuildProviderProps {
    * Use the static methods on `EsbuildSource` to customize the default behavior.
    *
    * @stability stable
-   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see above)
+   * @default - `CDK_ESBUILD_MODULE_PATH` or package resolution (see description)
    */
   readonly esbuildModulePath?: string;
 }
@@ -82,7 +82,7 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
   private readonly esbuildBinaryPath?: string;
   private readonly esbuildModulePath?: string;
 
-  public constructor(private readonly scope?: Construct, props: EsbuildProviderProps = {}) {
+  public constructor(props: EsbuildProviderProps = {}) {
     this.esbuildBinaryPath = props.esbuildBinaryPath;
     this.esbuildModulePath = props.esbuildModulePath;
   }
@@ -156,7 +156,7 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
     }
 
     return Tokenization.resolve(token, {
-      scope: this.scope ?? new Construct(undefined as any, ''),
+      scope: new Construct(undefined as any, ''),
       resolver: new DefaultTokenResolver(new StringConcat()),
     });
   }

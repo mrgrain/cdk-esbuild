@@ -8,7 +8,7 @@ describe('Build API', () => {
       const mockLogger = jest.fn();
 
       expect(() => {
-        const buildProvider = new EsbuildProvider(undefined, {
+        const buildProvider = new EsbuildProvider({
           esbuildBinaryPath: 'dummy-binary',
         });
         (buildProvider as any)._require = jest.fn(() => ({
@@ -114,7 +114,7 @@ describe('Transform API', () => {
       const mockLogger = jest.fn();
 
       expect(() => {
-        const buildProvider = new EsbuildProvider(undefined, {
+        const buildProvider = new EsbuildProvider({
           esbuildBinaryPath: 'dummy-binary',
         });
         (buildProvider as any)._require = jest.fn(() => ({
