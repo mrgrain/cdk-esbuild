@@ -51,7 +51,6 @@ describe('Build API', () => {
     describe('`esbuildModulePath` prop', () => {
       it('should use the path from the prop', () => {
         const provider = new EsbuildProvider(
-          undefined,
           { esbuildModulePath: '/path/provided/by/prop' },
         );
         (provider as any)._require = requireSpy;
@@ -83,7 +82,6 @@ describe('Build API', () => {
       describe('and `esbuildModulePath` prop', () => {
         it('should prefer the path from prop', () => {
           const provider = new EsbuildProvider(
-            undefined,
             { esbuildModulePath: '/path/provided/by/prop' },
           );
           (provider as any)._require = requireSpy;
@@ -157,7 +155,6 @@ describe('Transform API', () => {
     describe('`esbuildModulePath` prop', () => {
       it('should use the path from the prop', () => {
         const provider = new EsbuildProvider(
-          undefined,
           { esbuildModulePath: '/path/provided/by/prop' },
         );
         (provider as any)._require = requireSpy;
@@ -189,7 +186,6 @@ describe('Transform API', () => {
       describe('and `esbuildModulePath` prop', () => {
         it('should prefer the path from prop', () => {
           const provider = new EsbuildProvider(
-            undefined,
             { esbuildModulePath: '/path/provided/by/prop' },
           );
           (provider as any)._require = requireSpy;
