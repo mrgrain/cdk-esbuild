@@ -27,6 +27,7 @@
     "publish:git": "npx projen publish:git",
     "release": "npx projen release",
     "release:v3": "npx projen release:v3",
+    "rosetta": "npx projen rosetta",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
     "unbump": "npx projen unbump",
@@ -153,6 +154,9 @@
   },
   "awscdkio": {
     "twitter": "@mrgrain"
+  },
+  "jsiiRosetta": {
+    "strict": false
   },
   "overrides": {
     "@types/prettier": "2.6.0",

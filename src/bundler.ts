@@ -72,7 +72,7 @@ export interface BundlerProps {
    * * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
    *
    * Therefore the following values for `copyDir` are all equivalent:
-   * ```ts
+   * ```
    * { copyDir: "path/to/source" }
    * { copyDir: ["path/to/source"] }
    * { copyDir: { ".": "path/to/source" } }

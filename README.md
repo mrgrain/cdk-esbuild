@@ -7,37 +7,44 @@
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
 [Getting started](#getting-started) |
-[Documentation](#documentation) | [API Reference](#api-reference) | [Upgrading from AWS CDK v1](#upgrading-from-aws-cdk-v1)
+[Documentation](#documentation) | [API Reference](#api-reference) | [FAQ](#faq)
 
 [![View on Construct Hub](https://constructs.dev/badge?package=%40mrgrain%2Fcdk-esbuild)](https://constructs.dev/packages/@mrgrain/cdk-esbuild)
 
 ## Why?
 
 _esbuild_ is an extremely fast bundler and minifier for Typescript and JavaScript.
-This package makes _esbuild_ available to deploy lambda functions, static websites or to publish build artefacts (assets) for further use.
+This package makes _esbuild_ available to deploy AWS Lambda Functions, static websites and publish assets for use.
 
-AWS CDK [supports _esbuild_ with Lambda Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html). However the implementation cannot be used with any other Constructs and doesn't expose all of _esbuild_'s build interface.
-
-This package is running _esbuild_ directly in Node.js and bypasses Docker which the AWS CDK implementation uses. The approach is quicker and easier to use for Node.js users, but incompatible with other languages.
+AWS CDK [supports _esbuild_ for AWS Lambda Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html), but the implementation cannot be used with other Constructs and doesn't expose all of _esbuild_'s API.
 
 **Production readiness**
 
 This package is stable and ready to be used in production, as many do. However _esbuild_ has not yet released a version 1.0.0 and its API is still in active development. Please read the guide on [esbuild's production readiness](https://esbuild.github.io/faq/#production-readiness).
 
-Notably upgrades of the _esbuild_ minimum version requirement will be introduced in **minor versions** of this package and will inherit breaking changes from _esbuild_.
+_Esbuild_ minor version upgrades are introduced in **minor versions** of this package and inherit breaking changes from _esbuild_.
 
 ## Getting started
 
-Install `cdk-esbuild`:
+Install `cdk-esbuild` for Node.js with your favorite package manager:
 
-```
-npm install @mrgrain/cdk-esbuild@3
+```sh
+# npm 
+npm install @mrgrain/cdk-esbuild@4
+# Yarn
+yarn add @mrgrain/cdk-esbuild@4
+# pnpm
+pnpm add @mrgrain/cdk-esbuild@4
 ```
 
-If _peer_ or _optional dependencies_ are not installed automatically (e.g. when using npm v4-6), please use this command to install all of them:
+For Python and Dotnet, use these commands:
 
-```
-npm install @mrgrain/cdk-esbuild@3 esbuild
+```sh
+# Python
+pip install streamlink-serverless
+
+# Dotnet
+dotnet add package StreamlinkServerless
 ```
 
 ### AWS Lambda: Serverless function
@@ -47,13 +54,10 @@ npm install @mrgrain/cdk-esbuild@3 esbuild
 Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Function.html#code):
 
 ```ts
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
-
-const bundledCode = new TypeScriptCode("src/index.ts");
+const bundledCode = new TypeScriptCode("src/handler.ts");
 
 const fn = new lambda.Function(stack, "MyFunction", {
-  runtime: lambda.Runtime.NODEJS_16_X,
+  runtime: lambda.Runtime.NODEJS_18_X,
   handler: "index.handler",
   code: bundledCode,
 });
@@ -66,16 +70,12 @@ const fn = new lambda.Function(stack, "MyFunction", {
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
 ```ts
-import * as s3 from "aws-cdk-lib/aws-s3";
-import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
-import { TypeScriptSource } from "@mrgrain/cdk-esbuild";
-
 const websiteBundle = new TypeScriptSource("src/index.tsx");
 
 const websiteBucket = new s3.Bucket(stack, "WebsiteBucket", {
   autoDeleteObjects: true,
   publicReadAccess: true,
-  removalPolicy: RemovalPolicy.DESTROY,
+  removalPolicy: cdk.RemovalPolicy.DESTROY,
   websiteIndexDocument: "index.html",
 });
 
@@ -93,15 +93,12 @@ Synthetics runs a canary to produce traffic to an application for monitoring pur
 
 > ℹ️ This feature depends on the `@aws-cdk/aws-synthetics-alpha` package which is a developer preview. You may need to update your source code when upgrading to a newer version of this package.
 >
-> ```
+> ```sh
 > npm i @aws-cdk/aws-synthetics-alpha
 > ```
 
 ```ts
-import * as synthetics from "@aws-cdk/aws-synthetics-alpha";
-import { TypeScriptCode } from "@mrgrain/cdk-esbuild";
-
-const bundledCode = new TypeScriptCode("src/index.ts", {
+const bundledCode = new TypeScriptCode("src/canary.ts", {
   buildOptions: {
     outdir: "nodejs/node_modules", // This is required by Synthetics
   },
@@ -112,7 +109,7 @@ const canary = new synthetics.Canary(stack, "MyCanary", {
   test: synthetics.Test.custom({
     code: bundledCode,
     handler: "index.handler",
-  });
+  }),
 });
 ```
 
@@ -127,7 +124,6 @@ For use in **Lambda Functions** and **Synthetic Canaries**, the following classe
 Inline code is only supported by **Lambda**:
 
 - `InlineTypeScriptCode` & `InlineJavaScriptCode`
-- `InlineTsxCode` & `InlineJsxCode`
 
 For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)):
 
@@ -143,129 +139,250 @@ The following classes power the other features. You normally won't have to use t
 - `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.BundlingOptions.html)) \
   provides an interface for a _esbuild_ bundler wherever needed
 
+- `EsbuildProvider` implements `IBuildProvider` and `ITransformProvider` \
+  provides the default _esbuild_ API implementation and can be replaced with a custom implementation
+
 ### [API Reference](API.md)
 
-Auto-generated reference for classes and structs. This information is also available as part of your IDE's code completion.
+Auto-generated reference for Classes and Structs. This information is also available as part of your IDE's code completion.
 
-### Escape hatches
+### Python and Dotnet
 
-It's possible that you want to use an implementation of esbuild that's different to the default one. Common reasons are:
+Because _esbuild_ requires a platform and architecture specific binary, it currently has to be installed using npm (or any other Node.js package manager).
 
-- The current version constraints for esbuild are not suitable
-- To use a version of esbuild that is installed by any other means than `npm`, including Docker
-- Plugin support is needed for building
+When `cdk-esbuild` is used with Python or Dotnet, it will automatically detect a local or global installation of the _esbuild_ npm package - or fallback to dynamically installing a copy into a temporary location.
+The exact algorithm of this mechanism must be treated as an implementation detail and should not be relied on.
+It can however be configured to a certain extent.
+See the examples below for more details.
 
-For these situations, this package offers an escape hatch to bypass regular the implementation and provide a custom build and transform function.
+While this "best effort" approach makes it easy to get started, it is not always desirable.
+For example in environments with limited network access or when guaranteed repeatability of builds is a concern.
+You have several options to opt-out of this behavior:
 
-#### Esbuild binary path
-
-It is possible to override the binary used by esbuild. The usual way to do this is to set the `ESBUILD_BINARY_PATH` environment variable. For convenience this package allows to set the binary path as a prop:
-
-```ts
-new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
-  esbuildBinaryPath: "path/to/esbuild/binary"
-});
-```
-
-#### Custom build function
-
-> 💡 See [Using esbuild with plugins](examples/typescript/esbuild-with-plugins) for a complete working example of a custom build function using this escape hatch.
-
-Constructs that result in starting a build, take a `buildFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `buildSync` function.
-
-```ts
-new TypeScriptCode("fixtures/handlers/ts-handler.ts", {
-  buildFn: (options: BuildOptions): BuildResult => {
-    try {
-      // custom implementation returning BuildResult
-    } catch (error) {
-      // throw BuildFailure exception here
-    }
-  },
-});
-```
-
-Instead of esbuild, the provided function will be invoked with the calculated build options. The custom build function can amend, change or discard any of these. However integration with CDK relies heavily on the values `outdir`/`outfile` are set to and it's usually required to use them unchanged.
-
-Failures have to cause a `BuildFailure` exception in order to be fully handled.
-
-#### Custom transform function
-
-Constructs that result in starting a transformation, take a `transformFn` as optional prop. While the defined type for this function is `any`, it must implement the same signature as esbuild's `transformSync` function.
-
-```ts
-new InlineTypeScriptCode("let x: number = 1", {
-  transformFn: (options: TransformOptions): TransformResult => {
-    try {
-      // custom implementation returning TransformResult
-    } catch (error) {
-      // throw TransformFailure exception here
-    }
-  },,
-});
-```
-
-Instead of esbuild, the provided function will be invoked with the calculated transform options. The custom transform function can amend, change or discard any of these.
-
-Failures have to cause a `TransformFailure` exception in order to be fully handled.
-
-### Upgrading from AWS CDK v1
-
-This version is compatible with AWS CDK v2. For the previous, AWS CDK v1 compatible release, see [cdk-esbuild@v2](https://github.com/mrgrain/cdk-esbuild/tree/v2).
-
-To upgrade from AWS CDK v1 and cdk-esbuild@v2, please follow these steps:
-
-- This version requires AWS CDK v2. Follow the [official migration guide](https://docs.aws.amazon.com/cdk/latest/guide/work-with-cdk-v2.html) to upgrade.
-- Update the package dependency to v3: `npm install --save @mrgrain/cdk-esbuild@^3.0.0`
-- `esbuild` is installed as an optional dependency. If your setup does not automatically install optional dependencies, make sure to add it as an explicit dependency.
-- Any use of `InlineCode` variations has to be updated. Previously the second parameter was either of type `TransformerProps` or `TransformOptions`. Now it must be `TransformerProps`.\
-  If the passed value is of type `TransformOptions`, turn it into the correct type like this:
+- **Recommended** - Install _esbuild_ as a local package\
+  The recommended approach is to manage an additional Node.js project in the root of your AWS CDK project.
+  _esbuild_ should then be added to the `package.json` file and it is your responsibility to ensure the required setup steps are run in every environment (development machines & CI/CD systems).
+  The _esbuild_ package will then be detected automatically.
+- Install _esbuild_ as a global package\
+  Instead of installing the package in a local project, it can also be installed globally with `npm install -g esbuild` or a similar command.
+  The _esbuild_ package will be detected automatically from the global installation.
+  This approach might be preferred if a build container is prepared ahead of time, thus avoiding repeated package installation.
+- Set `CDK_ESBUILD_MODULE_PATH` env variable\
+  If an installed _esbuild_ module cannot be reliably detected by the algorithm, you can provide the absolute path to the module as an environment variable.
+  This approach has the advantage that the location of the module can be different on different systems.
+  While it can be combined with either installation approach, it is usually used with a global installation of the _esbuild_ package.
+- Set `esbuildModulePath` prop\
+  Similar to setting the module path via env variable, it can also be passed as the `esbuildModulePath` prop to a `EsbuildProvider`:
 
   ```ts
-  const oldOptions: TransformOptions = {...}
-
-  new InlineTypeScriptCode('// inline code', {
-    transformOptions: oldOptions
+  new EsbuildProvider({
+    esbuildModulePath: '/home/user/node_modules/esbuild/lib/main.js'
   });
   ```
 
-## Versioning
+- Override the default implementation provider\
+  Using the previous approach, but setting it for every usage:
 
-This package follows [Semantic Versioning](https://semver.org/), with the exception of upgrades to `esbuild`. These will be released as **minor versions** and often include breaking changes from `esbuild`.
+  ```ts
+  const customModule = new EsbuildProvider({
+    esbuildModulePath: '/home/user/node_modules/esbuild/lib/main.js'
+  });
+  EsbuildProvider.overrideDefaultProvider(customModule);
+  ```
 
-### Npm Tags
+The `esbuildModulePath` can be provided as a known, absolute or relative path.
+When using the programmatic interface, this package additionally offers some helper methods to influence to fine-tune to automatic detection algorithm:
 
-Some users prefer to use tags over version ranges. The following stable tags are available for use:
+```ts
+// This will force installation to a temporary location
+new EsbuildProvider({
+  esbuildModulePath: EsbuildSource.install()
+});
+```
 
-- `cdk-v1`, `cdk-v2` are provided for the latest release compatible with each version of the AWS CDK.
+Please see the [`EsbuildSource`](API.md#esbuildsource) reference for a list of available methods.
 
-- `latest` is the most recent stable release.
+### Customizing the Esbuild API
 
-These tags also exist, but usage is strongly not recommended:
+This package uses the _esbuild_ JavaScript API. For most use cases the default configuration will be suitable.
 
-- `unstable`, `next` are used for pre-release of the current and next major version respectively.
+In some cases it might be useful to configure _esbuild_ differently or even provide a completely custom implementation.
+Common examples for this are:
 
-- ~~`cdk-1.x.x`~~ tags have been deprecated in favour of `cdk-v1`. Use that one instead.
+- To use a pre-installed version of _esbuild_ with Python and Dotnet
+- If features not supported by the synchronous API are required, e.g. support for plugins
+- If the default version constraints for _esbuild_ are not suitable
+- To use a version of esbuild that is installed by any other means than `npm`, including Docker
 
-## Roadmap & Contributions
+For these scenarios, this package offers customization options and an interface to provide a custom implementation:
 
-[The project's roadmap is available on GitHub.](https://github.com/mrgrain/cdk-esbuild/projects/1) Please submit any feature requests as issues to the repository.
+```ts
+declare const myCustomBuildProvider: IBuildProvider;
+
+new TypeScriptCode("src/handler.ts", {
+  buildProvider: myCustomBuildProvider,
+});
+
+
+declare const myCustomTransformProvider: ITransformProvider;
+
+new InlineTypeScriptCode("let x: number = 1", {
+  transformProvider: myCustomTransformProvider,
+});
+```
+
+#### Esbuild binary path
+
+It is possible to override the binary used by _esbuild_ by setting a property on `EsbuildProvider`.
+This is the same as setting the `ESBUILD_BINARY_PATH` environment variable.
+Defining the `esbuildBinaryPath` prop takes precedence.
+
+```ts
+const buildProvider = new EsbuildProvider({
+  esbuildBinaryPath: "path/to/esbuild/binary",
+});
+
+// This will use a different esbuild binary
+new TypeScriptCode("src/handler.ts", { buildProvider });
+```
+
+#### Esbuild module path
+
+The Node.js module discovery algorithm will normally be used to find the _esbuild_ package.
+It can be useful to use specify a different module path, for example if a globally installed package should be used instead of a local version.
+
+```ts
+const buildProvider = new EsbuildProvider({
+  esbuildModulePath: "/home/user/node_modules/esbuild/lib/main.js",
+});
+
+// This will use a different esbuild module
+new TypeScriptCode("src/handler.ts", { buildProvider });
+```
+
+Alternatively supported by setting the `CDK_ESBUILD_MODULE_PATH` environment variable, which will apply to all uses.
+Defining the `esbuildModulePath` prop takes precedence.
+
+#### Custom Build and Transform API implementations
+
+> 💡 See [Using esbuild with plugins](examples/typescript/esbuild-with-plugins) for a complete working example of a custom Build API implementation.
+
+A custom implementation can be provided by implementing `IBuildProvider` or `ITransformProvider`:
+
+```ts
+class CustomEsbuild implements IBuildProvider, ITransformProvider {
+    buildSync(options: BuildOptions): void {
+      // custom implementation goes here
+    }
+  
+    transformSync(code: string, options?: TransformOptions): string {
+      // custom implementation goes here, return transformed code
+      return 'transformed code';
+    }
+}
+
+// These will use the custom implementation
+new TypeScriptCode("src/handler.ts", {
+  buildProvider: new CustomEsbuild(),
+});
+new InlineTypeScriptCode("let x: number = 1", {
+  transformProvider: new CustomEsbuild(),
+});
+```
+
+Instead of _esbuild_, the custom methods will be invoked with all computed options.
+The custom implementation can amend, change or discard any of these.
+However with `IBuildProvider` the integration with CDK relies heavily on the `outdir`/`outfile` values and it's usually required to use them unchanged.
+`ITransformProvider` must return the transformed code as a string.
+
+Failures and warnings should be printed to stderr and thrown as the respective _esbuild_ error.
+
+#### Overriding the default implementation providers
+
+It is also possible to change the default Esbuild API implementation for all usages of this package.
+You can change the default for both APIs or set a different implementation for each of them.
+
+```ts
+const myCustomEsbuildProvider = new MyCustomEsbuildProvider();
+
+EsbuildProvider.overrideDefaultProvider(myCustomEsbuildProvider);
+EsbuildProvider.overrideDefaultBuildProvider(myCustomEsbuildProvider);
+EsbuildProvider.overrideDefaultTransformationProvider(myCustomEsbuildProvider);
+
+// This will use the custom provider without the need to define it as a prop
+new TypeScriptCode("src/handler.ts");
+```
+
+### Roadmap & Contributions
+
+[The project's roadmap is available on GitHub.](https://github.com/users/mrgrain/projects/1/views/7) Please submit feature requests as issues to the repository.
 
 All contributions are welcome, no matter if they are for already planned or completely new features.
 
-## Library authors
+## FAQ
 
-Building a library consumed by other packages that relies on `cdk-esbuild` might require you to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve based on the directory name of the calling file, and traverse the tree upwards to the root of your library package (that's where `package.json` and `tsconfig.json` are):
+### How do I upgrade from `@mrgrain/cdk-esbuild` v3?
+
+Please refer to the [v4 release notes](https://github.com/mrgrain/cdk-esbuild/releases/tag/v4.0.0) for a list of backwards incompatible changes and respective upgrade instructions.
+
+### [TS/JS] Why am I getting the error `Cannot find module 'esbuild'`?
+
+This package depends on _esbuild_ as an optional dependencies. If optional dependencies are not installed automatically on your system (e.g. when using npm v4-6), install _esbuild_ explicitly:
+
+```console
+npm install esbuild
+```
+
+### [TS/JS] How can I use a different version of _esbuild_?
+
+Use the [override](https://docs.npmjs.com/cli/v9/configuring-npm/package-json?v=true#overrides) instructions for your package manager to force a specific version, for example:
+
+```json
+{
+  "overrides": {
+    "esbuild": "0.14.7"
+  }
+}
+```
+
+Build and Transform interfaces are relatively stable across _esbuild_ versions.
+However if any incompatibilities occur, `buildOptions` / `transformOptions` can be cast to `any`:
 
 ```ts
-// file: project/src/index.ts
+const bundledCode = new TypeScriptCode("src/handler.ts", {
+  buildOptions: {
+    unsupportedOption: "value"
+  } as any,
+});
+```
+
+### [Python/Dotnet] How can I use a different version of _esbuild_?
+
+Install the desired version of _esbuild_ locally or globally [as described in the documentation above](#python-and-dotnet).
+
+Build and Transform interfaces are relatively stable across _esbuild_ versions.
+However if any incompatibilities occur, use the appropriate language features to cast any incompatible `buildOptions` / `transformOptions` to the correct types.
+
+### Can I use this package in my published AWS CDK Construct?
+
+It is possible to use `cdk-esbuild` in a published AWS CDK Construct library, but not recommended. Always prefer to ship a compiled `.js` file or even bundle a zip archive in your package. For AWS Lambda Functions, [projen provides an excellent solution](https://projen.io/awscdk.html#aws-lambda-functions).
+
+If you do end up consuming `cdk-esbuild`, you will have to set `buildOptions.absWorkingDir`. The easiest way to do this, is to resolve the path based on the directory name of the calling file:
+
+```js
+// file: node_modules/construct-library/src/index.ts
 const props = {
   buildOptions: {
-    absWorkingDir: path.resolve(__dirname, ".."), // now: /user/project
+    absWorkingDir: path.resolve(__dirname, ".."),
+    // now: /user/local-app/node_modules/construct-library
   },
 };
 ```
 
-This will dynamically resolve to the correct path, wherever the package is installed.
+This will dynamically resolve to the correct path, wherever the package is installed. Please open an issue if you encounter any difficulties.
 
-Please open an issue if you encounter any difficulties.
+### Can I use this package with AWS CDK v1?
+
+Yes, the `2.x.x` line of `cdk-esbuild` is compatible with AWS CDK v1. You can find the [documentation for it on the v2 branch](https://github.com/mrgrain/cdk-esbuild/tree/v2).
+
+However, in line with AWS CDK v2, this version release now only receives security updates and critical bug fixes and support will fully end on June 1, 2023.
