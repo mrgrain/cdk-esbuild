@@ -63,7 +63,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   npmDistTag: 'next',
   defaultReleaseBranch: 'main',
   majorVersion: 4,
-  prerelease: 'alpha',
+  prerelease: 'beta',
   releaseBranches: {
     v3: {
       majorVersion: 3,
