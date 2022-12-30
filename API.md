@@ -3648,6 +3648,65 @@ public transformSync(input: string, options?: ProviderTransformOptions)
 
 ---
 
+#### Static Functions <a name="Static Functions"></a>
+
+##### `defaultBuildProvider` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.defaultBuildProvider"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+EsbuildProvider.defaultBuildProvider()
+```
+
+##### `defaultTransformationProvider` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.defaultTransformationProvider"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+EsbuildProvider.defaultTransformationProvider()
+```
+
+##### `overrideDefaultBuildProvider` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.overrideDefaultBuildProvider"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+EsbuildProvider.overrideDefaultBuildProvider(provider: IBuildProvider)
+```
+
+###### `provider`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.provider"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+
+---
+
+##### `overrideDefaultProvider` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.overrideDefaultProvider"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+EsbuildProvider.overrideDefaultProvider(provider: IEsbuildProvider)
+```
+
+###### `provider`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.provider"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.IEsbuildProvider`](#@mrgrain/cdk-esbuild.IEsbuildProvider)
+
+---
+
+##### `overrideDefaultTransformationProvider` <a name="@mrgrain/cdk-esbuild.EsbuildProvider.overrideDefaultTransformationProvider"></a>
+
+```typescript
+import { EsbuildProvider } from '@mrgrain/cdk-esbuild'
+
+EsbuildProvider.overrideDefaultTransformationProvider(provider: ITransformProvider)
+```
+
+###### `provider`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildProvider.parameter.provider"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+
+---
 
 
 
@@ -3662,92 +3721,56 @@ new EsbuildSource()
 ```
 
 
+#### Static Functions <a name="Static Functions"></a>
 
-#### Properties <a name="Properties"></a>
-
-##### `auto`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.auto"></a>
-
-```typescript
-public readonly auto: string;
-```
-
-- *Type:* `string`
-
-First try to find to module, then install it to a temporary location.
-
----
-
-##### `install`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.install"></a>
+##### `anywhere` <a name="@mrgrain/cdk-esbuild.EsbuildSource.anywhere"></a>
 
 ```typescript
-public readonly install: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.anywhere()
 ```
 
-- *Type:* `string`
-
-Install the module to a temporary location.
-
----
-
-##### `nodeJs`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.nodeJs"></a>
+##### `auto` <a name="@mrgrain/cdk-esbuild.EsbuildSource.auto"></a>
 
 ```typescript
-public readonly nodeJs: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.auto()
 ```
 
-- *Type:* `string`
-
-Require module by name, do not attempt to find it anywhere else.
-
----
-
-##### `platformDefault`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.platformDefault"></a>
+##### `globalPaths` <a name="@mrgrain/cdk-esbuild.EsbuildSource.globalPaths"></a>
 
 ```typescript
-public readonly platformDefault: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.globalPaths()
 ```
 
-- *Type:* `string`
-
-`EsbuildSource.nodeJs` for NodeJs, `EsbuildSource.auto` for all other languages.
-
----
-
-##### `anywhere`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.anywhere"></a>
+##### `install` <a name="@mrgrain/cdk-esbuild.EsbuildSource.install"></a>
 
 ```typescript
-public readonly anywhere: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.install()
 ```
 
-- *Type:* `string`
-
-Try to find the module in most common paths.
-
----
-
-##### `globalPaths`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.globalPaths"></a>
+##### `nodeJs` <a name="@mrgrain/cdk-esbuild.EsbuildSource.nodeJs"></a>
 
 ```typescript
-public readonly globalPaths: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.nodeJs()
 ```
 
-- *Type:* `string`
-
-Try to find the module in common global installation paths.
-
----
-
-##### `default`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildSource.property.default"></a>
+##### `platformDefault` <a name="@mrgrain/cdk-esbuild.EsbuildSource.platformDefault"></a>
 
 ```typescript
-public readonly default: string;
+import { EsbuildSource } from '@mrgrain/cdk-esbuild'
+
+EsbuildSource.platformDefault()
 ```
 
-- *Type:* `string`
-
-Set the default mechanism to find the module The current default to find the module.
-
----
 
 
 ### InlineJavaScriptCode <a name="@mrgrain/cdk-esbuild.InlineJavaScriptCode"></a>
@@ -4134,7 +4157,7 @@ public readonly assetClass: TypeScriptAsset;
 
 ### IBuildProvider <a name="@mrgrain/cdk-esbuild.IBuildProvider"></a>
 
-- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider)
+- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider), [`@mrgrain/cdk-esbuild.IEsbuildProvider`](#@mrgrain/cdk-esbuild.IEsbuildProvider)
 
 Provides an implementation of the esbuild Build API.
 
@@ -4153,9 +4176,19 @@ public buildSync(options: ProviderBuildOptions)
 ---
 
 
+### IEsbuildProvider <a name="@mrgrain/cdk-esbuild.IEsbuildProvider"></a>
+
+- *Extends:* [`@mrgrain/cdk-esbuild.IBuildProvider`](#@mrgrain/cdk-esbuild.IBuildProvider), [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+
+- *Implemented By:* [`@mrgrain/cdk-esbuild.IEsbuildProvider`](#@mrgrain/cdk-esbuild.IEsbuildProvider)
+
+Provides an implementation of the esbuild Build & Transform API.
+
+
+
 ### ITransformProvider <a name="@mrgrain/cdk-esbuild.ITransformProvider"></a>
 
-- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
+- *Implemented By:* [`@mrgrain/cdk-esbuild.EsbuildProvider`](#@mrgrain/cdk-esbuild.EsbuildProvider), [`@mrgrain/cdk-esbuild.IEsbuildProvider`](#@mrgrain/cdk-esbuild.IEsbuildProvider), [`@mrgrain/cdk-esbuild.ITransformProvider`](#@mrgrain/cdk-esbuild.ITransformProvider)
 
 Provides an implementation of the esbuild Transform API.
 

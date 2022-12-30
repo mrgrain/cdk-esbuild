@@ -10,65 +10,50 @@ export const Esbuild = {
 
 export class EsbuildSource {
   private static dynamicPackage = dynamicEsbuild;
-  private static _default?: string;
 
   /**
-   * Set the default mechanism to find the module
+   * `EsbuildSource.nodeJs()` for NodeJs, `EsbuildSource.auto()` for all other languages
    */
-  public static set default(path: string | undefined) {
-    this._default = path;
-  }
-
-  /**
-   * The current default to find the module
-   */
-  public static get default(): string | undefined {
-    return this._default ?? this.platformDefault;
-  }
-
-  /**
-   * `EsbuildSource.nodeJs` for NodeJs, `EsbuildSource.auto` for all other languages
-   */
-  public static get platformDefault() {
+  public static platformDefault() {
     if (Boolean(process.env.JSII_AGENT)) {
-      return this.auto;
+      return this.auto();
     }
 
-    return this.nodeJs;
+    return this.nodeJs();
   }
 
   /**
    * Try to find the module in most common paths.
    */
-  public static get anywhere() {
+  public static anywhere() {
     return this.dynamicPackage.findInPaths();
   }
 
   /**
    * Try to find the module in common global installation paths.
    */
-  public static get globalPaths() {
+  public static globalPaths() {
     return this.dynamicPackage.findInGlobalPaths();
   }
 
   /**
    * Require module by name, do not attempt to find it anywhere else.
    */
-  public static get nodeJs() {
+  public static nodeJs() {
     return this.dynamicPackage.nodeJs();
   }
 
   /**
    * Install the module to a temporary location.
    */
-  public static get install() {
+  public static install() {
     return this.dynamicPackage.install();
   }
 
   /**
    * First try to find to module, then install it to a temporary location.
    */
-  public static get auto() {
+  public static auto() {
     return this.dynamicPackage.auto();
   }
 }

@@ -11,8 +11,7 @@ export interface ProviderBuildOptions extends BuildOptions {
   readonly entryPoints?: string[] | Record<string, string>;
 }
 
-export interface ProviderTransformOptions extends TransformOptions {
-}
+export interface ProviderTransformOptions extends TransformOptions {}
 
 
 /**
@@ -49,6 +48,11 @@ export interface ITransformProvider {
    */
   transformSync(input: string, options?: ProviderTransformOptions): string;
 }
+
+/**
+ * Provides an implementation of the esbuild Build & Transform API
+ */
+export interface IEsbuildProvider extends IBuildProvider, ITransformProvider {}
 
 /**
  * Configure the default EsbuildProvider
@@ -89,6 +93,46 @@ export interface EsbuildProviderProps {
  * Default esbuild implementation calling esbuild's JavaScript API.
  */
 export class EsbuildProvider implements IBuildProvider, ITransformProvider {
+  private static _fallbackProvider = new EsbuildProvider();
+  private static _buildProvider: IBuildProvider;
+  private static _transformationProvider: ITransformProvider;
+
+  /**
+   * Set the default implementation for both Build and Transformation API
+   */
+  public static overrideDefaultProvider(provider: IEsbuildProvider) {
+    this.overrideDefaultBuildProvider(provider);
+    this.overrideDefaultTransformationProvider(provider);
+  }
+
+  /**
+   * Set the default implementation for the Build API
+   */
+  public static overrideDefaultBuildProvider(provider: IBuildProvider) {
+    this._buildProvider = provider;
+  }
+
+  /**
+   * Get the default implementation for the Build API
+   */
+  public static defaultBuildProvider(): IBuildProvider {
+    return this._buildProvider ?? this._fallbackProvider;
+  }
+
+  /**
+   * Set the default implementation for the Transformation API
+   */
+  public static overrideDefaultTransformationProvider(provider: ITransformProvider) {
+    this._transformationProvider = provider;
+  }
+
+  /**
+   * Get the default implementation for the Transformation API
+   */
+  public static defaultTransformationProvider(): ITransformProvider {
+    return this._transformationProvider ?? this._fallbackProvider;
+  }
+
   private readonly esbuildBinaryPath?: string;
   private readonly esbuildModulePath?: string;
 
@@ -144,7 +188,7 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
    * Load the esbuild module according to defined rules.
    */
   private require(path?: string): IBuildProvider & ITransformProvider {
-    const module = path || process.env.CDK_ESBUILD_MODULE_PATH || EsbuildSource.default || Esbuild.name;
+    const module = path || process.env.CDK_ESBUILD_MODULE_PATH || EsbuildSource.platformDefault() || Esbuild.name;
 
     return this._require(this.resolve(module));
   }
