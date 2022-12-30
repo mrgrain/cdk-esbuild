@@ -178,7 +178,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -1050,7 +1050,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -1292,7 +1292,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -1387,7 +1387,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -3246,7 +3246,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -3341,7 +3341,7 @@ Copy additional files to the code [asset staging directory](https://docs.aws.ama
 * When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
 
 Therefore the following values for `copyDir` are all equivalent:
-```ts
+```
 { copyDir: "path/to/source" }
 { copyDir: ["path/to/source"] }
 { copyDir: { ".": "path/to/source" } }
@@ -3711,14 +3711,6 @@ EsbuildProvider.overrideDefaultTransformationProvider(provider: ITransformProvid
 
 
 ### EsbuildSource <a name="@mrgrain/cdk-esbuild.EsbuildSource"></a>
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildSource.Initializer"></a>
-
-```typescript
-import { EsbuildSource } from '@mrgrain/cdk-esbuild'
-
-new EsbuildSource()
-```
 
 
 #### Static Functions <a name="Static Functions"></a>

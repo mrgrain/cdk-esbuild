@@ -1,0 +1,32 @@
+import * as path from 'path';
+import * as cdk from 'aws-cdk-lib';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
+import * as synthetics from "@aws-cdk/aws-synthetics-alpha";
+import { 
+    BuildOptions, 
+    EsbuildProvider, 
+    IBuildProvider,
+    ITransformProvider,
+    InlineTypeScriptCode,
+    TypeScriptCode,
+    TypeScriptSource, 
+    TransformOptions
+} from '.';
+
+const stack = new cdk.Stack();
+
+class MyCustomEsbuildProvider implements IBuildProvider, ITransformProvider {
+    buildSync(options: BuildOptions): void {
+      // custom implementation goes here
+    }
+  
+    transformSync(code: string, options?: TransformOptions): string {
+      // custom implementation goes here, return transformed code
+      return 'transformed code';
+    }
+}
+
+
+/// here

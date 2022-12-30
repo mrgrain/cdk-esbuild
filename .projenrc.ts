@@ -192,6 +192,15 @@ v3ReleaseWorkflow?.addToArray(
   tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
 );
 
+// jsii rosetta
+project.package.addField('jsiiRosetta', {
+  strict: false,
+});
+const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
+project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);
+project.addGitIgnore('.jsii.tabl.json');
+project.addPackageIgnore('.jsii.tabl.json');
+
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';

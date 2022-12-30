@@ -11,6 +11,8 @@ export const Esbuild = {
 export class EsbuildSource {
   private static dynamicPackage = dynamicEsbuild;
 
+  private constructor() {}
+
   /**
    * `EsbuildSource.nodeJs()` for NodeJs, `EsbuildSource.auto()` for all other languages
    */
