@@ -43,7 +43,7 @@ abstract class BaseInlineCode extends InlineCode {
     this.inlineCode = Lazy.string({
       produce: () => {
         try {
-          const provider = props.transformProvider ?? new EsbuildProvider();
+          const provider = props.transformProvider ?? EsbuildProvider.defaultTransformationProvider();
 
           const transformedCode = provider.transformSync(code, {
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,

@@ -168,7 +168,7 @@ export class EsbuildBundler {
         }
 
         try {
-          const provider = props.buildProvider ?? new EsbuildProvider();
+          const provider = props.buildProvider ?? EsbuildProvider.defaultBuildProvider();
 
           provider.buildSync({
             entryPoints: typeof entryPoints === 'string' ? [entryPoints] : entryPoints,

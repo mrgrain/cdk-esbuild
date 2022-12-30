@@ -34,11 +34,12 @@ export {
 } from './inline-code';
 
 export {
-  IBuildProvider,
-  ITransformProvider,
   EsbuildProvider,
   EsbuildProviderProps,
   EsbuildSource,
+  IBuildProvider,
+  IEsbuildProvider,
+  ITransformProvider,
   ProviderBuildOptions,
   ProviderTransformOptions,
 } from './provider';
