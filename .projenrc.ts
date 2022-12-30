@@ -91,7 +91,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   }],
 
   // Dependencies
-  cdkVersion: '2.0.0',
+  cdkVersion: '2.12.0',
   devDeps: [
     '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
