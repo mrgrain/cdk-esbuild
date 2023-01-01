@@ -41,4 +41,6 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+Pipfile
+Pipfile.lock
 .jsii.tabl.json

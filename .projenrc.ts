@@ -1,6 +1,7 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
+import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -93,7 +94,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Dependencies
   cdkVersion: '2.12.0',
   devDeps: [
-    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
+    '@aws-cdk/aws-synthetics-alpha@2.12.0-alpha.0',
     '@types/eslint',
     Esbuild.spec,
     'jest-mock',
@@ -133,6 +134,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+
+// setup integration tests
+new IntegrationTests(project, {
+  python: {
+    cdkVersion: '2.58.1',
+  },
+});
+
+
 // test against latest versions
 const REPO_TEMP_DIRECTORY = '.repo';
 project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
@@ -160,6 +170,7 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
     },
   ],
 });
+
 
 // release only via manual trigger
 project.release?.publisher?.publishToGit({
@@ -191,6 +202,7 @@ v3ReleaseWorkflow?.addToArray(
   'jobs.release_npm.steps',
   tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
 );
+
 
 // jsii rosetta
 project.package.addField('jsiiRosetta', {
