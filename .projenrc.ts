@@ -1,6 +1,7 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
+import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -132,6 +133,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'SECURITY.md',
   ],
 });
+
+
+// setup integration tests
+new IntegrationTests(project, {
+  python: {
+    cdkVersion: '2.58.1',
+  },
+});
+
 
 // test against latest versions
 const REPO_TEMP_DIRECTORY = '.repo';

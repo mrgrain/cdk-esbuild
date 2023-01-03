@@ -1,0 +1,12 @@
+{
+  "version": "22.0.0",
+  "testCases": {
+    "LambdaFunctions/DefaultTest": {
+      "stacks": [
+        "Lambda"
+      ],
+      "assertionStack": "LambdaFunctions/DefaultTest/DeployAssert",
+      "assertionStackName": "LambdaFunctionsDefaultTestDeployAssertF6E30484"
+    }
+  }
+}
