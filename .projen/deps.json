@@ -6,6 +6,11 @@
       "type": "build"
     },
     {
+      "name": "@aws-cdk/integ-runner",
+      "version": "^2",
+      "type": "build"
+    },
+    {
       "name": "@types/eslint",
       "type": "build"
     },

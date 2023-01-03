@@ -168,6 +168,34 @@ jobs:
         run: cd .repo && npx projen package:dotnet
       - name: Collect dotnet Artifact
         run: mv .repo/dist dist
+  integ-python:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    if: "! needs.build.outputs.self_mutation_happened"
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: Download build artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: build-artifact
+          path: dist
+      - name: Restore build artifact permissions
+        run: cd dist && setfacl --restore=permissions-backup.acl
+        continue-on-error: true
+      - run: |-
+          pip install pipenv
+          mv dist .repo
+          cd .repo
+          npm ci
+          npx projen package:python
+          npx projen integ:python
   test-latest-versions:
     needs: build
     runs-on: ubuntu-latest
