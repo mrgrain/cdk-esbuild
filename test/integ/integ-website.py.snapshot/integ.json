@@ -1,0 +1,12 @@
+{
+  "version": "22.0.0",
+  "testCases": {
+    "S3Website/DefaultTest": {
+      "stacks": [
+        "Website"
+      ],
+      "assertionStack": "S3Website/DefaultTest/DeployAssert",
+      "assertionStackName": "S3WebsiteDefaultTestDeployAssert3345D10F"
+    }
+  }
+}
