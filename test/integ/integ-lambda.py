@@ -15,22 +15,13 @@ class LambdaStack(cdk.Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # Set a new default
-        EsbuildProvider.override_default_provider(
-            EsbuildProvider(esbuild_module_path=EsbuildSource.install())
-        )
-
         # Use an explicit provider
         lambda_.Function(
             self,
             "FunctionOne",
             runtime=lambda_.Runtime.NODEJS_16_X,
             handler="index.handler",
-            code=TypeScriptCode(
-                "../fixtures/handlers/colors.ts",
-                copy_dir="../fixtures/handlers",
-                build_provider=EsbuildProvider(),  # Override for a specific construct
-            ),
+            code=TypeScriptCode("../fixtures/handlers/colors.ts"),
         )
 
         # Set build options
@@ -62,11 +53,7 @@ class LambdaStack(cdk.Stack):
                 export function handler() {
                     console.log(hello);
                 }
-                """,
-                # Try to find the package anywhere, but don't install it
-                transform_provider=EsbuildProvider(
-                    esbuild_module_path=EsbuildSource.anywhere()
-                ),
+                """
             ),
         )
 

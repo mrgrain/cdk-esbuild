@@ -1,12 +1,8 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
-<<<<<<< HEAD
-import { Esbuild } from './src/esbuild-source';
-=======
 import { IntegrationTests } from './projenrc/IntegrationTests';
-import { Esbuild } from './src/private/esbuild-source';
->>>>>>> 4309f79 (ci: run python integration tests (#320))
+import { Esbuild } from './src/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -207,19 +203,6 @@ v3ReleaseWorkflow?.addToArray(
   tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
 );
 
-<<<<<<< HEAD
-=======
-
-// jsii rosetta
-project.package.addField('jsiiRosetta', {
-  strict: false,
-});
-const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
-project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);
-project.addGitIgnore('.jsii.tabl.json');
-project.addPackageIgnore('.jsii.tabl.json');
-
->>>>>>> 4309f79 (ci: run python integration tests (#320))
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';

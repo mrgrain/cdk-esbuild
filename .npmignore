@@ -41,9 +41,5 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
-<<<<<<< HEAD
-=======
 Pipfile
 Pipfile.lock
-.jsii.tabl.json
->>>>>>> 4309f79 (ci: run python integration tests (#320))
