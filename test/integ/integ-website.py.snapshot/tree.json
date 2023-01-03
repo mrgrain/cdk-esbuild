@@ -428,7 +428,7 @@
                 "path": "S3Website/DefaultTest/Default",
                 "constructInfo": {
                   "fqn": "constructs.Construct",
-                  "version": "10.1.206"
+                  "version": "10.1.208"
                 }
               },
               "DeployAssert": {
@@ -474,7 +474,7 @@
         "path": "Tree",
         "constructInfo": {
           "fqn": "constructs.Construct",
-          "version": "10.1.206"
+          "version": "10.1.208"
         }
       }
     },
