@@ -1,7 +1,12 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { GetAccessorDeclaration, SourceFile, SyntaxKind } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
+<<<<<<< HEAD
 import { Esbuild } from './src/esbuild-source';
+=======
+import { IntegrationTests } from './projenrc/IntegrationTests';
+import { Esbuild } from './src/private/esbuild-source';
+>>>>>>> 4309f79 (ci: run python integration tests (#320))
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -93,7 +98,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Dependencies
   cdkVersion: '2.0.0',
   devDeps: [
-    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
+    '@aws-cdk/aws-synthetics-alpha@2.12.0-alpha.0',
     '@types/eslint',
     Esbuild.spec,
     'jest-mock',
@@ -133,6 +138,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+
+// setup integration tests
+new IntegrationTests(project, {
+  python: {
+    cdkVersion: '2.58.1',
+  },
+});
+
+
 // test against latest versions
 const REPO_TEMP_DIRECTORY = '.repo';
 project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
@@ -160,6 +174,7 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
     },
   ],
 });
+
 
 // release only via manual trigger
 project.release?.publisher?.publishToGit({
@@ -192,6 +207,19 @@ v3ReleaseWorkflow?.addToArray(
   tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
 );
 
+<<<<<<< HEAD
+=======
+
+// jsii rosetta
+project.package.addField('jsiiRosetta', {
+  strict: false,
+});
+const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
+project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);
+project.addGitIgnore('.jsii.tabl.json');
+project.addPackageIgnore('.jsii.tabl.json');
+
+>>>>>>> 4309f79 (ci: run python integration tests (#320))
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';

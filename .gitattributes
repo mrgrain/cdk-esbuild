@@ -25,5 +25,6 @@
 /LICENSE linguist-generated
 /package-lock.json linguist-generated
 /package.json linguist-generated
+/Pipfile linguist-generated
 /src/esbuild-types.ts linguist-generated
 /tsconfig.dev.json linguist-generated

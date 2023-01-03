@@ -60,6 +60,13 @@ junit.xml
 .jsii
 tsconfig.json
 !/API.md
+<<<<<<< HEAD
+=======
+cdk-integ.out.*
+Pipfile.lock
+!/Pipfile
+.jsii.tabl.json
+>>>>>>> 4309f79 (ci: run python integration tests (#320))
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json
