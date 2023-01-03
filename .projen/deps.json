@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@aws-cdk/aws-synthetics-alpha",
-      "version": "2.12.0-alpha.0",
+      "version": "2.0.0-alpha.11",
       "type": "build"
     },
     {

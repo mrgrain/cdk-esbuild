@@ -94,7 +94,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   // Dependencies
   cdkVersion: '2.0.0',
   devDeps: [
-    '@aws-cdk/aws-synthetics-alpha@2.12.0-alpha.0',
+    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
     Esbuild.spec,
     'jest-mock',
@@ -170,7 +170,6 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
     },
   ],
 });
-
 
 // release only via manual trigger
 project.release?.publisher?.publishToGit({

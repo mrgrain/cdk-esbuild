@@ -42,7 +42,7 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/aws-synthetics-alpha": "2.12.0-alpha.0",
+    "@aws-cdk/aws-synthetics-alpha": "2.0.0-alpha.11",
     "@aws-cdk/integ-runner": "^2",
     "@types/eslint": "^7.29.0",
     "@types/jest": "^27",
