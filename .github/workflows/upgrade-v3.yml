@@ -42,8 +42,7 @@ jobs:
     needs: upgrade
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     if: ${{ needs.upgrade.outputs.patch_created }}
     steps:
       - name: Generate token
@@ -55,7 +54,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{ steps.generate_token.outputs.token }}
           ref: v3
       - name: Download patch
         uses: actions/download-artifact@v3
@@ -70,7 +68,7 @@ jobs:
           git config user.email "github-actions@github.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ steps.generate_token.outputs.token }}
           commit-message: |-
