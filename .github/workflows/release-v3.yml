@@ -93,6 +93,8 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Update npm
+        run: sudo npm i -g npm@8
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -138,6 +140,8 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Update npm
+        run: sudo npm i -g npm@8
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -173,6 +177,8 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Update npm
+        run: sudo npm i -g npm@8
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
