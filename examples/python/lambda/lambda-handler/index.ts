@@ -1,12 +1,10 @@
-import { Handler } from "aws-lambda";
-
 interface Favorites {
   colour: string;
   food: string;
   season: string;
 }
 
-export const handler: Handler<Favorites, string> = async (favorites) => {
+export const handler = async (favorites: Favorites): Promise<string> => {
   return (
     `My favorite colour is ${favorites.colour}, ` +
     `I always like to eat some ${favorites.food} and ` +

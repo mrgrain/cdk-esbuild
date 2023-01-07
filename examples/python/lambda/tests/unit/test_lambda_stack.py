@@ -9,4 +9,4 @@ def test_lambda_created():
     stack = LambdaStack(app, "lambda")
     template = assertions.Template.from_stack(stack)
 
-    template.resource_count_is("AWS::Lambda::Function", 3)
+    template.resource_count_is("AWS::Lambda::Function", 1)

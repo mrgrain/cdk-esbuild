@@ -1,28 +1,48 @@
 
 # CDK Python Lambda example
 
-This is an example how to use cdk-esbuild with Python.
+This is an example how to create a Node.js Lambda Function using cdk-esbuild and Python.
 
-All interfaces are available, but the esbuild binary must be available in path, see [esbuild docs for details](https://esbuild.github.io/getting-started/#install-esbuild).
+All features are available, but refer to the specific [Python usage instructions](https://github.com/mrgrain/cdk-esbuild#python-and-dotnet) for further details.
 
 ## Getting started
 
-To set up a new virtualenv, run
+To set up a new virtualenv, run:
 
-```bash
+```console
 python3 -m venv .venv
 ```
 
 Then activate the venv and install all dependencies:
 
-```bash
+```console
 source .venv/bin/activate
 pip install -r requirements.txt -r requirements-dev.txt
-npm install -g esbuild
 ```
 
-Run the CDK app providing the `CDK_ESBUILD_MODULE_PATH`:
+You can now run the CDK app:
 
 ```bash
-CDK_ESBUILD_MODULE_PATH="$(npm prefix -g)/lib/node_modules/esbuild" cdk synth
+cdk synth
+```
+
+### Install esbuild locally (optional, but recommended)
+
+Inside the Python package, run the following command to install a local version of esbuild:
+
+```console
+npm install esbuild
+```
+
+This will create a `package.json` and `package-lock-json` file in your project root.
+These files should be committed to version control.
+
+In automated builds, add `npm ci` as an additional setup step.
+
+### Testing your code
+
+To execute the provided example test, simply run:
+
+```console
+pytest
 ```
