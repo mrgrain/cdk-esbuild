@@ -8,7 +8,7 @@ export class LambdaStack extends Stack {
     super(scope, id, props);
 
     const lambda = new Function(this, "Lambda", {
-      runtime: Runtime.NODEJS_16_X,
+      runtime: Runtime.NODEJS_18_X,
       handler: "index.handler",
       code: new TypeScriptCode("./src/index.ts"),
     });
