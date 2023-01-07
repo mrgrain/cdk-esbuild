@@ -1,6 +1,7 @@
 # Using esbuild with plugins
 
-`@mrgrain/cdk-esbuild` has an escape hatch that allows users to provide a custom implementation of the `buildSync` and `transformSyn` functions. This example demonstrates how to utilize the escape hatch to run `esbuild` with plugins.
+`@mrgrain/cdk-esbuild` allows users to provide a custom implementation of the _esbuild_ JavaScript API.
+This example demonstrates how to utilize the escape hatch to run `esbuild` with plugins.
 
 ## Demo
 
@@ -11,9 +12,10 @@ This example has loaded two plugins:
 - `esbuild-plugin-cache` which allows to use `https` in imports (checkout `lambda.ts`), and
 - `esbuild-plugin-time` which times the bundler executions.
 
-Next run `npm run synth` to see them in action. You should get something like this:
+Next run `npm run synth` to see them in action. You should see something like this:
 
-```
+```console
+$ npm run synth
 Bundling asset Function/Lambda/TypeScriptCode/Stage...
 Build started
 Download https://cdn.skypack.dev/lodash.capitalize
@@ -23,7 +25,8 @@ Build ended: 233ms
 
 Run the same command again, and notice how nothing is downloaded this time and how the build time improved.
 
-```
+```console
+$ npm run synth
 Bundling asset Function/Lambda/TypeScriptCode/Stage...
 Build started
 Build ended: 15ms
@@ -37,26 +40,35 @@ If you feel like it, inspect the bundled `lambda.js` file inside the asset outpu
 
 ## How it's working
 
-Unfortunately AWS CDK [does not work well with asynchronous code](https://github.com/aws/aws-cdk/issues/8273). However esbuild's plugin API is async and we therefore need to use the escape hatch.
+AWS CDK [does not support asynchronous asset bundling](https://github.com/aws/aws-cdk/issues/8273).
+However esbuild's plugin API is async and we therefore need to use the escape hatch.
 
-In `app.ts` we pass a custom build function to our `TypeScriptCode` object:
+In `app.ts` we pass a custom build provider to our `TypeScriptCode` object:
 
 ```ts
 new TypeScriptCode("./lambda.ts", {
-  buildFn: (options: BuildOptions): BuildResult => {
-    try {
-      execSync(`node build.mjs '${JSON.stringify(options)}'`, {
-        stdio: "inherit",
-      });
-      return { errors: [], warnings: [] };
-    } catch (error) {
-      throw { errors: [], warnings: [] };
-    }
-  },
+  buildProvider: new BuildScriptProvider('build.mjs'),
 });
 ```
 
-In this function, we start a new node process: A special esbuild build-script, that can take the usual build options as a command line argument in form of stringified JSON. This build script is very simple. Have a look at `build.mjs`.
+The build provider is defined further up, and mostly consists of one method.
+In this method, we spawn an esbuild build-script as new node process.
+
+```ts
+// Code simplified
+class BuildScriptProvider implements IBuildProvider {
+  constructor(public readonly scriptPath: string) {}
+
+  buildSync(options: ProviderBuildOptions): void {
+    spawnSync('node', [this.scriptPath, JSON.stringify(options)], {
+      stdio: "inherit",
+    });
+  }
+}
+```
+
+This build script is very simple, but written so it can take the usual build options as a command line argument in form of stringified JSON.
+Have a look at `build.mjs`.
 
 First we recover the build options from the cli input:
 

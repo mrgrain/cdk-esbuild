@@ -212,7 +212,7 @@ const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
 project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);
 project.addGitIgnore('.jsii.tabl.json');
 project.addPackageIgnore('.jsii.tabl.json');
-
+project.addPackageIgnore('/rosetta/');
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';

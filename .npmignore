@@ -44,3 +44,4 @@ tsconfig.tsbuildinfo
 Pipfile
 Pipfile.lock
 .jsii.tabl.json
+/rosetta/

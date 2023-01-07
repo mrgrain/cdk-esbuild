@@ -8,7 +8,7 @@ test("Creates a Lambda Function", () => {
   // THEN
   expect(stack).toHaveResourceLike("AWS::Lambda::Function", {
     Handler: "lambda.handler",
-    Runtime: "nodejs14.x",
+    Runtime: "nodejs18.x",
   });
 
   expect(stack).toHaveOutput({

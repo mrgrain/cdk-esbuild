@@ -9,4 +9,7 @@ await esbuild
     ...options,
     plugins: [time(), cache({ directory: ".cache" })],
   })
-  .catch(() => process.exit(1));
+  .catch((error) => {
+    console.log(error);
+    process.exit(1)
+  });
