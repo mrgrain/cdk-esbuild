@@ -14,7 +14,7 @@ _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fa
 ## Why?
 
 _esbuild_ is an extremely fast bundler and minifier for TypeScript and JavaScript.
-This package makes _esbuild_ available to deploy AWS Lambda Functions, static websites and publish assets for other uses.
+This package makes _esbuild_ available to deploy AWS Lambda Functions, static websites or publish assets for further usage.
 
 AWS CDK [supports _esbuild_ for AWS Lambda Functions](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-lambda-nodejs-readme.html), but the implementation cannot be used with other Constructs and doesn't expose all of _esbuild_'s API.
 
@@ -43,7 +43,7 @@ dotnet add package Mrgrain.CdkEsbuild
 
 ### AWS Lambda: Serverless function
 
-> 💡 See [Lambda w/ TypeScript](examples/typescript/lambda) and [Lambda w/ Python](examples/typescript/lambda) for complete working examples of a how to deploy an AWS Lambda Function.
+> 💡 See [Lambda (TypeScript)](examples/typescript/lambda) and [Lambda (Python)](examples/typescript/lambda) for complete working examples of a how to deploy an AWS Lambda Function.
 
 Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Function.html#code):
 
@@ -59,7 +59,7 @@ const fn = new lambda.Function(stack, "MyFunction", {
 
 ### AWS S3: Static Website
 
-> 💡 See [React App w/ TypeScript](examples/typescript/website) for a complete working example of a how to deploy a React app to S3.
+> 💡 See [React App (TypeScript)](examples/typescript/website) for a complete working example of a how to deploy a React app to S3.
 
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
@@ -81,11 +81,11 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 ### Amazon CloudWatch Synthetics: Canary monitoring
 
-> 💡 See [Monitored Website w/ TypeScript](examples/typescript/website) for a complete working example of a deployed and monitored website.
+> 💡 See [Monitored Website (TypeScript)](examples/typescript/website) for a complete working example of a deployed and monitored website.
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
-> ℹ️ This feature depends on `@aws-cdk/aws-synthetics-alpha` which is a developer preview.
+> ℹ️ This feature depends on `@aws-cdk/aws-synthetics-alpha` which is in developer preview.
 > Please install the package using the respective tool of your language.
 > You may need to update your source code when upgrading to a newer version of this alpha package.
 
@@ -107,7 +107,7 @@ const canary = new synthetics.Canary(stack, "MyCanary", {
 
 ## Documentation
 
-The package exports various different constructs for use with CDK features. The guiding design principal for this package is _extend, don't replace_. Expect constructs that you can provide as props, not complete replacements.
+The package exports various different constructs for use with AWS CDK features. The guiding design principal for this package is _"extend, don't replace"_. Expect constructs that you can provide as props, not complete replacements.
 
 For use in **Lambda Functions** and **Synthetic Canaries**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-synthetics-alpha.Code.html)):
 
