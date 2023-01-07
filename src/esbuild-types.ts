@@ -185,6 +185,14 @@ export interface Location {
   suggestion: string;
 }
 
+export interface OutputFile {
+  readonly path: string;
+  /** "text" as bytes */
+  readonly contents: Uint8Array;
+  /** "contents" as text (changes automatically with "contents") */
+  readonly text: string;
+}
+
 export interface BuildInvalidate {
   (): Promise<BuildIncremental>;
   dispose(): void;
@@ -418,6 +426,7 @@ export interface Metafile {
         external?: boolean;
         original?: string;
       }[];
+      format?: 'cjs' | 'esm';
     };
   };
   outputs: {
@@ -590,14 +599,6 @@ export interface InitializeOptions {
 }
 
 export let version: string;
-
-export interface OutputFile {
-  path: string;
-  /** "text" as bytes */
-  contents: Uint8Array;
-  /** "contents" as text (changes automatically with "contents") */
-  text: string;
-}
 
 export interface CompilerOptions {
   readonly jsxFactory?: string;
