@@ -1,4 +1,6 @@
 
+## [4.0.0-beta.1](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2023-01-07)
+
 ## [4.0.0-beta.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.13.3...v4.0.0-beta.0) (2023-01-03)
 
 ## [3.13.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.6...v3.13.0) (2022-12-18)
