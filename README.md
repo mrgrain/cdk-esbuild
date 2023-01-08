@@ -376,7 +376,7 @@ const bundledCode = new TypeScriptCode("src/handler.ts", {
 
 ### [Python/.NET/Go] How can I use a different version of _esbuild_?
 
-Install the desired version of _esbuild_ locally or globally [as described in the documentation above](#python-and-dotnet).
+Install the desired version of _esbuild_ locally or globally [as described in the documentation above](#python-net-go).
 
 Build and Transform interfaces are relatively stable across _esbuild_ versions.
 However if any incompatibilities occur, use the appropriate language features to cast any incompatible `buildOptions` / `transformOptions` to the correct types.
