@@ -1,9 +1,8 @@
-
-# CDK Python Lambda example
+# Python Lambda example
 
 This is an example how to create a Node.js Lambda Function using cdk-esbuild and Python.
 
-All features are available, but refer to the specific [Python usage instructions](https://github.com/mrgrain/cdk-esbuild#python-and-dotnet) for further details.
+All features are available, but refer to the specific [Python usage instructions](https://github.com/mrgrain/cdk-esbuild#python-net-go) for further details.
 
 ## Getting started
 
