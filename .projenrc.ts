@@ -85,6 +85,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   publishToGo: {
     moduleName: 'github.com/mrgrain/cdk-esbuild-go',
+    packageName: 'cdkesbuild',
     githubUseSsh: true,
     githubDeployKeySecret: 'GO_DEPLOY_KEY',
   },

@@ -1,4 +1,18 @@
 
+## [4.0.0-beta.3](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2023-01-08)
+
+
+### Bug Fixes
+
+* use shorter package name for go ([#342](https://github.com/mrgrain/cdk-esbuild/issues/342)) ([2026131](https://github.com/mrgrain/cdk-esbuild/commit/2026131b5e8c8a94fafc969811ad38dd6ef77ce9))
+
+## [4.0.0-beta.2](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2023-01-08)
+
+
+### Features
+
+* publish for go ([#341](https://github.com/mrgrain/cdk-esbuild/issues/341)) ([66a0df0](https://github.com/mrgrain/cdk-esbuild/commit/66a0df084a2d1043df50adb23475a512a5301427))
+
 ## [4.0.0-beta.1](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2023-01-07)
 
 ## [4.0.0-beta.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.13.3...v4.0.0-beta.0) (2023-01-03)

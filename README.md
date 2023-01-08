@@ -7,7 +7,7 @@
 _CDK constructs for [esbuild](https://github.com/evanw/esbuild), an extremely fast JavaScript bundler_
 
 [Getting started](#getting-started) |
-[Documentation](#documentation) | [API Reference](#api-reference) | [Python & .NET](#python-and-net) | [FAQ](#faq)
+[Documentation](#documentation) | [API Reference](#api-reference) | [Python, .NET, & Go](#python-net-go) | [FAQ](#faq)
 
 [![View on Construct Hub](https://constructs.dev/badge?package=%40mrgrain%2Fcdk-esbuild)](https://constructs.dev/packages/@mrgrain/cdk-esbuild)
 
@@ -31,7 +31,7 @@ yarn add @mrgrain/cdk-esbuild@4
 pnpm add @mrgrain/cdk-esbuild@4
 ```
 
-For Python and .NET, use these commands:
+For Python, .NET or Go, use these commands:
 
 ```sh
 # Python
@@ -39,6 +39,9 @@ pip install mrgrain.cdk-esbuild
 
 # .NET
 dotnet add package Mrgrain.CdkEsbuild
+
+# Go
+go get github.com/mrgrain/cdk-esbuild-go/cdkesbuild/v4
 ```
 
 ### AWS Lambda: Serverless function
@@ -139,11 +142,12 @@ The following classes power the other features. You normally won't have to use t
 Auto-generated reference for Constructs, Classes and Structs.
 This information is also available as part of your IDE's code completion.
 
-### Python and .NET
+### Python, .NET, Go
 
 _Esbuild_ requires a platform and architecture specific binary and currently has to be installed with a Node.js package manager like npm.
 
-When using `cdk-esbuild` with Python or .NET, the package will automatically detect a local or global installation of the _esbuild_ npm package.If none can be found, it will fall back to dynamically installing a copy into a temporary location.
+When using `cdk-esbuild` with Python, .NET or Go, the package will automatically detect local and global installations of the _esbuild_ npm package.
+If none can be found, it will fall back to dynamically installing a copy into a temporary location.
 The exact algorithm of this mechanism must be treated as an implementation detail and should not be relied on.
 It can however be configured to a certain extent.
 See the examples below for more details.
@@ -208,7 +212,7 @@ In most situations the default API configuration will be suitable.
 But sometimes it is required to configure _esbuild_ differently or even provide a custom implementation.
 Common reasons for this are:
 
-- Using a pre-installed version of _esbuild_ with Python or .NET
+- Using a pre-installed version of _esbuild_ with Python, .NET or Go
 - If features not supported by the synchronous API are required, e.g. support for plugins
 - If the default version constraints for _esbuild_ are not suitable
 - To use a version of esbuild that is installed by any other means than `npm`, including Docker
@@ -262,7 +266,7 @@ new TypeScriptCode("src/handler.ts", { buildProvider });
 Alternatively supported by setting the `CDK_ESBUILD_MODULE_PATH` environment variable, which will apply to all uses.
 Defining the `esbuildModulePath` prop takes precedence.
 
-If you are a Python or .NET users, see the language specific guide for a more detailed expose on this feature.
+If you are a Python, .NET or Go user, refer to the language specific guide for a more detailed explanation of this feature.
 
 #### Custom Build and Transform API implementations
 
@@ -370,9 +374,9 @@ const bundledCode = new TypeScriptCode("src/handler.ts", {
 });
 ```
 
-### [Python/.NET] How can I use a different version of _esbuild_?
+### [Python/.NET/Go] How can I use a different version of _esbuild_?
 
-Install the desired version of _esbuild_ locally or globally [as described in the documentation above](#python-and-dotnet).
+Install the desired version of _esbuild_ locally or globally [as described in the documentation above](#python-net-go).
 
 Build and Transform interfaces are relatively stable across _esbuild_ versions.
 However if any incompatibilities occur, use the appropriate language features to cast any incompatible `buildOptions` / `transformOptions` to the correct types.
