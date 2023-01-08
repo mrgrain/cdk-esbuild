@@ -11,6 +11,7 @@ queue_rules:
       - status-success=package-dotnet
       - status-success=package-go
       - status-success=integ-python
+      - status-success=integ-go
       - status-success=test-latest-versions
 pull_request_rules:
   - name: Automatic merge on approval and successful build
@@ -32,4 +33,5 @@ pull_request_rules:
       - status-success=package-dotnet
       - status-success=package-go
       - status-success=integ-python
+      - status-success=integ-go
       - status-success=test-latest-versions

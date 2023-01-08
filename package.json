@@ -15,6 +15,7 @@
     "docgen": "npx projen docgen",
     "eject": "npx projen eject",
     "eslint": "npx projen eslint",
+    "integ:go": "npx projen integ:go",
     "integ:python": "npx projen integ:python",
     "package": "npx projen package",
     "package-all": "npx projen package-all",

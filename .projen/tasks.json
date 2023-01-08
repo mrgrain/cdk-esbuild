@@ -136,6 +136,15 @@
         }
       ]
     },
+    "integ:go": {
+      "name": "integ:go",
+      "steps": [
+        {
+          "exec": "integ-runner --app=\"go run {filePath}\" --test-regex=\"^integ_.*\\.go$\"",
+          "receiveArgs": true
+        }
+      ]
+    },
     "integ:python": {
       "name": "integ:python",
       "steps": [
