@@ -150,7 +150,8 @@
         "iconUrl": "https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/logo.png"
       },
       "go": {
-        "moduleName": "github.com/mrgrain/cdk-esbuild-go"
+        "moduleName": "github.com/mrgrain/cdk-esbuild-go",
+        "packageName": "cdkesbuild"
       }
     },
     "tsc": {
