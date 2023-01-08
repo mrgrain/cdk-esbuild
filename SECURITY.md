@@ -4,12 +4,12 @@
 
 Only the latest release of each major version is supported.
 
-| Plugin Version | CDK Version | Supported                                                     |
-| -------------- | ----------- | ------------------------------------------------------------- |
-| v1             | ^1.99.0     | :x:                                                           |
-| v2             | ^1.99.0     | Security updates and critical bug fixes until June 1, 2023    |
-| v3             | ^2.0.0      | Security updates and critical bug fixes until January 1, 2024 |
-| v4             | ^2.12.0     | :white_check_mark:                                            |
+| Plugin Version | CDK Version | Supported                                                      |
+| -------------- | ----------- | -------------------------------------------------------------- |
+| v1             | ^1.99.0     | :x:                                                            |
+| v2             | ^1.99.0     | Security updates and critical bug fixes until June 1, 2023     |
+| v3             | ^2.0.0      | Security updates and critical bug fixes until February 1, 2024 |
+| v4             | ^2.12.0     | :white_check_mark:                                             |
 
 ## Reporting a Vulnerability
 

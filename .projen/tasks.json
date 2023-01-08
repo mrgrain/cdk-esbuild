@@ -235,7 +235,7 @@
       "name": "prepare:readme",
       "steps": [
         {
-          "exec": "sed -i -e '1,5d' -e '6i <img src=\"https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg\" alt=\"cdk-esbuild\">' README.md"
+          "exec": "sed -i -e '1,5d' -e '6i <img src=\"https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark.svg\" alt=\"cdk-esbuild\">' README.md"
         }
       ]
     },
@@ -266,8 +266,7 @@
       "description": "Prepare a release from \"main\" branch",
       "env": {
         "RELEASE": "true",
-        "MAJOR": "4",
-        "PRERELEASE": "beta"
+        "MAJOR": "4"
       },
       "steps": [
         {

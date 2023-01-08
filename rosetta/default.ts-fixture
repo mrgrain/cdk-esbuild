@@ -5,13 +5,14 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deploy from "aws-cdk-lib/aws-s3-deployment";
 import * as synthetics from "@aws-cdk/aws-synthetics-alpha";
 import { 
-    BuildOptions, 
-    EsbuildProvider, 
+    BuildOptions,
+    EsbuildSource,
+    EsbuildProvider,
     IBuildProvider,
     ITransformProvider,
     InlineTypeScriptCode,
     TypeScriptCode,
-    TypeScriptSource, 
+    TypeScriptSource,
     TransformOptions
 } from '.';
 

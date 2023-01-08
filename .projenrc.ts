@@ -2,6 +2,7 @@ import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
+import { WordmarkReadme } from './projenrc/WordmarkReadme';
 import { Esbuild } from './src/private/esbuild-source';
 
 const project = new awscdk.AwsCdkConstructLibrary({
@@ -61,13 +62,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  npmDistTag: 'next',
+  npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 4,
-  prerelease: 'beta',
   releaseBranches: {
     v3: {
       majorVersion: 3,
+      npmDistTag: 'old-stable',
     },
   },
   releaseTrigger: {
@@ -197,19 +198,14 @@ project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
 // add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
   'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['unstable', 'next']),
+  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
 );
 
 // ... but release v3 weekly
 const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
 v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addToArray(
-  'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
-);
 v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
-
 
 // jsii rosetta
 project.package.addField('jsiiRosetta', {
@@ -221,13 +217,8 @@ project.addGitIgnore('.jsii.tabl.json');
 project.addPackageIgnore('.jsii.tabl.json');
 project.addPackageIgnore('/rosetta/');
 
-// pypi release
-const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';
-const readme = project.tasks.addTask('prepare:readme', {
-  exec: `sed -i -e '1,5d' -e '6i ${wordmark}' README.md`,
-});
-project.tasks.tryFind('compile')?.prependExec(`if [ ! -z \${CI} ]; then npx projen ${readme.name}; fi`);
-project.tasks.tryFind('compile')?.exec('if [ ! -z ${CI} ]; then git checkout README.md; fi');
+// Wordmark images in README
+new WordmarkReadme(project, { altText: 'cdk-esbuild' });
 
 // eslint
 project.eslint?.addRules({
