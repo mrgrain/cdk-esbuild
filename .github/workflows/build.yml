@@ -258,6 +258,7 @@ jobs:
           cd .repo
           npm ci
           npx projen package:go
+          go mod tidy
           npx projen integ:go
   test-latest-versions:
     needs: build
