@@ -84,6 +84,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   publishToGo: {
     moduleName: 'github.com/mrgrain/cdk-esbuild-go',
+    githubUseSsh: true,
+    githubDeployKeySecret: 'GO_DEPLOY_KEY',
   },
   catalog: {
     twitter: '@mrgrain',
@@ -205,6 +207,7 @@ v3ReleaseWorkflow?.addToArray(
   'jobs.release_npm.steps',
   tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
 );
+v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
 
 
 // jsii rosetta
