@@ -63,7 +63,6 @@ tsconfig.json
 cdk-integ.out.*
 Pipfile.lock
 !/Pipfile
-!/go.mod
 .jsii.tabl.json
 !/.vscode/extensions.json
 !/.vscode/settings.json

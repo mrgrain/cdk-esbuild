@@ -1,8 +1,6 @@
-import { spawnSync } from 'child_process';
 import { readdirSync } from 'fs';
 import { basename, join } from 'path';
-import { Component, awscdk, TextFile } from 'projen';
-import { PROJEN_MARKER } from 'projen/lib/common';
+import { Component, awscdk } from 'projen';
 import { Pipenv } from './Pipenv';
 
 
@@ -137,14 +135,14 @@ export class IntegrationTests extends Component {
     pipenv.addPackage(`${pythonTarget.distName}@{path = "./dist/python/${pythonTarget.module}-0.0.0-py3-none-any.whl"}`);
   }
 
-  private setupGo(goTarget: {
+  private setupGo(_goTarget: {
     moduleName: string;
     packageName?: string;
   }) {
     const goVersion = '1.16';
-    const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
-    const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
-    const goRepository = goTarget.moduleName;
+    // const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
+    // const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
+    // const goRepository = goTarget.moduleName;
 
     // Task
     this.project.addTask('integ:go', {
@@ -158,7 +156,6 @@ export class IntegrationTests extends Component {
       'cd .repo',
       'npm ci',
       'npx projen package:go',
-      'go mod tidy',
       'npx projen integ:go',
     ], {
       tools: {
@@ -175,28 +172,23 @@ export class IntegrationTests extends Component {
     this.project.addPackageIgnore('go.mod');
     this.project.addPackageIgnore('go.sum');
 
-    new TextFile(this.project, 'go.mod', {
-      marker: true,
-      readonly: false,
-      lines: [
-        `// ${PROJEN_MARKER}`,
-        `module ${goPackageName}_integ_tests`,
-        '',
-        `go ${goVersion}`,
-        '',
-        `require github.com/aws/aws-cdk-go/awscdk/v2 v${goCdkVersion}`,
-        `require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v${goCdkVersion}-alpha.0`,
-        `require ${goRepository}/${goPackageName} v0.0.0-unpublished`,
-        `replace ${goRepository}/${goPackageName} v0.0.0-unpublished => ./dist/go/${goPackageName}`,
-        `replace ${goRepository}/${goPackageName}/jsii v0.0.0-unpublished => ./dist/go/${goPackageName}/jsii`,
-        `replace ${goRepository}/${goPackageName}/internal v0.0.0-unpublished => ./dist/go/${goPackageName}/internal`,
-      ],
-    });
-  }
-
-  postSynthesize(): void {
-    spawnSync('go', ['mod', 'tidy']);
-    spawnSync('chmod', ['0444', 'go.mod']);
+    // new TextFile(this.project, 'go.mod', {
+    //   marker: true,
+    //   readonly: false,
+    //   lines: [
+    //     `// ${PROJEN_MARKER}`,
+    //     `module ${goPackageName}_integ_tests`,
+    //     '',
+    //     `go ${goVersion}`,
+    //     '',
+    //     `require github.com/aws/aws-cdk-go/awscdk/v2 v${goCdkVersion}`,
+    //     `require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v${goCdkVersion}-alpha.0`,
+    //     `require ${goRepository}/${goPackageName} v0.0.0-unpublished`,
+    //     `replace ${goRepository}/${goPackageName} v0.0.0-unpublished => ./dist/go/${goPackageName}`,
+    //     `replace ${goRepository}/${goPackageName}/jsii v0.0.0-unpublished => ./dist/go/${goPackageName}/jsii`,
+    //     `replace ${goRepository}/${goPackageName}/internal v0.0.0-unpublished => ./dist/go/${goPackageName}/internal`,
+    //   ],
+    // });
   }
 }
 
