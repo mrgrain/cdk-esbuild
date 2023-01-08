@@ -105,19 +105,10 @@ jobs:
         run: mv .repo/dist dist
       - name: Release
         env:
-          NPM_DIST_TAG: latest
+          NPM_DIST_TAG: old-stable
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
-      - name: Update tags
-        run: |-
-          version=`cat dist/version.txt`
-          echo $version
-          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
-          npm dist-tag add @mrgrain/cdk-esbuild@$version latest
-        env:
-          NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   release_pypi:
     name: Publish to PyPI
     needs: release

@@ -62,13 +62,13 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  npmDistTag: 'next',
+  npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 4,
-  prerelease: 'beta',
   releaseBranches: {
     v3: {
       majorVersion: 3,
+      npmDistTag: 'old-stable',
     },
   },
   releaseTrigger: {
@@ -197,19 +197,14 @@ project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
 // add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
   'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['unstable', 'next']),
+  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
 );
 
 // ... but release v3 weekly
 const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
 v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addToArray(
-  'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
-);
 v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
-
 
 // jsii rosetta
 project.package.addField('jsiiRosetta', {
