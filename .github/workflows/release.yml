@@ -40,7 +40,7 @@ jobs:
         with:
           name: build-artifact
           path: dist
-      - name: Publish tag
+      - name: Publish Changelog
         run: npx projen publish:git
     container:
       image: jsii/superchain:1-buster-slim-node14
