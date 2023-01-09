@@ -9,6 +9,7 @@ queue_rules:
       - status-success=package-js
       - status-success=package-python
       - status-success=package-dotnet
+      - status-success=package-go
       - status-success=integ-python
       - status-success=test-latest-versions
 pull_request_rules:
@@ -29,5 +30,6 @@ pull_request_rules:
       - status-success=package-js
       - status-success=package-python
       - status-success=package-dotnet
+      - status-success=package-go
       - status-success=integ-python
       - status-success=test-latest-versions
