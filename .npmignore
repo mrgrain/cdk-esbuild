@@ -43,3 +43,10 @@ tsconfig.tsbuildinfo
 !.jsii
 Pipfile
 Pipfile.lock
+<<<<<<< HEAD
+=======
+go.mod
+go.sum
+.jsii.tabl.json
+/rosetta/
+>>>>>>> a15968c (chore: go integ tests (#344))
