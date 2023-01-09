@@ -82,6 +82,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     packageId: 'Mrgrain.CdkEsbuild',
     iconUrl: 'https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/logo.png',
   },
+  publishToGo: {
+    moduleName: 'github.com/mrgrain/cdk-esbuild-go',
+    packageName: 'cdkesbuild',
+    githubUseSsh: true,
+    githubDeployKeySecret: 'GO_DEPLOY_KEY',
+  },
   catalog: {
     twitter: '@mrgrain',
   },

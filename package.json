@@ -19,6 +19,7 @@
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:dotnet": "npx projen package:dotnet",
+    "package:go": "npx projen package:go",
     "package:js": "npx projen package:js",
     "package:python": "npx projen package:python",
     "post-compile": "npx projen post-compile",
@@ -146,6 +147,10 @@
         "namespace": "Mrgrain.CdkEsbuild",
         "packageId": "Mrgrain.CdkEsbuild",
         "iconUrl": "https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/logo.png"
+      },
+      "go": {
+        "moduleName": "github.com/mrgrain/cdk-esbuild-go",
+        "packageName": "cdkesbuild"
       }
     },
     "tsc": {
