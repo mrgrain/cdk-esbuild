@@ -14,14 +14,6 @@ func main() {
 	app := awscdk.NewApp(nil)
 	stack := awscdk.NewStack(app, jsii.String("GoLambdaStack"), nil)
 
-	// Override default provider
-	cdkesbuild.EsbuildProvider_OverrideDefaultBuildProvider(
-		cdkesbuild.NewEsbuildProvider(&cdkesbuild.EsbuildProviderProps{
-			EsbuildModulePath: cdkesbuild.EsbuildSource_Install(),
-		}),
-	)
-
-	// Use an explicit provider
 	awslambda.NewFunction(stack, jsii.String("FunctionOne"), &awslambda.FunctionProps{
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("index.handler"),
@@ -29,12 +21,10 @@ func main() {
 			jsii.String("../fixtures/handlers/colors.ts"),
 			&cdkesbuild.TypeScriptCodeProps{
 				CopyDir: jsii.String("../fixtures/handlers"),
-				BuildProvider: cdkesbuild.NewEsbuildProvider(&cdkesbuild.EsbuildProviderProps{}),
 			},
 		),
 	})
 
-	// Set build options
 	awslambda.NewFunction(stack, jsii.String("FunctionTwo"), &awslambda.FunctionProps{
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("index.handler"),
@@ -53,7 +43,6 @@ func main() {
 		),
 	})
 
-	// Inline Code
 	awslambda.NewFunction(stack, jsii.String("InlineFunction"), &awslambda.FunctionProps{
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("index.handler"),
@@ -64,12 +53,7 @@ func main() {
 				console.log(hello);
 			}
 			`),
-			&cdkesbuild.TransformerProps{
-				// Try to find the package anywhere, but don't install it
-				TransformProvider: cdkesbuild.NewEsbuildProvider(&cdkesbuild.EsbuildProviderProps{
-					EsbuildModulePath: cdkesbuild.EsbuildSource_Anywhere(),
-				}),
-			},
+			&cdkesbuild.TransformerProps{},
 		),
 	})
 

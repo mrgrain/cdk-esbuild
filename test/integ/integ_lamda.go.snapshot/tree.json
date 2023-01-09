@@ -21,7 +21,7 @@
                     "path": "GoLambdaStack/FunctionOne/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "Resource": {
@@ -60,13 +60,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               },
               "TypeScriptCode": {
@@ -78,7 +78,7 @@
                     "path": "GoLambdaStack/FunctionOne/TypeScriptCode/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "AssetBucket": {
@@ -86,7 +86,7 @@
                     "path": "GoLambdaStack/FunctionOne/TypeScriptCode/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
@@ -119,13 +119,13 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.59.0"
+              "version": "2.58.1"
             }
           },
           "FunctionTwo": {
@@ -141,7 +141,7 @@
                     "path": "GoLambdaStack/FunctionTwo/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "Resource": {
@@ -180,13 +180,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               },
               "TypeScriptCode": {
@@ -198,7 +198,7 @@
                     "path": "GoLambdaStack/FunctionTwo/TypeScriptCode/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "AssetBucket": {
@@ -206,7 +206,7 @@
                     "path": "GoLambdaStack/FunctionTwo/TypeScriptCode/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
@@ -239,13 +239,13 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.59.0"
+              "version": "2.58.1"
             }
           },
           "InlineFunction": {
@@ -261,7 +261,7 @@
                     "path": "GoLambdaStack/InlineFunction/ServiceRole/ImportServiceRole",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "Resource": {
@@ -300,13 +300,13 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               },
               "Resource": {
@@ -316,7 +316,7 @@
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
-                      "zipFile": "var __defProp = Object.defineProperty;\nvar __getOwnPropDesc = Object.getOwnPropertyDescriptor;\nvar __getOwnPropNames = Object.getOwnPropertyNames;\nvar __hasOwnProp = Object.prototype.hasOwnProperty;\nvar __export = (target, all) => {\n  for (var name in all)\n    __defProp(target, name, { get: all[name], enumerable: true });\n};\nvar __copyProps = (to, from, except, desc) => {\n  if (from && typeof from === \"object\" || typeof from === \"function\") {\n    for (let key of __getOwnPropNames(from))\n      if (!__hasOwnProp.call(to, key) && key !== except)\n        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });\n  }\n  return to;\n};\nvar __toCommonJS = (mod) => __copyProps(__defProp({}, \"__esModule\", { value: true }), mod);\nvar stdin_exports = {};\n__export(stdin_exports, {\n  handler: () => handler\n});\nmodule.exports = __toCommonJS(stdin_exports);\nconst hello = \"world\";\nfunction handler() {\n  console.log(hello);\n}\n// Annotate the CommonJS export names for ESM import in node:\n0 && (module.exports = {\n  handler\n});\n"
+                      "zipFile": "const hello = \"world\";\nexport function handler() {\n  console.log(hello);\n}\n"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -330,13 +330,13 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               }
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.59.0"
+              "version": "2.58.1"
             }
           },
           "BootstrapVersion": {
@@ -344,7 +344,7 @@
             "path": "GoLambdaStack/BootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.59.0"
+              "version": "2.58.1"
             }
           },
           "CheckBootstrapVersion": {
@@ -352,13 +352,13 @@
             "path": "GoLambdaStack/CheckBootstrapVersion",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.59.0"
+              "version": "2.58.1"
             }
           }
         },
         "constructInfo": {
           "fqn": "aws-cdk-lib.Stack",
-          "version": "2.59.0"
+          "version": "2.58.1"
         }
       },
       "GoLambdaFunctions": {
@@ -386,7 +386,7 @@
                     "path": "GoLambdaFunctions/DefaultTest/DeployAssert/BootstrapVersion",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnParameter",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   },
                   "CheckBootstrapVersion": {
@@ -394,25 +394,25 @@
                     "path": "GoLambdaFunctions/DefaultTest/DeployAssert/CheckBootstrapVersion",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.CfnRule",
-                      "version": "2.59.0"
+                      "version": "2.58.1"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.Stack",
-                  "version": "2.59.0"
+                  "version": "2.58.1"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/integ-tests-alpha.IntegTestCase",
-              "version": "2.59.0-alpha.0"
+              "version": "2.58.1-alpha.0"
             }
           }
         },
         "constructInfo": {
           "fqn": "@aws-cdk/integ-tests-alpha.IntegTest",
-          "version": "2.59.0-alpha.0"
+          "version": "2.58.1-alpha.0"
         }
       },
       "Tree": {
@@ -426,7 +426,7 @@
     },
     "constructInfo": {
       "fqn": "aws-cdk-lib.App",
-      "version": "2.59.0"
+      "version": "2.58.1"
     }
   }
 }
