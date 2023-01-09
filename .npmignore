@@ -43,3 +43,5 @@ tsconfig.tsbuildinfo
 !.jsii
 Pipfile
 Pipfile.lock
+go.mod
+go.sum

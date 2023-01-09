@@ -1,0 +1,12 @@
+{
+  "version": "22.0.0",
+  "testCases": {
+    "GoLambdaFunctions/DefaultTest": {
+      "stacks": [
+        "GoLambdaStack"
+      ],
+      "assertionStack": "GoLambdaFunctions/DefaultTest/DeployAssert",
+      "assertionStackName": "GoLambdaFunctionsDefaultTestDeployAssert141E9B32"
+    }
+  }
+}

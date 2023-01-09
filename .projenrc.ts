@@ -146,6 +146,9 @@ new IntegrationTests(project, {
   python: {
     cdkVersion: '2.58.1',
   },
+  go: {
+    cdkVersion: '2.58.1',
+  },
 });
 
 
