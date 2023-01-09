@@ -1,21 +1,31 @@
 
-## [4.0.0-beta.3](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.2...v4.0.0-beta.3) (2023-01-08)
+## [4.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.13.0...v4.0.0) (2023-01-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* New minimal version requirement of `aws-cdk-lib >= 2.12.0`. Versions before that depend on vulnerable packages and should not be used anymore. Please upgrade to a more recent version of `aws-cdk-lib`.
+* New unified provider interface to replace `buildFn`, `transformFn`, `esbuildBinaryPath` and `esbuildModulePath`. Please configure the included `EsbuildProvider` for more options or provide a custom implementation as an escape hatch to `buildProvider` and `transformProvider` respectively.
+* `props.copyDir` now removes the destination directory and any containing files if it exists. This will only affect edge cases when an asset has already been bundled and re-bundling is forced. Previously the destination directory would not have been cleared out, leading to outdated files being included in the bundle or an error message in same cases. The previous behavior was not correct and cannot be restored.
+* The default format and platform `InlineXCode` classes has been changed to `csj` and `node`. If you are using these classes to create browser or ESM compatible code, please update `format` and `platform` on `props.transformOptions` to the required values.
+* Removal of `InlineJsxCode` and `InlineTsxCode` classes. Use `InlineJavaScriptCode` or `InlineTypeScriptCode` respectively and set `transformOptions.loader` to `jsx` or `tsx`.
+* `InlineJavaScriptCode` and `InlineTypeScriptCode` now only take `TransformerProps` as second argument. Please provide any transform options via `props.transformOptions`. Previously `TransformOptions` could be provided at the top-level.
+
+### Features
+
+* `InlineJavaScriptCode` and `InlineTypeScriptCode` transform to CommonJS and Node by default ([#282](https://github.com/mrgrain/cdk-esbuild/issues/282)) ([37736a7](https://github.com/mrgrain/cdk-esbuild/commit/37736a7cb3cac5d2abdbd7bd60d23e438d258ee7))
+* graduate `InlineJavaScriptCode` and `InlineTypeScriptCode` to stable ([#283](https://github.com/mrgrain/cdk-esbuild/issues/283)) ([be31a04](https://github.com/mrgrain/cdk-esbuild/commit/be31a043567b1237340609be145d5ecc731a3821))
+* new `IBuildProvider` and `ITransformProvider` to unify esbuild provider options ([#286](https://github.com/mrgrain/cdk-esbuild/issues/286)) ([f60ab8e](https://github.com/mrgrain/cdk-esbuild/commit/f60ab8e89623c2cf224e5a615fc5fb39f4b7d3bf))
+* publish for go ([#341](https://github.com/mrgrain/cdk-esbuild/issues/341)) ([66a0df0](https://github.com/mrgrain/cdk-esbuild/commit/66a0df084a2d1043df50adb23475a512a5301427))
+* support overriding the default esbuild API implementations ([#313](https://github.com/mrgrain/cdk-esbuild/issues/313)) ([eee3443](https://github.com/mrgrain/cdk-esbuild/commit/eee344397218d845c532de6fce7d0c027e2c08de))
 
 
 ### Bug Fixes
 
 * use shorter package name for go ([#342](https://github.com/mrgrain/cdk-esbuild/issues/342)) ([2026131](https://github.com/mrgrain/cdk-esbuild/commit/2026131b5e8c8a94fafc969811ad38dd6ef77ce9))
+* remove deprecated support of top-level TransformOptions on InlineCode classes ([#281](https://github.com/mrgrain/cdk-esbuild/issues/281)) ([7159ef9](https://github.com/mrgrain/cdk-esbuild/commit/7159ef9ecde2ea24279d1e370b2b6d0466b8aa76))
+* upgrade minium version requirement for `aws-cdk-lib` ([#315](https://github.com/mrgrain/cdk-esbuild/issues/315)) ([86096f7](https://github.com/mrgrain/cdk-esbuild/commit/86096f776e11bae7660bac976e75b0cea453a680))
 
-## [4.0.0-beta.2](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.1...v4.0.0-beta.2) (2023-01-08)
-
-
-### Features
-
-* publish for go ([#341](https://github.com/mrgrain/cdk-esbuild/issues/341)) ([66a0df0](https://github.com/mrgrain/cdk-esbuild/commit/66a0df084a2d1043df50adb23475a512a5301427))
-
-## [4.0.0-beta.1](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0-beta.0...v4.0.0-beta.1) (2023-01-07)
-
-## [4.0.0-beta.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.13.3...v4.0.0-beta.0) (2023-01-03)
 
 ## [3.13.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.11.6...v3.13.0) (2022-12-18)
 

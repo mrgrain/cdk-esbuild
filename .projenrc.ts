@@ -190,13 +190,12 @@ project.release?.publisher?.publishToGit({
   projectChangelogFile: 'CHANGELOG.md',
   gitBranch: 'main',
 });
-project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
-  'jobs.release.steps',
-  {
-    name: 'Publish tag',
-    run: 'npx projen publish:git',
-  },
-);
+const publishChangelog = {
+  name: 'Publish Changelog',
+  run: 'npx projen publish:git',
+};
+project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray('jobs.release.steps', publishChangelog);
+project.tryFindObjectFile('.github/workflows/release-v3.yml')?.addToArray('jobs.release.steps', publishChangelog);
 
 // add additional tags on npm
 project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
