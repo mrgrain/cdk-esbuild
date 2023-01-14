@@ -276,6 +276,10 @@ editor.launchConfiguration.addConfiguration(
 project.tryFindObjectFile('package.json')?.addOverride('optionalDependencies', {
   [Esbuild.name]: Esbuild.version,
 });
+project.eslint?.addOverride({
+  files: ['src/esbuild-types.ts'],
+  rules: { 'max-len': ['off'] },
+});
 
 new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   source: 'node_modules/esbuild/lib/main.d.ts',
@@ -287,12 +291,11 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 
     const removeFromInterface = (name: string, properties: string[]) => {
       const interfaceDeclaration = esbuildTypes.getInterface(name);
-
       properties.forEach(property => interfaceDeclaration?.getProperty(property)?.remove());
     };
 
     ['CommonOptions', 'BuildOptions', 'TransformOptions', 'OutputFile'].forEach(readonlyInterface);
-    removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins', 'watch']);
+    removeFromInterface('BuildOptions', ['entryPoints', 'stdin', 'plugins']);
     esbuildTypes.getInterface('CommonOptions')?.getProperty('mangleProps')?.setType('any');
     esbuildTypes.getInterface('CommonOptions')?.getProperty('reserveProps')?.setType('any');
     esbuildTypes.getInterface('InitializeOptions')?.getProperty('wasmModule')?.setType('any');
