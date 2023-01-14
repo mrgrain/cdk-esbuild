@@ -1,4 +1,11 @@
 
+## [4.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v4.0.0...v4.1.0) (2023-01-14)
+
+
+### Features
+
+* upgrade to esbuild@^0.17.0 ([#358](https://github.com/mrgrain/cdk-esbuild/issues/358)) ([0fa4679](https://github.com/mrgrain/cdk-esbuild/commit/0fa467953023ecb6c7743f5061cb2e498fc32100))
+
 ## [4.0.0](https://github.com/mrgrain/cdk-esbuild/compare/v3.13.0...v4.0.0) (2023-01-09)
 
 
