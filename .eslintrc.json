@@ -231,6 +231,16 @@
       "rules": {
         "no-console": "off"
       }
+    },
+    {
+      "files": [
+        "src/esbuild-types.ts"
+      ],
+      "rules": {
+        "max-len": [
+          "off"
+        ]
+      }
     }
   ]
 }
