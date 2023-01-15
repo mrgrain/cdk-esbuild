@@ -43,11 +43,8 @@ jobs:
         with:
           name: build-artifact
           path: dist
-<<<<<<< HEAD
-=======
       - name: Publish Changelog
         run: npx projen publish:git:v3
->>>>>>> 0f8675f (ci: fix release-v3 trying to add changelog to main (#362))
     container:
       image: jsii/superchain:1-buster-slim-node14
   release_github:
@@ -114,15 +111,6 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
-      - name: Update tags
-        run: |-
-          version=`cat dist/version.txt`
-          echo $version
-          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
-          npm dist-tag add @mrgrain/cdk-esbuild@$version latest
-        env:
-          NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
   release_pypi:
     name: Publish to PyPI
     needs: release
@@ -239,4 +227,5 @@ jobs:
           GIT_USER_EMAIL: github-actions@github.com
           GITHUB_USE_SSH: "true"
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+          GIT_BRANCH: v3
         run: npx -p publib@latest publib-golang
