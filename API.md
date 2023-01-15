@@ -494,18 +494,6 @@ Documentation: https://esbuild.github.io/api/#ignore-annotations.
 
 ---
 
-##### `incremental`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.incremental"></a>
-
-```typescript
-public readonly incremental: boolean;
-```
-
-- *Type:* `boolean`
-
-Documentation: https://esbuild.github.io/api/#incremental.
-
----
-
 ##### `inject`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.inject"></a>
 
 ```typescript
