@@ -44,7 +44,7 @@ jobs:
           name: build-artifact
           path: dist
       - name: Publish Changelog
-        run: npx projen publish:git
+        run: npx projen publish:git:v3
     container:
       image: jsii/superchain:1-buster-slim-node14
   release_github:
