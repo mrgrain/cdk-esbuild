@@ -28,6 +28,7 @@
     "pre-compile": "npx projen pre-compile",
     "prepare:readme": "npx projen prepare:readme",
     "publish:git": "npx projen publish:git",
+    "publish:git:v3": "npx projen publish:git:v3",
     "release": "npx projen release",
     "release:v3": "npx projen release:v3",
     "test": "npx projen test",

@@ -43,6 +43,11 @@ jobs:
         with:
           name: build-artifact
           path: dist
+<<<<<<< HEAD
+=======
+      - name: Publish Changelog
+        run: npx projen publish:git:v3
+>>>>>>> 0f8675f (ci: fix release-v3 trying to add changelog to main (#362))
     container:
       image: jsii/superchain:1-buster-slim-node14
   release_github:
