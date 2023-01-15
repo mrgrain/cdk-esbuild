@@ -40,7 +40,7 @@ jobs:
         with:
           name: build-artifact
           path: dist
-      - name: Publish tag
+      - name: Publish Changelog
         run: npx projen publish:git
     container:
       image: jsii/superchain:1-buster-slim-node14
@@ -112,6 +112,7 @@ jobs:
         run: |-
           version=`cat dist/version.txt`
           echo $version
+          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
           npm dist-tag add @mrgrain/cdk-esbuild@$version unstable
           npm dist-tag add @mrgrain/cdk-esbuild@$version next
         env:

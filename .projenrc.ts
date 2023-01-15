@@ -180,7 +180,9 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
   ],
 });
 
-// release only via manual trigger
+
+// changelog for main
+const releaseWorkflow = project.tryFindObjectFile('.github/workflows/release.yml');
 project.release?.publisher?.publishToGit({
   changelogFile: 'dist/dist/changelog.md',
   versionFile: 'dist/dist/version.txt',
@@ -188,28 +190,30 @@ project.release?.publisher?.publishToGit({
   projectChangelogFile: 'CHANGELOG.md',
   gitBranch: 'main',
 });
-project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
-  'jobs.release.steps',
-  {
-    name: 'Publish tag',
-    run: 'npx projen publish:git',
-  },
+releaseWorkflow?.addToArray('jobs.release.steps', {
+  name: 'Publish Changelog',
+  run: 'npx projen publish:git',
+});
+releaseWorkflow?.addToArray('jobs.release_npm.steps',
+  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
 );
 
-// add additional tags on npm
-project.tryFindObjectFile('.github/workflows/release.yml')?.addToArray(
-  'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['unstable', 'next']),
-);
-
-// ... but release v3 weekly
+// changelog for v3
 const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
+project.release?.publisher?.publishToGit({
+  changelogFile: 'dist/dist/changelog.md',
+  versionFile: 'dist/dist/version.txt',
+  releaseTagFile: 'dist/dist/releasetag.txt',
+  projectChangelogFile: 'CHANGELOG.md',
+  gitBranch: 'v3',
+});
+v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
+  name: 'Publish Changelog',
+  run: 'npx projen publish:git:v3',
+});
 v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addToArray(
-  'jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'latest']),
-);
+v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
 
 
 // pypi release
