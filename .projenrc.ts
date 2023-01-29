@@ -71,9 +71,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
       npmDistTag: 'old-stable',
     },
   },
-  releaseTrigger: {
-    isContinuous: false,
-  } as release.ReleaseTrigger,
+  releaseTrigger: release.ReleaseTrigger.scheduled({
+    schedule: '0 5 1-7 * 1',
+  }),
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -191,6 +191,7 @@ project.release?.publisher?.publishToGit({
   projectChangelogFile: 'CHANGELOG.md',
   gitBranch: 'main',
 });
+releaseWorkflow?.addToArray('on.schedule', { cron: '0 5 15-21 * 1' });
 releaseWorkflow?.addToArray('jobs.release.steps', {
   name: 'Publish Changelog',
   run: 'npx projen publish:git',
@@ -212,7 +213,6 @@ v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
   name: 'Publish Changelog',
   run: 'npx projen publish:git:v3',
 });
-v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
 v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
 
