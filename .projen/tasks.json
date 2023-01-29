@@ -140,7 +140,7 @@
       "name": "integ:go",
       "steps": [
         {
-          "exec": "integ-runner --app=\"go run {filePath}\" --test-regex=\"^integ_.*\\.go$\"",
+          "exec": "integ-runner --app=\"go run -mod=mod {filePath}\" --test-regex=\"^integ_.*\\.go$\"",
           "receiveArgs": true
         }
       ]

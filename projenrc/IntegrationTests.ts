@@ -146,7 +146,7 @@ export class IntegrationTests extends Component {
 
     // Task
     this.project.addTask('integ:go', {
-      exec: `integ-runner --app="go run {filePath}" --test-regex="${this.goPattern}"`,
+      exec: `integ-runner --app="go run -mod=mod {filePath}" --test-regex="${this.goPattern}"`,
       receiveArgs: true,
     });
 
@@ -171,6 +171,7 @@ export class IntegrationTests extends Component {
     // go.mod
     this.project.addPackageIgnore('go.mod');
     this.project.addPackageIgnore('go.sum');
+    this.project.addGitIgnore('go.sum');
 
     // new TextFile(this.project, 'go.mod', {
     //   marker: true,

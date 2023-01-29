@@ -63,6 +63,7 @@ tsconfig.json
 cdk-integ.out.*
 Pipfile.lock
 !/Pipfile
+go.sum
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json
