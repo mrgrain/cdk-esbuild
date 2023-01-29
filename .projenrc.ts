@@ -212,7 +212,7 @@ v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
   name: 'Publish Changelog',
   run: 'npx projen publish:git:v3',
 });
-v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
+v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 1-7 * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
 v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
 
