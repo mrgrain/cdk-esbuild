@@ -2,9 +2,9 @@
 
 name: release-v3
 on:
-  workflow_dispatch: {}
   schedule:
-    - cron: 0 5 * * 1
+    - cron: 0 5 15 * *
+  workflow_dispatch: {}
 jobs:
   release:
     runs-on: ubuntu-latest
