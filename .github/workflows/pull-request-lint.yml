@@ -27,4 +27,5 @@ jobs:
             chore
             docs
             ci
+            revert
           requireScope: false
