@@ -10,7 +10,7 @@ import { EsbuildProvider, ITransformProvider } from './provider';
  */
 export interface TransformerProps {
   /**
-   * Transform options passed on to esbuild. Please refer to the esbuild Transform API docs for details.
+   * BANANA
    *
    * @see https://esbuild.github.io/api/#transform-api
    * @stability stable
