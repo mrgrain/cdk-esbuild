@@ -12,6 +12,7 @@ import { EsbuildProvider, IBuildProvider } from './provider';
 
 /**
  * A path or list or map of paths to the entry points of your code.
+ * TEST
  *
  * Relative paths are by default resolved from the current working directory.
  * To change the working directory, see `buildOptions.absWorkingDir`.
