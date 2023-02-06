@@ -2644,9 +2644,7 @@ public readonly transformOptions: TransformOptions;
 
 - *Type:* [`@mrgrain/cdk-esbuild.TransformOptions`](#@mrgrain/cdk-esbuild.TransformOptions)
 
-Transform options passed on to esbuild.
-
-Please refer to the esbuild Transform API docs for details.
+BANANA.
 
 > https://esbuild.github.io/api/#transform-api
 
