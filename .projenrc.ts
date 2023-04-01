@@ -91,7 +91,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   catalog: {
     twitter: '@mrgrain',
   },
-  workflowContainerImage: 'jsii/superchain:1-buster-slim-node14',
   workflowBootstrapSteps: [{
     name: 'Update npm',
     run: 'sudo npm i -g npm@8',
