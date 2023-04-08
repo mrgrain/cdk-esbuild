@@ -68,7 +68,7 @@
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.80.0",
     "npm-check-updates": "^16",
-    "projen": "^0.71.0",
+    "projen": "^0.71.5",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^17.0.1",
@@ -78,6 +78,10 @@
   "peerDependencies": {
     "aws-cdk-lib": "^2.12.0",
     "constructs": "^10.0.5"
+  },
+  "overrides": {
+    "@types/prettier": "2.6.0",
+    "@types/babel__traverse": "7.18.2"
   },
   "keywords": [
     "aws-cdk",
@@ -165,10 +169,6 @@
   },
   "jsiiRosetta": {
     "strict": false
-  },
-  "overrides": {
-    "@types/prettier": "2.6.0",
-    "@types/babel__traverse": "7.18.2"
   },
   "optionalDependencies": {
     "esbuild": "^0.17.0"
