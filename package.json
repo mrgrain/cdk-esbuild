@@ -67,7 +67,7 @@
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.80.0",
     "npm-check-updates": "^16",
-    "projen": "^0.71.16",
+    "projen": "^0.71.17",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^17.0.1",
