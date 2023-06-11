@@ -64,11 +64,11 @@
     "jest-junit": "^15",
     "jest-mock": "^27.5.1",
     "jsii": "1.x",
-    "jsii-diff": "^1.81.0",
+    "jsii-diff": "^1.83.0",
     "jsii-docgen": "^3.8.31",
-    "jsii-pacmak": "^1.81.0",
+    "jsii-pacmak": "^1.83.0",
     "npm-check-updates": "^16",
-    "projen": "^0.71.49",
+    "projen": "^0.71.89",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^17.0.1",
@@ -80,8 +80,8 @@
     "constructs": "^10.0.5"
   },
   "overrides": {
-    "@types/prettier": "2.6.0",
-    "@types/babel__traverse": "7.18.2"
+    "@types/babel__traverse": "7.18.2",
+    "@types/prettier": "2.6.0"
   },
   "keywords": [
     "aws-cdk",
