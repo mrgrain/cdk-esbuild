@@ -2,9 +2,9 @@ module cdkesbuild_integ_tests
 
 go 1.16
 
-require github.com/aws/aws-cdk-go/awscdk/v2 v2.58.1
+require github.com/aws/aws-cdk-go/awscdk/v2 v2.84.0
 
-require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.58.1-alpha.0
+require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.84.0-alpha.0
 
 require (
 	github.com/aws/constructs-go/constructs/v10 v10.1.189
