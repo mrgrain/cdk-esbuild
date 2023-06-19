@@ -77,7 +77,7 @@ export class IntegrationTests extends Component {
     }
 
     // Add base dependencies
-    project.addDevDeps('@aws-cdk/integ-runner@^2');
+    project.addDevDeps('@aws-cdk/integ-runner@latest');
     project.addGitIgnore('cdk-integ.out.*');
 
     // Langugages
