@@ -6,8 +6,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-"aws-cdk-lib" = "==2.58.1"
-"aws-cdk.integ-tests-alpha" = "==2.58.1a0"
+"aws-cdk-lib" = "==2.84.0"
+"aws-cdk.integ-tests-alpha" = "==2.84.0a0"
 "constructs" = "<11.0.0,>=10.0.0"
 "mrgrain.cdk-esbuild" = {path = "./dist/python/mrgrain.cdk_esbuild-0.0.0-py3-none-any.whl"}
 
