@@ -144,10 +144,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
 // setup integration tests
 new IntegrationTests(project, {
   python: {
-    cdkVersion: '2.58.1',
+    cdkVersion: '2.84.0',
   },
   go: {
-    cdkVersion: '2.58.1',
+    cdkVersion: '2.84.0',
   },
 });
 
