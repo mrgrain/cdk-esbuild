@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@mrgrain/cdk-esbuild": "4.0.0-beta.0",
-    "aws-cdk-lib": "^2.27.0",
+    "aws-cdk-lib": "^2.80.0",
     "node-fetch": "^3.2.6"
   },
   "devDependencies": {
