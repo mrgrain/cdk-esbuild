@@ -417,19 +417,19 @@
           "exec": "npm update npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii'"
+          "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii-rosetta,jsii'"
         },
         {
-          "exec": "npm-check-updates --dep optional --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii'"
+          "exec": "npm-check-updates --dep optional --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii-rosetta,jsii'"
         },
         {
-          "exec": "npm-check-updates --dep peer --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii'"
+          "exec": "npm-check-updates --dep peer --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii-rosetta,jsii'"
         },
         {
-          "exec": "npm-check-updates --dep prod --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii'"
+          "exec": "npm-check-updates --dep prod --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii-rosetta,jsii'"
         },
         {
-          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii'"
+          "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,aws-cdk-lib,constructs,jsii-rosetta,jsii'"
         },
         {
           "exec": "npm install"
