@@ -94,7 +94,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   workflowBootstrapSteps: [{
     name: 'Update npm',
-    run: 'sudo npm i -g npm@8',
+    run: 'sudo npm i -g npm@">=9.5.0"',
   }],
 
   // Dependencies
