@@ -24,12 +24,15 @@ jobs:
         run: |-
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+<<<<<<< HEAD
       - name: Update npm
         run: sudo npm i -g npm@8
+=======
+>>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Install dependencies
         run: npm ci
       - name: release:v3
@@ -59,7 +62,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -88,7 +91,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -97,8 +100,11 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+<<<<<<< HEAD
       - name: Update npm
         run: sudo npm i -g npm@8
+=======
+>>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -123,7 +129,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -135,8 +141,11 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+<<<<<<< HEAD
       - name: Update npm
         run: sudo npm i -g npm@8
+=======
+>>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -160,7 +169,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -172,8 +181,11 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+<<<<<<< HEAD
       - name: Update npm
         run: sudo npm i -g npm@8
+=======
+>>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -196,7 +208,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 18.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
@@ -208,8 +220,11 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+<<<<<<< HEAD
       - name: Update npm
         run: sudo npm i -g npm@8
+=======
+>>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -229,5 +244,6 @@ jobs:
           GIT_USER_EMAIL: github-actions@github.com
           GITHUB_USE_SSH: "true"
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-          GIT_BRANCH: v3
         run: npx -p publib@latest publib-golang
+      - env:
+          GIT_BRANCH: v3
