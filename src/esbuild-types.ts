@@ -2,7 +2,7 @@
 
 export type Platform = 'browser' | 'node' | 'neutral'
 export type Format = 'iife' | 'cjs' | 'esm'
-export type Loader = 'base64' | 'binary' | 'copy' | 'css' | 'dataurl' | 'default' | 'empty' | 'file' | 'js' | 'json' | 'jsx' | 'text' | 'ts' | 'tsx'
+export type Loader = 'base64' | 'binary' | 'copy' | 'css' | 'dataurl' | 'default' | 'empty' | 'file' | 'js' | 'json' | 'jsx' | 'local-css' | 'text' | 'ts' | 'tsx'
 export type LogLevel = 'verbose' | 'debug' | 'info' | 'warning' | 'error' | 'silent'
 export type Charset = 'ascii' | 'utf8'
 export type Drop = 'console' | 'debugger'
@@ -38,6 +38,8 @@ interface CommonOptions {
   readonly mangleCache?: Record<string, string | false>;
   /** Documentation: https://esbuild.github.io/api/#drop */
   readonly drop?: Drop[];
+  /** Documentation: https://esbuild.github.io/api/#drop-labels */
+  readonly dropLabels?: string[];
   /** Documentation: https://esbuild.github.io/api/#minify */
   readonly minify?: boolean;
   /** Documentation: https://esbuild.github.io/api/#minify */
@@ -46,6 +48,8 @@ interface CommonOptions {
   readonly minifyIdentifiers?: boolean;
   /** Documentation: https://esbuild.github.io/api/#minify */
   readonly minifySyntax?: boolean;
+  /** Documentation: https://esbuild.github.io/api/#line-limit */
+  readonly lineLimit?: number;
   /** Documentation: https://esbuild.github.io/api/#charset */
   readonly charset?: Charset;
   /** Documentation: https://esbuild.github.io/api/#tree-shaking */
@@ -81,6 +85,9 @@ interface CommonOptions {
   readonly logLimit?: number;
   /** Documentation: https://esbuild.github.io/api/#log-override */
   readonly logOverride?: Record<string, LogLevel>;
+
+  /** Documentation: https://esbuild.github.io/api/#tsconfig-raw */
+  readonly tsconfigRaw?: string | TsconfigOptions;
 }
 
 export interface BuildOptions extends CommonOptions {
@@ -187,15 +194,15 @@ export interface OutputFile {
   readonly text: string;
 }
 
-export interface BuildResult<SpecificOptions extends BuildOptions = BuildOptions> {
+export interface BuildResult<ProvidedOptions extends BuildOptions = BuildOptions> {
   errors: Message[];
   warnings: Message[];
   /** Only when "write: false" */
-  outputFiles: OutputFile[] | (SpecificOptions['write'] extends false ? never : undefined);
+  outputFiles: OutputFile[] | (ProvidedOptions['write'] extends false ? never : undefined);
   /** Only when "metafile: true" */
-  metafile: Metafile | (SpecificOptions['metafile'] extends true ? never : undefined);
+  metafile: Metafile | (ProvidedOptions['metafile'] extends true ? never : undefined);
   /** Only when "mangleCache" is present */
-  mangleCache: Record<string, string | false> | (SpecificOptions['mangleCache'] extends Object ? never : undefined);
+  mangleCache: Record<string, string | false> | (ProvidedOptions['mangleCache'] extends Object ? never : undefined);
 }
 
 export interface BuildFailure extends Error {
@@ -210,6 +217,7 @@ export interface ServeOptions {
   servedir?: string;
   keyfile?: string;
   certfile?: string;
+  fallback?: string;
   onRequest?: (args: ServeOnRequestArgs) => void;
 }
 
@@ -229,22 +237,24 @@ export interface ServeResult {
 }
 
 export interface TransformOptions extends CommonOptions {
-  readonly tsconfigRaw?: string | TsconfigOptions;
-
+  /** Documentation: https://esbuild.github.io/api/#sourcefile */
   readonly sourcefile?: string;
+  /** Documentation: https://esbuild.github.io/api/#loader */
   readonly loader?: Loader;
+  /** Documentation: https://esbuild.github.io/api/#banner */
   readonly banner?: string;
+  /** Documentation: https://esbuild.github.io/api/#footer */
   readonly footer?: string;
 }
 
-export interface TransformResult<SpecificOptions extends TransformOptions = TransformOptions> {
+export interface TransformResult<ProvidedOptions extends TransformOptions = TransformOptions> {
   code: string;
   map: string;
   warnings: Message[];
   /** Only when "mangleCache" is present */
-  mangleCache: Record<string, string | false> | (SpecificOptions['mangleCache'] extends Object ? never : undefined);
+  mangleCache: Record<string, string | false> | (ProvidedOptions['mangleCache'] extends Object ? never : undefined);
   /** Only when "legalComments" is "external" */
-  legalComments: string | (SpecificOptions['legalComments'] extends 'external' ? never : undefined);
+  legalComments: string | (ProvidedOptions['legalComments'] extends 'external' ? never : undefined);
 }
 
 export interface TransformFailure extends Error {
@@ -471,9 +481,9 @@ export interface AnalyzeMetafileOptions {
 export interface WatchOptions {
 }
 
-export interface BuildContext<SpecificOptions extends BuildOptions = BuildOptions> {
+export interface BuildContext<ProvidedOptions extends BuildOptions = BuildOptions> {
   /** Documentation: https://esbuild.github.io/api/#rebuild */
-  rebuild(): Promise<BuildResult<SpecificOptions>>;
+  rebuild(): Promise<BuildResult<ProvidedOptions>>;
 
   /** Documentation: https://esbuild.github.io/api/#watch */
   watch(options?: WatchOptions): Promise<void>;
@@ -485,6 +495,11 @@ export interface BuildContext<SpecificOptions extends BuildOptions = BuildOption
   dispose(): Promise<void>;
 }
 
+// This is a TypeScript type-level function which replaces any keys in "In"
+// that aren't in "Out" with "never". We use this to reject properties with
+// typos in object literals. See: https://stackoverflow.com/questions/49580725
+type SameShape<Out, In extends Out> = In & { [Key in Exclude<keyof In, keyof Out>]: never }
+
 /**
  * This function invokes the "esbuild" command-line tool for you. It returns a
  * promise that either resolves with a "BuildResult" object or rejects with a
@@ -495,8 +510,7 @@ export interface BuildContext<SpecificOptions extends BuildOptions = BuildOption
  *
  * Documentation: https://esbuild.github.io/api/#build
  */
-export declare function build<SpecificOptions extends BuildOptions>(options: SpecificOptions): Promise<BuildResult<SpecificOptions>>
-export declare function build(options: BuildOptions): Promise<BuildResult>
+export declare function build<T extends BuildOptions>(options: SameShape<BuildOptions, T>): Promise<BuildResult<T>>
 
 /**
  * This is the advanced long-running form of "build" that supports additional
@@ -507,8 +521,7 @@ export declare function build(options: BuildOptions): Promise<BuildResult>
  *
  * Documentation: https://esbuild.github.io/api/#build
  */
-export declare function context<T extends BuildOptions>(options: T): Promise<BuildContext<T>>
-export declare function context(options: BuildOptions): Promise<BuildContext>
+export declare function context<T extends BuildOptions>(options: SameShape<BuildOptions, T>): Promise<BuildContext<T>>
 
 /**
  * This function transforms a single JavaScript file. It can be used to minify
@@ -521,8 +534,7 @@ export declare function context(options: BuildOptions): Promise<BuildContext>
  *
  * Documentation: https://esbuild.github.io/api/#transform
  */
-export declare function transform<SpecificOptions extends TransformOptions>(input: string | Uint8Array, options?: SpecificOptions): Promise<TransformResult<SpecificOptions>>
-export declare function transform(input: string | Uint8Array, options?: TransformOptions): Promise<TransformResult>
+export declare function transform<T extends TransformOptions>(input: string | Uint8Array, options?: SameShape<TransformOptions, T>): Promise<TransformResult<T>>
 
 /**
  * Converts log messages to formatted message strings suitable for printing in
@@ -554,8 +566,7 @@ export declare function analyzeMetafile(metafile: Metafile | string, options?: A
  *
  * Documentation: https://esbuild.github.io/api/#build
  */
-export declare function buildSync<SpecificOptions extends BuildOptions>(options: SpecificOptions): BuildResult<SpecificOptions>
-export declare function buildSync(options: BuildOptions): BuildResult
+export declare function buildSync<T extends BuildOptions>(options: SameShape<BuildOptions, T>): BuildResult<T>
 
 /**
  * A synchronous version of "transform".
@@ -565,8 +576,7 @@ export declare function buildSync(options: BuildOptions): BuildResult
  *
  * Documentation: https://esbuild.github.io/api/#transform
  */
-export declare function transformSync<SpecificOptions extends TransformOptions>(input: string, options?: SpecificOptions): TransformResult<SpecificOptions>
-export declare function transformSync(input: string | Uint8Array, options?: TransformOptions): TransformResult
+export declare function transformSync<T extends TransformOptions>(input: string | Uint8Array, options?: SameShape<TransformOptions, T>): TransformResult<T>
 
 /**
  * A synchronous version of "formatMessages".
@@ -626,11 +636,20 @@ export interface InitializeOptions {
 export let version: string;
 
 export interface CompilerOptions {
+  readonly alwaysStrict?: boolean;
+  readonly baseUrl?: boolean;
+  readonly experimentalDecorators?: boolean;
+  readonly importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
+  readonly jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
   readonly jsxFactory?: string;
   readonly jsxFragmentFactory?: string;
-  readonly useDefineForClassFields?: boolean;
-  readonly importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
+  readonly jsxImportSource?: string;
+  readonly paths?: Record<string, string[]>;
   readonly preserveValueImports?: boolean;
+  readonly strict?: boolean;
+  readonly target?: string;
+  readonly useDefineForClassFields?: boolean;
+  readonly verbatimModuleSyntax?: boolean;
 }
 
 export interface TsconfigOptions {
