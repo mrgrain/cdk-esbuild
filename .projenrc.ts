@@ -92,10 +92,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   catalog: {
     twitter: '@mrgrain',
   },
-  workflowBootstrapSteps: [{
-    name: 'Update npm',
-    run: 'sudo npm i -g npm@">=9.5.0"',
-  }],
+  workflowNodeVersion: '18.x',
 
   // Dependencies
   cdkVersion: '2.12.0',
@@ -158,7 +155,7 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
   runsOn: ['ubuntu-latest'],
   permissions: {},
   tools: {
-    node: { version: '18.x' },
+    node: { version: '20.x' },
   },
   steps: [
     {
