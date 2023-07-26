@@ -25,7 +25,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
       - name: Update npm
-        run: sudo npm i -g npm@>=9.5.0
+        run: sudo npm i -g npm@">=9.5.0"
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -98,7 +98,7 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - name: Update npm
-        run: sudo npm i -g npm@>=9.5.0
+        run: sudo npm i -g npm@">=9.5.0"
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -136,7 +136,7 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - name: Update npm
-        run: sudo npm i -g npm@>=9.5.0
+        run: sudo npm i -g npm@">=9.5.0"
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -173,7 +173,7 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - name: Update npm
-        run: sudo npm i -g npm@>=9.5.0
+        run: sudo npm i -g npm@">=9.5.0"
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -209,7 +209,7 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - name: Update npm
-        run: sudo npm i -g npm@>=9.5.0
+        run: sudo npm i -g npm@">=9.5.0"
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
