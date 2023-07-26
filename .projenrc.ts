@@ -311,11 +311,20 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
       name: 'CompilerOptions',
       isExported: true,
       properties: [
+        ['alwaysStrict', 'boolean'],
+        ['baseUrl', 'boolean'],
+        ['experimentalDecorators', 'boolean'],
+        ['importsNotUsedAsValues', "'remove' | 'preserve' | 'error'"],
+        ['jsx', "'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev'"],
         ['jsxFactory', 'string'],
         ['jsxFragmentFactory', 'string'],
-        ['useDefineForClassFields', 'boolean'],
-        ['importsNotUsedAsValues', "'remove' | 'preserve' | 'error'"],
+        ['jsxImportSource', 'string'],
+        ['paths', 'Record<string, string[]>'],
         ['preserveValueImports', 'boolean'],
+        ['strict', 'boolean'],
+        ['target', 'string'],
+        ['useDefineForClassFields', 'boolean'],
+        ['verbatimModuleSyntax', 'boolean'],
       ].map(([name, type]) => ({
         name,
         isReadonly: true,
@@ -335,7 +344,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
         }],
       });
     esbuildTypes
-      ?.getInterface('TransformOptions')
+      ?.getInterface('CommonOptions')
       ?.getProperty('tsconfigRaw')
       ?.setType(`string | ${tsconfigOptions.getName()}`);
   },

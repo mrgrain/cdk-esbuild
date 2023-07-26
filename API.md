@@ -384,6 +384,18 @@ Documentation: https://esbuild.github.io/api/#drop.
 
 ---
 
+##### `dropLabels`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.dropLabels"></a>
+
+```typescript
+public readonly dropLabels: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop-labels.
+
+---
+
 ##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.entryNames"></a>
 
 ```typescript
@@ -561,6 +573,18 @@ public readonly legalComments: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#legal-comments.
+
+---
+
+##### `lineLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.lineLimit"></a>
+
+```typescript
+public readonly lineLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#line-limit.
 
 ---
 
@@ -960,6 +984,18 @@ Documentation: https://esbuild.github.io/api/#tsconfig.
 
 ---
 
+##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.tsconfigRaw"></a>
+
+```typescript
+public readonly tsconfigRaw: string | TsconfigOptions;
+```
+
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+
+Documentation: https://esbuild.github.io/api/#tsconfig-raw.
+
+---
+
 ##### `write`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.write"></a>
 
 ```typescript
@@ -1112,10 +1148,50 @@ import { CompilerOptions } from '@mrgrain/cdk-esbuild'
 const compilerOptions: CompilerOptions = { ... }
 ```
 
+##### `alwaysStrict`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.alwaysStrict"></a>
+
+```typescript
+public readonly alwaysStrict: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
+##### `baseUrl`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.baseUrl"></a>
+
+```typescript
+public readonly baseUrl: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
+##### `experimentalDecorators`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.experimentalDecorators"></a>
+
+```typescript
+public readonly experimentalDecorators: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
 ##### `importsNotUsedAsValues`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.importsNotUsedAsValues"></a>
 
 ```typescript
 public readonly importsNotUsedAsValues: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `jsx`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.jsx"></a>
+
+```typescript
+public readonly jsx: string;
 ```
 
 - *Type:* `string`
@@ -1142,6 +1218,26 @@ public readonly jsxFragmentFactory: string;
 
 ---
 
+##### `jsxImportSource`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.jsxImportSource"></a>
+
+```typescript
+public readonly jsxImportSource: string;
+```
+
+- *Type:* `string`
+
+---
+
+##### `paths`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.paths"></a>
+
+```typescript
+public readonly paths: {[ key: string ]: string[]};
+```
+
+- *Type:* {[ key: string ]: `string`[]}
+
+---
+
 ##### `preserveValueImports`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.preserveValueImports"></a>
 
 ```typescript
@@ -1152,10 +1248,40 @@ public readonly preserveValueImports: boolean;
 
 ---
 
+##### `strict`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.strict"></a>
+
+```typescript
+public readonly strict: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
+##### `target`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.target"></a>
+
+```typescript
+public readonly target: string;
+```
+
+- *Type:* `string`
+
+---
+
 ##### `useDefineForClassFields`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.useDefineForClassFields"></a>
 
 ```typescript
 public readonly useDefineForClassFields: boolean;
+```
+
+- *Type:* `boolean`
+
+---
+
+##### `verbatimModuleSyntax`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.verbatimModuleSyntax"></a>
+
+```typescript
+public readonly verbatimModuleSyntax: boolean;
 ```
 
 - *Type:* `boolean`
@@ -1558,6 +1684,18 @@ Documentation: https://esbuild.github.io/api/#drop.
 
 ---
 
+##### `dropLabels`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.dropLabels"></a>
+
+```typescript
+public readonly dropLabels: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop-labels.
+
+---
+
 ##### `entryNames`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.entryNames"></a>
 
 ```typescript
@@ -1735,6 +1873,18 @@ public readonly legalComments: string;
 - *Type:* `string`
 
 Documentation: https://esbuild.github.io/api/#legal-comments.
+
+---
+
+##### `lineLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.lineLimit"></a>
+
+```typescript
+public readonly lineLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#line-limit.
 
 ---
 
@@ -2134,6 +2284,18 @@ Documentation: https://esbuild.github.io/api/#tsconfig.
 
 ---
 
+##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.tsconfigRaw"></a>
+
+```typescript
+public readonly tsconfigRaw: string | TsconfigOptions;
+```
+
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+
+Documentation: https://esbuild.github.io/api/#tsconfig-raw.
+
+---
+
 ##### `write`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.write"></a>
 
 ```typescript
@@ -2175,6 +2337,8 @@ public readonly banner: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#banner.
 
 ---
 
@@ -2226,6 +2390,18 @@ Documentation: https://esbuild.github.io/api/#drop.
 
 ---
 
+##### `dropLabels`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.dropLabels"></a>
+
+```typescript
+public readonly dropLabels: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop-labels.
+
+---
+
 ##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.footer"></a>
 
 ```typescript
@@ -2233,6 +2409,8 @@ public readonly footer: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#footer.
 
 ---
 
@@ -2368,6 +2546,18 @@ Documentation: https://esbuild.github.io/api/#legal-comments.
 
 ---
 
+##### `lineLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.lineLimit"></a>
+
+```typescript
+public readonly lineLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#line-limit.
+
+---
+
 ##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.loader"></a>
 
 ```typescript
@@ -2375,6 +2565,8 @@ public readonly loader: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#loader.
 
 ---
 
@@ -2542,6 +2734,8 @@ public readonly sourcefile: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#sourcefile.
+
 ---
 
 ##### `sourcemap`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.sourcemap"></a>
@@ -2624,6 +2818,8 @@ public readonly tsconfigRaw: string | TsconfigOptions;
 
 - *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
 
+Documentation: https://esbuild.github.io/api/#tsconfig-raw.
+
 ---
 
 ### TransformerProps <a name="@mrgrain/cdk-esbuild.TransformerProps"></a>
@@ -2686,6 +2882,8 @@ public readonly banner: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#banner.
+
 ---
 
 ##### `charset`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.charset"></a>
@@ -2736,6 +2934,18 @@ Documentation: https://esbuild.github.io/api/#drop.
 
 ---
 
+##### `dropLabels`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.dropLabels"></a>
+
+```typescript
+public readonly dropLabels: string[];
+```
+
+- *Type:* `string`[]
+
+Documentation: https://esbuild.github.io/api/#drop-labels.
+
+---
+
 ##### `footer`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.footer"></a>
 
 ```typescript
@@ -2743,6 +2953,8 @@ public readonly footer: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#footer.
 
 ---
 
@@ -2878,6 +3090,18 @@ Documentation: https://esbuild.github.io/api/#legal-comments.
 
 ---
 
+##### `lineLimit`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.lineLimit"></a>
+
+```typescript
+public readonly lineLimit: number;
+```
+
+- *Type:* `number`
+
+Documentation: https://esbuild.github.io/api/#line-limit.
+
+---
+
 ##### `loader`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.loader"></a>
 
 ```typescript
@@ -2885,6 +3109,8 @@ public readonly loader: string;
 ```
 
 - *Type:* `string`
+
+Documentation: https://esbuild.github.io/api/#loader.
 
 ---
 
@@ -3052,6 +3278,8 @@ public readonly sourcefile: string;
 
 - *Type:* `string`
 
+Documentation: https://esbuild.github.io/api/#sourcefile.
+
 ---
 
 ##### `sourcemap`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.sourcemap"></a>
@@ -3133,6 +3361,8 @@ public readonly tsconfigRaw: string | TsconfigOptions;
 ```
 
 - *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+
+Documentation: https://esbuild.github.io/api/#tsconfig-raw.
 
 ---
 
