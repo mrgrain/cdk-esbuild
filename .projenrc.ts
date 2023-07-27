@@ -1,4 +1,4 @@
-import { awscdk, github, javascript, release, vscode } from 'projen';
+import { JsonPatch, awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
@@ -148,6 +148,12 @@ new IntegrationTests(project, {
   },
 });
 
+for (const upgradeWorkflow of project.upgradeWorkflow?.workflows!) {
+  upgradeWorkflow.file?.patch(JsonPatch.add('/jobs/upgrade/steps/2', {
+    name: 'Use npm@8',
+    run: 'npm i -g npm@8',
+  }));
+}
 
 // test against latest versions
 const REPO_TEMP_DIRECTORY = '.repo';
