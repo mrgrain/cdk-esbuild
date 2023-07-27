@@ -81,6 +81,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
     if: needs.release.outputs.latest_commit == github.sha
     steps:
       - uses: actions/setup-node@v3
@@ -120,6 +121,8 @@ jobs:
         env:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    env:
+      NPM_CONFIG_PROVENANCE: "true"
   release_pypi:
     name: Publish to PyPI
     needs: release
