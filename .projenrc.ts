@@ -11,18 +11,24 @@ const releaseBranches: StableReleaseBranches = {
     minNodeVersion: '18.x',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
+    jsiiVersion: '5.1.x',
+    typescriptVersion: '5.1.x',
   },
   v4: {
     majorVersion: 4,
     cdkVersion: '2.12.0',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
+    jsiiVersion: '1.x',
+    typescriptVersion: '4.9.x',
   },
   v3: {
     majorVersion: 3,
     cdkVersion: '2.0.0',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
+    jsiiVersion: '1.x',
+    typescriptVersion: '4.9.x',
   },
 };
 
@@ -103,6 +109,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Dependencies
   cdkVersion: releaseBranches.main.cdkVersion,
+  jsiiVersion: releaseBranches.main.jsiiVersion,
+  typescriptVersion: releaseBranches.main.typescriptVersion,
   devDeps: [
     `@aws-cdk/aws-synthetics-alpha@${releaseBranches.main.cdkVersion}-alpha.0`,
     '@types/eslint',
@@ -194,7 +202,13 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
 
 // jsii rosetta
 project.package.addField('jsiiRosetta', {
-  strict: false,
+  strict: true,
+  exampleDependencies: {
+    '@aws-cdk/aws-synthetics-alpha': '2.88.0-alpha.0',
+    'aws-cdk-lib': '2.88.0',
+    '@mrgrain/cdk-esbuild': '^4',
+    '@types/node': '^16',
+  },
 });
 const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
 project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);

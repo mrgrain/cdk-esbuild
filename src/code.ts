@@ -2,11 +2,12 @@ import { CfnResource, Stack } from 'aws-cdk-lib';
 import { ResourceBindOptions, Code, CodeConfig } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import {
-  EsbuildAsset,
   AssetBaseProps,
   AssetProps,
   JavaScriptAsset as JSAsset,
+  JavaScriptAsset,
   TypeScriptAsset as TSAsset,
+  TypeScriptAsset,
 } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
@@ -23,20 +24,14 @@ export interface TypeScriptCodeProps extends AssetBaseProps {};
  *
  * @stability experimental
  */
-export class EsbuildCode<
+abstract class EsbuildCode<
   Props extends JavaScriptCodeProps | TypeScriptCodeProps,
 > extends Code {
-  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
-    return new EsbuildAsset(
-      scope,
-      this.constructor.name,
-      this.props,
-    );
-  }
+  protected abstract getAsset(scope: Construct): TypeScriptAsset
 
   protected props: AssetProps;
 
-  protected asset!: EsbuildAsset<AssetProps>;
+  protected asset!: TypeScriptAsset;
 
   /**
    * Determines whether this Code is inline code or not.
@@ -134,7 +129,7 @@ export class EsbuildCode<
  * @stability stable
  */
 export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
-  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
+  protected getAsset(scope: Construct): JavaScriptAsset {
     return new JSAsset(
       scope,
       this.constructor.name,
@@ -183,7 +178,7 @@ export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
  * @stability stable
  */
 export class TypeScriptCode extends EsbuildCode<TypeScriptCodeProps> {
-  protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
+  protected getAsset(scope: Construct): TypeScriptAsset {
     return new TSAsset(
       scope,
       this.constructor.name,

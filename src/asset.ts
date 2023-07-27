@@ -50,7 +50,7 @@ type TypeScriptAssetProps = AssetProps;
  *
  * @stability experimental
  */
-export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
+class EsbuildAsset<Props extends AssetProps> extends S3Asset {
   /**
    * @stability stable
    */

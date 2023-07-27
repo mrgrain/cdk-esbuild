@@ -5,6 +5,8 @@ export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
+  jsiiVersion: string;
+  typescriptVersion: string;
 }
 
 export interface StableReleaseBranches {

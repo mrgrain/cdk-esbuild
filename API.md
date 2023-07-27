@@ -1,114 +1,5 @@
 # API Reference <a name="API Reference"></a>
 
-## Constructs <a name="Constructs"></a>
-
-### EsbuildAsset <a name="@mrgrain/cdk-esbuild.EsbuildAsset"></a>
-
-Represents a generic esbuild asset.
-
-You should always use `TypeScriptAsset` or `JavaScriptAsset`.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildAsset.Initializer"></a>
-
-```typescript
-import { EsbuildAsset } from '@mrgrain/cdk-esbuild'
-
-new EsbuildAsset(scope: Construct, id: string, props: AssetProps)
-```
-
-##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildAsset.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
-
----
-
-
-
-
-
-### JavaScriptAsset <a name="@mrgrain/cdk-esbuild.JavaScriptAsset"></a>
-
-Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
-
-The asset can be used by other constructs.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.Initializer"></a>
-
-```typescript
-import { JavaScriptAsset } from '@mrgrain/cdk-esbuild'
-
-new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
-```
-
-##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
-
----
-
-
-
-
-
-### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
-
-Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
-
-The asset can be used by other constructs.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
-
-```typescript
-import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
-
-new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
-```
-
-##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.id"></a>
-
-- *Type:* `string`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
-
----
-
-
-
-
 
 ## Structs <a name="Structs"></a>
 
@@ -207,10 +98,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -1332,9 +1223,9 @@ If not set, the module path will be determined in the following order:
 - Use a path from the `CDK_ESBUILD_MODULE_PATH` environment variable
 - In TypeScript, fallback to the default Node.js package resolution mechanism
 - All other languages (Python, Go, .NET, Java) use an automatic "best effort" resolution mechanism. \
-   The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
-   If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
-   To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
+  The exact algorithm of this mechanism is considered an implementation detail and should not be relied on.
+  If `esbuild` cannot be found, it might be installed dynamically to a temporary location.
+  To opt-out of this behavior, set either `esbuildModulePath` or `CDK_ESBUILD_MODULE_PATH` env variable.
 
 Use the static methods on `EsbuildSource` to customize the default behavior.
 
@@ -3604,10 +3495,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -3639,10 +3530,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -3679,125 +3570,6 @@ public readonly props: BundlerProps;
 - *Type:* [`@mrgrain/cdk-esbuild.BundlerProps`](#@mrgrain/cdk-esbuild.BundlerProps)
 
 Props to change the behavior of the bundler.
-
----
-
-
-### EsbuildCode <a name="@mrgrain/cdk-esbuild.EsbuildCode"></a>
-
-Represents a generic esbuild code bundle.
-
-You should always use `TypeScriptCode` or `JavaScriptCode`.
-
-#### Initializers <a name="@mrgrain/cdk-esbuild.EsbuildCode.Initializer"></a>
-
-```typescript
-import { EsbuildCode } from '@mrgrain/cdk-esbuild'
-
-new EsbuildCode(entryPoints: string | string[] | {[ key: string ]: string}, props: JavaScriptCodeProps | TypeScriptCodeProps)
-```
-
-##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.entryPoints"></a>
-
-- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
-
-A path or list or map of paths to the entry points of your code.
-
-Relative paths are by default resolved from the current working directory.
-To change the working directory, see `buildOptions.absWorkingDir`.
-
-Absolute paths can be used if files are part of the working directory.
-
-Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
-
----
-
-##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.props"></a>
-
-- *Type:* [`@mrgrain/cdk-esbuild.JavaScriptCodeProps`](#@mrgrain/cdk-esbuild.JavaScriptCodeProps) | [`@mrgrain/cdk-esbuild.TypeScriptCodeProps`](#@mrgrain/cdk-esbuild.TypeScriptCodeProps)
-
-Props to change the behavior of the bundler.
-
-Default values for `props.buildOptions`:
-- `bundle=true`
-- `platform=node`
-- `target=nodeX` with X being the major node version running locally
-
----
-
-#### Methods <a name="Methods"></a>
-
-##### `bind` <a name="@mrgrain/cdk-esbuild.EsbuildCode.bind"></a>
-
-```typescript
-public bind(scope: Construct)
-```
-
-###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `bindToResource` <a name="@mrgrain/cdk-esbuild.EsbuildCode.bindToResource"></a>
-
-```typescript
-public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
-```
-
-###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.resource"></a>
-
-- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
-
----
-
-###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.parameter.options"></a>
-
-- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
-
----
-
-
-#### Properties <a name="Properties"></a>
-
-##### `entryPoints`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.property.entryPoints"></a>
-
-```typescript
-public readonly entryPoints: string | string[] | {[ key: string ]: string};
-```
-
-- *Type:* `string` | `string`[] | {[ key: string ]: `string`}
-
-A path or list or map of paths to the entry points of your code.
-
-Relative paths are by default resolved from the current working directory.
-To change the working directory, see `buildOptions.absWorkingDir`.
-
-Absolute paths can be used if files are part of the working directory.
-
-Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
-
----
-
-##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.EsbuildCode.property.isInline"></a>
-
-- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
-
-```typescript
-public readonly isInline: boolean;
-```
-
-- *Type:* `boolean`
-
-Determines whether this Code is inline code or not.
 
 ---
 
@@ -4097,6 +3869,42 @@ public readonly isInline: boolean;
 ---
 
 
+### JavaScriptAsset <a name="@mrgrain/cdk-esbuild.JavaScriptAsset"></a>
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.Initializer"></a>
+
+```typescript
+import { JavaScriptAsset } from '@mrgrain/cdk-esbuild'
+
+new JavaScriptAsset(scope: Construct, id: string, props: AssetProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptAsset.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
+
+---
+
+
+
+
+
 ### JavaScriptCode <a name="@mrgrain/cdk-esbuild.JavaScriptCode"></a>
 
 Represents the deployed JavaScript Code.
@@ -4121,10 +3929,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -4141,8 +3949,54 @@ Default values for `props.buildOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `bindToResource` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bindToResource"></a>
+
+```typescript
+public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
+```
+
+###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.resource"></a>
+
+- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
+
+---
+
+###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.options"></a>
+
+- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.isInline"></a>
+
+- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### JavaScriptSource <a name="@mrgrain/cdk-esbuild.JavaScriptSource"></a>
@@ -4169,10 +4023,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -4222,6 +4076,42 @@ public readonly assetClass: JavaScriptAsset;
 ---
 
 
+### TypeScriptAsset <a name="@mrgrain/cdk-esbuild.TypeScriptAsset"></a>
+
+Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
+
+The asset can be used by other constructs.
+
+#### Initializers <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.Initializer"></a>
+
+```typescript
+import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
+
+new TypeScriptAsset(scope: Construct, id: string, props: AssetProps)
+```
+
+##### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `id`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.id"></a>
+
+- *Type:* `string`
+
+---
+
+##### `props`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptAsset.parameter.props"></a>
+
+- *Type:* [`@mrgrain/cdk-esbuild.AssetProps`](#@mrgrain/cdk-esbuild.AssetProps)
+
+---
+
+
+
+
+
 ### TypeScriptCode <a name="@mrgrain/cdk-esbuild.TypeScriptCode"></a>
 
 Represents the deployed TypeScript Code.
@@ -4246,10 +4136,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
@@ -4266,8 +4156,54 @@ Default values for `props.buildOptions`:
 
 ---
 
+#### Methods <a name="Methods"></a>
+
+##### `bind` <a name="@mrgrain/cdk-esbuild.TypeScriptCode.bind"></a>
+
+```typescript
+public bind(scope: Construct)
+```
+
+###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.scope"></a>
+
+- *Type:* [`constructs.Construct`](#constructs.Construct)
+
+---
+
+##### `bindToResource` <a name="@mrgrain/cdk-esbuild.TypeScriptCode.bindToResource"></a>
+
+```typescript
+public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
+```
+
+###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.resource"></a>
+
+- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
+
+---
+
+###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.parameter.options"></a>
+
+- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
+
+---
 
 
+#### Properties <a name="Properties"></a>
+
+##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.TypeScriptCode.property.isInline"></a>
+
+- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
+
+```typescript
+public readonly isInline: boolean;
+```
+
+- *Type:* `boolean`
+
+Determines whether this Code is inline code or not.
+
+---
 
 
 ### TypeScriptSource <a name="@mrgrain/cdk-esbuild.TypeScriptSource"></a>
@@ -4294,10 +4230,10 @@ To change the working directory, see `buildOptions.absWorkingDir`.
 Absolute paths can be used if files are part of the working directory.
 
 Examples:
-  - `'src/index.ts'`
-  - `require.resolve('./lambda')`
-  - `['src/index.ts', 'src/util.ts']`
-  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+ - `'src/index.ts'`
+ - `require.resolve('./lambda')`
+ - `['src/index.ts', 'src/util.ts']`
+ - `{one: 'src/two.ts', two: 'src/one.ts'}`
 
 ---
 
