@@ -197,6 +197,10 @@ releaseWorkflow?.addToArray('jobs.release_npm.steps',
   tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
 );
 
+// npm provenance information
+releaseWorkflow?.addOverride('jobs.release_npm.env.NPM_CONFIG_PROVENANCE', 'true');
+releaseWorkflow?.addOverride('jobs.release_npm.permissions.id-token', 'write');
+
 // changelog for v3
 const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
 project.release?.publisher?.publishToGit({
