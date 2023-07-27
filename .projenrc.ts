@@ -91,14 +91,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   catalog: {
     twitter: '@mrgrain',
   },
-<<<<<<< HEAD
-  workflowBootstrapSteps: [{
-    name: 'Update npm',
-    run: 'sudo npm i -g npm@8',
-  }],
-=======
   workflowNodeVersion: '18.x',
->>>>>>> 55c7292 (ci: use node18 (#657))
 
   // Dependencies
   cdkVersion: '2.0.0',

@@ -21,11 +21,6 @@ jobs:
         run: |-
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-<<<<<<< HEAD
-      - name: Update npm
-        run: sudo npm i -g npm@8
-=======
->>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -97,11 +92,6 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-<<<<<<< HEAD
-      - name: Update npm
-        run: sudo npm i -g npm@8
-=======
->>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -148,11 +138,6 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-<<<<<<< HEAD
-      - name: Update npm
-        run: sudo npm i -g npm@8
-=======
->>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -188,11 +173,6 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-<<<<<<< HEAD
-      - name: Update npm
-        run: sudo npm i -g npm@8
-=======
->>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
@@ -227,11 +207,6 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-<<<<<<< HEAD
-      - name: Update npm
-        run: sudo npm i -g npm@8
-=======
->>>>>>> 55c7292 (ci: use node18 (#657))
       - name: Prepare Repository
         run: mv dist .repo
       - name: Install Dependencies
