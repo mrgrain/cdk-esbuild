@@ -90,6 +90,25 @@ interface CommonOptions {
   readonly tsconfigRaw?: string | TsconfigOptions;
 }
 
+export interface TsconfigRaw {
+  compilerOptions?: {
+    alwaysStrict?: boolean;
+    baseUrl?: boolean;
+    experimentalDecorators?: boolean;
+    importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
+    jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
+    jsxFactory?: string;
+    jsxFragmentFactory?: string;
+    jsxImportSource?: string;
+    paths?: Record<string, string[]>;
+    preserveValueImports?: boolean;
+    strict?: boolean;
+    target?: string;
+    useDefineForClassFields?: boolean;
+    verbatimModuleSyntax?: boolean;
+  };
+}
+
 export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#bundle */
   readonly bundle?: boolean;
@@ -188,8 +207,8 @@ export interface Location {
 
 export interface OutputFile {
   readonly path: string;
-  /** "text" as bytes */
   readonly contents: Uint8Array;
+  readonly hash: string;
   /** "contents" as text (changes automatically with "contents") */
   readonly text: string;
 }
@@ -369,6 +388,7 @@ export type ImportKind =
 
   // CSS
   | 'import-rule'
+  | 'composes-from'
   | 'url-token'
 
 /** Documentation: https://esbuild.github.io/plugins/#on-resolve-results */
