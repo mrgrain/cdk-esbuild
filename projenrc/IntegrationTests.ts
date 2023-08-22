@@ -111,7 +111,7 @@ export class IntegrationTests extends Component {
       },
       {
         name: 'Update Pipfile.lock',
-        run: 'pipenv lock',
+        run: ['pip install pipenv', 'pipenv lock'].join('\n'),
       },
     );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
