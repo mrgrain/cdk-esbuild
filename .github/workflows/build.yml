@@ -32,13 +32,18 @@ jobs:
           python-version: 3.x
       - name: Update Pipfile.lock
         run: |-
+          npx projen package:python
           pip install pipenv
           pipenv lock
+          rm -rf dist/python
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0
       - name: Update go.mod
-        run: go mod tidy
+        run: |-
+          npx projen package:go
+          go mod tidy
+          rm -rf dist/go
       - name: Find mutations
         id: self_mutation
         run: |-

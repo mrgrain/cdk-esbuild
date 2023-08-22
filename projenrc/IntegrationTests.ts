@@ -111,7 +111,12 @@ export class IntegrationTests extends Component {
       },
       {
         name: 'Update Pipfile.lock',
-        run: ['pip install pipenv', 'pipenv lock'].join('\n'),
+        run: [
+          'npx projen package:python',
+          'pip install pipenv',
+          'pipenv lock',
+          'rm -rf dist/python',
+        ].join('\n'),
       },
     );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
@@ -167,7 +172,11 @@ export class IntegrationTests extends Component {
       },
       {
         name: 'Update go.mod',
-        run: 'go mod tidy',
+        run: [
+          'npx projen package:go',
+          'go mod tidy',
+          'rm -rf dist/go',
+        ].join('\n'),
       },
     );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
