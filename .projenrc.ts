@@ -222,7 +222,7 @@ v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
 });
 v3ReleaseWorkflow?.addOverride('on.schedule', [{ cron: '0 5 15 * *' }]);
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
+v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.9.env.GIT_BRANCH', 'v3');
 
 // jsii rosetta
 project.package.addField('jsiiRosetta', {
