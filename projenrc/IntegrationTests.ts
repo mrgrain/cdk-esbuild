@@ -101,9 +101,19 @@ export class IntegrationTests extends Component {
       exec: `integ-runner --app="pipenv run python {filePath}" --test-regex="${this.pythonPattern}"`,
       receiveArgs: true,
     });
-    pythonInteg.prependExec('pipenv install --skip-lock');
+    pythonInteg.prependExec('pipenv sync');
 
     // Workflow
+    this.project.buildWorkflow?.addPostBuildSteps(
+      {
+        uses: 'actions/setup-python@v4',
+        with: { 'python-version': '3.x' },
+      },
+      {
+        name: 'Update Pipfile.lock',
+        run: 'pipenv lock',
+      },
+    );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
       'pip install pipenv',
       'mv dist .repo',
@@ -125,7 +135,6 @@ export class IntegrationTests extends Component {
     // Pipenv
     this.project.addPackageIgnore('Pipfile');
     this.project.addPackageIgnore('Pipfile.lock');
-    this.project.addGitIgnore('Pipfile.lock');
 
     const pythonCdkVersion = this.options.python?.cdkVersion ?? this.project.cdkVersion;
     const pipenv = new Pipenv(this.project);
@@ -159,7 +168,8 @@ export class IntegrationTests extends Component {
       {
         name: 'Update go.mod',
         run: 'go mod tidy',
-      });
+      },
+    );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
       'mv dist .repo',
       'cd .repo',
