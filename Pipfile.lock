@@ -30,6 +30,7 @@
                 "sha256:cf79a526584c5fa694a5723dcd1dd4d90a0f28919ae93bc0a36b9d756145adfd"
             ],
             "index": "pypi",
+            "markers": "python_version ~= '3.7'",
             "version": "==2.84.0"
         },
         "aws-cdk.asset-awscli-v1": {
@@ -62,6 +63,7 @@
                 "sha256:fa2102de289799d662b52b03de4fe60ba96b04efd8a0c74db2bfbee5d7c4edff"
             ],
             "index": "pypi",
+            "markers": "python_version ~= '3.7'",
             "version": "==2.84.0a0"
         },
         "cattrs": {
@@ -78,15 +80,8 @@
                 "sha256:520ddd665cc336df90be06bb1bd49f3a9a7400d886cad8aef7b0155593b4ffa4"
             ],
             "index": "pypi",
+            "markers": "python_version ~= '3.7'",
             "version": "==10.2.69"
-        },
-        "exceptiongroup": {
-            "hashes": [
-                "sha256:097acd85d473d75af5bb98e41b61ff7fe35efe6675e4f9370ec6ec5126d160e9",
-                "sha256:343280667a4585d195ca1cf9cef84a4e178c4b6cf2274caef9859782b567d5e3"
-            ],
-            "markers": "python_version < '3.11'",
-            "version": "==1.1.3"
         },
         "importlib-resources": {
             "hashes": [
@@ -105,11 +100,13 @@
             "version": "==1.87.0"
         },
         "mrgrain.cdk-esbuild": {
+            "editable": true,
             "hashes": [
-                "sha256:317acbbb489b807d5650c534bf3ed69412a73ebd85f0944cc7225cf87e1420ab"
+                "sha256:0e6964cb1fee15ec493b1130d8b670b97cd39defced10fda95aafa9a4644c703",
+                "sha256:9baea720b26b1c2715a4be6e68289656c09dd8801519b0b3e826917f830fba3b"
             ],
-            "path": "./dist/python/mrgrain.cdk_esbuild-0.0.0-py3-none-any.whl",
-            "version": "==0.0.0"
+            "markers": "python_version ~= '3.7'",
+            "path": "./dist/python/mrgrain.cdk_esbuild-0.0.0-py3-none-any.whl"
         },
         "publication": {
             "hashes": [
@@ -123,7 +120,7 @@
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
                 "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==2.8.2"
         },
         "six": {
@@ -131,7 +128,7 @@
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
                 "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
             ],
-            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==1.16.0"
         },
         "typeguard": {
@@ -149,14 +146,6 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==4.7.1"
-        },
-        "zipp": {
-            "hashes": [
-                "sha256:679e51dd4403591b2d6838a48de3d283f3d188412a9782faadf845f298736ba0",
-                "sha256:ebc15946aa78bd63458992fc81ec3b6f7b1e92d51c35e6de1c3804e73b799147"
-            ],
-            "markers": "python_version < '3.10'",
-            "version": "==3.16.2"
         }
     },
     "develop": {}
