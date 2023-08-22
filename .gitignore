@@ -62,9 +62,7 @@ junit.xml
 tsconfig.json
 !/API.md
 cdk-integ.out.*
-Pipfile.lock
 !/Pipfile
-go.sum
 .jsii.tabl.json
 !/.vscode/extensions.json
 !/.vscode/settings.json

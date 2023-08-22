@@ -101,9 +101,24 @@ export class IntegrationTests extends Component {
       exec: `integ-runner --app="pipenv run python {filePath}" --test-regex="${this.pythonPattern}"`,
       receiveArgs: true,
     });
-    pythonInteg.prependExec('pipenv install --skip-lock');
+    pythonInteg.prependExec('pipenv sync');
 
     // Workflow
+    this.project.buildWorkflow?.addPostBuildSteps(
+      {
+        uses: 'actions/setup-python@v4',
+        with: { 'python-version': '3.x' },
+      },
+      {
+        name: 'Update Pipfile.lock',
+        run: [
+          'npx projen package:python',
+          'pip install pipenv',
+          'pipenv lock',
+          'rm -rf dist/python',
+        ].join('\n'),
+      },
+    );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
       'pip install pipenv',
       'mv dist .repo',
@@ -125,7 +140,6 @@ export class IntegrationTests extends Component {
     // Pipenv
     this.project.addPackageIgnore('Pipfile');
     this.project.addPackageIgnore('Pipfile.lock');
-    this.project.addGitIgnore('Pipfile.lock');
 
     const pythonCdkVersion = this.options.python?.cdkVersion ?? this.project.cdkVersion;
     const pipenv = new Pipenv(this.project);
@@ -139,7 +153,7 @@ export class IntegrationTests extends Component {
     moduleName: string;
     packageName?: string;
   }) {
-    const goVersion = '1.16';
+    const goVersion = '1.16'; // same version as package uses
     // const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
     // const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
     // const goRepository = goTarget.moduleName;
@@ -151,6 +165,20 @@ export class IntegrationTests extends Component {
     });
 
     // Workflow
+    this.project.buildWorkflow?.addPostBuildSteps(
+      {
+        uses: 'actions/setup-go@v3',
+        with: { 'go-version': '^1.16.0' },
+      },
+      {
+        name: 'Update go.mod',
+        run: [
+          'npx projen package:go',
+          'go mod tidy',
+          'rm -rf dist/go',
+        ].join('\n'),
+      },
+    );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
       'mv dist .repo',
       'cd .repo',
@@ -171,7 +199,6 @@ export class IntegrationTests extends Component {
     // go.mod
     this.project.addPackageIgnore('go.mod');
     this.project.addPackageIgnore('go.sum');
-    this.project.addGitIgnore('go.sum');
 
     // new TextFile(this.project, 'go.mod', {
     //   marker: true,
