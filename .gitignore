@@ -63,11 +63,6 @@ tsconfig.json
 !/API.md
 cdk-integ.out.*
 !/Pipfile
-<<<<<<< HEAD
-go.sum
-=======
-.jsii.tabl.json
->>>>>>> 6935aab (ci: use lockfiles for integ tests (#689))
 !/.vscode/extensions.json
 !/.vscode/settings.json
 !/.vscode/launch.json
