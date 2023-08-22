@@ -139,7 +139,7 @@ export class IntegrationTests extends Component {
     moduleName: string;
     packageName?: string;
   }) {
-    const goVersion = '1.16';
+    const goVersion = '1.16'; // same version as package uses
     // const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
     // const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
     // const goRepository = goTarget.moduleName;
@@ -151,6 +151,15 @@ export class IntegrationTests extends Component {
     });
 
     // Workflow
+    this.project.buildWorkflow?.addPostBuildSteps(
+      {
+        uses: 'actions/setup-go@v3',
+        with: { 'go-version': '^1.16.0' },
+      },
+      {
+        name: 'Update go.mod',
+        run: 'go mod tidy',
+      });
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
       'mv dist .repo',
       'cd .repo',
@@ -171,7 +180,6 @@ export class IntegrationTests extends Component {
     // go.mod
     this.project.addPackageIgnore('go.mod');
     this.project.addPackageIgnore('go.sum');
-    this.project.addGitIgnore('go.sum');
 
     // new TextFile(this.project, 'go.mod', {
     //   marker: true,
