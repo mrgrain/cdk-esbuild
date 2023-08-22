@@ -167,7 +167,7 @@
       "name": "integ:python",
       "steps": [
         {
-          "exec": "pipenv install --skip-lock"
+          "exec": "pipenv sync"
         },
         {
           "exec": "integ-runner --app=\"pipenv run python {filePath}\" --test-regex=\"^integ-.*\\.py$\"",
