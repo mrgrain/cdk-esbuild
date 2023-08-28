@@ -93,7 +93,7 @@ interface CommonOptions {
 export interface TsconfigRaw {
   compilerOptions?: {
     alwaysStrict?: boolean;
-    baseUrl?: string;
+    baseUrl?: boolean;
     experimentalDecorators?: boolean;
     importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
     jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
