@@ -76,12 +76,12 @@
         },
         "constructs": {
             "hashes": [
-                "sha256:27a60f5ce4faa4d43c91c73f24e1a245c0a1ef67ea1c8a3df9ca6af9adf618df",
-                "sha256:520ddd665cc336df90be06bb1bd49f3a9a7400d886cad8aef7b0155593b4ffa4"
+                "sha256:ade1b5224830e78724ed50ce91ec2e6ce437c9983713c2b8ca541272283c5d37",
+                "sha256:f4ae2e0705baff188519e0233ad2129537c8eca40d68242873ca444a659549f8"
             ],
             "index": "pypi",
             "markers": "python_version ~= '3.7'",
-            "version": "==10.2.69"
+            "version": "==10.2.70"
         },
         "importlib-resources": {
             "hashes": [
@@ -100,7 +100,6 @@
             "version": "==1.88.0"
         },
         "mrgrain.cdk-esbuild": {
-            "editable": true,
             "hashes": [
                 "sha256:0e6964cb1fee15ec493b1130d8b670b97cd39defced10fda95aafa9a4644c703",
                 "sha256:9baea720b26b1c2715a4be6e68289656c09dd8801519b0b3e826917f830fba3b"
