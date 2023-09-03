@@ -326,5 +326,6 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
+
 // Synth project
 project.synth();
