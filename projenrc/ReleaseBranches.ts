@@ -22,7 +22,6 @@ export class StableReleases extends Component {
       const opts = options[branch];
       const isDefaultBranch = this.isDefaultBranch(branch);
       const releaseWorkflow = this.getReleaseWorkflow(branch);
-      const upgradeWorkflow = this.project.github?.tryFindWorkflow(`upgrade-${branch}`)?.file;
 
       // Release schedule
       releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
@@ -60,9 +59,6 @@ export class StableReleases extends Component {
         JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
         JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
       );
-
-      // Use correct node version in workflows
-      upgradeWorkflow?.patch(JsonPatch.add('/jobs/upgrade/steps/1/with/node-version', opts.minNodeVersion));
     }
   }
 
@@ -93,7 +89,6 @@ export class StableReleases extends Component {
   }
 
 }
-
 
 export function releaseOptions(branches: StableReleaseBranches, currentBranch = 'main'): {
   npmDistTag: string;
