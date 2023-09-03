@@ -8,7 +8,7 @@ const releaseBranches: StableReleaseBranches = {
   main: {
     majorVersion: 3,
     cdkVersion: '2.0.0',
-    minNodeVersion: '14.x',
+    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
   },
 };
