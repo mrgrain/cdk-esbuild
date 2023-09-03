@@ -1,9 +1,16 @@
-import { JsonPatch, awscdk, github, javascript, release, vscode } from 'projen';
+import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
+import { LockfileVersion, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
-import { WordmarkReadme } from './projenrc/WordmarkReadme';
 import { Esbuild } from './src/private/esbuild-source';
+
+const releaseBranches: StableReleaseBranches = {
+  v3: {
+    majorVersion: 3,
+    npmDistTag: 'old-stable',
+    lockfileVersion: LockfileVersion.V2,
+  },
+};
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -65,12 +72,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   npmDistTag: 'latest',
   defaultReleaseBranch: 'main',
   majorVersion: 4,
-  releaseBranches: {
-    v3: {
-      majorVersion: 3,
-      npmDistTag: 'old-stable',
-    },
-  },
+  releaseBranches,
   releaseTrigger: release.ReleaseTrigger.scheduled({
     schedule: '0 5 1,15 * *',
   }),
@@ -153,13 +155,7 @@ new IntegrationTests(project, {
   },
 });
 
-// use npm@8 in upgrade workflow
-for (const upgradeWorkflow of project.upgradeWorkflow?.workflows!) {
-  upgradeWorkflow.file?.patch(JsonPatch.add('/jobs/upgrade/steps/2', {
-    name: 'Use npm@8',
-    run: ['npm i -g npm@8', 'npm --version'].join('\n'),
-  }));
-}
+new StableReleases(project, releaseBranches);
 
 
 // test against latest versions
