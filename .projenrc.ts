@@ -9,7 +9,6 @@ const releaseBranches: StableReleaseBranches = {
     majorVersion: 3,
     cdkVersion: '2.0.0',
     minNodeVersion: '14.x',
-    npmVersion: '9',
     releaseSchedule: '0 5 15 * *',
   },
 };
@@ -131,6 +130,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'SECURITY.md',
   ],
 });
+
+// Fix dependency version due to errors on node14
+project.addDevDeps(
+  '@typescript-eslint/eslint-plugin@^5',
+  '@typescript-eslint/parser@^5',
+);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {

@@ -2,7 +2,6 @@ import { Component, JsonPatch, release, typescript } from 'projen';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
   minNodeVersion: string;
-  npmVersion?: string;
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
@@ -23,7 +22,6 @@ export class StableReleases extends Component {
       const opts = options[branch];
       const isDefaultBranch = this.isDefaultBranch(branch);
       const releaseWorkflow = this.getReleaseWorkflow(branch);
-      const upgradeWorkflow = this.project.github?.tryFindWorkflow(`upgrade-${branch}`)?.file;
 
       // Release schedule
       releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
@@ -61,17 +59,6 @@ export class StableReleases extends Component {
         JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
         JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
       );
-
-      // Set specific npm version for upgrade task
-      // All other tasks run npm ci and will not change the lockfile
-      if (opts.npmVersion) {
-        const npmVersion = `npm@${opts.npmVersion}`;
-        const npmVersionStep = {
-          name: `Use ${npmVersion}`,
-          run: [`npm i -g ${npmVersion}`, 'npm --version'].join('\n'),
-        };
-        upgradeWorkflow?.patch(JsonPatch.add('/jobs/upgrade/steps/2', npmVersionStep));
-      }
     }
   }
 
@@ -102,7 +89,6 @@ export class StableReleases extends Component {
   }
 
 }
-
 
 export function releaseOptions(branches: StableReleaseBranches, currentBranch = 'main'): {
   npmDistTag: string;
