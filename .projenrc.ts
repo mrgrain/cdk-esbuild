@@ -206,7 +206,7 @@ project.package.addField('jsiiRosetta', {
   exampleDependencies: {
     '@aws-cdk/aws-synthetics-alpha': '2.88.0-alpha.0',
     'aws-cdk-lib': '2.88.0',
-    '@mrgrain/cdk-esbuild': 'latest',
+    '@mrgrain/cdk-esbuild': '^4',
     '@types/node': '^18',
   },
 });
