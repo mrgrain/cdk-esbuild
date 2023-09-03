@@ -56,6 +56,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   autoApproveOptions: {
     allowedUsernames: [
       'projen-builder[bot]', // Bot account for upgrade PRs
+      'mergify[bot]', // Bot account for backports
       'mrgrain', // Auto-approve PRs of main maintainer
     ],
   },
