@@ -20,7 +20,7 @@ const releaseBranches: StableReleaseBranches = {
   },
   v3: {
     majorVersion: 3,
-    cdkVersion: '2.12.0',
+    cdkVersion: '2.0.0',
     minNodeVersion: '14.x',
     releaseSchedule: '0 5 15 * *',
   },
