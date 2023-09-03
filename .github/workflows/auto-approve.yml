@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && (github.event.pull_request.user.login == 'projen-builder[bot]' || github.event.pull_request.user.login == 'mrgrain')
+    if: contains(github.event.pull_request.labels.*.name, 'auto-approve') && (github.event.pull_request.user.login == 'projen-builder[bot]' || github.event.pull_request.user.login == 'mergify[bot]' || github.event.pull_request.user.login == 'mrgrain')
     steps:
       - uses: hmarr/auto-approve-action@v2.2.1
         with:
