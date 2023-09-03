@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-import { Component, release, typescript } from 'projen';
-
-export interface StableReleaseBranchOptions extends release.BranchOptions {
-  minNodeVersion: string;
-=======
 import { Component, JsonPatch, release, typescript } from 'projen';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
@@ -11,7 +5,6 @@ export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
 }
 
 export interface StableReleaseBranches {
@@ -57,8 +50,6 @@ export class StableReleases extends Component {
       if (opt.npmDistTags) {
         releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', this.tagOnNpm(opt.npmDistTags)));
       }
-<<<<<<< HEAD
-=======
 
       // Go branch
       releaseWorkflow?.patch(JsonPatch.add('/jobs/release_golang/steps/9/env/GIT_BRANCH', branch));
@@ -68,7 +59,6 @@ export class StableReleases extends Component {
         JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
         JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
       );
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
     }
   }
 

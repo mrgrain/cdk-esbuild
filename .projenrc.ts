@@ -1,22 +1,13 @@
 import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-<<<<<<< HEAD
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
-=======
 import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
   main: {
-<<<<<<< HEAD
-    majorVersion: 4,
-    npmDistTag: 'latest',
-=======
     majorVersion: 5,
     cdkVersion: '2.12.0',
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
     minNodeVersion: '18.x',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
@@ -29,11 +20,7 @@ const releaseBranches: StableReleaseBranches = {
   },
   v3: {
     majorVersion: 3,
-<<<<<<< HEAD
-    npmDistTag: 'old-stable',
-=======
     cdkVersion: '2.12.0',
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
     minNodeVersion: '14.x',
     releaseSchedule: '0 5 15 * *',
   },
