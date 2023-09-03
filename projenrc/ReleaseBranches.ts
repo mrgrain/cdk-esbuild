@@ -19,12 +19,13 @@ export class StableReleases extends Component {
     this.project = project;
 
     for (const branch of project.release?.branches ?? []) {
-      const opt = options[branch];
+      const opts = options[branch];
       const isDefaultBranch = this.isDefaultBranch(branch);
       const releaseWorkflow = this.getReleaseWorkflow(branch);
+      const upgradeWorkflow = this.project.github?.tryFindWorkflow(`upgrade-${branch}`)?.file;
 
       // Release schedule
-      releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opt.releaseSchedule }]));
+      releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
 
       // Check out the correct ref
       releaseWorkflow?.patch(JsonPatch.add('/jobs/release/steps/0/with/ref', branch));
@@ -47,8 +48,8 @@ export class StableReleases extends Component {
       }));
 
       // Additional npm dist tags
-      if (opt.npmDistTags) {
-        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', this.tagOnNpm(opt.npmDistTags)));
+      if (opts.npmDistTags) {
+        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', this.tagOnNpm(opts.npmDistTags)));
       }
 
       // Go branch
@@ -59,6 +60,9 @@ export class StableReleases extends Component {
         JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
         JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
       );
+
+      // Use correct node version in workflows
+      upgradeWorkflow?.patch(JsonPatch.add('/jobs/upgrade/steps/1/with/node-version', opts.minNodeVersion));
     }
   }
 
