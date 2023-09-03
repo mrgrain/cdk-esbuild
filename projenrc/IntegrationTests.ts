@@ -54,12 +54,17 @@ export interface IntegrationTestsOptions {
 export class IntegrationTests extends Component {
   private pythonPattern: string;
   private goPattern: string;
+  private nodeVersion: string;
 
   public constructor(
     public readonly project: awscdk.AwsCdkConstructLibrary,
     private readonly options: IntegrationTestsOptions,
   ) {
     super(project);
+
+    this.nodeVersion
+      // @ts-ignore
+      = this.project.nodeVersion ?? 'latest',
 
     // Define patterns
     this.pythonPattern = options.python?.testPattern ?? '^integ-.*\\.py$';
@@ -132,7 +137,7 @@ export class IntegrationTests extends Component {
           version: '3.x',
         },
         node: {
-          version: this.project.minNodeVersion ?? '14.x',
+          version: this.nodeVersion,
         },
       },
     });
@@ -191,7 +196,7 @@ export class IntegrationTests extends Component {
           version: `^${goVersion}.0`,
         },
         node: {
-          version: this.project.minNodeVersion ?? '14.x',
+          version: this.nodeVersion,
         },
       },
     });
