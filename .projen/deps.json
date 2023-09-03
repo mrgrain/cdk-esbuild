@@ -2,7 +2,7 @@
   "dependencies": [
     {
       "name": "@aws-cdk/aws-synthetics-alpha",
-      "version": "2.12.0-alpha.0",
+      "version": "2.51.0-alpha.0",
       "type": "build"
     },
     {
@@ -36,7 +36,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "2.12.0",
+      "version": "2.51.0",
       "type": "build"
     },
     {
@@ -145,7 +145,7 @@
     },
     {
       "name": "aws-cdk-lib",
-      "version": "^2.12.0",
+      "version": "^2.51.0",
       "type": "peer"
     },
     {

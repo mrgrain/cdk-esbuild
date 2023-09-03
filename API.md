@@ -4031,8 +4031,6 @@ public readonly isInline: boolean;
 
 - *Type:* `boolean`
 
-Determines whether this Code is inline code or not.
-
 ---
 
 
@@ -4095,8 +4093,6 @@ public readonly isInline: boolean;
 ```
 
 - *Type:* `boolean`
-
-Determines whether this Code is inline code or not.
 
 ---
 

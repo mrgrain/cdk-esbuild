@@ -1,20 +1,15 @@
 # Security Policy
 
-## Supported Versions
+## Report a vulnerability
 
-Only the latest release of each major version is supported.
+Please use the form located at **Security** > **Report a vulnerability**.\
+See [Privately reporting a security vulnerability](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability#privately-reporting-a-security-vulnerability) for detailed instructions.
 
-| Plugin Version | CDK Version | Supported                                                      |
-| -------------- | ----------- | -------------------------------------------------------------- |
-| v1             | ^1.99.0     | :x:                                                            |
-| v2             | ^1.99.0     | :x: Support ended on June 1, 2023                              |
-| v3             | ^2.0.0      | Security updates and critical bug fixes until February 1, 2024 |
-| v4             | ^2.12.0     | :white_check_mark:                                             |
+## Response time expectation
 
-## Reporting a Vulnerability
+I aim to respond to reported security vulnerabilities within 72h.
+However this is an open source project with a single maintainer and life can get in the way.
 
-Please raise an [issue](https://github.com/mrgrain/cdk-esbuild/issues) and add the `security` label.
+## Supported versions
 
-I strive to respond to security issues within 48h. However this is an open source project with a single maintainer and life can get in the way.
-
-Contributions of security fixes are most welcome!
+Please refer to [VERSIONS.md](./VERSIONS.md) for a complete list of currently supported versions and the support schedule.
