@@ -1,12 +1,8 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
+import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
-<<<<<<< HEAD
 import { Esbuild } from './src/esbuild-source';
-=======
-import { Esbuild } from './src/private/esbuild-source';
->>>>>>> 8897732 (chore: package-lock v3 (#722))
 
 const releaseBranches: StableReleaseBranches = {
   main: {
@@ -79,25 +75,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-<<<<<<< HEAD
-  npmDistTag: 'next',
-  defaultReleaseBranch: 'main',
-  majorVersion: 4,
-  prerelease: 'alpha',
-  releaseBranches: {
-    v3: {
-      majorVersion: 3,
-    },
-  },
+  ...configureReleaseBranches(releaseBranches),
   releaseTrigger: {
     isContinuous: false,
   } as release.ReleaseTrigger,
-=======
-  ...configureReleaseBranches(releaseBranches),
-  releaseTrigger: release.ReleaseTrigger.scheduled({
-    schedule: '0 5 1,15 * *',
-  }),
->>>>>>> 8897732 (chore: package-lock v3 (#722))
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
