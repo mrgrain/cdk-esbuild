@@ -221,7 +221,7 @@ v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
 });
 v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
 v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.10.env.GIT_BRANCH', 'v3');
+v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.9.env.GIT_BRANCH', 'v3');
 
 
 // pypi release
