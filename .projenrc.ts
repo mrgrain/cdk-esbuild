@@ -326,8 +326,5 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
-// const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
-// v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-
 // Synth project
 project.synth();
