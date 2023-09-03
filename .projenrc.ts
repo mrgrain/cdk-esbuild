@@ -206,8 +206,8 @@ project.package.addField('jsiiRosetta', {
   exampleDependencies: {
     '@aws-cdk/aws-synthetics-alpha': '2.88.0-alpha.0',
     'aws-cdk-lib': '2.88.0',
-    '@mrgrain/cdk-esbuild': '^4',
-    '@types/node': '^16',
+    '@mrgrain/cdk-esbuild': 'latest',
+    '@types/node': '^18',
   },
 });
 const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
