@@ -1,17 +1,11 @@
-<<<<<<< HEAD
-import { Component, release, typescript } from 'projen';
-
-export interface StableReleaseBranchOptions extends release.BranchOptions {
-  minNodeVersion: string;
-=======
 import { Component, JsonPatch, release, typescript } from 'projen';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
   minNodeVersion: string;
+  npmVersion?: string;
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
 }
 
 export interface StableReleaseBranches {
@@ -26,12 +20,13 @@ export class StableReleases extends Component {
     this.project = project;
 
     for (const branch of project.release?.branches ?? []) {
-      const opt = options[branch];
+      const opts = options[branch];
       const isDefaultBranch = this.isDefaultBranch(branch);
       const releaseWorkflow = this.getReleaseWorkflow(branch);
+      const upgradeWorkflow = this.project.github?.tryFindWorkflow(`upgrade-${branch}`)?.file;
 
       // Release schedule
-      releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opt.releaseSchedule }]));
+      releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
 
       // Check out the correct ref
       releaseWorkflow?.patch(JsonPatch.add('/jobs/release/steps/0/with/ref', branch));
@@ -54,11 +49,9 @@ export class StableReleases extends Component {
       }));
 
       // Additional npm dist tags
-      if (opt.npmDistTags) {
-        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', this.tagOnNpm(opt.npmDistTags)));
+      if (opts.npmDistTags) {
+        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', this.tagOnNpm(opts.npmDistTags)));
       }
-<<<<<<< HEAD
-=======
 
       // Go branch
       releaseWorkflow?.patch(JsonPatch.add('/jobs/release_golang/steps/9/env/GIT_BRANCH', branch));
@@ -68,7 +61,17 @@ export class StableReleases extends Component {
         JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
         JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
       );
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
+
+      // Set specific npm version for upgrade task
+      // All other tasks run npm ci and will not change the lockfile
+      if (opts.npmVersion) {
+        const npmVersion = `npm@${opts.npmVersion}`;
+        const npmVersionStep = {
+          name: `Use ${npmVersion}`,
+          run: [`npm i -g ${npmVersion}`, 'npm --version'].join('\n'),
+        };
+        upgradeWorkflow?.patch(JsonPatch.add('/jobs/upgrade/steps/2', npmVersionStep));
+      }
     }
   }
 

@@ -2,6 +2,8 @@
 
 name: release
 on:
+  schedule:
+    - cron: 0 5 15 * *
   workflow_dispatch: {}
 jobs:
   release:
@@ -25,7 +27,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - name: Install dependencies
         run: npm ci
       - name: release
@@ -55,7 +57,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -85,7 +87,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - name: Download build artifacts
         uses: actions/download-artifact@v3
         with:
@@ -108,14 +110,6 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
-      - name: Update tags
-        run: |-
-          version=`cat dist/version.txt`
-          echo $version
-          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
-        env:
-          NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     env:
       NPM_CONFIG_PROVENANCE: "true"
   release_pypi:
@@ -128,7 +122,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
@@ -163,7 +157,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 3.x
@@ -197,7 +191,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 18.x
+          node-version: 14.x
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.16.0

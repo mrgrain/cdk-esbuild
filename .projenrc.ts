@@ -1,40 +1,15 @@
 import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-<<<<<<< HEAD
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile } from './projenrc';
-=======
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
+import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
   main: {
-<<<<<<< HEAD
-    majorVersion: 4,
-    npmDistTag: 'latest',
-=======
-    majorVersion: 5,
-    cdkVersion: '2.12.0',
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
-    minNodeVersion: '18.x',
-    releaseSchedule: '0 5 1,15 * *',
-    npmDistTags: ['cdk-v2'],
-  },
-  v4: {
-    majorVersion: 4,
-    cdkVersion: '2.12.0',
-    minNodeVersion: '14.x',
-    releaseSchedule: '0 5 15 * *',
-  },
-  v3: {
     majorVersion: 3,
-<<<<<<< HEAD
-    npmDistTag: 'old-stable',
-=======
-    cdkVersion: '2.12.0',
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
+    cdkVersion: '2.0.0',
     minNodeVersion: '14.x',
+    npmVersion: '9',
     releaseSchedule: '0 5 15 * *',
   },
 };
@@ -95,12 +70,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Release
   ...configureReleaseBranches(releaseBranches),
-<<<<<<< HEAD
-  releaseTrigger: {
-    isContinuous: false,
-  } as release.ReleaseTrigger,
-=======
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -121,15 +90,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Dependencies
-<<<<<<< HEAD
-  cdkVersion: '2.0.0',
-  devDeps: [
-    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
-=======
   cdkVersion: releaseBranches.main.cdkVersion,
   devDeps: [
-    `@aws-cdk/aws-synthetics-alpha@${releaseBranches.main.cdkVersion}-alpha.0`,
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
+    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
     Esbuild.spec,
     'jest-mock',
@@ -216,57 +179,6 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
   ],
 });
 
-
-<<<<<<< HEAD
-// changelog for main
-const releaseWorkflow = project.tryFindObjectFile('.github/workflows/release.yml');
-project.release?.publisher?.publishToGit({
-  changelogFile: 'dist/dist/changelog.md',
-  versionFile: 'dist/dist/version.txt',
-  releaseTagFile: 'dist/dist/releasetag.txt',
-  projectChangelogFile: 'CHANGELOG.md',
-  gitBranch: 'main',
-});
-releaseWorkflow?.addToArray('jobs.release.steps', {
-  name: 'Publish Changelog',
-  run: 'npx projen publish:git',
-});
-releaseWorkflow?.addToArray('jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
-);
-
-// npm provenance information
-releaseWorkflow?.addOverride('jobs.release_npm.env.NPM_CONFIG_PROVENANCE', 'true');
-releaseWorkflow?.addOverride('jobs.release_npm.permissions.id-token', 'write');
-
-// changelog for v3
-const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
-project.release?.publisher?.publishToGit({
-  changelogFile: 'dist/dist/changelog.md',
-  versionFile: 'dist/dist/version.txt',
-  releaseTagFile: 'dist/dist/releasetag.txt',
-  projectChangelogFile: 'CHANGELOG.md',
-  gitBranch: 'v3',
-});
-v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
-  name: 'Publish Changelog',
-  run: 'npx projen publish:git:v3',
-});
-v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
-v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.9.env.GIT_BRANCH', 'v3');
-
-=======
-// jsii rosetta
-project.package.addField('jsiiRosetta', {
-  strict: false,
-});
-const rosetta = project.addTask('rosetta', { exec: 'jsii-rosetta extract' });
-project.tasks.tryFind('post-compile')?.prependSpawn(rosetta);
-project.addGitIgnore('.jsii.tabl.json');
-project.addPackageIgnore('.jsii.tabl.json');
-project.addPackageIgnore('/rosetta/');
->>>>>>> 39c9ecd (chore: prepare v5 release (#725))
 
 // pypi release
 const wordmark = '<img src="https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/wordmark-light.svg" alt="cdk-esbuild">';
