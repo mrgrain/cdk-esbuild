@@ -6,13 +6,6 @@ import { Esbuild } from './src/private/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
   main: {
-    majorVersion: 5,
-    cdkVersion: '2.12.0',
-    minNodeVersion: '18.x',
-    releaseSchedule: '0 5 1,15 * *',
-    npmDistTags: ['cdk-v2'],
-  },
-  v4: {
     majorVersion: 4,
     cdkVersion: '2.12.0',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
