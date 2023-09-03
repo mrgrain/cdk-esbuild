@@ -136,6 +136,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
 });
 
+// auto approve backports
+project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
+  labels: ['auto-approve'],
+});
+
 
 // setup integration tests
 new IntegrationTests(project, {

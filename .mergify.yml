@@ -36,3 +36,8 @@ pull_request_rules:
       - status-success=integ-python
       - status-success=integ-go
       - status-success=test-latest-versions
+defaults:
+  actions:
+    backport:
+      labels:
+        - auto-approve
