@@ -1,8 +1,25 @@
-import { JsonPatch, awscdk, github, javascript, release, vscode } from 'projen';
+import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { tagOnNpm, TypeScriptSourceFile } from './projenrc';
+import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
+<<<<<<< HEAD
 import { Esbuild } from './src/esbuild-source';
+=======
+import { Esbuild } from './src/private/esbuild-source';
+>>>>>>> 8897732 (chore: package-lock v3 (#722))
+
+const releaseBranches: StableReleaseBranches = {
+  main: {
+    majorVersion: 4,
+    npmDistTag: 'latest',
+    minNodeVersion: '18.x',
+  },
+  v3: {
+    majorVersion: 3,
+    npmDistTag: 'old-stable',
+    minNodeVersion: '14.x',
+  },
+};
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -62,6 +79,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
+<<<<<<< HEAD
   npmDistTag: 'next',
   defaultReleaseBranch: 'main',
   majorVersion: 4,
@@ -74,6 +92,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseTrigger: {
     isContinuous: false,
   } as release.ReleaseTrigger,
+=======
+  ...configureReleaseBranches(releaseBranches),
+  releaseTrigger: release.ReleaseTrigger.scheduled({
+    schedule: '0 5 1,15 * *',
+  }),
+>>>>>>> 8897732 (chore: package-lock v3 (#722))
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -153,13 +177,7 @@ new IntegrationTests(project, {
   },
 });
 
-// use npm@8 in upgrade workflow
-for (const upgradeWorkflow of project.upgradeWorkflow?.workflows!) {
-  upgradeWorkflow.file?.patch(JsonPatch.add('/jobs/upgrade/steps/2', {
-    name: 'Use npm@8',
-    run: ['npm i -g npm@8', 'npm --version'].join('\n'),
-  }));
-}
+new StableReleases(project, releaseBranches);
 
 
 // test against latest versions

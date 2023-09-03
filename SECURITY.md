@@ -1,5 +1,6 @@
 # Security Policy
 
+<<<<<<< HEAD
 ## Supported Versions
 
 Only the latest release of each major version is supported.
@@ -17,3 +18,6 @@ Please raise an [issue](https://github.com/mrgrain/cdk-esbuild/issues) and add t
 I strive to respond to security issues within 48h. However this is an open source project with a single maintainer and life can get in the way.
 
 Contributions of security fixes are most welcome!
+=======
+See [SECURITY.md](https://github.com/mrgrain/cdk-esbuild/blob/main/SECURITY.md) on `main`.
+>>>>>>> 8897732 (chore: package-lock v3 (#722))
