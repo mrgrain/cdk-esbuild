@@ -15,13 +15,13 @@ const releaseBranches: StableReleaseBranches = {
   v4: {
     majorVersion: 4,
     cdkVersion: '2.12.0',
-    minNodeVersion: '14.x',
+    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
   },
   v3: {
     majorVersion: 3,
     cdkVersion: '2.0.0',
-    minNodeVersion: '14.x',
+    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
   },
 };
