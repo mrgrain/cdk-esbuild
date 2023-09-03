@@ -1,14 +1,21 @@
 import { awscdk, github, javascript, release, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { LockfileVersion, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
+import { LockfileVersion, releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
+  main: {
+    majorVersion: 4,
+    npmDistTag: 'latest',
+    lockfileVersion: LockfileVersion.V3,
+    minNodeVersion: '18.x',
+  },
   v3: {
     majorVersion: 3,
     npmDistTag: 'old-stable',
     lockfileVersion: LockfileVersion.V2,
+    minNodeVersion: '14.x',
   },
 };
 
@@ -69,10 +76,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  npmDistTag: 'latest',
-  defaultReleaseBranch: 'main',
-  majorVersion: 4,
-  releaseBranches,
+  ...configureReleaseBranches(releaseBranches),
   releaseTrigger: release.ReleaseTrigger.scheduled({
     schedule: '0 5 1,15 * *',
   }),

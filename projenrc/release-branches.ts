@@ -7,6 +7,7 @@ export enum LockfileVersion {
 
 
 export interface StableReleaseBranchOptions extends release.BranchOptions {
+  minNodeVersion: string;
   lockfileVersion: LockfileVersion;
 }
 
@@ -35,4 +36,21 @@ export class StableReleases extends Component {
       }
     }
   }
+}
+
+export function releaseOptions(branches: StableReleaseBranches, currentBranch = 'main'): {
+  npmDistTag: string;
+  defaultReleaseBranch: string;
+  majorVersion: number;
+  releaseBranches: StableReleaseBranches;
+  workflowNodeVersion: string;
+} {
+  const current = branches[currentBranch];
+  return {
+    npmDistTag: current.npmDistTag ?? 'latest',
+    defaultReleaseBranch: currentBranch,
+    majorVersion: current.majorVersion,
+    workflowNodeVersion: current.minNodeVersion,
+    releaseBranches: Object.fromEntries(Object.entries(branches).filter(([branch]) => branch !== currentBranch)),
+  };
 }
