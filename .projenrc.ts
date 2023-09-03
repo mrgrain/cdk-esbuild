@@ -1,28 +1,21 @@
-import { awscdk, github, javascript, release, vscode } from 'projen';
+import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, tagOnNpm, TypeScriptSourceFile } from './projenrc';
+import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
   main: {
-    majorVersion: 4,
-    npmDistTag: 'latest',
-    minNodeVersion: '18.x',
-  },
-  v3: {
     majorVersion: 3,
-    npmDistTag: 'old-stable',
-    minNodeVersion: '14.x',
+    cdkVersion: '2.0.0',
+    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
+    releaseSchedule: '0 5 15 * *',
   },
 };
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
   projenrcTs: true,
-  projenrcTsOptions: {
-    filename: '.projenrc.ts',
-  },
 
   // Project info
   name: '@mrgrain/cdk-esbuild',
@@ -76,9 +69,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 
   // Release
   ...configureReleaseBranches(releaseBranches),
-  releaseTrigger: {
-    isContinuous: false,
-  } as release.ReleaseTrigger,
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -97,10 +87,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   catalog: {
     twitter: '@mrgrain',
   },
-  workflowNodeVersion: '18.x',
 
   // Dependencies
-  cdkVersion: '2.0.0',
+  cdkVersion: releaseBranches.main.cdkVersion,
   devDeps: [
     '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
     '@types/eslint',
@@ -141,6 +130,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'SECURITY.md',
   ],
 });
+
+// Fix dependency version due to errors on node14
+project.addDevDeps(
+  '@typescript-eslint/eslint-plugin@^5',
+  '@typescript-eslint/parser@^5',
+);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
@@ -188,45 +183,6 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
     },
   ],
 });
-
-
-// changelog for main
-const releaseWorkflow = project.tryFindObjectFile('.github/workflows/release.yml');
-project.release?.publisher?.publishToGit({
-  changelogFile: 'dist/dist/changelog.md',
-  versionFile: 'dist/dist/version.txt',
-  releaseTagFile: 'dist/dist/releasetag.txt',
-  projectChangelogFile: 'CHANGELOG.md',
-  gitBranch: 'main',
-});
-releaseWorkflow?.addToArray('jobs.release.steps', {
-  name: 'Publish Changelog',
-  run: 'npx projen publish:git',
-});
-releaseWorkflow?.addToArray('jobs.release_npm.steps',
-  tagOnNpm(project.package.packageName, ['cdk-v2', 'unstable', 'next']),
-);
-
-// npm provenance information
-releaseWorkflow?.addOverride('jobs.release_npm.env.NPM_CONFIG_PROVENANCE', 'true');
-releaseWorkflow?.addOverride('jobs.release_npm.permissions.id-token', 'write');
-
-// changelog for v3
-const v3ReleaseWorkflow = project.tryFindObjectFile('.github/workflows/release-v3.yml');
-project.release?.publisher?.publishToGit({
-  changelogFile: 'dist/dist/changelog.md',
-  versionFile: 'dist/dist/version.txt',
-  releaseTagFile: 'dist/dist/releasetag.txt',
-  projectChangelogFile: 'CHANGELOG.md',
-  gitBranch: 'v3',
-});
-v3ReleaseWorkflow?.addToArray('jobs.release.steps', {
-  name: 'Publish Changelog',
-  run: 'npx projen publish:git:v3',
-});
-v3ReleaseWorkflow?.addToArray('on.schedule', { cron: '0 5 * * 1' });
-v3ReleaseWorkflow?.addOverride('jobs.release.steps.0.with.ref', 'v3');
-v3ReleaseWorkflow?.addOverride('jobs.release_golang.steps.9.env.GIT_BRANCH', 'v3');
 
 
 // pypi release

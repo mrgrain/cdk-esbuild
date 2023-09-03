@@ -1,4 +1,3 @@
 export * from './IntegrationTests';
-export * from './release';
-export * from './release-branches';
+export * from './ReleaseBranches';
 export * from './TypeScriptSourceFile';
