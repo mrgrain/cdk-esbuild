@@ -3,7 +3,7 @@ import { RemovalPolicy, Stack } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { BucketDeployment } from 'aws-cdk-lib/aws-s3-deployment';
 import { EsbuildProvider } from '../src';
-import { JavaScriptSource, TypeScriptSource } from '../src/source';
+import { TypeScriptSource } from '../src/source';
 
 describe('source', () => {
   describe('entrypoint is an absolute path', () => {
@@ -103,7 +103,7 @@ describe('source', () => {
       expect(() => {
         const stack = new Stack();
 
-        const website = new JavaScriptSource('fixtures/handlers/js-handler.js', {
+        const website = new TypeScriptSource('fixtures/handlers/js-handler.js', {
           buildOptions: {
             absWorkingDir: resolve(__dirname),
           },
@@ -130,7 +130,7 @@ describe('source', () => {
         const stack = new Stack();
 
         const assetHash = 'abcdefghij1234567890';
-        const website = new JavaScriptSource(
+        const website = new TypeScriptSource(
           'fixtures/handlers/js-handler.js',
           {
             assetHash,
@@ -157,7 +157,7 @@ describe('source', () => {
 
   describe('default build options', () => {
     it('does not override provided values', () => {
-      const source = new JavaScriptSource('fixtures/handlers/js-handler.js', {
+      const source = new TypeScriptSource('fixtures/handlers/js-handler.js', {
         buildOptions: {
           platform: 'neutral',
           define: {},
@@ -169,7 +169,7 @@ describe('source', () => {
     });
 
     it('platform=browser', () => {
-      const source = new JavaScriptSource(
+      const source = new TypeScriptSource(
         'fixtures/handlers/js-handler.js',
       ) as any;
 

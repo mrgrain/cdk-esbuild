@@ -2,25 +2,11 @@ import { isAbsolute, relative } from 'path';
 import { AssetHashType } from 'aws-cdk-lib';
 import { Asset as S3Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { Construct, Node } from 'constructs';
-import { EsbuildBundler, BundlerProps, EntryPoints } from './bundler';
+import { EsbuildBundler, EntryPoints } from './bundler';
+import { TypeScriptCodeProps } from './code';
 
-/**
- * @internal
- */
-export interface AssetBaseProps extends BundlerProps {
-  /**
-   * A hash of this asset, which is available at construction time.
-   *
-   * As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
-   *
-   * Defaults to a hash of all files in the resulting bundle.
-   *
-   * @stability stable
-   */
-  readonly assetHash?: string;
-}
 
-export interface AssetProps extends AssetBaseProps {
+export interface TypeScriptAssetProps extends TypeScriptCodeProps {
   /**
    * A path or list or map of paths to the entry points of your code.
    *
@@ -40,24 +26,22 @@ export interface AssetProps extends AssetBaseProps {
   readonly entryPoints: EntryPoints;
 }
 
-type JavaScriptAssetProps = AssetProps;
-type TypeScriptAssetProps = AssetProps;
 
 /**
- * Represents a generic esbuild asset.
+ * Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
  *
- * You should always use `TypeScriptAsset` or `JavaScriptAsset`.
+ * The asset can be used by other constructs.
  *
- * @stability experimental
+ * @stability stable
  */
-export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
+export class TypeScriptAsset extends S3Asset {
   /**
    * @stability stable
    */
   public constructor(
     scope: Construct,
     id: string,
-    props: Props,
+    props: TypeScriptAssetProps,
   ) {
     const {
       assetHash,
@@ -115,21 +99,3 @@ export class EsbuildAsset<Props extends AssetProps> extends S3Asset {
     });
   }
 }
-
-/**
- * Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
- *
- * The asset can be used by other constructs.
- *
- * @stability stable
- */
-export class JavaScriptAsset extends EsbuildAsset<JavaScriptAssetProps> {}
-
-/**
- * Bundles the entry points and creates a CDK asset which is uploaded to the bootstrapped CDK S3 bucket during deployment.
- *
- * The asset can be used by other constructs.
- *
- * @stability stable
- */
-export class TypeScriptAsset extends EsbuildAsset<TypeScriptAssetProps> {}
