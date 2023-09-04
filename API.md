@@ -987,10 +987,10 @@ Documentation: https://esbuild.github.io/api/#tsconfig.
 ##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.BuildOptions.property.tsconfigRaw"></a>
 
 ```typescript
-public readonly tsconfigRaw: string | TsconfigOptions;
+public readonly tsconfigRaw: string | TsconfigRaw;
 ```
 
-- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigRaw`](#@mrgrain/cdk-esbuild.TsconfigRaw)
 
 Documentation: https://esbuild.github.io/api/#tsconfig-raw.
 
@@ -1161,10 +1161,10 @@ public readonly alwaysStrict: boolean;
 ##### `baseUrl`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.baseUrl"></a>
 
 ```typescript
-public readonly baseUrl: boolean;
+public readonly baseUrl: string;
 ```
 
-- *Type:* `boolean`
+- *Type:* `string`
 
 ---
 
@@ -2287,10 +2287,10 @@ Documentation: https://esbuild.github.io/api/#tsconfig.
 ##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.tsconfigRaw"></a>
 
 ```typescript
-public readonly tsconfigRaw: string | TsconfigOptions;
+public readonly tsconfigRaw: string | TsconfigRaw;
 ```
 
-- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigRaw`](#@mrgrain/cdk-esbuild.TsconfigRaw)
 
 Documentation: https://esbuild.github.io/api/#tsconfig-raw.
 
@@ -2813,10 +2813,10 @@ Documentation: https://esbuild.github.io/api/#tree-shaking.
 ##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.tsconfigRaw"></a>
 
 ```typescript
-public readonly tsconfigRaw: string | TsconfigOptions;
+public readonly tsconfigRaw: string | TsconfigRaw;
 ```
 
-- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigRaw`](#@mrgrain/cdk-esbuild.TsconfigRaw)
 
 Documentation: https://esbuild.github.io/api/#tsconfig-raw.
 
@@ -3357,26 +3357,26 @@ Documentation: https://esbuild.github.io/api/#tree-shaking.
 ##### `tsconfigRaw`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TransformOptions.property.tsconfigRaw"></a>
 
 ```typescript
-public readonly tsconfigRaw: string | TsconfigOptions;
+public readonly tsconfigRaw: string | TsconfigRaw;
 ```
 
-- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigOptions`](#@mrgrain/cdk-esbuild.TsconfigOptions)
+- *Type:* `string` | [`@mrgrain/cdk-esbuild.TsconfigRaw`](#@mrgrain/cdk-esbuild.TsconfigRaw)
 
 Documentation: https://esbuild.github.io/api/#tsconfig-raw.
 
 ---
 
-### TsconfigOptions <a name="@mrgrain/cdk-esbuild.TsconfigOptions"></a>
+### TsconfigRaw <a name="@mrgrain/cdk-esbuild.TsconfigRaw"></a>
 
 #### Initializer <a name="[object Object].Initializer"></a>
 
 ```typescript
-import { TsconfigOptions } from '@mrgrain/cdk-esbuild'
+import { TsconfigRaw } from '@mrgrain/cdk-esbuild'
 
-const tsconfigOptions: TsconfigOptions = { ... }
+const tsconfigRaw: TsconfigRaw = { ... }
 ```
 
-##### `compilerOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TsconfigOptions.property.compilerOptions"></a>
+##### `compilerOptions`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.TsconfigRaw.property.compilerOptions"></a>
 
 ```typescript
 public readonly compilerOptions: CompilerOptions;

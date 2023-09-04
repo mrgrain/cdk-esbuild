@@ -87,26 +87,11 @@ interface CommonOptions {
   readonly logOverride?: Record<string, LogLevel>;
 
   /** Documentation: https://esbuild.github.io/api/#tsconfig-raw */
-  readonly tsconfigRaw?: string | TsconfigOptions;
+  readonly tsconfigRaw?: string | TsconfigRaw;
 }
 
 export interface TsconfigRaw {
-  compilerOptions?: {
-    alwaysStrict?: boolean;
-    baseUrl?: string;
-    experimentalDecorators?: boolean;
-    importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
-    jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
-    jsxFactory?: string;
-    jsxFragmentFactory?: string;
-    jsxImportSource?: string;
-    paths?: Record<string, string[]>;
-    preserveValueImports?: boolean;
-    strict?: boolean;
-    target?: string;
-    useDefineForClassFields?: boolean;
-    verbatimModuleSyntax?: boolean;
-  };
+  readonly compilerOptions?: CompilerOptions;
 }
 
 export interface BuildOptions extends CommonOptions {
@@ -657,7 +642,7 @@ export let version: string;
 
 export interface CompilerOptions {
   readonly alwaysStrict?: boolean;
-  readonly baseUrl?: boolean;
+  readonly baseUrl?: string;
   readonly experimentalDecorators?: boolean;
   readonly importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
   readonly jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
@@ -670,8 +655,4 @@ export interface CompilerOptions {
   readonly target?: string;
   readonly useDefineForClassFields?: boolean;
   readonly verbatimModuleSyntax?: boolean;
-}
-
-export interface TsconfigOptions {
-  readonly compilerOptions?: CompilerOptions;
 }
