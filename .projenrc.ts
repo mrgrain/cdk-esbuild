@@ -302,7 +302,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
       isExported: true,
       properties: [
         ['alwaysStrict', 'boolean'],
-        ['baseUrl', 'boolean'],
+        ['baseUrl', 'string'],
         ['experimentalDecorators', 'boolean'],
         ['importsNotUsedAsValues', "'remove' | 'preserve' | 'error'"],
         ['jsx', "'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev'"],
@@ -322,21 +322,12 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
         type,
       })),
     });
-    const tsconfigOptions = esbuildTypes.addInterface(
-      {
-        name: 'TsconfigOptions',
-        isExported: true,
-        properties: [{
-          name: 'compilerOptions',
-          isReadonly: true,
-          hasQuestionToken: true,
-          type: compileOptions.getName(),
-        }],
-      });
+
     esbuildTypes
-      ?.getInterface('CommonOptions')
-      ?.getProperty('tsconfigRaw')
-      ?.setType(`string | ${tsconfigOptions.getName()}`);
+      ?.getInterface('TsconfigRaw')
+      ?.getProperty('compilerOptions')
+      ?.setType(compileOptions.getName())
+      ?.setIsReadonly(true);
   },
 });
 

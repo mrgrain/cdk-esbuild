@@ -17,7 +17,7 @@ export {
 export {
   BuildOptions,
   TransformOptions,
-  TsconfigOptions,
+  TsconfigRaw,
   CompilerOptions,
 } from './esbuild-types';
 
