@@ -6,7 +6,7 @@ import {
 } from '@aws-cdk/aws-synthetics-alpha';
 import { Stack } from 'aws-cdk-lib';
 import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
-import { JavaScriptCode, TypeScriptCode } from '../src/code';
+import { TypeScriptCode } from '../src/code';
 import { EsbuildProvider } from '../src/provider';
 
 const buildProvider = new EsbuildProvider();
@@ -19,7 +19,7 @@ describe('code', () => {
         expect(() => {
           const stack = new Stack();
 
-          const code = new JavaScriptCode('/project/index.js');
+          const code = new TypeScriptCode('/project/index.js');
 
           new Function(stack, 'MyFunction', {
             runtime: LambdaRuntime.NODEJS_14_X,
@@ -27,7 +27,7 @@ describe('code', () => {
             code,
           });
         }).toThrow(
-          /MyFunction\/JavaScriptCode: Entry points must be part of the working directory/,
+          /MyFunction\/TypeScriptCode: Entry points must be part of the working directory/,
         );
       });
     });
@@ -78,12 +78,12 @@ describe('code', () => {
     });
   });
 
-  describe('JavaScriptCode can be used', () => {
+  describe('TypeScriptCode can be used', () => {
     it('should not throw', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new JavaScriptCode('fixtures/handlers/js-handler.js', {
+        const code = new TypeScriptCode('fixtures/handlers/js-handler.js', {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 
@@ -101,7 +101,7 @@ describe('code', () => {
       expect(() => {
         const stack = new Stack();
 
-        const code = new JavaScriptCode(
+        const code = new TypeScriptCode(
           { handler: 'fixtures/handlers/js-handler.js' },
           {
             buildOptions: { absWorkingDir: resolve(__dirname) },
@@ -145,7 +145,7 @@ describe('code', () => {
   describe('Given an incorrect entrypoint', () => {
     it('will report build failures', () => {
       expect(() => {
-        const code = new JavaScriptCode('fixtures/handlers/invalid-handler.js', {
+        const code = new TypeScriptCode('fixtures/handlers/invalid-handler.js', {
           buildOptions: { absWorkingDir: resolve(__dirname) },
         });
 

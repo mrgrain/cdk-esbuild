@@ -1,8 +1,6 @@
 export {
-  AssetBaseProps,
-  AssetProps,
-  JavaScriptAsset,
   TypeScriptAsset,
+  TypeScriptAssetProps,
 } from './asset';
 
 export {
@@ -12,8 +10,6 @@ export {
 
 export {
   CodeConfig,
-  JavaScriptCode,
-  JavaScriptCodeProps,
   TypeScriptCode,
   TypeScriptCodeProps,
 } from './code';
@@ -43,8 +39,6 @@ export {
 } from './provider';
 
 export {
-  JavaScriptSource,
-  JavaScriptSourceProps,
   TypeScriptSource,
   TypeScriptSourceProps,
 } from './source';
