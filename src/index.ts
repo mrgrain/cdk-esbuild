@@ -1,9 +1,6 @@
 export {
-  AssetBaseProps,
-  AssetProps,
-  EsbuildAsset,
-  JavaScriptAsset,
   TypeScriptAsset,
+  TypeScriptAssetProps,
 } from './asset';
 
 export {
@@ -13,9 +10,6 @@ export {
 
 export {
   CodeConfig,
-  EsbuildCode,
-  JavaScriptCode,
-  JavaScriptCodeProps,
   TypeScriptCode,
   TypeScriptCodeProps,
 } from './code';
@@ -45,8 +39,6 @@ export {
 } from './provider';
 
 export {
-  JavaScriptSource,
-  JavaScriptSourceProps,
   TypeScriptSource,
   TypeScriptSourceProps,
 } from './source';
