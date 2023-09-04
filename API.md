@@ -3949,54 +3949,8 @@ Default values for `props.buildOptions`:
 
 ---
 
-#### Methods <a name="Methods"></a>
-
-##### `bind` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bind"></a>
-
-```typescript
-public bind(scope: Construct)
-```
-
-###### `scope`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.scope"></a>
-
-- *Type:* [`constructs.Construct`](#constructs.Construct)
-
----
-
-##### `bindToResource` <a name="@mrgrain/cdk-esbuild.JavaScriptCode.bindToResource"></a>
-
-```typescript
-public bindToResource(resource: CfnResource, options?: ResourceBindOptions)
-```
-
-###### `resource`<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.resource"></a>
-
-- *Type:* [`aws-cdk-lib.CfnResource`](#aws-cdk-lib.CfnResource)
-
----
-
-###### `options`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.parameter.options"></a>
-
-- *Type:* [`aws-cdk-lib.aws_lambda.ResourceBindOptions`](#aws-cdk-lib.aws_lambda.ResourceBindOptions)
-
----
 
 
-#### Properties <a name="Properties"></a>
-
-##### ~~`isInline`~~<sup>Required</sup> <a name="@mrgrain/cdk-esbuild.JavaScriptCode.property.isInline"></a>
-
-- *Deprecated:* this value is ignored since inline is now determined based on the the inlineCode field of CodeConfig returned from bind().
-
-```typescript
-public readonly isInline: boolean;
-```
-
-- *Type:* `boolean`
-
-Determines whether this Code is inline code or not.
-
----
 
 
 ### JavaScriptSource <a name="@mrgrain/cdk-esbuild.JavaScriptSource"></a>

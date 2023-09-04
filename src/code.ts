@@ -5,7 +5,6 @@ import {
   AssetBaseProps,
   AssetProps,
   JavaScriptAsset as JSAsset,
-  JavaScriptAsset,
   TypeScriptAsset as TSAsset,
   TypeScriptAsset,
 } from './asset';
@@ -17,18 +16,20 @@ export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 export interface JavaScriptCodeProps extends AssetBaseProps {};
 export interface TypeScriptCodeProps extends AssetBaseProps {};
 
-/**
- * Represents a generic esbuild code bundle.
- *
- * You should always use `TypeScriptCode` or `JavaScriptCode`.
- *
- * @stability experimental
- */
-abstract class EsbuildCode<
-  Props extends JavaScriptCodeProps | TypeScriptCodeProps,
-> extends Code {
-  protected abstract getAsset(scope: Construct): TypeScriptAsset
 
+/**
+ * Represents the deployed TypeScript Code.
+ *
+ * @stability stable
+ */
+export class TypeScriptCode extends Code {
+  protected getAsset(scope: Construct): TypeScriptAsset {
+    return new TSAsset(
+      scope,
+      this.constructor.name,
+      this.props,
+    );
+  }
   protected props: AssetProps;
 
   protected asset!: TypeScriptAsset;
@@ -57,7 +58,7 @@ abstract class EsbuildCode<
      *
      * @stability stable
      */
-    readonly entryPoints: EntryPoints,
+    entryPoints: EntryPoints,
 
     /**
      * Props to change the behavior of the bundler.
@@ -69,7 +70,7 @@ abstract class EsbuildCode<
      *
      * @stability stable
      */
-    props: Props,
+    props: TypeScriptCodeProps = {},
   ) {
     super();
 
@@ -128,8 +129,8 @@ abstract class EsbuildCode<
  *
  * @stability stable
  */
-export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
-  protected getAsset(scope: Construct): JavaScriptAsset {
+export class JavaScriptCode extends TypeScriptCode {
+  protected getAsset(scope: Construct): TSAsset {
     return new JSAsset(
       scope,
       this.constructor.name,
@@ -167,55 +168,6 @@ export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
      * @stability stable
      */
     props: JavaScriptCodeProps = {},
-  ) {
-    super(entryPoints, props);
-  }
-}
-
-/**
- * Represents the deployed TypeScript Code.
- *
- * @stability stable
- */
-export class TypeScriptCode extends EsbuildCode<TypeScriptCodeProps> {
-  protected getAsset(scope: Construct): TypeScriptAsset {
-    return new TSAsset(
-      scope,
-      this.constructor.name,
-      this.props,
-    );
-  }
-
-  constructor(
-    /**
-     * A path or list or map of paths to the entry points of your code.
-     *
-     * Relative paths are by default resolved from the current working directory.
-     * To change the working directory, see `buildOptions.absWorkingDir`.
-     *
-     * Absolute paths can be used if files are part of the working directory.
-     *
-     * Examples:
-     *  - `'src/index.ts'`
-     *  - `require.resolve('./lambda')`
-     *  - `['src/index.ts', 'src/util.ts']`
-     *  - `{one: 'src/two.ts', two: 'src/one.ts'}`
-     *
-     * @stability stable
-     */
-    entryPoints: EntryPoints,
-
-    /**
-     * Props to change the behavior of the bundler.
-     *
-     * Default values for `props.buildOptions`:
-     * - `bundle=true`
-     * - `platform=node`
-     * - `target=nodeX` with X being the major node version running locally
-     *
-     * @stability stable
-     */
-    props: TypeScriptCodeProps = {},
   ) {
     super(entryPoints, props);
   }
