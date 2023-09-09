@@ -657,7 +657,7 @@ export let version: string;
 
 export interface CompilerOptions {
   readonly alwaysStrict?: boolean;
-  readonly baseUrl?: boolean;
+  readonly baseUrl?: string;
   readonly experimentalDecorators?: boolean;
   readonly importsNotUsedAsValues?: 'remove' | 'preserve' | 'error';
   readonly jsx?: 'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev';
