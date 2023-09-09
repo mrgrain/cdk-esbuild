@@ -7,6 +7,7 @@ import { Esbuild } from './src/private/esbuild-source';
 const releaseBranches: StableReleaseBranches = {
   main: {
     majorVersion: 5,
+    prerelease: 'rc',
     cdkVersion: '2.51.0',
     minNodeVersion: '18.x',
     releaseSchedule: '0 5 1,15 * *',
@@ -204,8 +205,8 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
 project.package.addField('jsiiRosetta', {
   strict: true,
   exampleDependencies: {
-    '@aws-cdk/aws-synthetics-alpha': '2.88.0-alpha.0',
-    'aws-cdk-lib': '2.88.0',
+    '@aws-cdk/aws-synthetics-alpha': '2.95.0-alpha.0',
+    'aws-cdk-lib': '2.95.0',
     '@mrgrain/cdk-esbuild': '^4',
     '@types/node': '^18',
   },
