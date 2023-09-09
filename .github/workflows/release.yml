@@ -15,11 +15,22 @@ jobs:
     env:
       CI: "true"
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c
+        with:
+          app_id: ${{ secrets.PROJEN_APP_ID }}
+          private_key: " ${{ secrets.PROJEN_APP_PRIVATE_KEY }}"
       - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+<<<<<<< HEAD
           ref: v4
+=======
+          token: ${{ steps.generate_token.outputs.token }}
+          ref: v5
+>>>>>>> 5184c4b (ci: use projen app token in release so we can commit bypassing rules (#755))
       - name: Set git identity
         run: |-
           git config user.name "github-actions"
@@ -46,7 +57,7 @@ jobs:
           name: build-artifact
           path: dist
       - name: Publish Changelog
-        run: npx projen publish:git
+        run: npx projen publish:git:v5
   release_github:
     name: Publish to GitHub Releases
     needs: release
