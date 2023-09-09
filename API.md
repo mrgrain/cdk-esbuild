@@ -1161,10 +1161,10 @@ public readonly alwaysStrict: boolean;
 ##### `baseUrl`<sup>Optional</sup> <a name="@mrgrain/cdk-esbuild.CompilerOptions.property.baseUrl"></a>
 
 ```typescript
-public readonly baseUrl: boolean;
+public readonly baseUrl: string;
 ```
 
-- *Type:* `boolean`
+- *Type:* `string`
 
 ---
 
