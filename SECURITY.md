@@ -1,3 +1,3 @@
 # Security Policy
 
-See [SECURITY.md](https://github.com/mrgrain/cdk-esbuild/blob/main/SECURITY.md) on `main`.
+See [Security Policy](https://github.com/mrgrain/cdk-esbuild/security/policy).
