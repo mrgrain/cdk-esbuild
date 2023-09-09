@@ -9,8 +9,12 @@
 /.github/workflows/pull-request-lint.yml linguist-generated
 /.github/workflows/release-v3.yml linguist-generated
 /.github/workflows/release.yml linguist-generated
-/.github/workflows/upgrade-main.yml linguist-generated
 /.github/workflows/upgrade-v3.yml linguist-generated
+<<<<<<< HEAD
+=======
+/.github/workflows/upgrade-v4.yml linguist-generated
+/.github/workflows/upgrade-v5.yml linguist-generated
+>>>>>>> 822641f (ci: always use version named branches (#752))
 /.gitignore linguist-generated
 /.mergify.yml linguist-generated
 /.npmignore linguist-generated
