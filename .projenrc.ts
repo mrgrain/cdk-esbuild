@@ -13,7 +13,7 @@ const releaseBranches: StableReleaseBranches = {
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
-    typescriptVersion: '^4.9.5',
+    typescriptVersion: '4.9.x',
   },
 };
 
