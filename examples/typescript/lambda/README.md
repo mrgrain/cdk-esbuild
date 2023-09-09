@@ -16,13 +16,13 @@ To test your function, you could either go into the AWS Console and paste the co
 
 Alternatively, let's use the aws-cli to invoke our function from the command line:
 
-```bash
+```console
 aws lambda invoke --function-name "<YOUR LAMBDA ARN HERE>" --payload fileb://input.json response.json
 ```
 
 You will get a response containing the status of our request. Now check our `response.json` for the results:
 
-```bash
+```console
 cat response.json
 ```
 
