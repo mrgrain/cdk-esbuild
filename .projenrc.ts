@@ -5,35 +5,15 @@ import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
 const releaseBranches: StableReleaseBranches = {
-<<<<<<< HEAD
-  main: {
-=======
-  v5: {
-    isCurrent: true,
-    majorVersion: 5,
-    prerelease: 'rc',
-    cdkVersion: '2.51.0',
-    minNodeVersion: '18.x',
-    releaseSchedule: '0 5 1,15 * *',
-    npmDistTags: ['cdk-v2'],
-    jsiiVersion: '5.1.x',
-    typescriptVersion: '5.1.x',
-  },
-  v4: {
-    majorVersion: 4,
-    cdkVersion: '2.12.0',
-    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
-    releaseSchedule: '0 5 15 * *',
-    jsiiVersion: '1.x',
-    typescriptVersion: '4.9.x',
-  },
   v3: {
->>>>>>> 822641f (ci: always use version named branches (#752))
+    isCurrent: true,
     majorVersion: 3,
     cdkVersion: '2.0.0',
     syntheticsVersion: '2.0.0-alpha.11',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
+    jsiiVersion: '1.x',
+    typescriptVersion: '^4.9.5',
   },
 };
 
@@ -113,13 +93,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Dependencies
-<<<<<<< HEAD
-  cdkVersion: releaseBranches.main.cdkVersion,
   devDeps: [
-    '@aws-cdk/aws-synthetics-alpha@2.0.0-alpha.11',
-=======
-  devDeps: [
->>>>>>> 822641f (ci: always use version named branches (#752))
     '@types/eslint',
     Esbuild.spec,
     'jest-mock',

@@ -47,13 +47,7 @@ junit.xml
 /dist/version.txt
 !/.github/workflows/release.yml
 !/.mergify.yml
-<<<<<<< HEAD
-!/.github/workflows/upgrade-main.yml
-=======
-!/.github/workflows/upgrade-v5.yml
-!/.github/workflows/upgrade-v4.yml
 !/.github/workflows/upgrade-v3.yml
->>>>>>> 822641f (ci: always use version named branches (#752))
 !/.github/pull_request_template.md
 !/.npmrc
 !/test/
