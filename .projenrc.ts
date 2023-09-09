@@ -1,12 +1,11 @@
 import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
+import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
-const releaseBranches: StableReleaseBranches = {
+const stableReleases = new StableReleases('v5', {
   v5: {
-    isCurrent: true,
     majorVersion: 5,
     prerelease: 'rc',
     cdkVersion: '2.51.0',
@@ -33,7 +32,7 @@ const releaseBranches: StableReleaseBranches = {
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
   },
-};
+});
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -90,7 +89,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  ...configureReleaseBranches(releaseBranches),
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -149,7 +147,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'CONTRIBUTING.md',
     'SECURITY.md',
   ],
+
+  // Force stable release options
+  ...stableReleases.projectOptions,
 });
+stableReleases.bind(project);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
@@ -166,8 +168,6 @@ new IntegrationTests(project, {
     cdkVersion: '2.84.0',
   },
 });
-
-new StableReleases(project, releaseBranches);
 
 
 // test against latest versions
