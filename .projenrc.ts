@@ -7,7 +7,6 @@ import { Esbuild } from './src/private/esbuild-source';
 const stableReleases = new StableReleases('v5', {
   v5: {
     majorVersion: 5,
-    prerelease: 'rc',
     cdkVersion: '2.51.0',
     minNodeVersion: '18.x',
     releaseSchedule: '0 5 1,15 * *',
