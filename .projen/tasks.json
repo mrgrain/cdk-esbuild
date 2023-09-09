@@ -263,8 +263,8 @@
         }
       ]
     },
-    "publish:git": {
-      "name": "publish:git",
+    "publish:git:v3": {
+      "name": "publish:git:v3",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
       "env": {
         "CHANGELOG": "dist/dist/changelog.md",
@@ -280,14 +280,14 @@
           "builtin": "release/tag-version"
         },
         {
-          "exec": "git push --follow-tags origin main"
+          "exec": "git push --follow-tags origin v3"
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
-    "release": {
-      "name": "release",
-      "description": "Prepare a release from \"main\" branch",
+    "release:v3": {
+      "name": "release:v3",
+      "description": "Prepare a release from \"v3\" branch",
       "env": {
         "RELEASE": "true",
         "MAJOR": "3"
@@ -359,13 +359,13 @@
           "exec": "npm update npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest-junit,jest-mock,jest,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-morph,ts-node,typescript,aws-cdk-lib,constructs"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest-junit,jest-mock,jest,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-morph,ts-node,aws-cdk-lib,constructs"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "exec": "npm update @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-morph ts-node aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
