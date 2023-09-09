@@ -7,6 +7,7 @@ import { Esbuild } from './src/private/esbuild-source';
 const releaseBranches: StableReleaseBranches = {
   main: {
     majorVersion: 5,
+    prerelease: 'rc',
     cdkVersion: '2.51.0',
     minNodeVersion: '18.x',
     releaseSchedule: '0 5 1,15 * *',

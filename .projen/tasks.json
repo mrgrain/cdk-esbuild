@@ -337,7 +337,8 @@
       "description": "Prepare a release from \"main\" branch",
       "env": {
         "RELEASE": "true",
-        "MAJOR": "5"
+        "MAJOR": "5",
+        "PRERELEASE": "rc"
       },
       "steps": [
         {

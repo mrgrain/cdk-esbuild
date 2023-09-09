@@ -96,6 +96,7 @@ export function releaseOptions(branches: StableReleaseBranches, currentBranch = 
   npmDistTag: string;
   defaultReleaseBranch: string;
   majorVersion: number;
+  prerelease?: string;
   releaseBranches: StableReleaseBranches;
   workflowNodeVersion: string;
   releaseTrigger: release.ReleaseTrigger;
@@ -106,6 +107,7 @@ export function releaseOptions(branches: StableReleaseBranches, currentBranch = 
     defaultReleaseBranch: currentBranch,
     majorVersion: current.majorVersion,
     workflowNodeVersion: current.minNodeVersion,
+    prerelease: current.prerelease,
     releaseBranches: Object.fromEntries(
       Object.entries(branches)
         .filter(([b]) => b !== currentBranch)
