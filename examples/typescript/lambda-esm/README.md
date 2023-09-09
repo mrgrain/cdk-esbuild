@@ -10,7 +10,10 @@ Run `npm ci` to get setup. Next, deploy the app with `npx cdk deploy`. If you ha
 
 At the end of the deployment, the URL of your function will be displayed. To test your function, open the URL in a browser.
 
-You'll notice that the affirmation won't always change on refresh. Have a look at the Lambda code in `./src/index.mts`. This is because the API call is made outside the handler function, similar to how dynamic configuration might be retrieved. See the linked blog post for details.
+You'll notice that the affirmation won't always change on refresh.
+Have a look at the Lambda code in `./src/index.mts`.
+This is because the API call is made outside the handler function, similar to how dynamic configuration might be retrieved.
+See this [blog post](https://aws.amazon.com/blogs/compute/using-node-js-es-modules-and-top-level-await-in-aws-lambda/) for details.
 
 Don't forget to tear everything down with `npx cdk destroy` - otherwise you will incur costs.
 
