@@ -291,7 +291,7 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
       isExported: true,
       properties: [
         ['alwaysStrict', 'boolean'],
-        ['baseUrl', 'boolean'],
+        ['baseUrl', 'string'],
         ['experimentalDecorators', 'boolean'],
         ['importsNotUsedAsValues', "'remove' | 'preserve' | 'error'"],
         ['jsx', "'preserve' | 'react-native' | 'react' | 'react-jsx' | 'react-jsxdev'"],
