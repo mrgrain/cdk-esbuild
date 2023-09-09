@@ -1,10 +1,36 @@
 import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
+<<<<<<< HEAD
 import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile } from './projenrc';
+=======
+import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
+>>>>>>> 5184c4b (ci: use projen app token in release so we can commit bypassing rules (#755))
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
+<<<<<<< HEAD
 const releaseBranches: StableReleaseBranches = {
+=======
+const stableReleases = new StableReleases('v5', {
+  v5: {
+    majorVersion: 5,
+    prerelease: 'rc',
+    cdkVersion: '2.51.0',
+    minNodeVersion: '18.x',
+    releaseSchedule: '0 5 1,15 * *',
+    npmDistTags: ['cdk-v2'],
+    jsiiVersion: '5.1.x',
+    typescriptVersion: '5.1.x',
+  },
+  v4: {
+    majorVersion: 4,
+    cdkVersion: '2.12.0',
+    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
+    releaseSchedule: '0 5 15 * *',
+    jsiiVersion: '1.x',
+    typescriptVersion: '4.9.x',
+  },
+>>>>>>> 5184c4b (ci: use projen app token in release so we can commit bypassing rules (#755))
   v3: {
     isCurrent: true,
     majorVersion: 3,
@@ -15,7 +41,7 @@ const releaseBranches: StableReleaseBranches = {
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
   },
-};
+});
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -72,7 +98,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  ...configureReleaseBranches(releaseBranches),
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -131,7 +156,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'CONTRIBUTING.md',
     'SECURITY.md',
   ],
+
+  // Force stable release options
+  ...stableReleases.projectOptions,
 });
+stableReleases.bind(project);
 
 // Fix dependency version due to errors on node14
 project.addDevDeps(
@@ -154,8 +183,6 @@ new IntegrationTests(project, {
     cdkVersion: '2.58.1',
   },
 });
-
-new StableReleases(project, releaseBranches);
 
 
 // test against latest versions
