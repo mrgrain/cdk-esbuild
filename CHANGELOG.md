@@ -1,4 +1,22 @@
 
+## [5.0.0-rc.0](https://github.com/mrgrain/cdk-esbuild/compare/v4.2.3...v5.0.0-rc.0) (2023-09-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* `TsConfigOptions` renamed to `TsconfigRaw` which is the name esbuild uses.
+* The JavaScript versions of all classes have been removed. They have been functionally identical to the TypeScript versions since the beginning. Please use the TypeScript versions of the classes going forward.
+* Low-level experimental classes `EsbuildAsset` and `EsbuildCode` have been removed. Please use `TypeScriptAsset` and `TypeScriptCode` respectively.
+* The required minimum version of `aws-cdk-lib` is now `2.51.0`. If you need to use an older version of `aws-cdk-lib`, please stay on v4.
+* Support for node14 and node16 has been dropped. If you need to use one of these versions, please use [@mrgrain/cdk-esbuild@v4](https://github.com/mrgrain/cdk-esbuild/tree/v4)
+
+### Features
+
+* drop support for node14 and node16  ([#718](https://github.com/mrgrain/cdk-esbuild/issues/718)) ([9b76a6d](https://github.com/mrgrain/cdk-esbuild/commit/9b76a6df2f703b4e5fea421f836fd7b1e35eaf6a))
+* set minimum `aws-cdk-lib` version to 2.51.0 ([#730](https://github.com/mrgrain/cdk-esbuild/issues/730)) ([b9064af](https://github.com/mrgrain/cdk-esbuild/commit/b9064afccd3e22177c9e7619feb49312d39a916d))
+* update esbuild to ^0.19.0 ([#731](https://github.com/mrgrain/cdk-esbuild/issues/731)) ([37e376a](https://github.com/mrgrain/cdk-esbuild/commit/37e376a74b4925c6a1ae37a11e18f5191ffc0024))
+* upgrade to jsii@5.1 and typescript@5.1 ([#665](https://github.com/mrgrain/cdk-esbuild/issues/665)) ([fd7404f](https://github.com/mrgrain/cdk-esbuild/commit/fd7404fdf93704ccffb4d334025df9a90b041b1c))
+
 ### [4.2.3](https://github.com/mrgrain/cdk-esbuild/compare/v4.2.2...v4.2.3) (2023-09-01)
 
 ### [4.2.2](https://github.com/mrgrain/cdk-esbuild/compare/v4.2.1...v4.2.2) (2023-08-15)
