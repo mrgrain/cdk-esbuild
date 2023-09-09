@@ -26,7 +26,7 @@ You will get a response containing the status of our request. Now check our `res
 cat response.json
 ```
 
-Don't forget to tear everything down with `npx cdk destroy` - otherwise you might occur costs.
+Don't forget to tear everything down with `npx cdk destroy` - otherwise you will incur costs.
 
 ## Useful commands
 
@@ -35,6 +35,6 @@ Don't forget to tear everything down with `npx cdk destroy` - otherwise you migh
 - `npm start` serve the website on localhost
 - `npx cdk bootstrap` setup your AWS environment
 - `npx cdk deploy` deploy this stack to your default AWS account/region
-- `npx cdk destroy` destroy this stack to ensure you don't occur any costs
+- `npx cdk destroy` destroy this stack to ensure you don't incur any costs
 - `npx cdk diff` compare deployed stack with current state
 - `npx cdk synth` emits the synthesized CloudFormation template
