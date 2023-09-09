@@ -1,12 +1,11 @@
 import { awscdk, github, javascript, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
-import { releaseOptions as configureReleaseBranches, StableReleaseBranches, StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
+import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
-const releaseBranches: StableReleaseBranches = {
+const stableReleases = new StableReleases('v4', {
   v4: {
-    isCurrent: true,
     majorVersion: 4,
     cdkVersion: '2.12.0',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
@@ -23,7 +22,7 @@ const releaseBranches: StableReleaseBranches = {
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
   },
-};
+});
 
 const project = new awscdk.AwsCdkConstructLibrary({
   packageManager: javascript.NodePackageManager.NPM,
@@ -80,7 +79,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
-  ...configureReleaseBranches(releaseBranches),
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
@@ -139,7 +137,11 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'CONTRIBUTING.md',
     'SECURITY.md',
   ],
+
+  // Force stable release options
+  ...stableReleases.projectOptions,
 });
+stableReleases.bind(project);
 
 // Fix dependency version due to errors on node14
 project.addDevDeps(
@@ -162,8 +164,6 @@ new IntegrationTests(project, {
     cdkVersion: '2.84.0',
   },
 });
-
-new StableReleases(project, releaseBranches);
 
 
 // test against latest versions
