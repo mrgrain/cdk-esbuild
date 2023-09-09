@@ -1,6 +1,6 @@
-import { Canary, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics-alpha";
+import { Canary, Cleanup, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics-alpha";
 import { TypeScriptCode, TypeScriptSource } from "@mrgrain/cdk-esbuild";
-import { Bucket } from "aws-cdk-lib/aws-s3";
+import { BlockPublicAccess, Bucket, ObjectOwnership } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
 import { Alarm, ComparisonOperator } from "aws-cdk-lib/aws-cloudwatch";
 import {
@@ -26,6 +26,13 @@ export class WebsiteStack extends Stack {
     const websiteBucket = new Bucket(this, "WebsiteBucket", {
       autoDeleteObjects: true,
       publicReadAccess: true,
+      blockPublicAccess: new BlockPublicAccess({
+        blockPublicAcls: false,
+        blockPublicPolicy: false,
+        ignorePublicAcls: false,
+        restrictPublicBuckets: false,
+      }),
+      objectOwnership: ObjectOwnership.OBJECT_WRITER,      
       removalPolicy: RemovalPolicy.DESTROY,
       websiteIndexDocument: "index.html",
     });
@@ -41,7 +48,8 @@ export class WebsiteStack extends Stack {
 
     const canary = new Canary(this, "Monitoring", {
       schedule: Schedule.rate(Duration.hours(1)),
-      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_5_1,
+      enableAutoDeleteLambdas: true,
       test: Test.custom({
         code: new TypeScriptCode("./src/canary.ts", {
           buildOptions: {

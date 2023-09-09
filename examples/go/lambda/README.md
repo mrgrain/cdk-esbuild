@@ -12,11 +12,34 @@ Install all dependencies:
 go mod tidy
 ```
 
-You can now run the CDK app:
+You can now synth the CDK app:
 
-```bash
+```console
 cdk synth
 ```
+
+Next you can deploy your app:
+
+```console
+cdk deploy
+```
+
+If you haven't used the CDK in your account before, you will have bootstrap the account first (typically by running `cdk bootstrap`) and sort out permissions.
+Please refer to [the official AWS CDK documentation](https://docs.aws.amazon.com/cdk/latest/guide/home.html) to get started.
+
+As part of the deployment, the ARN of your function will be displayed. We need this for the next step.
+
+To test your function, you can use the aws-cli to invoke the function from the command line and response will be printed to the console:
+
+```console
+aws lambda invoke \
+--cli-binary-format raw-in-base64-out --no-cli-pager --output json \
+--payload '{"color": "purple", "food": "noodles", "season": "summer"}' \
+--function-name "<YOUR LAMBDA ARN HERE>" \
+/dev/stdout
+```
+
+Change the payload values to see how the response changes!
 
 ### Install esbuild locally (optional, but recommended)
 
@@ -38,3 +61,7 @@ To execute the provided example test, simply run:
 ```console
 go test
 ```
+
+### Clean-up
+
+Don't forget to run `cdk destroy` - otherwise you might incur costs.
