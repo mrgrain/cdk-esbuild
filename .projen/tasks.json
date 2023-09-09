@@ -288,14 +288,6 @@
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
-<<<<<<< HEAD
-    "release": {
-      "name": "release",
-      "description": "Prepare a release from \"main\" branch",
-      "env": {
-        "RELEASE": "true",
-        "MAJOR": "4"
-=======
     "publish:git:v4": {
       "name": "publish:git:v4",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
@@ -314,29 +306,6 @@
         },
         {
           "exec": "git push --follow-tags origin v4"
-        }
-      ],
-      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
-    },
-    "publish:git:v5": {
-      "name": "publish:git:v5",
-      "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
-      "env": {
-        "CHANGELOG": "dist/dist/changelog.md",
-        "RELEASE_TAG_FILE": "dist/dist/releasetag.txt",
-        "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
-        "VERSION_FILE": "dist/dist/version.txt"
->>>>>>> 822641f (ci: always use version named branches (#752))
-      },
-      "steps": [
-        {
-          "builtin": "release/update-changelog"
-        },
-        {
-          "builtin": "release/tag-version"
-        },
-        {
-          "exec": "git push --follow-tags origin v5"
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
@@ -366,8 +335,6 @@
         }
       ]
     },
-<<<<<<< HEAD
-=======
     "release:v4": {
       "name": "release:v4",
       "description": "Prepare a release from \"v4\" branch",
@@ -393,33 +360,6 @@
         }
       ]
     },
-    "release:v5": {
-      "name": "release:v5",
-      "description": "Prepare a release from \"v5\" branch",
-      "env": {
-        "RELEASE": "true",
-        "MAJOR": "5",
-        "PRERELEASE": "rc"
-      },
-      "steps": [
-        {
-          "exec": "rm -fr dist"
-        },
-        {
-          "spawn": "bump"
-        },
-        {
-          "spawn": "build"
-        },
-        {
-          "spawn": "unbump"
-        },
-        {
-          "exec": "git diff --ignore-space-at-eol --exit-code"
-        }
-      ]
-    },
->>>>>>> 822641f (ci: always use version named branches (#752))
     "rosetta": {
       "name": "rosetta",
       "steps": [
@@ -477,13 +417,13 @@
           "exec": "npm update npm-check-updates"
         },
         {
-          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest-junit,jest-mock,jest,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-morph,ts-node,typescript,aws-cdk-lib,constructs"
+          "exec": "npm-check-updates --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,@types/node,@typescript-eslint/eslint-plugin,@typescript-eslint/parser,esbuild,eslint-import-resolver-node,eslint-import-resolver-typescript,eslint-plugin-import,eslint,jest-junit,jest-mock,jest,jsii-diff,jsii-docgen,jsii-pacmak,npm-check-updates,projen,standard-version,ts-jest,ts-morph,ts-node,aws-cdk-lib,constructs"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "exec": "npm update @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-import-resolver-node eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak npm-check-updates projen standard-version ts-jest ts-morph ts-node aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"

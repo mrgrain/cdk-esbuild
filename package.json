@@ -28,16 +28,9 @@
     "pre-compile": "npx projen pre-compile",
     "prepare:readme": "npx projen prepare:readme",
     "publish:git:v3": "npx projen publish:git:v3",
-<<<<<<< HEAD
-    "release": "npx projen release",
-    "release:v3": "npx projen release:v3",
-=======
     "publish:git:v4": "npx projen publish:git:v4",
-    "publish:git:v5": "npx projen publish:git:v5",
     "release:v3": "npx projen release:v3",
     "release:v4": "npx projen release:v4",
-    "release:v5": "npx projen release:v5",
->>>>>>> 822641f (ci: always use version named branches (#752))
     "rosetta": "npx projen rosetta",
     "test": "npx projen test",
     "test:watch": "npx projen test:watch",
@@ -81,7 +74,7 @@
     "ts-jest": "^27",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
-    "typescript": "^4.9.5"
+    "typescript": "4.9.x"
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.12.0",

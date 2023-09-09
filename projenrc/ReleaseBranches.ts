@@ -6,12 +6,9 @@ export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
-<<<<<<< HEAD
-=======
   jsiiVersion: string;
   typescriptVersion: string;
   syntheticsVersion?: string;
->>>>>>> 822641f (ci: always use version named branches (#752))
 }
 
 export interface StableReleaseBranches {
@@ -107,6 +104,7 @@ export function releaseOptions(branches: StableReleaseBranches): {
   npmDistTag: string;
   defaultReleaseBranch: string;
   majorVersion: number;
+  prerelease?: string;
   releaseBranches: StableReleaseBranches;
   workflowNodeVersion: string;
   releaseTrigger: release.ReleaseTrigger;
@@ -124,13 +122,10 @@ export function releaseOptions(branches: StableReleaseBranches): {
     defaultReleaseBranch: currentBranch,
     majorVersion: current.majorVersion,
     workflowNodeVersion: current.minNodeVersion,
-<<<<<<< HEAD
-=======
     prerelease: current.prerelease,
     cdkVersion: current.cdkVersion,
     jsiiVersion: current.jsiiVersion,
     typescriptVersion: current.typescriptVersion,
->>>>>>> 822641f (ci: always use version named branches (#752))
     releaseBranches: Object.fromEntries(
       Object.entries(branches)
         .filter(([b]) => b !== currentBranch)
