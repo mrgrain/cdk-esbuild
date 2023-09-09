@@ -4,23 +4,8 @@ import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
-<<<<<<< HEAD
-const releaseBranches: StableReleaseBranches = {
-=======
-const stableReleases = new StableReleases('v5', {
-  v5: {
-    majorVersion: 5,
-    prerelease: 'rc',
-    cdkVersion: '2.51.0',
-    minNodeVersion: '18.x',
-    releaseSchedule: '0 5 1,15 * *',
-    npmDistTags: ['cdk-v2'],
-    jsiiVersion: '5.1.x',
-    typescriptVersion: '5.1.x',
-  },
->>>>>>> 5184c4b (ci: use projen app token in release so we can commit bypassing rules (#755))
+const stableReleases = new StableReleases('v4', {
   v4: {
-    isCurrent: true,
     majorVersion: 4,
     cdkVersion: '2.12.0',
     minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
