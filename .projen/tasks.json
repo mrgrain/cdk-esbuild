@@ -263,8 +263,13 @@
         }
       ]
     },
+<<<<<<< HEAD
     "publish:git": {
       "name": "publish:git",
+=======
+    "publish:git:v3": {
+      "name": "publish:git:v3",
+>>>>>>> 822641f (ci: always use version named branches (#752))
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
       "env": {
         "CHANGELOG": "dist/dist/changelog.md",
@@ -280,15 +285,70 @@
           "builtin": "release/tag-version"
         },
         {
+<<<<<<< HEAD
           "exec": "git push --follow-tags origin main"
+=======
+          "exec": "git push --follow-tags origin v3"
+>>>>>>> 822641f (ci: always use version named branches (#752))
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
+<<<<<<< HEAD
     "release": {
       "name": "release",
       "description": "Prepare a release from \"main\" branch",
       "env": {
+=======
+    "publish:git:v4": {
+      "name": "publish:git:v4",
+      "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
+      "env": {
+        "CHANGELOG": "dist/dist/changelog.md",
+        "RELEASE_TAG_FILE": "dist/dist/releasetag.txt",
+        "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
+        "VERSION_FILE": "dist/dist/version.txt"
+      },
+      "steps": [
+        {
+          "builtin": "release/update-changelog"
+        },
+        {
+          "builtin": "release/tag-version"
+        },
+        {
+          "exec": "git push --follow-tags origin v4"
+        }
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+    },
+    "publish:git:v5": {
+      "name": "publish:git:v5",
+      "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
+      "env": {
+        "CHANGELOG": "dist/dist/changelog.md",
+        "RELEASE_TAG_FILE": "dist/dist/releasetag.txt",
+        "PROJECT_CHANGELOG_FILE": "CHANGELOG.md",
+        "VERSION_FILE": "dist/dist/version.txt"
+      },
+      "steps": [
+        {
+          "builtin": "release/update-changelog"
+        },
+        {
+          "builtin": "release/tag-version"
+        },
+        {
+          "exec": "git push --follow-tags origin v5"
+        }
+      ],
+      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+    },
+    "release:v3": {
+      "name": "release:v3",
+      "description": "Prepare a release from \"v3\" branch",
+      "env": {
+>>>>>>> 822641f (ci: always use version named branches (#752))
         "RELEASE": "true",
         "MAJOR": "3"
       },
@@ -310,6 +370,68 @@
         }
       ]
     },
+<<<<<<< HEAD
+=======
+    "release:v4": {
+      "name": "release:v4",
+      "description": "Prepare a release from \"v4\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MAJOR": "4"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
+    "release:v5": {
+      "name": "release:v5",
+      "description": "Prepare a release from \"v5\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MAJOR": "5",
+        "PRERELEASE": "rc"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
+    "rosetta": {
+      "name": "rosetta",
+      "steps": [
+        {
+          "exec": "jsii-rosetta extract"
+        }
+      ]
+    },
+>>>>>>> 822641f (ci: always use version named branches (#752))
     "test": {
       "name": "test",
       "description": "Run tests",

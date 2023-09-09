@@ -7,7 +7,13 @@
     ".github/workflows/build.yml",
     ".github/workflows/pull-request-lint.yml",
     ".github/workflows/release.yml",
+<<<<<<< HEAD
     ".github/workflows/upgrade-main.yml",
+=======
+    ".github/workflows/upgrade-v3.yml",
+    ".github/workflows/upgrade-v4.yml",
+    ".github/workflows/upgrade-v5.yml",
+>>>>>>> 822641f (ci: always use version named branches (#752))
     ".gitignore",
     ".mergify.yml",
     ".npmrc",
