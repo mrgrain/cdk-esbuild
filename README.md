@@ -24,11 +24,11 @@ Install `cdk-esbuild` for Node.js using your favorite package manager:
 
 ```sh
 # npm 
-npm install @mrgrain/cdk-esbuild@4
+npm install @mrgrain/cdk-esbuild@5
 # Yarn
-yarn add @mrgrain/cdk-esbuild@4
+yarn add @mrgrain/cdk-esbuild@5
 # pnpm
-pnpm add @mrgrain/cdk-esbuild@4
+pnpm add @mrgrain/cdk-esbuild@5
 ```
 
 For Python, .NET or Go, use these commands:
@@ -41,12 +41,12 @@ pip install mrgrain.cdk-esbuild
 dotnet add package Mrgrain.CdkEsbuild
 
 # Go
-go get github.com/mrgrain/cdk-esbuild-go/cdkesbuild/v4
+go get github.com/mrgrain/cdk-esbuild-go/cdkesbuild/v5
 ```
 
 ### AWS Lambda: Serverless function
 
-> 💡 See [Lambda (TypeScript)](examples/typescript/lambda) and [Lambda (Python)](examples/typescript/lambda) for complete working examples of a how to deploy an AWS Lambda Function.
+> 💡 See [Lambda (TypeScript)](examples/typescript/lambda) and [Lambda (Python)](examples/typescript/lambda) for working examples of a how to deploy an AWS Lambda Function.
 
 Use `TypeScriptCode` as the `code` of a [lambda function](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Function.html#code):
 
@@ -62,7 +62,7 @@ const fn = new lambda.Function(stack, "MyFunction", {
 
 ### AWS S3: Static Website
 
-> 💡 See [React App (TypeScript)](examples/typescript/website) for a complete working example of a how to deploy a React app to S3.
+> 💡 See [React App (TypeScript)](examples/typescript/website) for a working example of a how to deploy a React app to S3.
 
 Use `TypeScriptSource` as one of the `sources` of a [static website deployment](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html#roadmap):
 
@@ -84,7 +84,7 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 ### Amazon CloudWatch Synthetics: Canary monitoring
 
-> 💡 See [Monitored Website (TypeScript)](examples/typescript/website) for a complete working example of a deployed and monitored website.
+> 💡 See [Monitored Website (TypeScript)](examples/typescript/website) for a working example of a deployed and monitored website.
 
 Synthetics runs a canary to produce traffic to an application for monitoring purposes. Use `TypeScriptCode` as the `code` of a Canary test:
 
@@ -100,7 +100,7 @@ const bundledCode = new TypeScriptCode("src/canary.ts", {
 });
 
 const canary = new synthetics.Canary(stack, "MyCanary", {
-  runtime: synthetics.Runtime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+  runtime: synthetics.Runtime.SYNTHETICS_NODEJS_PUPPETEER_5_1,
   test: synthetics.Test.custom({
     code: bundledCode,
     handler: "index.handler",
@@ -110,25 +110,27 @@ const canary = new synthetics.Canary(stack, "MyCanary", {
 
 ## Documentation
 
-The package exports various different constructs for use with AWS CDK features. The guiding design principal for this package is _"extend, don't replace"_. Expect constructs that you can provide as props, not complete replacements.
+The package exports constructs for use with AWS CDK features.
+The guiding design principal of this package is _"extend, don't replace"_.
+Expect constructs that you can provide as props, not complete replacements.
 
-For use in **Lambda Functions** and **Synthetic Canaries**, the following classes implement `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-synthetics-alpha.Code.html)):
+For use with **Lambda Functions** and **Synthetic Canaries**, implementing `lambda.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_lambda.Code.html)) and `synthetics.Code` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/@aws-cdk_aws-synthetics-alpha.Code.html)):
 
-- `TypeScriptCode` & `JavaScriptCode`
+- `TypeScriptCode`
 
 Inline code is only supported by **Lambda**:
 
-- `InlineTypeScriptCode` & `InlineJavaScriptCode`
+- `InlineTypeScriptCode`
 
-For use with **S3 bucket deployments**, classes implementing `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)):
+For use with **S3 bucket deployments**, implementing `s3deploy.ISource` ([reference](https://docs.aws.amazon.com/cdk/api/latest/docs/aws-s3-deployment-readme.html)):
 
-- `TypeScriptSource` & `JavaScriptSource`
+- `TypeScriptSource`
 
-> _Code and Source constructs seamlessly plug-in to other high-level CDK constructs. They share the same set of parameters, props and build options._
+> _`Code` and `Source` constructs seamlessly plug-in to other high-level CDK constructs. They share the same set of parameters, props and build options._
 
 The following classes power the other features. You normally won't have to use them, but they are there if you need them:
 
-- `TypeScriptAsset` & `JavaScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.Asset.html)) \
+- `TypeScriptAsset` implements `s3.Asset` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_s3_assets.Asset.html)) \
   creates an asset uploaded to S3 which can be referenced by other constructs
 
 - `EsbuildBundler` implements `core.BundlingOptions` ([reference](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.BundlingOptions.html)) \
@@ -270,7 +272,7 @@ If you are a Python, .NET or Go user, refer to the language specific guide for a
 
 #### Custom Build and Transform API implementations
 
-> 💡 See [esbuild plugins w/ TypeScript](examples/typescript/esbuild-with-plugins) for a complete working example of a custom Build API implementation.
+> 💡 See [esbuild plugins w/ TypeScript](examples/typescript/esbuild-with-plugins) for a working example of a custom Build API implementation.
 
 A custom implementation can be provided by implementing `IBuildProvider` or `ITransformProvider`:
 
@@ -339,9 +341,9 @@ Note that _esbuild_ minor version upgrades are also introduced in **minor versio
 Since _esbuild_ is pre v1, these versions typically introduce breaking changes and this package will inherit them.
 To avoid this behavior, add the desired _esbuild_ version as a dependency to your package.
 
-### How do I upgrade from `cdk-esbuild` v3?
+### How do I upgrade from `cdk-esbuild` v4?
 
-Please refer to the [v4 release notes](https://github.com/mrgrain/cdk-esbuild/releases/tag/v4.0.0) for a list of backwards incompatible changes and respective upgrade instructions.
+Please refer to the [v5 release notes](https://github.com/mrgrain/cdk-esbuild/releases/tag/v5.0.0) for a list of backwards incompatible changes and respective upgrade instructions.
 
 ### [TS/JS] Why am I getting the error `Cannot find module 'esbuild'`?
 
@@ -399,10 +401,14 @@ const props = {
 };
 ```
 
-This will dynamically resolve to the correct path, wherever the package is installed. Please open an issue if you encounter any difficulties.
+This will dynamically resolve to the correct path, wherever the package is installed.
+Please open an issue if you encounter any difficulties.
 
 ### Can I use this package with AWS CDK v1?
 
-Yes, the `2.x.x` line of `cdk-esbuild` is compatible with AWS CDK v1. You can find the [documentation for it on the v2 branch](https://github.com/mrgrain/cdk-esbuild/tree/v2).
+Yes, `v2` of `cdk-esbuild` is compatible with AWS CDK v1.
+You can find the [documentation for it on the v2 branch](https://github.com/mrgrain/cdk-esbuild/tree/v2).
 
-However, in line with AWS CDK v2, this version release now only receives security updates and critical bug fixes and support will fully end on June 1, 2023.
+Support for AWS CDK v1 and `cdk-esbuild` v2 has ended on June 1, 2023.
+Both packages are not receiving any updates or bug fixes, including for security related issues.
+You are strongly advised to upgrade to a supported version of these packages.
