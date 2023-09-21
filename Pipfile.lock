@@ -85,19 +85,19 @@
         },
         "importlib-resources": {
             "hashes": [
-                "sha256:134832a506243891221b88b4ae1213327eea96ceb4e407a00d790bb0626f45cf",
-                "sha256:4359457e42708462b9626a04657c6208ad799ceb41e5c58c57ffa0e6a098a5d4"
+                "sha256:9d48dcccc213325e810fd723e7fbb45ccb39f6cf5c31f00cf2b965f5f10f3cb9",
+                "sha256:aa50258bbfa56d4e33fbd8aa3ef48ded10d1735f11532b8df95388cc6bdb7e83"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==6.0.1"
+            "version": "==6.1.0"
         },
         "jsii": {
             "hashes": [
-                "sha256:a59e0f962589dcc741d2bcf2a7b4c4a927a29d3f9a2804a192c734e2e3275018",
-                "sha256:b3888141c30b83a30bfbe03a877bbf8ae42f957b6ccca02bae448853debffaf8"
+                "sha256:20a463e8533eded656b285f532e5468a414c48ab083cf0cf93a86d593f0c36b8",
+                "sha256:6edbb79afc0b7407cb64e9dd0f27b512279201307c16dd9ae72462b3cbd09970"
             ],
             "markers": "python_version ~= '3.7'",
-            "version": "==1.88.0"
+            "version": "==1.89.0"
         },
         "mrgrain.cdk-esbuild": {
             "hashes": [
