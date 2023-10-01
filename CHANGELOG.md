@@ -1,4 +1,6 @@
 
+### [5.0.2](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.1...v5.0.2) (2023-10-01)
+
 ### [5.0.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.0...v5.0.1) (2023-09-15)
 
 ## [5.0.0-rc.0](https://github.com/mrgrain/cdk-esbuild/compare/v4.2.3...v5.0.0-rc.0) (2023-09-09)
