@@ -18,8 +18,8 @@ github.com/aws/jsii-runtime-go v1.46.0/go.mod h1:6tZnlstx8bAB3vnLFF9n8bbkI//LDbl
 github.com/aws/jsii-runtime-go v1.70.0/go.mod h1:Cd836+6/rhL8LbslPaGofAh8c7H75KVMF6bfHyNl7vY=
 github.com/aws/jsii-runtime-go v1.72.0/go.mod h1:lExVNqTnEcbS/NMnuovDrHohgmPK3IsGdqvaYLA+N1s=
 github.com/aws/jsii-runtime-go v1.81.0/go.mod h1:jcw8fMGc0z+jAZM6x7QAti8IYUUgpxnV5BxZsrXIT9M=
-github.com/aws/jsii-runtime-go v1.90.0 h1:Kbw+bAy1etfyYSpNu09a12N9taT+/NxRDnfvgtmCGI8=
-github.com/aws/jsii-runtime-go v1.90.0/go.mod h1:xLBI2fKjWK68+eqqmvkv4HL1f4YUPLiAi5BT3wNUD74=
+github.com/aws/jsii-runtime-go v1.91.0 h1:KJAgMbRY7/Cp2ocV5rIf4GmLBiFYYAMYVDeAebP2kfE=
+github.com/aws/jsii-runtime-go v1.91.0/go.mod h1:xLBI2fKjWK68+eqqmvkv4HL1f4YUPLiAi5BT3wNUD74=
 github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.30 h1:ryT4dP31QvXF7SO3mij6ir+8JBRaHyv1NSd2seUgpH4=
 github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.30/go.mod h1:tlNrUd0+vEvsVTA0C1lE0p2txRPrnK53kb44hCuxdDI=
 github.com/cdklabs/awscdk-asset-kubectl-go/kubectlv20/v2 v2.1.1 h1:l5N27aCCjAB5cgW5pI4/ujnasPL8hUcJ9KBxrKk6UiQ=
