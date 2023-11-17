@@ -93,11 +93,11 @@
         },
         "jsii": {
             "hashes": [
-                "sha256:2905a4ea030ae7289b859e97003c01f4569650b4865c51e7f83d975b95c5b20a",
-                "sha256:9600ac7d04b237ee229c74ffde65ece27202ceec5df5e7eebd88a532d2cb28d6"
+                "sha256:2b5205c0fec87e1a9a9f283f60577ad172d7124bb614b8cdadc963306e1ac75f",
+                "sha256:30deaea011e146e1d4c0dbb35bd7effd4d292cef676052e5672a825fc1aaaebf"
             ],
-            "markers": "python_version ~= '3.7'",
-            "version": "==1.91.0"
+            "markers": "python_version ~= '3.8'",
+            "version": "==1.92.0"
         },
         "mrgrain.cdk-esbuild": {
             "hashes": [
