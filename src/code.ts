@@ -10,8 +10,7 @@ import {
 } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
-import { defaultPlatformProps } from './private/utils';
-import { uniqueAssetId } from './utils';
+import { defaultPlatformProps, uniqueAssetId } from './private/utils';
 
 export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 export interface JavaScriptCodeProps extends AssetBaseProps {};

@@ -8,7 +8,7 @@ import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
-import { uniqueAssetId } from './utils';
+import { uniqueAssetId } from './private/utils';
 
 
 export interface JavaScriptSourceProps extends AssetBaseProps{};
