@@ -1,3 +1,4 @@
+import { IConstruct } from 'constructs';
 import { BuildOptions, Platform, TransformOptions } from '../esbuild-types';
 
 export function isEsbuildError(error: unknown): boolean {
