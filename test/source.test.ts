@@ -176,4 +176,36 @@ describe('source', () => {
       expect(source.props.buildOptions.platform).toBe('browser');
     });
   });
+
+  describe('with multiple sources in the same scope', () => {
+    it('does not throw', () => {
+      const stack = new Stack();
+
+      const sourceOne = new TypeScriptSource('fixtures/handlers/ts-handler.ts', {
+        buildOptions: {
+          absWorkingDir: resolve(__dirname),
+        },
+      });
+      const sourceTwo = new TypeScriptSource('fixtures/handlers/ts-handler.ts', {
+        buildOptions: {
+          absWorkingDir: resolve(__dirname),
+        },
+      });
+
+      const destinationBucket = new Bucket(stack, 'WebsiteBucket', {
+        autoDeleteObjects: true,
+        publicReadAccess: true,
+        removalPolicy: RemovalPolicy.DESTROY,
+        websiteIndexDocument: 'index.html',
+      });
+
+      new BucketDeployment(stack, 'MultipleAssets', {
+        destinationBucket,
+        sources: [
+          sourceOne,
+          sourceTwo,
+        ],
+      });
+    });
+  });
 });
