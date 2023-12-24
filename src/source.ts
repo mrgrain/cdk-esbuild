@@ -4,13 +4,35 @@ import {
   ISource,
   SourceConfig,
 } from 'aws-cdk-lib/aws-s3-deployment';
+<<<<<<< HEAD
 import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
+=======
+import { Construct, IConstruct } from 'constructs';
+import { TypeScriptAsset, TypeScriptAssetProps } from './asset';
+>>>>>>> 6777ba2 (fix: cannot have multiple assets in the same scope (#1016))
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
 
+<<<<<<< HEAD
 export interface JavaScriptSourceProps extends AssetBaseProps{};
 export interface TypeScriptSourceProps extends AssetBaseProps{};
+=======
+const assetIds = new WeakMap<IConstruct, number>();
+const assetId = (scope: IConstruct, name: string) => {
+  const nextId = (assetIds.get(scope) ?? 0) + 1;
+  assetIds.set(scope, nextId);
+
+  // Only one asset per scope, skip the id
+  if (nextId === 1) {
+    return name;
+  }
+
+  return `${name}${nextId}`;
+};
+
+export interface TypeScriptSourceProps extends TypeScriptCodeProps {};
+>>>>>>> 6777ba2 (fix: cannot have multiple assets in the same scope (#1016))
 
 abstract class Source<
   Props extends JavaScriptSourceProps | TypeScriptSourceProps,
@@ -181,6 +203,55 @@ TypeScriptAsset
      */
     props: TypeScriptSourceProps = {},
   ) {
+<<<<<<< HEAD
     super(entryPoints, props);
+=======
+    const defaultOptions: Partial<BuildOptions> = {
+      platform: 'browser',
+    };
+
+    this.props = {
+      entryPoints,
+      ...props,
+      buildOptions: {
+        ...defaultOptions,
+        ...props.buildOptions,
+      },
+    };
+  }
+
+
+  bind(scope: Construct, context?: DeploymentSourceContext): SourceConfig {
+    // If the same AssetCode is used multiple times, retain only the first instantiation.
+    if (!this.asset) {
+      this.asset = new TypeScriptAsset(
+        scope,
+        assetId(scope, this.constructor.name),
+        this.props,
+      );
+    } else if (Stack.of(this.asset) !== Stack.of(scope)) {
+      throw new Error(
+        `Asset is already associated with another stack '${
+          Stack.of(this.asset).stackName
+        }'. ` + 'Create a new Asset instance for every stack.',
+      );
+    }
+
+    if (!context) {
+      throw new Error(
+        `To use a ${this.constructor.name}, context must be provided`,
+      );
+    }
+
+    // we give permissions on all files in the bucket since we don't want to
+    // accidentally revoke permission on old versions when deploying a new
+    // version (for example, when using Lambda traffic shifting).
+    this.asset.bucket.grantRead(context.handlerRole);
+
+    return {
+      bucket: this.asset.bucket,
+      zipObjectKey: this.asset.s3ObjectKey,
+    };
+>>>>>>> 6777ba2 (fix: cannot have multiple assets in the same scope (#1016))
   }
 }
