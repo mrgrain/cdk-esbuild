@@ -4,24 +4,12 @@ import {
   ISource,
   SourceConfig,
 } from 'aws-cdk-lib/aws-s3-deployment';
-import { Construct, IConstruct } from 'constructs';
+import { Construct } from 'constructs';
 import { TypeScriptAsset, TypeScriptAssetProps } from './asset';
 import { EntryPoints } from './bundler';
 import { TypeScriptCodeProps } from './code';
 import { BuildOptions } from './esbuild-types';
-
-const assetIds = new WeakMap<IConstruct, number>();
-const assetId = (scope: IConstruct, name: string) => {
-  const nextId = (assetIds.get(scope) ?? 0) + 1;
-  assetIds.set(scope, nextId);
-
-  // Only one asset per scope, skip the id
-  if (nextId === 1) {
-    return name;
-  }
-
-  return `${name}${nextId}`;
-};
+import { uniqueAssetId } from './private/utils';
 
 export interface TypeScriptSourceProps extends TypeScriptCodeProps {};
 
@@ -79,7 +67,7 @@ export class TypeScriptSource implements ISource {
     if (!this.asset) {
       this.asset = new TypeScriptAsset(
         scope,
-        assetId(scope, this.constructor.name),
+        uniqueAssetId(scope, this.constructor.name),
         this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {

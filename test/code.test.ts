@@ -202,3 +202,20 @@ describe('Amazon CloudWatch Synthetics', () => {
     });
   });
 });
+
+describe('multiple Code in the same scope', () => {
+  it('does not throw', () => {
+    const stack = new Stack();
+
+    const codeOne = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+      buildOptions: { absWorkingDir: resolve(__dirname) },
+    });
+
+    const codeTwo = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+      buildOptions: { absWorkingDir: resolve(__dirname) },
+    });
+
+    codeOne.bind(stack);
+    codeTwo.bind(stack);
+  });
+});
