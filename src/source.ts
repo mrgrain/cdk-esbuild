@@ -4,23 +4,12 @@ import {
   ISource,
   SourceConfig,
 } from 'aws-cdk-lib/aws-s3-deployment';
-import { Construct, IConstruct } from 'constructs';
+import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
+import { uniqueAssetId } from './utils';
 
-const assetIds = new WeakMap<IConstruct, number>();
-const assetId = (scope: IConstruct, name: string) => {
-  const nextId = (assetIds.get(scope) ?? 0) + 1;
-  assetIds.set(scope, nextId);
-
-  // Only one asset per scope, skip the id
-  if (nextId === 1) {
-    return name;
-  }
-
-  return `${name}${nextId}`;
-};
 
 export interface JavaScriptSourceProps extends AssetBaseProps{};
 export interface TypeScriptSourceProps extends AssetBaseProps{};
@@ -88,7 +77,7 @@ abstract class Source<
     if (!this.asset) {
       this.asset = new this.assetClass(
         scope,
-        assetId(scope, this.constructor.name),
+        uniqueAssetId(scope, this.constructor.name),
         this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
