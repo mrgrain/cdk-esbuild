@@ -1,4 +1,11 @@
 
+### [5.0.8](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.7...v5.0.8) (2023-12-24)
+
+
+### Bug Fixes
+
+* cannot have multiple assets in the same scope ([#1016](https://github.com/mrgrain/cdk-esbuild/issues/1016)) ([6777ba2](https://github.com/mrgrain/cdk-esbuild/commit/6777ba20c50b7f2de359b13783bbf036df03840a)), closes [#993](https://github.com/mrgrain/cdk-esbuild/issues/993)
+
 ### [5.0.7](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.6...v5.0.7) (2023-12-15)
 
 ### [5.0.6](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.5...v5.0.6) (2023-12-01)
