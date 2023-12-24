@@ -7,7 +7,7 @@ import {
 } from './asset';
 import { BundlerProps, EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
-import { defaultPlatformProps } from './private/utils';
+import { defaultPlatformProps, uniqueAssetId } from './private/utils';
 
 export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 
@@ -89,7 +89,11 @@ export class TypeScriptCode extends Code {
   bind(scope: Construct): CodeConfig {
     // If the same AssetCode is used multiple times, retain only the first instantiation.
     if (!this.asset) {
-      this.asset = new TypeScriptAsset(scope, this.constructor.name, this.props);
+      this.asset = new TypeScriptAsset(
+        scope,
+        uniqueAssetId(scope, this.constructor.name),
+        this.props,
+      );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
       throw new Error(
         `Asset is already associated with another stack '${
