@@ -10,7 +10,7 @@ import {
 } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
-import { defaultPlatformProps } from './private/utils';
+import { defaultPlatformProps, uniqueAssetId } from './private/utils';
 
 export { CodeConfig } from 'aws-cdk-lib/aws-lambda';
 export interface JavaScriptCodeProps extends AssetBaseProps {};
@@ -29,7 +29,7 @@ export class EsbuildCode<
   protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
     return new EsbuildAsset(
       scope,
-      this.constructor.name,
+      uniqueAssetId(scope, this.constructor.name),
       this.props,
     );
   }
@@ -137,7 +137,7 @@ export class JavaScriptCode extends EsbuildCode<JavaScriptCodeProps> {
   protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
     return new JSAsset(
       scope,
-      this.constructor.name,
+      uniqueAssetId(scope, this.constructor.name),
       this.props,
     );
   }
@@ -186,7 +186,7 @@ export class TypeScriptCode extends EsbuildCode<TypeScriptCodeProps> {
   protected getAsset(scope: Construct): EsbuildAsset<AssetProps> {
     return new TSAsset(
       scope,
-      this.constructor.name,
+      uniqueAssetId(scope, this.constructor.name),
       this.props,
     );
   }

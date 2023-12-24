@@ -8,6 +8,8 @@ import { Construct } from 'constructs';
 import { AssetBaseProps, AssetProps, JavaScriptAsset, TypeScriptAsset } from './asset';
 import { EntryPoints } from './bundler';
 import { BuildOptions } from './esbuild-types';
+import { uniqueAssetId } from './private/utils';
+
 
 export interface JavaScriptSourceProps extends AssetBaseProps{};
 export interface TypeScriptSourceProps extends AssetBaseProps{};
@@ -75,7 +77,7 @@ abstract class Source<
     if (!this.asset) {
       this.asset = new this.assetClass(
         scope,
-        this.constructor.name,
+        uniqueAssetId(scope, this.constructor.name),
         this.props,
       );
     } else if (Stack.of(this.asset) !== Stack.of(scope)) {
