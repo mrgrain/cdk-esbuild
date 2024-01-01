@@ -1,4 +1,11 @@
 
+### [5.0.9](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.8...v5.0.9) (2024-01-01)
+
+
+### Bug Fixes
+
+* cannot have multiple TypeScriptCode in the same scope ([#1020](https://github.com/mrgrain/cdk-esbuild/issues/1020)) ([149b36c](https://github.com/mrgrain/cdk-esbuild/commit/149b36cb63d67cb652df7df7b7c771f91ec00638)), closes [#1016](https://github.com/mrgrain/cdk-esbuild/issues/1016)
+
 ### [5.0.8](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.7...v5.0.8) (2023-12-24)
 
 
