@@ -45,3 +45,4 @@ Pipfile
 Pipfile.lock
 go.mod
 go.sum
+/.gitattributes
