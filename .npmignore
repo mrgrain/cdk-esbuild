@@ -47,3 +47,4 @@ go.mod
 go.sum
 .jsii.tabl.json
 /rosetta/
+/.gitattributes
