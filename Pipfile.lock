@@ -62,7 +62,6 @@
                 "sha256:468b0779dc1a6c0e89d55872c8b9afd021538b8aa16ab3d6943599f51b5865d9",
                 "sha256:f64b383c6b7057c49430cae72bc5b6626241862376f52e9af86fbaefa1034802"
             ],
-            "index": "pypi",
             "markers": "python_version ~= '3.7'",
             "version": "==2.58.1a0"
         },
