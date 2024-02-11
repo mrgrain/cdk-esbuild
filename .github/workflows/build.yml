@@ -15,12 +15,12 @@ jobs:
       CI: "true"
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - name: Install dependencies
@@ -85,7 +85,7 @@ jobs:
           app_id: ${{ secrets.PROJEN_APP_ID }}
           private_key: ${{ secrets.PROJEN_APP_PRIVATE_KEY }}
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.event.pull_request.head.ref }}
@@ -114,7 +114,7 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - name: Download build artifacts
@@ -139,10 +139,10 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -167,7 +167,7 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - uses: actions/setup-dotnet@v3
@@ -195,7 +195,7 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - uses: actions/setup-go@v3
@@ -224,10 +224,10 @@ jobs:
       contents: read
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: Download build artifacts
@@ -252,7 +252,7 @@ jobs:
       contents: read
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - uses: actions/setup-go@v3
@@ -278,7 +278,7 @@ jobs:
     permissions: {}
     if: "! needs.build.outputs.self_mutation_happened"
     steps:
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20.x
       - name: Download build artifacts
