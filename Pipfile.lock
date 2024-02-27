@@ -84,11 +84,11 @@
         },
         "importlib-resources": {
             "hashes": [
-                "sha256:3893a00122eafde6894c59914446a512f728a0c1a45f9bb9b63721b6bacf0b4a",
-                "sha256:e8bf90d8213b486f428c9c39714b920041cb02c184686a3dee24905aaa8105d6"
+                "sha256:308abf8474e2dba5f867d279237cd4076482c3de7104a40b41426370e891549b",
+                "sha256:9a0a862501dc38b68adebc82970140c9e4209fc99601782925178f8386339938"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==6.1.1"
+            "version": "==6.1.2"
         },
         "jsii": {
             "hashes": [
@@ -139,11 +139,11 @@
         },
         "typing-extensions": {
             "hashes": [
-                "sha256:23478f88c37f27d76ac8aee6c905017a143b0b1b886c3c9f66bc2fd94f9f5783",
-                "sha256:af72aea155e91adfc61c3ae9e0e342dbc0cba726d6cba4b6c72c1f34e47291cd"
+                "sha256:69b1a937c3a517342112fb4c6df7e72fc39a38e7891a5730ed4985b5214b5475",
+                "sha256:b0abd7c89e8fb96f98db18d86106ff1d90ab692004eb746cf6eda2682f91b3cb"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==4.9.0"
+            "version": "==4.10.0"
         }
     },
     "develop": {}
