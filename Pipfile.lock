@@ -84,11 +84,11 @@
         },
         "importlib-resources": {
             "hashes": [
-                "sha256:308abf8474e2dba5f867d279237cd4076482c3de7104a40b41426370e891549b",
-                "sha256:9a0a862501dc38b68adebc82970140c9e4209fc99601782925178f8386339938"
+                "sha256:4c0269e3580fe2634d364b39b38b961540a7738c02cb984e98add8b4221d793d",
+                "sha256:56fb4525197b78544a3354ea27793952ab93f935bb4bf746b846bb1015020f2b"
             ],
             "markers": "python_version >= '3.8'",
-            "version": "==6.1.2"
+            "version": "==6.1.3"
         },
         "jsii": {
             "hashes": [
