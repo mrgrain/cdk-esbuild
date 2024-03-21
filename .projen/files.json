@@ -6,11 +6,7 @@
     ".github/workflows/auto-approve.yml",
     ".github/workflows/build.yml",
     ".github/workflows/pull-request-lint.yml",
-<<<<<<< HEAD
-    ".github/workflows/release-v3.yml",
-=======
     ".github/workflows/release-v4.yml",
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
     ".github/workflows/release.yml",
     ".github/workflows/upgrade-v4.yml",
     ".gitignore",
