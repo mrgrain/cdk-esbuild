@@ -45,10 +45,13 @@ junit.xml
 /dist/changelog.md
 /dist/version.txt
 !/.github/workflows/release.yml
+<<<<<<< HEAD
 !/.github/workflows/release-v3.yml
+=======
+!/.github/workflows/release-v4.yml
+>>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
 !/.mergify.yml
 !/.github/workflows/upgrade-v4.yml
-!/.github/workflows/upgrade-v3.yml
 !/.github/pull_request_template.md
 !/test/
 !/tsconfig.dev.json
