@@ -4,9 +4,6 @@ import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
-<<<<<<< HEAD
-const stableReleases = new StableReleases('v4', {
-=======
 const stableReleases = new StableReleases('v5', {
   v5: {
     majorVersion: 5,
@@ -18,7 +15,6 @@ const stableReleases = new StableReleases('v5', {
     typescriptVersion: '5.1.x',
     supportedUntil: true,
   },
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
   v4: {
     majorVersion: 4,
     cdkVersion: '2.12.0',
