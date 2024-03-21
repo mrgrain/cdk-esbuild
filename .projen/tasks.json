@@ -264,13 +264,8 @@
         }
       ]
     },
-<<<<<<< HEAD
-    "publish:git:v3": {
-      "name": "publish:git:v3",
-=======
     "publish:git:v4": {
       "name": "publish:git:v4",
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
       "env": {
         "CHANGELOG": "dist/dist/changelog.md",
@@ -286,23 +281,11 @@
           "builtin": "release/tag-version"
         },
         {
-<<<<<<< HEAD
-          "exec": "git push --follow-tags origin v3"
-=======
           "exec": "git push --follow-tags origin v4"
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
-<<<<<<< HEAD
-    "release:v3": {
-      "name": "release:v3",
-      "description": "Prepare a release from \"v3\" branch",
-      "env": {
-        "RELEASE": "true",
-        "MAJOR": "3"
-=======
     "publish:git:v5": {
       "name": "publish:git:v5",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
@@ -331,7 +314,6 @@
       "env": {
         "RELEASE": "true",
         "MAJOR": "4"
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
       },
       "steps": [
         {
@@ -351,8 +333,6 @@
         }
       ]
     },
-<<<<<<< HEAD
-=======
     "release:v5": {
       "name": "release:v5",
       "description": "Prepare a release from \"v5\" branch",
@@ -386,7 +366,6 @@
         }
       ]
     },
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
     "test": {
       "name": "test",
       "description": "Run tests",
