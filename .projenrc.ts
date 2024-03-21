@@ -4,9 +4,6 @@ import { StableReleases, TypeScriptSourceFile } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/esbuild-source';
 
-<<<<<<< HEAD
-const stableReleases = new StableReleases('v3', {
-=======
 const stableReleases = new StableReleases('v5', {
   v5: {
     majorVersion: 5,
@@ -27,7 +24,6 @@ const stableReleases = new StableReleases('v5', {
     typescriptVersion: '4.9.x',
     supportedUntil: new Date('2024-10-01'),
   },
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
   v3: {
     majorVersion: 3,
     cdkVersion: '2.0.0',
