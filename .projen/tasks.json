@@ -289,32 +289,6 @@
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
     },
-<<<<<<< HEAD
-    "release:v3": {
-      "name": "release:v3",
-      "description": "Prepare a release from \"v3\" branch",
-      "env": {
-        "RELEASE": "true",
-        "MAJOR": "3"
-      },
-      "steps": [
-        {
-          "exec": "rm -fr dist"
-        },
-        {
-          "spawn": "bump"
-        },
-        {
-          "spawn": "build"
-        },
-        {
-          "spawn": "unbump"
-        },
-        {
-          "exec": "git diff --ignore-space-at-eol --exit-code"
-        }
-      ]
-=======
     "publish:git:v5": {
       "name": "publish:git:v5",
       "description": "Prepends the release changelog onto the project changelog, creates a release commit, and tags the release",
@@ -336,7 +310,6 @@
         }
       ],
       "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
->>>>>>> 030b9f0 (chore: remove v3 builds (#1203))
     },
     "release:v4": {
       "name": "release:v4",
