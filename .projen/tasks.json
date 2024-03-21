@@ -336,6 +336,31 @@
         }
       ]
     },
+    "release:v5": {
+      "name": "release:v5",
+      "description": "Prepare a release from \"v5\" branch",
+      "env": {
+        "RELEASE": "true",
+        "MAJOR": "5"
+      },
+      "steps": [
+        {
+          "exec": "rm -fr dist"
+        },
+        {
+          "spawn": "bump"
+        },
+        {
+          "spawn": "build"
+        },
+        {
+          "spawn": "unbump"
+        },
+        {
+          "exec": "git diff --ignore-space-at-eol --exit-code"
+        }
+      ]
+    },
     "rosetta": {
       "name": "rosetta",
       "steps": [

@@ -4,7 +4,7 @@ import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc
 import { IntegrationTests } from './projenrc/IntegrationTests';
 import { Esbuild } from './src/private/esbuild-source';
 
-const stableReleases = new StableReleases('v5', {
+const stableReleases = new StableReleases('v4', {
   v5: {
     majorVersion: 5,
     cdkVersion: '2.51.0',
