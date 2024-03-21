@@ -13,6 +13,7 @@ const stableReleases = new StableReleases('v5', {
     npmDistTags: ['cdk-v2'],
     jsiiVersion: '5.1.x',
     typescriptVersion: '5.1.x',
+    supportedUntil: true,
   },
   v4: {
     majorVersion: 4,
@@ -21,6 +22,7 @@ const stableReleases = new StableReleases('v5', {
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
+    supportedUntil: new Date('2024-10-01'),
   },
   v3: {
     majorVersion: 3,
@@ -30,6 +32,7 @@ const stableReleases = new StableReleases('v5', {
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
+    supportedUntil: new Date('2024-02-01'),
   },
 });
 
