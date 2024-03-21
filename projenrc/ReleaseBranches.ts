@@ -20,9 +20,6 @@ export class StableReleases {
     if (!branches[currentBranch]) {
       throw Error(`Current branch must be defined as branch.\nGot: ${currentBranch}\nAvailable: ${Object.keys(branches).sort().join(', ')}`);
     }
-    if (branches[currentBranch]?.supportedUntil !== true) {
-      throw Error(`Current branch must not have an End of Support.\nGot: ${branches[currentBranch]?.supportedUntil}`);
-    }
   }
 
   public bind(project: typescript.TypeScriptProject) {
