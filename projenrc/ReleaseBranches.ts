@@ -8,6 +8,7 @@ export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 
   jsiiVersion: string;
   typescriptVersion: string;
   syntheticsVersion?: string;
+  supportedUntil: Date | true;
 }
 
 export interface StableReleaseBranches {
@@ -139,7 +140,7 @@ export class StableReleases {
       typescriptVersion: current.typescriptVersion,
       releaseBranches: Object.fromEntries(
         Object.entries(this.branches)
-          .filter(([b]) => b !== this.currentBranch)
+          .filter(([b]) => b !== this.currentBranch && this.isSupported(b))
           .map(([b, config]) => [b, {
             ...config,
             npmDistTag: `latest-v${config.majorVersion}`,
@@ -150,4 +151,15 @@ export class StableReleases {
       }),
     };
   }
+
+  private isSupported(branch: string): boolean {
+    const supportedUntil = this.branches[branch]?.supportedUntil;
+    if (supportedUntil === true) {
+      return true;
+    }
+
+    // SupportedUntil plus one day is EOS
+    const eos = new Date(+supportedUntil + 86400000);
+    return new Date() <= eos;
+  };
 }
