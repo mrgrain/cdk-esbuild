@@ -8,7 +8,7 @@ const stableReleases = new StableReleases('v4', {
   v5: {
     majorVersion: 5,
     cdkVersion: '2.51.0',
-    minNodeVersion: '18.x',
+    minNodeVersion: '18',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
     jsiiVersion: '5.1.x',
@@ -18,7 +18,8 @@ const stableReleases = new StableReleases('v4', {
   v4: {
     majorVersion: 4,
     cdkVersion: '2.12.0',
-    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
+    minNodeVersion: '14',
+    workflowNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
@@ -28,7 +29,8 @@ const stableReleases = new StableReleases('v4', {
     majorVersion: 3,
     cdkVersion: '2.0.0',
     syntheticsVersion: '2.0.0-alpha.11',
-    minNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
+    minNodeVersion: '14',
+    workflowNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
