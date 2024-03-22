@@ -1,7 +1,9 @@
 import { JsonPatch, release, typescript } from 'projen';
+import { VersionsFile } from './VersionsFile';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
   minNodeVersion: string;
+  workflowNodeVersion?: string;
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
@@ -20,12 +22,27 @@ export class StableReleases {
     if (!branches[currentBranch]) {
       throw Error(`Current branch must be defined as branch.\nGot: ${currentBranch}\nAvailable: ${Object.keys(branches).sort().join(', ')}`);
     }
-    if (branches[currentBranch]?.supportedUntil !== true) {
-      throw Error(`Current branch must not have an End of Support.\nGot: ${branches[currentBranch]?.supportedUntil}`);
-    }
   }
 
   public bind(project: typescript.TypeScriptProject) {
+    new VersionsFile(project, {
+      currentBranch: this.currentBranch,
+      versions: Object.fromEntries(Object.entries(this.branches).map(([version, info]) => [version,
+        {
+          minCdk: info.cdkVersion,
+          minNode: info.minNodeVersion,
+          endOfSupport: info.supportedUntil,
+        }]).concat([['v2', {
+        minCdk: '1.99.0',
+        minNode: '14',
+        endOfSupport: new Date('2023-06-01'),
+      }], ['v1', {
+        minCdk: '1.99.0',
+        minNode: '12',
+        endOfSupport: new Date('2021-11-21'),
+      }]])),
+    });
+
     /**
      * Special configuration for the current branch only
      */
@@ -136,7 +153,7 @@ export class StableReleases {
       npmDistTag: 'latest',
       defaultReleaseBranch: this.currentBranch,
       majorVersion: current.majorVersion,
-      workflowNodeVersion: current.minNodeVersion,
+      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${current.minNodeVersion}.x`,
       prerelease: current.prerelease,
       cdkVersion: current.cdkVersion,
       jsiiVersion: current.jsiiVersion,
