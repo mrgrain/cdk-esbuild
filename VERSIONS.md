@@ -4,9 +4,9 @@ Only the latest release of each major version is supported.
 
 | Package version | CDK version | Node.js versions | Support                                                       |
 | --------------- | ----------- | ---------------- | ------------------------------------------------------------- |
-| v5 | ^2.51.0 | >=18.x | :white_check_mark: |
-| v4 | ^2.12.0 | >=16.x | :x: Security updates and critical bug fixes until 1 October 2024 |
-| v3 | ^2.0.0 | >=16.x | :x: Support ended on 1 February 2024 |
+| v5 | ^2.51.0 | >=18 | :white_check_mark: |
+| v4 | ^2.12.0 | >=16 | Security updates and critical bug fixes until 1 October 2024 |
+| v3 | ^2.0.0 | >=16 | :x: Support ended on 1 February 2024 |
 | v2 | ^1.99.0 | >=14 | :x: Support ended on 1 June 2023 |
 | v1 | ^1.99.0 | >=12 | :x: Support ended on 21 November 2021 |
 

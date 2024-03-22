@@ -35,7 +35,7 @@ export class VersionsFile extends Component {
       });
 
       if (isSupported(info.endOfSupport)) {
-        return `${base} :x: Security updates and critical bug fixes until ${format.format(info.endOfSupport)} |`;
+        return `${base} Security updates and critical bug fixes until ${format.format(info.endOfSupport)} |`;
       }
 
       return `${base} :x: Support ended on ${format.format(info.endOfSupport)} |`;

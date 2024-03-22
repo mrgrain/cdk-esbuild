@@ -29,7 +29,7 @@ export class StableReleases {
       versions: Object.fromEntries(Object.entries(this.branches).map(([version, info]) => [version,
         {
           minCdk: info.cdkVersion,
-          minNode: info.minNodeVersion,
+          minNode: info.minNodeVersion.split('.', 1).at(0),
           endOfSupport: info.supportedUntil,
         }]).concat([['v2', {
         minCdk: '1.99.0',
