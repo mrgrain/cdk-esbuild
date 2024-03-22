@@ -3,6 +3,7 @@ import { VersionsFile } from './VersionsFile';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
   minNodeVersion: string;
+  workflowNodeVersion?: string;
   releaseSchedule: string;
   npmDistTags?: string[];
   cdkVersion: string;
@@ -29,7 +30,7 @@ export class StableReleases {
       versions: Object.fromEntries(Object.entries(this.branches).map(([version, info]) => [version,
         {
           minCdk: info.cdkVersion,
-          minNode: info.minNodeVersion.split('.', 1).at(0),
+          minNode: info.minNodeVersion,
           endOfSupport: info.supportedUntil,
         }]).concat([['v2', {
         minCdk: '1.99.0',
@@ -152,7 +153,7 @@ export class StableReleases {
       npmDistTag: 'latest',
       defaultReleaseBranch: this.currentBranch,
       majorVersion: current.majorVersion,
-      workflowNodeVersion: current.minNodeVersion,
+      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${current.minNodeVersion}.x`,
       prerelease: current.prerelease,
       cdkVersion: current.cdkVersion,
       jsiiVersion: current.jsiiVersion,
