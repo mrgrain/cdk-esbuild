@@ -415,7 +415,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@aws-cdk/aws-synthetics-alpha,@aws-cdk/integ-runner,@types/eslint,eslint-import-resolver-typescript,eslint-plugin-import,jest-mock,jsii-diff,jsii-docgen,jsii-pacmak,jsii-rosetta,jsii,projen,ts-morph,ts-node,typescript"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,eslint-import-resolver-typescript,eslint-plugin-import,jest-mock,jsii-diff,jsii-docgen,jsii-pacmak,projen,ts-morph,ts-node"
         },
         {
           "exec": "npm install"
