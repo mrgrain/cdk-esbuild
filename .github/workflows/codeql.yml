@@ -47,6 +47,7 @@ jobs:
           config: |
             paths-ignore:
               - "test/integ/*.snapshot/**"
+              - test/fixtures/handlers/invalid-handler.js
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
