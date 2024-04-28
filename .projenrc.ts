@@ -207,8 +207,7 @@ project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
 project.package.addField('jsiiRosetta', {
   strict: true,
   exampleDependencies: {
-    '@aws-cdk/aws-synthetics-alpha': '2.95.0-alpha.0',
-    'aws-cdk-lib': '2.95.0',
+    'aws-cdk-lib': '2.139.0',
     '@mrgrain/cdk-esbuild': '^4',
     '@types/node': '^18',
   },
