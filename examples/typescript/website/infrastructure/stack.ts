@@ -1,4 +1,4 @@
-import { Canary, Cleanup, Runtime, Schedule, Test } from "@aws-cdk/aws-synthetics-alpha";
+import { Canary, Cleanup, Runtime, Schedule, Test } from "aws-cdk-lib/aws-synthetics";
 import { TypeScriptCode, TypeScriptSource } from "@mrgrain/cdk-esbuild";
 import { BlockPublicAccess, Bucket, ObjectOwnership } from "aws-cdk-lib/aws-s3";
 import { BucketDeployment } from "aws-cdk-lib/aws-s3-deployment";
@@ -48,8 +48,8 @@ export class WebsiteStack extends Stack {
 
     const canary = new Canary(this, "Monitoring", {
       schedule: Schedule.rate(Duration.hours(1)),
-      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_5_1,
-      enableAutoDeleteLambdas: true,
+      runtime: Runtime.SYNTHETICS_NODEJS_PUPPETEER_7_0,
+      cleanup: Cleanup.LAMBDA,
       test: Test.custom({
         code: new TypeScriptCode("./src/canary.ts", {
           buildOptions: {
