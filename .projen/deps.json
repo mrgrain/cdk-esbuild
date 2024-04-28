@@ -80,12 +80,20 @@
     },
     {
       "name": "jsii-rosetta",
+<<<<<<< HEAD
       "version": "1.x",
+=======
+      "version": "5.4.x",
+>>>>>>> 9bda400 (fix: use jsii 5.4 to build package (#1252))
       "type": "build"
     },
     {
       "name": "jsii",
+<<<<<<< HEAD
       "version": "1.x",
+=======
+      "version": "5.4.x",
+>>>>>>> 9bda400 (fix: use jsii 5.4 to build package (#1252))
       "type": "build"
     },
     {
@@ -112,7 +120,11 @@
     },
     {
       "name": "typescript",
+<<<<<<< HEAD
       "version": "4.9.x",
+=======
+      "version": "5.4.x",
+>>>>>>> 9bda400 (fix: use jsii 5.4 to build package (#1252))
       "type": "build"
     },
     {
