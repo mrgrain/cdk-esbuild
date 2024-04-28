@@ -1,10 +1,6 @@
 module lambda
 
-<<<<<<< HEAD
 go 1.18
-=======
-go 1.21.2
->>>>>>> beb5413 (chore: fix codeql go config (#1255))
 
 require (
 	github.com/aws/aws-cdk-go/awscdk/v2 v2.59.0
