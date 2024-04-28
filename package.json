@@ -62,29 +62,17 @@
     "jest": "^27",
     "jest-junit": "^15",
     "jest-mock": "^27.5.1",
-<<<<<<< HEAD
     "jsii": "1.x",
     "jsii-diff": "^1.97.0",
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.97.0",
     "jsii-rosetta": "1.x",
-=======
-    "jsii": "5.4.x",
-    "jsii-diff": "^1.97.0",
-    "jsii-docgen": "^3.8.31",
-    "jsii-pacmak": "^1.97.0",
-    "jsii-rosetta": "5.4.x",
->>>>>>> 9bda400 (fix: use jsii 5.4 to build package (#1252))
     "projen": "^0.81.3",
     "standard-version": "^9",
     "ts-jest": "^27",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
-<<<<<<< HEAD
     "typescript": "4.9.x"
-=======
-    "typescript": "5.4.x"
->>>>>>> 9bda400 (fix: use jsii 5.4 to build package (#1252))
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.12.0",
