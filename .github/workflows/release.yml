@@ -66,7 +66,12 @@ jobs:
         run: npx projen publish:git:v5
   release_github:
     name: Publish to GitHub Releases
-    needs: release
+    needs:
+      - release
+      - release_npm
+      - release_pypi
+      - release_nuget
+      - release_golang
     runs-on: ubuntu-latest
     permissions:
       contents: write
