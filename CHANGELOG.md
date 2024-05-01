@@ -1,4 +1,16 @@
 
+## [5.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.16...v5.1.0) (2024-05-01)
+
+
+### Features
+
+* esbuild 0.20.x ([#1251](https://github.com/mrgrain/cdk-esbuild/issues/1251)) ([087c5ee](https://github.com/mrgrain/cdk-esbuild/commit/087c5eebe8c8f016bfb9e65a079479bc9279c3ec))
+
+
+### Bug Fixes
+
+* use jsii 5.4 to build package ([#1252](https://github.com/mrgrain/cdk-esbuild/issues/1252)) ([9bda400](https://github.com/mrgrain/cdk-esbuild/commit/9bda400e5b169dbdb2993c43b694951bb2c20656))
+
 ### [5.0.16](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.15...v5.0.16) (2024-04-15)
 
 ### [5.0.15](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.14...v5.0.15) (2024-04-01)
