@@ -333,6 +333,8 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
+// Use official github-app-token action
+project.github?.actions.set('tibdex/github-app-token', 'actions/create-github-app-token@v1');
 
 // Synth project
 project.synth();

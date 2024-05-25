@@ -64,10 +64,10 @@ export class StableReleases {
         JsonPatch.add('/jobs/release/steps/0', {
           name: 'Generate token',
           id: 'generate_token',
-          uses: 'tibdex/github-app-token@021a2405c7f990db57f5eae5397423dcc554159c',
+          uses: 'actions/create-github-app-token@v1',
           with: {
-            app_id: '${{ secrets.PROJEN_APP_ID }}',
-            private_key: ' ${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
+            'app-id': '${{ secrets.PROJEN_APP_ID }}',
+            'private-key': ' ${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
           },
         }),
         JsonPatch.add('/jobs/release/steps/1/with/token', '${{ steps.generate_token.outputs.token }}'),
