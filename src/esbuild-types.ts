@@ -321,6 +321,7 @@ export interface ResolveOptions {
   resolveDir?: string;
   kind?: ImportKind;
   pluginData?: any;
+  with?: Record<string, string>;
 }
 
 /** Documentation: https://esbuild.github.io/plugins/#resolve-results */
@@ -360,6 +361,7 @@ export interface OnResolveArgs {
   resolveDir: string;
   kind: ImportKind;
   pluginData: any;
+  with: Record<string, string>;
 }
 
 export type ImportKind =
