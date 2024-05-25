@@ -1,6 +1,6 @@
 import { DynamicPackage } from './dynamic-package';
 
-const dynamicEsbuild = new DynamicPackage('esbuild@^0.20.0');
+const dynamicEsbuild = new DynamicPackage('esbuild@^0.21.0');
 
 export const Esbuild = {
   name: dynamicEsbuild.name,
