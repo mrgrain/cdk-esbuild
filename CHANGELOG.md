@@ -1,4 +1,11 @@
 
+## [5.2.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.1.0...v5.2.0) (2024-05-25)
+
+
+### Features
+
+* esbuild 0.21.x ([#1272](https://github.com/mrgrain/cdk-esbuild/issues/1272)) ([7871c0b](https://github.com/mrgrain/cdk-esbuild/commit/7871c0b39c9046e39905c6a21d369ebcfc0359dc))
+
 ## [5.1.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.0.16...v5.1.0) (2024-05-01)
 
 
