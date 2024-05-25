@@ -1,4 +1,11 @@
 
+## [4.4.0](https://github.com/mrgrain/cdk-esbuild/compare/v4.3.8...v4.4.0) (2024-05-25)
+
+
+### Features
+
+* esbuild 0.20.x (backport [#1251](https://github.com/mrgrain/cdk-esbuild/issues/1251)) ([#1253](https://github.com/mrgrain/cdk-esbuild/issues/1253)) ([3b5de0f](https://github.com/mrgrain/cdk-esbuild/commit/3b5de0f518509b4782c74bd284cdac8802c2d3c6))
+
 ### [4.3.8](https://github.com/mrgrain/cdk-esbuild/compare/v4.3.7...v4.3.8) (2024-04-15)
 
 ### [4.3.7](https://github.com/mrgrain/cdk-esbuild/compare/v4.3.6...v4.3.7) (2024-03-15)
