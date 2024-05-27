@@ -67,7 +67,7 @@
     "jsii-docgen": "^3.8.31",
     "jsii-pacmak": "^1.98.0",
     "jsii-rosetta": "5.4.x",
-    "projen": "^0.81.15",
+    "projen": "^0.81.16",
     "standard-version": "^9",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
@@ -94,6 +94,7 @@
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
   "version": "0.0.0",
   "jest": {
+    "coverageProvider": "v8",
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/examples/"
