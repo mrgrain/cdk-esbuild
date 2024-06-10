@@ -64,7 +64,7 @@
     "jest-mock": "^27.5.1",
     "jsii": "5.4.x",
     "jsii-diff": "^1.99.0",
-    "jsii-docgen": "^3.8.31",
+    "jsii-docgen": "^10.4.14",
     "jsii-pacmak": "^1.99.0",
     "jsii-rosetta": "5.4.x",
     "projen": "^0.82.6",
