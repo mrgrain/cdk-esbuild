@@ -208,7 +208,8 @@ project.package.addField('jsiiRosetta', {
   strict: true,
   exampleDependencies: {
     'aws-cdk-lib': '2.139.0',
-    '@mrgrain/cdk-esbuild': '^4',
+    '@mrgrain/cdk-esbuild': '^5',
+    'constructs': '^10',
     '@types/node': '^18',
   },
 });

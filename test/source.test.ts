@@ -19,6 +19,12 @@ describe('source', () => {
             publicReadAccess: true,
             removalPolicy: RemovalPolicy.DESTROY,
             websiteIndexDocument: 'index.html',
+            blockPublicAccess: {
+              blockPublicAcls: false,
+              blockPublicPolicy: false,
+              ignorePublicAcls: false,
+              restrictPublicBuckets: false,
+            },
           });
 
           new BucketDeployment(stack, 'DeployWebsite', {
@@ -52,6 +58,12 @@ describe('source', () => {
             publicReadAccess: true,
             removalPolicy: RemovalPolicy.DESTROY,
             websiteIndexDocument: 'index.html',
+            blockPublicAccess: {
+              blockPublicAcls: false,
+              blockPublicPolicy: false,
+              ignorePublicAcls: false,
+              restrictPublicBuckets: false,
+            },
           });
 
           new BucketDeployment(stack, 'DeployWebsite', {
@@ -88,6 +100,12 @@ describe('source', () => {
           publicReadAccess: true,
           removalPolicy: RemovalPolicy.DESTROY,
           websiteIndexDocument: 'index.html',
+          blockPublicAccess: {
+            blockPublicAcls: false,
+            blockPublicPolicy: false,
+            ignorePublicAcls: false,
+            restrictPublicBuckets: false,
+          },
         });
 
         new BucketDeployment(stack, 'DeployWebsite', {
@@ -114,6 +132,12 @@ describe('source', () => {
           publicReadAccess: true,
           removalPolicy: RemovalPolicy.DESTROY,
           websiteIndexDocument: 'index.html',
+          blockPublicAccess: {
+            blockPublicAcls: false,
+            blockPublicPolicy: false,
+            ignorePublicAcls: false,
+            restrictPublicBuckets: false,
+          },
         });
 
         new BucketDeployment(stack, 'DeployWebsite', {
@@ -145,6 +169,12 @@ describe('source', () => {
           publicReadAccess: true,
           removalPolicy: RemovalPolicy.DESTROY,
           websiteIndexDocument: 'index.html',
+          blockPublicAccess: {
+            blockPublicAcls: false,
+            blockPublicPolicy: false,
+            ignorePublicAcls: false,
+            restrictPublicBuckets: false,
+          },
         });
 
         new BucketDeployment(stack, 'DeployWebsite', {
@@ -197,6 +227,12 @@ describe('source', () => {
         publicReadAccess: true,
         removalPolicy: RemovalPolicy.DESTROY,
         websiteIndexDocument: 'index.html',
+        blockPublicAccess: {
+          blockPublicAcls: false,
+          blockPublicPolicy: false,
+          ignorePublicAcls: false,
+          restrictPublicBuckets: false,
+        },
       });
 
       new BucketDeployment(stack, 'MultipleAssets', {
