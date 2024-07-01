@@ -16,9 +16,17 @@ export function nodeMajorVersion(): number {
 export function defaultPlatformProps(options?: BuildOptions | TransformOptions): {
   platform?: Platform;
   target?: string | string[];
+  packages?: any;
 } {
   if (!options?.platform || options?.platform === 'node') {
-    return { platform: 'node', target: 'node' + nodeMajorVersion() };
+    return {
+      platform: 'node',
+      target: 'node' + nodeMajorVersion(),
+
+      // Breaking change in esbuild v0.22.0 that is likely not desireable for this user base
+      // @see https://github.com/evanw/esbuild/commit/196dcad1954cdd462cd41ca6bd93ca528b15c0f8
+      packages: 'bundle',
+    };
   }
 
   return {};
