@@ -1,4 +1,6 @@
 
+### [4.4.3](https://github.com/mrgrain/cdk-esbuild/compare/v4.4.2...v4.4.3) (2024-08-15)
+
 ### [4.4.2](https://github.com/mrgrain/cdk-esbuild/compare/v4.4.1...v4.4.2) (2024-07-15)
 
 ### [4.4.1](https://github.com/mrgrain/cdk-esbuild/compare/v4.4.0...v4.4.1) (2024-06-15)
