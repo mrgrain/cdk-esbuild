@@ -39,7 +39,7 @@
           "builtin": "release/bump-version"
         }
       ],
-      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
     },
     "clobber": {
       "name": "clobber",
@@ -292,7 +292,7 @@
           "exec": "git push --follow-tags origin v4"
         }
       ],
-      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
     },
     "publish:git:v5": {
       "name": "publish:git:v5",
@@ -314,7 +314,7 @@
           "exec": "git push --follow-tags origin v5"
         }
       ],
-      "condition": "! git log --oneline -1 | grep -q \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
     },
     "release:v4": {
       "name": "release:v4",
