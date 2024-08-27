@@ -32,7 +32,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -404,7 +405,8 @@
         "CHANGELOG": "dist/changelog.md",
         "BUMPFILE": "dist/version.txt",
         "RELEASETAG": "dist/releasetag.txt",
-        "RELEASE_TAG_PREFIX": ""
+        "RELEASE_TAG_PREFIX": "",
+        "BUMP_PACKAGE": "commit-and-tag-version@^12"
       },
       "steps": [
         {
@@ -420,13 +422,13 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,eslint-import-resolver-typescript,eslint-plugin-import,jest-mock,jsii-diff,jsii-docgen,jsii-pacmak,projen,ts-morph,ts-node"
+          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,eslint-import-resolver-typescript,eslint-plugin-import,jest-mock,jsii-diff,jsii-pacmak,projen,ts-morph,ts-node"
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/aws-synthetics-alpha @aws-cdk/integ-runner @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen standard-version ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "exec": "npm update @aws-cdk/aws-synthetics-alpha @aws-cdk/integ-runner @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest-junit jest-mock jest jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
