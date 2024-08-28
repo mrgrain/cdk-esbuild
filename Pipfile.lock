@@ -18,11 +18,11 @@
     "default": {
         "attrs": {
             "hashes": [
-                "sha256:935dc3b529c262f6cf76e50877d35a4bd3c1de194fd41f47a2b7ae8f19971f30",
-                "sha256:99b87a485a5820b23b879f04c2305b44b951b502fd64be915879d77a7e8fc6f1"
+                "sha256:5cfb1b9148b5b086569baec03f20d7b6bf3bcacc9a42bebf87ffaaca362f6346",
+                "sha256:81921eb96de3191c8258c199618104dd27ac608d9366f5e35d011eae1867ede2"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==23.2.0"
+            "version": "==24.2.0"
         },
         "aws-cdk-lib": {
             "hashes": [
@@ -92,11 +92,11 @@
         },
         "jsii": {
             "hashes": [
-                "sha256:9e0f54acd55d8ea7a0bfd7e4a3dccacf6ca3466a8d67d47703594cffedad382a",
-                "sha256:ee044964a0db600d9dcde85b4763beb996b3f56a4c951911eb3ff073deeb8603"
+                "sha256:0cd33c1e92ffb2c4ef0fb313e0e9dc7a085c5a8c5698d01310153fafff96c198",
+                "sha256:7d9691757d8a072c67ab0fa7e315e8dfa0d9022fa82c7197f0cd00f549b7f864"
             ],
             "markers": "python_version ~= '3.8'",
-            "version": "==1.102.0"
+            "version": "==1.103.0"
         },
         "mrgrain.cdk-esbuild": {
             "hashes": [
