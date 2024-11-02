@@ -3,8 +3,6 @@ import { basename, join } from 'path';
 import { Component, JsonPatch, awscdk } from 'projen';
 import { Pipenv } from './Pipenv';
 
-const INTEG_CHECKOUT_STEP = 4;
-
 export interface IntegrationTestsOptions {
   /**
    * Test source tree.
@@ -125,8 +123,8 @@ export class IntegrationTests extends Component {
       },
     );
 
-    const pythonWorkflowName = 'integ-python';
-    this.project.buildWorkflow?.addPostBuildJobCommands(pythonWorkflowName, [
+    const pythonJobName = 'integ-python';
+    this.project.buildWorkflow?.addPostBuildJobCommands(pythonJobName, [
       'pip install pipenv',
       'npx projen integ:python',
     ], {
@@ -141,9 +139,7 @@ export class IntegrationTests extends Component {
         },
       },
     });
-    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
-      JsonPatch.add(`/jobs/${pythonWorkflowName}/steps/${INTEG_CHECKOUT_STEP}/with/clean`, false),
-    );
+    this.fixIntegTestJob(pythonJobName);
 
     // Pipenv
     this.project.addPackageIgnore('Pipfile');
@@ -187,8 +183,8 @@ export class IntegrationTests extends Component {
       },
     );
 
-    const goWorkflowName = 'integ-go';
-    this.project.buildWorkflow?.addPostBuildJobCommands(goWorkflowName, [
+    const goJobName = 'integ-go';
+    this.project.buildWorkflow?.addPostBuildJobCommands(goJobName, [
       'tar --strip-components=1 -xzvf dist/js/*.tgz -C .',
       'npx projen integ:go',
     ], {
@@ -203,9 +199,7 @@ export class IntegrationTests extends Component {
         },
       },
     });
-    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
-      JsonPatch.add(`/jobs/${goWorkflowName}/steps/${INTEG_CHECKOUT_STEP}/with/clean`, false),
-    );
+    this.fixIntegTestJob(goJobName);
 
     // go.mod
     this.project.addPackageIgnore('go.mod');
@@ -229,7 +223,16 @@ export class IntegrationTests extends Component {
     //   ],
     // });
   }
+
+  private fixIntegTestJob(name: string) {
+    const POST_BUILD_ARTIFACTS_STEP = 2;
+    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
+      JsonPatch.remove(`/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP+1}`),
+      JsonPatch.move(`/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP}`, `/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP+1}`),
+    );
+  }
 }
+
 
 function matchDir(path: string, patterns: {
   [id: string]: RegExp;
