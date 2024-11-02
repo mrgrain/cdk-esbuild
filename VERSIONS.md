@@ -14,7 +14,7 @@ Only the latest release of each major version is supported.
 
 | Tag         | Description                                          | Major version | Will the version change?     |
 | ----------- | ---------------------------------------------------- | ------------- | ---------------------------- |
-| `latest`    | The latest stable release of the package             | `v4`          | Yes, with new major versions |
+| `latest`    | The latest stable release of the package             | `v5`          | Yes, with new major versions |
 | `latest-v*` | The latest stable release of each major version      | n/a           | No                           |
-| `cdk-v2`    | The latest stable release compatible with AWS CDK v2 | `v4`          | Yes, with new major versions |
+| `cdk-v2`    | The latest stable release compatible with AWS CDK v2 | `v5`          | Yes, with new major versions |
 | `cdk-v1`    | The latest stable release compatible with AWS CDK v1 | `v2`          | No                           |
