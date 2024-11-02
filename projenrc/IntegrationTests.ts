@@ -1,8 +1,7 @@
 import { readdirSync } from 'fs';
 import { basename, join } from 'path';
-import { Component, awscdk } from 'projen';
+import { Component, JsonPatch, awscdk } from 'projen';
 import { Pipenv } from './Pipenv';
-
 
 export interface IntegrationTestsOptions {
   /**
@@ -85,7 +84,7 @@ export class IntegrationTests extends Component {
     project.addDevDeps('@aws-cdk/integ-runner@latest');
     project.addGitIgnore('cdk-integ.out.*');
 
-    // Langugages
+    // Languages
     const jsiiTargets = project.package.manifest?.jsii?.targets;
 
     if (jsiiTargets.python && hasTestFor.python) {
@@ -111,7 +110,7 @@ export class IntegrationTests extends Component {
     // Workflow
     this.project.buildWorkflow?.addPostBuildSteps(
       {
-        uses: 'actions/setup-python@v4',
+        uses: 'actions/setup-python@v5',
         with: { 'python-version': '3.x' },
       },
       {
@@ -120,18 +119,17 @@ export class IntegrationTests extends Component {
           'npx projen package:python',
           'pip install pipenv',
           'pipenv lock',
-          'rm -rf dist/python',
         ].join('\n'),
       },
     );
-    this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
+
+    const pythonJobName = 'integ-python';
+    this.project.buildWorkflow?.addPostBuildJobCommands(pythonJobName, [
       'pip install pipenv',
-      'mv dist .repo',
-      'cd .repo',
-      'npm ci',
-      'npx projen package:python',
       'npx projen integ:python',
     ], {
+      checkoutRepo: true,
+      installDeps: true,
       tools: {
         python: {
           version: '3.x',
@@ -141,6 +139,7 @@ export class IntegrationTests extends Component {
         },
       },
     });
+    this.fixIntegTestJob(pythonJobName);
 
     // Pipenv
     this.project.addPackageIgnore('Pipfile');
@@ -158,7 +157,7 @@ export class IntegrationTests extends Component {
     moduleName: string;
     packageName?: string;
   }) {
-    const goVersion = '1.16'; // same version as package uses
+    const goVersion = '1.18'; // same version as package uses
     // const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
     // const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
     // const goRepository = goTarget.moduleName;
@@ -172,25 +171,24 @@ export class IntegrationTests extends Component {
     // Workflow
     this.project.buildWorkflow?.addPostBuildSteps(
       {
-        uses: 'actions/setup-go@v3',
-        with: { 'go-version': '^1.16.0' },
+        uses: 'actions/setup-go@v5',
+        with: { 'go-version': '^1.18.0' },
       },
       {
         name: 'Update go.mod',
         run: [
           'npx projen package:go',
           'go mod tidy',
-          'rm -rf dist/go',
         ].join('\n'),
       },
     );
-    this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
-      'mv dist .repo',
-      'cd .repo',
-      'npm ci',
-      'npx projen package:go',
+
+    const goJobName = 'integ-go';
+    this.project.buildWorkflow?.addPostBuildJobCommands(goJobName, [
       'npx projen integ:go',
     ], {
+      checkoutRepo: true,
+      installDeps: true,
       tools: {
         go: {
           version: `^${goVersion}.0`,
@@ -200,6 +198,7 @@ export class IntegrationTests extends Component {
         },
       },
     });
+    this.fixIntegTestJob(goJobName);
 
     // go.mod
     this.project.addPackageIgnore('go.mod');
@@ -223,7 +222,16 @@ export class IntegrationTests extends Component {
     //   ],
     // });
   }
+
+  private fixIntegTestJob(name: string) {
+    const POST_BUILD_ARTIFACTS_STEP = 2;
+    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
+      JsonPatch.remove(`/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP+1}`),
+      JsonPatch.move(`/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP}`, `/jobs/${name}/steps/${POST_BUILD_ARTIFACTS_STEP+1}`),
+    );
+  }
 }
+
 
 function matchDir(path: string, patterns: {
   [id: string]: RegExp;

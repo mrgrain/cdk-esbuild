@@ -67,7 +67,7 @@ export class StableReleases {
           uses: 'actions/create-github-app-token@v1',
           with: {
             'app-id': '${{ secrets.PROJEN_APP_ID }}',
-            'private-key': ' ${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
+            'private-key': '${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
           },
         }),
         JsonPatch.add('/jobs/release/steps/1/with/token', '${{ steps.generate_token.outputs.token }}'),
@@ -78,9 +78,9 @@ export class StableReleases {
 
       // Update changelog
       project.release?.publisher?.publishToGit({
-        changelogFile: 'dist/dist/changelog.md',
-        versionFile: 'dist/dist/version.txt',
-        releaseTagFile: 'dist/dist/releasetag.txt',
+        changelogFile: 'dist/changelog.md',
+        versionFile: 'dist/version.txt',
+        releaseTagFile: 'dist/releasetag.txt',
         projectChangelogFile: 'CHANGELOG.md',
         gitBranch: branch,
       });
@@ -95,7 +95,7 @@ export class StableReleases {
       }
 
       // Go branch
-      releaseWorkflow?.patch(JsonPatch.add('/jobs/release_golang/steps/9/env/GIT_BRANCH', branch));
+      releaseWorkflow?.patch(JsonPatch.add('/jobs/release_golang/steps/11/env/GIT_BRANCH', branch));
 
       // npm provenance information
       releaseWorkflow?.patch(

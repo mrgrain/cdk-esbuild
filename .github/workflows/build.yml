@@ -27,7 +27,7 @@ jobs:
         run: npm install
       - name: build
         run: npx projen build
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: Update Pipfile.lock
@@ -35,39 +35,37 @@ jobs:
           npx projen package:python
           pip install pipenv
           pipenv lock
-          rm -rf dist/python
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         with:
-          go-version: ^1.16.0
+          go-version: ^1.18.0
       - name: Update go.mod
         run: |-
           npx projen package:go
           go mod tidy
-          rm -rf dist/go
       - name: Find mutations
         id: self_mutation
         run: |-
           git add .
-          git diff --staged --patch --exit-code > .repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
+          git diff --staged --patch --exit-code > repo.patch || echo "self_mutation_happened=true" >> $GITHUB_OUTPUT
         working-directory: ./
       - name: Upload patch
         if: steps.self_mutation.outputs.self_mutation_happened
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
-          name: .repo.patch
-          path: .repo.patch
+          name: repo.patch
+          path: repo.patch
           overwrite: true
       - name: Fail build on mutation
         if: steps.self_mutation.outputs.self_mutation_happened
         run: |-
           echo "::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch."
-          cat .repo.patch
+          cat repo.patch
           exit 1
       - name: Backup artifact permissions
         run: cd dist && getfacl -R . > permissions-backup.acl
         continue-on-error: true
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.3.6
         with:
           name: build-artifact
           path: dist
@@ -94,10 +92,10 @@ jobs:
       - name: Download patch
         uses: actions/download-artifact@v4
         with:
-          name: .repo.patch
+          name: repo.patch
           path: ${{ runner.temp }}
       - name: Apply patch
-        run: '[ -s ${{ runner.temp }}/.repo.patch ] && git apply ${{ runner.temp }}/.repo.patch || echo "Empty patch. Skipping."'
+        run: '[ -s ${{ runner.temp }}/repo.patch ] && git apply ${{ runner.temp }}/repo.patch || echo "Empty patch. Skipping."'
       - name: Set git identity
         run: |-
           git config user.name "github-actions"
@@ -113,7 +111,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions: {}
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -126,19 +124,27 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: .repo
       - name: Install Dependencies
         run: cd .repo && npm ci
+      - name: Extract build artifact
+        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
+      - name: Move build artifact out of the way
+        run: mv dist dist.old
       - name: Create js artifact
         run: cd .repo && npx projen package:js
-      - name: Collect js Artifact
+      - name: Collect js artifact
         run: mv .repo/dist dist
   package-python:
     needs: build
     runs-on: ubuntu-latest
     permissions: {}
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -154,19 +160,27 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: .repo
       - name: Install Dependencies
         run: cd .repo && npm ci
+      - name: Extract build artifact
+        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
+      - name: Move build artifact out of the way
+        run: mv dist dist.old
       - name: Create python artifact
         run: cd .repo && npx projen package:python
-      - name: Collect python Artifact
+      - name: Collect python artifact
         run: mv .repo/dist dist
   package-dotnet:
     needs: build
     runs-on: ubuntu-latest
     permissions: {}
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -182,19 +196,27 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: .repo
       - name: Install Dependencies
         run: cd .repo && npm ci
+      - name: Extract build artifact
+        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
+      - name: Move build artifact out of the way
+        run: mv dist dist.old
       - name: Create dotnet artifact
         run: cd .repo && npx projen package:dotnet
-      - name: Collect dotnet Artifact
+      - name: Collect dotnet artifact
         run: mv .repo/dist dist
   package-go:
     needs: build
     runs-on: ubuntu-latest
     permissions: {}
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -210,20 +232,28 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          path: .repo
       - name: Install Dependencies
         run: cd .repo && npm ci
+      - name: Extract build artifact
+        run: tar --strip-components=1 -xzvf dist/js/*.tgz -C .repo
+      - name: Move build artifact out of the way
+        run: mv dist dist.old
       - name: Create go artifact
         run: cd .repo && npx projen package:go
-      - name: Collect go Artifact
+      - name: Collect go artifact
         run: mv .repo/dist dist
   integ-python:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
@@ -231,57 +261,57 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
-      - name: Restore build artifact permissions
-        run: cd dist && setfacl --restore=permissions-backup.acl
-        continue-on-error: true
+      - name: Install dependencies
+        run: npm ci
       - run: |-
           pip install pipenv
-          mv dist .repo
-          cd .repo
-          npm ci
-          npx projen package:python
           npx projen integ:python
   integ-go:
     needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    if: "! needs.build.outputs.self_mutation_happened"
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
           node-version: 16.x
       - uses: actions/setup-go@v5
         with:
-          go-version: ^1.16.0
+          go-version: ^1.18.0
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-artifact
           path: dist
-      - name: Restore build artifact permissions
-        run: cd dist && setfacl --restore=permissions-backup.acl
-        continue-on-error: true
-      - run: |-
-          mv dist .repo
-          cd .repo
-          npm ci
-          npx projen package:go
-          npx projen integ:go
+      - name: Install dependencies
+        run: npm ci
+      - run: npx projen integ:go
   test-latest-versions:
     needs: build
     runs-on: ubuntu-latest
-    permissions: {}
-    if: "! needs.build.outputs.self_mutation_happened"
+    permissions:
+      contents: read
+    if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -290,11 +320,15 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
-      - name: Bump CDK versions
-        run: cd .repo && npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
-      - name: Install Dependencies
-        run: cd .repo && npm install
-      - name: Run tests
-        run: cd .repo && npx projen test
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Install dependencies
+        run: npm ci
+      - run: |-
+          npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
+          npm install
+          npx projen compile
+          npx projen test
