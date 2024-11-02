@@ -3,7 +3,6 @@ import { Component, TextFile } from 'projen';
 
 export interface VersionsFileOptions {
   path?: string;
-  currentBranch: string;
   versions: {
     [key: string]: {
       minCdk: string;
@@ -16,10 +15,11 @@ export interface VersionsFileOptions {
 export class VersionsFile extends Component {
   public constructor(scope: IConstruct, {
     path = 'VERSIONS.md',
-    currentBranch,
     versions,
   }: VersionsFileOptions) {
     super(scope, `versions#${path}`);
+
+    const latestVersion = Object.keys(versions).sort().at(-1);
 
     const table = Object.entries(versions).map(([version, info]) => {
       const base = `| ${version} | ^${info.minCdk} | >=${info.minNode} |`;
@@ -55,9 +55,9 @@ ${table}
 
 | Tag         | Description                                          | Major version | Will the version change?     |
 | ----------- | ---------------------------------------------------- | ------------- | ---------------------------- |
-| \`latest\`    | The latest stable release of the package             | \`${currentBranch}\`          | Yes, with new major versions |
+| \`latest\`    | The latest stable release of the package             | \`${latestVersion}\`          | Yes, with new major versions |
 | \`latest-v*\` | The latest stable release of each major version      | n/a           | No                           |
-| \`cdk-v2\`    | The latest stable release compatible with AWS CDK v2 | \`${currentBranch}\`          | Yes, with new major versions |
+| \`cdk-v2\`    | The latest stable release compatible with AWS CDK v2 | \`${latestVersion}\`          | Yes, with new major versions |
 | \`cdk-v1\`    | The latest stable release compatible with AWS CDK v1 | \`v2\`          | No                           |
 `.split('\n'),
     });
