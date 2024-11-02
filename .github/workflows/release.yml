@@ -137,6 +137,17 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: npx -p publib@latest publib-npm
+<<<<<<< HEAD
+=======
+      - name: Update tags
+        run: |-
+          version=`cat dist.old/version.txt`
+          echo $version
+          npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
+        env:
+          NPM_REGISTRY: registry.npmjs.org
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+>>>>>>> 2b19920 (ci: fix release tagging (#1389))
     env:
       NPM_CONFIG_PROVENANCE: "true"
   release_pypi:

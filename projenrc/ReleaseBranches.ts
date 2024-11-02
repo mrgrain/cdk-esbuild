@@ -26,7 +26,6 @@ export class StableReleases {
 
   public bind(project: typescript.TypeScriptProject) {
     new VersionsFile(project, {
-      currentBranch: this.currentBranch,
       versions: Object.fromEntries(Object.entries(this.branches).map(([version, info]) => [version,
         {
           minCdk: info.cdkVersion,
@@ -116,7 +115,7 @@ export class StableReleases {
       return {
         name: 'Update tags',
         run: [
-          'version=`cat dist/version.txt`',
+          'version=`cat dist.old/version.txt`',
           'echo $version',
         ].concat(tags.map(tag => `npm dist-tag add ${project.package.packageName}@$version ${tag}`)).join('\n'),
         env: {
