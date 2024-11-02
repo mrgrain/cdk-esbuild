@@ -139,7 +139,7 @@ jobs:
         run: npx -p publib@latest publib-npm
       - name: Update tags
         run: |-
-          version=`cat dist/version.txt`
+          version=`cat dist.old/version.txt`
           echo $version
           npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
         env:
