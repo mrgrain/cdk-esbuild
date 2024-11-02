@@ -305,9 +305,7 @@ jobs:
           path: dist
       - name: Install dependencies
         run: npm ci
-      - run: |-
-          tar --strip-components=1 -xzvf dist/js/*.tgz -C .
-          npx projen integ:go
+      - run: npx projen integ:go
   test-latest-versions:
     needs: build
     runs-on: ubuntu-latest
