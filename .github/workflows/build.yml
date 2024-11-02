@@ -277,8 +277,8 @@ jobs:
         continue-on-error: true
       - run: |-
           pip install pipenv
-          mv dist repo
-          cd repo
+          mv dist .repo
+          cd .repo
           npm ci
           npx projen package:python
           npx projen integ:python
@@ -303,10 +303,16 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Install dependencies
+        run: npm ci
       - run: |-
-          mv dist repo
-          cd repo
-          npm ci
+          tar --strip-components=1 -xzvf dist/js/*.tgz -C .
+          mv dist dist.old
           npx projen package:go
           npx projen integ:go
   test-latest-versions:

@@ -3,7 +3,7 @@ import { basename, join } from 'path';
 import { Component, awscdk } from 'projen';
 import { Pipenv } from './Pipenv';
 
-const REPO_TEMP_DIRECTORY = 'repo';
+const REPO_TEMP_DIRECTORY = '.repo';
 
 export interface IntegrationTestsOptions {
   /**
@@ -186,12 +186,13 @@ export class IntegrationTests extends Component {
       },
     );
     this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
-      `mv dist ${REPO_TEMP_DIRECTORY}`,
-      `cd ${REPO_TEMP_DIRECTORY}`,
-      'npm ci',
+      'tar --strip-components=1 -xzvf dist/js/*.tgz -C .',
+      'mv dist dist.old',
       'npx projen package:go',
       'npx projen integ:go',
     ], {
+      checkoutRepo: true,
+      installDeps: true,
       tools: {
         go: {
           version: `^${goVersion}.0`,
