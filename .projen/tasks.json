@@ -422,11 +422,7 @@
       },
       "steps": [
         {
-<<<<<<< HEAD
           "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --dep=dev,peer,prod,optional --filter=@types/eslint,eslint-import-resolver-typescript,eslint-plugin-import,jest-mock,jsii-diff,jsii-pacmak,projen,ts-morph,ts-node"
-=======
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jest-mock,jsii-diff,jsii-pacmak,projen,ts-jest,ts-morph,ts-node"
->>>>>>> ae2ed79 (chore(deps): upgrade dependencies (#1383))
         },
         {
           "exec": "npm install"

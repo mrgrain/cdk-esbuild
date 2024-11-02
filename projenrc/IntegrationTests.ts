@@ -185,7 +185,6 @@ export class IntegrationTests extends Component {
 
     const goJobName = 'integ-go';
     this.project.buildWorkflow?.addPostBuildJobCommands(goJobName, [
-      'tar --strip-components=1 -xzvf dist/js/*.tgz -C .',
       'npx projen integ:go',
     ], {
       checkoutRepo: true,

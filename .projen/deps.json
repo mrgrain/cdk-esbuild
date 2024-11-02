@@ -21,11 +21,7 @@
     },
     {
       "name": "@types/node",
-<<<<<<< HEAD
       "version": "^16 <= 16.18.78",
-=======
-      "version": "ts5.4",
->>>>>>> ae2ed79 (chore(deps): upgrade dependencies (#1383))
       "type": "build"
     },
     {
