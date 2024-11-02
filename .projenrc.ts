@@ -175,31 +175,18 @@ new IntegrationTests(project, {
 
 
 // test against latest versions
-const REPO_TEMP_DIRECTORY = '.repo';
-project.buildWorkflow?.addPostBuildJob('test-latest-versions', {
+project.buildWorkflow?.addPostBuildJobCommands('test-latest-versions', [
+  'npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"',
+  project.package.installAndUpdateLockfileCommand,
+  project.runTaskCommand(project.compileTask),
+  project.runTaskCommand(project.testTask),
+], {
+  checkoutRepo: true,
+  installDeps: true,
   runsOn: ['ubuntu-latest'],
-  permissions: {},
   tools: {
-    node: { version: '20.x' },
+    node: { version: '22.x' },
   },
-  steps: [
-    {
-      name: 'Prepare Repository',
-      run: `mv ${project.artifactsDirectory} ${'.repo'}`,
-    },
-    {
-      name: 'Bump CDK versions',
-      run: `cd ${REPO_TEMP_DIRECTORY} && npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"`,
-    },
-    {
-      name: 'Install Dependencies',
-      run: `cd ${REPO_TEMP_DIRECTORY} && ${project.package.installAndUpdateLockfileCommand}`,
-    },
-    {
-      name: 'Run tests',
-      run: `cd ${REPO_TEMP_DIRECTORY} && ${project.runTaskCommand(project.testTask)}`,
-    },
-  ],
 });
 
 

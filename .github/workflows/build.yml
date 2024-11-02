@@ -27,7 +27,7 @@ jobs:
         run: npm install
       - name: build
         run: npx projen build
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: 3.x
       - name: Update Pipfile.lock
@@ -36,9 +36,9 @@ jobs:
           pip install pipenv
           pipenv lock
           rm -rf dist/python
-      - uses: actions/setup-go@v3
+      - uses: actions/setup-go@v5
         with:
-          go-version: ^1.16.0
+          go-version: ^1.18.0
       - name: Update go.mod
         run: |-
           npx projen package:go
@@ -277,8 +277,8 @@ jobs:
         continue-on-error: true
       - run: |-
           pip install pipenv
-          mv dist .repo
-          cd .repo
+          mv dist repo
+          cd repo
           npm ci
           npx projen package:python
           npx projen integ:python
@@ -294,7 +294,7 @@ jobs:
           node-version: 18.x
       - uses: actions/setup-go@v5
         with:
-          go-version: ^1.16.0
+          go-version: ^1.18.0
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -304,20 +304,21 @@ jobs:
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
       - run: |-
-          mv dist .repo
-          cd .repo
+          mv dist repo
+          cd repo
           npm ci
           npx projen package:go
           npx projen integ:go
   test-latest-versions:
     needs: build
     runs-on: ubuntu-latest
-    permissions: {}
+    permissions:
+      contents: read
     if: ${{ !needs.build.outputs.self_mutation_happened }}
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
@@ -326,11 +327,15 @@ jobs:
       - name: Restore build artifact permissions
         run: cd dist && setfacl --restore=permissions-backup.acl
         continue-on-error: true
-      - name: Prepare Repository
-        run: mv dist .repo
-      - name: Bump CDK versions
-        run: cd .repo && npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
-      - name: Install Dependencies
-        run: cd .repo && npm install
-      - name: Run tests
-        run: cd .repo && npx projen test
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Install dependencies
+        run: npm ci
+      - run: |-
+          npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
+          npm install
+          npx projen compile
+          npx projen test
