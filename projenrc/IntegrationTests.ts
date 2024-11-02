@@ -1,9 +1,9 @@
 import { readdirSync } from 'fs';
 import { basename, join } from 'path';
-import { Component, awscdk } from 'projen';
+import { Component, JsonPatch, awscdk } from 'projen';
 import { Pipenv } from './Pipenv';
 
-const REPO_TEMP_DIRECTORY = '.repo';
+const INTEG_CHECKOUT_STEP = 4;
 
 export interface IntegrationTestsOptions {
   /**
@@ -121,18 +121,17 @@ export class IntegrationTests extends Component {
           'npx projen package:python',
           'pip install pipenv',
           'pipenv lock',
-          'rm -rf dist/python',
         ].join('\n'),
       },
     );
-    this.project.buildWorkflow?.addPostBuildJobCommands('integ-python', [
+
+    const pythonWorkflowName = 'integ-python';
+    this.project.buildWorkflow?.addPostBuildJobCommands(pythonWorkflowName, [
       'pip install pipenv',
-      `mv dist ${REPO_TEMP_DIRECTORY}`,
-      `cd ${REPO_TEMP_DIRECTORY}`,
-      'npm ci',
-      'npx projen package:python',
       'npx projen integ:python',
     ], {
+      checkoutRepo: true,
+      installDeps: true,
       tools: {
         python: {
           version: '3.x',
@@ -142,6 +141,9 @@ export class IntegrationTests extends Component {
         },
       },
     });
+    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
+      JsonPatch.add(`/jobs/${pythonWorkflowName}/steps/${INTEG_CHECKOUT_STEP}/with/clean`, false),
+    );
 
     // Pipenv
     this.project.addPackageIgnore('Pipfile');
@@ -181,14 +183,13 @@ export class IntegrationTests extends Component {
         run: [
           'npx projen package:go',
           'go mod tidy',
-          'rm -rf dist/go',
         ].join('\n'),
       },
     );
-    this.project.buildWorkflow?.addPostBuildJobCommands('integ-go', [
+
+    const goWorkflowName = 'integ-go';
+    this.project.buildWorkflow?.addPostBuildJobCommands(goWorkflowName, [
       'tar --strip-components=1 -xzvf dist/js/*.tgz -C .',
-      'mv dist dist.old',
-      'npx projen package:go',
       'npx projen integ:go',
     ], {
       checkoutRepo: true,
@@ -202,6 +203,9 @@ export class IntegrationTests extends Component {
         },
       },
     });
+    this.project.github?.tryFindWorkflow(this.project.buildWorkflow?.name!)?.file?.patch(
+      JsonPatch.add(`/jobs/${goWorkflowName}/steps/${INTEG_CHECKOUT_STEP}/with/clean`, false),
+    );
 
     // go.mod
     this.project.addPackageIgnore('go.mod');
