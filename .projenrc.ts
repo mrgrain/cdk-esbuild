@@ -23,7 +23,7 @@ const stableReleases = new StableReleases('v5', {
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
-    supportedUntil: new Date('2024-10-01'),
+    supportedUntil: new Date('2024-12-01'),
   },
   v3: {
     majorVersion: 3,
