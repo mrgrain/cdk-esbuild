@@ -16,8 +16,8 @@ require (
 
 require (
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
-	github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.200 // indirect
-	github.com/cdklabs/awscdk-asset-kubectl-go/kubectlv20/v2 v2.1.2 // indirect
+	github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.210 // indirect
+	github.com/cdklabs/awscdk-asset-kubectl-go/kubectlv20/v2 v2.1.3 // indirect
 	github.com/cdklabs/awscdk-asset-node-proxy-agent-go/nodeproxyagentv5/v2 v2.0.166 // indirect
 	github.com/fatih/color v1.17.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
