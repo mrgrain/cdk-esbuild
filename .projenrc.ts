@@ -157,12 +157,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 stableReleases.bind(project);
 
-// Fix dependency version due to errors on node14
-project.addDevDeps(
-  '@typescript-eslint/eslint-plugin@^5',
-  '@typescript-eslint/parser@^5',
-);
-
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
   labels: ['auto-approve'],
