@@ -7,7 +7,8 @@
   "root": true,
   "plugins": [
     "@typescript-eslint",
-    "import"
+    "import",
+    "@stylistic"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -47,7 +48,7 @@
     "indent": [
       "off"
     ],
-    "@typescript-eslint/indent": [
+    "@stylistic/indent": [
       "error",
       2
     ],
@@ -118,7 +119,7 @@
       "multi-line",
       "consistent"
     ],
-    "@typescript-eslint/member-delimiter-style": [
+    "@stylistic/member-delimiter-style": [
       "error"
     ],
     "semi": [

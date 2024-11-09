@@ -131,6 +131,9 @@
     "eslint": {
       "name": "eslint",
       "description": "Runs eslint against the codebase",
+      "env": {
+        "ESLINT_USE_FLAT_CONFIG": "false"
+      },
       "steps": [
         {
           "exec": "eslint --ext .ts,.tsx --fix --no-error-on-unmatched-pattern $@ src test build-tools projenrc .projenrc.ts",
@@ -440,7 +443,7 @@
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/aws-synthetics-alpha @aws-cdk/integ-runner @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jest-mock jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "exec": "npm update @aws-cdk/aws-synthetics-alpha @aws-cdk/integ-runner @stylistic/eslint-plugin @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jest-mock jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii projen ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
         },
         {
           "exec": "npx projen"
