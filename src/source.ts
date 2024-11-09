@@ -107,8 +107,8 @@ abstract class Source<
 }
 
 export class JavaScriptSource extends Source<
-JavaScriptSourceProps,
-JavaScriptAsset
+  JavaScriptSourceProps,
+  JavaScriptAsset
 > {
   assetClass = JavaScriptAsset;
 
@@ -148,8 +148,8 @@ JavaScriptAsset
 }
 
 export class TypeScriptSource extends Source<
-TypeScriptSourceProps,
-TypeScriptAsset
+  TypeScriptSourceProps,
+  TypeScriptAsset
 > {
   assetClass = TypeScriptAsset;
 
