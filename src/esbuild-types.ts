@@ -112,7 +112,7 @@ export interface BuildOptions extends CommonOptions {
   /** Documentation: https://esbuild.github.io/api/#external */
   readonly external?: string[];
   /** Documentation: https://esbuild.github.io/api/#packages */
-  readonly packages?: 'external';
+  readonly packages?: 'bundle' | 'external';
   /** Documentation: https://esbuild.github.io/api/#alias */
   readonly alias?: Record<string, string>;
   /** Documentation: https://esbuild.github.io/api/#loader */
