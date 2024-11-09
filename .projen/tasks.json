@@ -177,6 +177,18 @@
         }
       ]
     },
+    "lint:ts": {
+      "name": "lint:ts",
+      "env": {
+        "ESLINT_USE_FLAT_CONFIG": "false"
+      },
+      "steps": [
+        {
+          "exec": "npx eslint --ext .ts --fix $@",
+          "receiveArgs": true
+        }
+      ]
+    },
     "package": {
       "name": "package",
       "description": "Creates the distribution package",
