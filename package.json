@@ -17,6 +17,7 @@
     "eslint": "npx projen eslint",
     "integ:go": "npx projen integ:go",
     "integ:python": "npx projen integ:python",
+    "lint:ts": "npx projen lint:ts",
     "package": "npx projen package",
     "package-all": "npx projen package-all",
     "package:dotnet": "npx projen package:dotnet",
