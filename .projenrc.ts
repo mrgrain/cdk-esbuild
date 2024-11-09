@@ -19,7 +19,7 @@ const stableReleases = new StableReleases('v4', {
     majorVersion: 4,
     cdkVersion: '2.12.0',
     minNodeVersion: '14',
-    workflowNodeVersion: '16.x', // should be 14.x but that version doesn't build anymore
+    workflowNodeVersion: '18.x', // should be 14.x but that version doesn't build anymore
     releaseSchedule: '0 5 15 * *',
     jsiiVersion: '1.x',
     typescriptVersion: '4.9.x',
@@ -156,12 +156,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ...stableReleases.projectOptions,
 });
 stableReleases.bind(project);
-
-// Fix dependency version due to errors on node14
-project.addDevDeps(
-  '@typescript-eslint/eslint-plugin@^5',
-  '@typescript-eslint/parser@^5',
-);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
