@@ -1,4 +1,5 @@
-import { FileBase, FileBaseOptions, Project as ProjenProject } from 'projen';
+import { Construct } from 'constructs';
+import { Component, FileBase, FileBaseOptions, Project as ProjenProject, Task } from 'projen';
 import { execCapture } from 'projen/lib/util';
 import { Project, SourceFile } from 'ts-morph';
 
@@ -11,6 +12,7 @@ interface TypeScriptSourceFileOptions extends Omit<FileBaseOptions, 'readonly'> 
 
 export class TypeScriptSourceFile extends FileBase {
   public readonly options: TypeScriptSourceFileOptions;
+  private readonly task: Task;
 
   constructor(project: ProjenProject, filePath: string, options: TypeScriptSourceFileOptions) {
     super(project, filePath, { ...options, readonly: false });
@@ -20,6 +22,8 @@ export class TypeScriptSourceFile extends FileBase {
       marker: true,
       ...options,
     };
+
+    this.task = TypeScriptSourceFileLinter.singleton(project).task;
   }
 
   protected synthesizeContent(): string {
@@ -45,6 +49,28 @@ export class TypeScriptSourceFile extends FileBase {
     super.postSynthesize();
 
     const outdir = this.project.outdir;
-    execCapture(`npx eslint --ext .ts --fix ${this.absolutePath}`, { cwd: outdir });
+    execCapture(this.project.runTaskCommand(this.task) + ' ' + this.absolutePath, { cwd: outdir });
+  }
+}
+
+export class TypeScriptSourceFileLinter extends Component {
+  public readonly task: Task;
+
+  public static singleton(scope: Construct): TypeScriptSourceFileLinter {
+    const root = scope.node.root;
+    return (root.node.findAll().find((c) => c instanceof TypeScriptSourceFileLinter) ??
+      new TypeScriptSourceFileLinter(root)) as TypeScriptSourceFileLinter;
+  }
+
+  private constructor(scope: Construct) {
+    super(scope, 'TypeScriptSourceFileLinter');
+
+    this.task = this.project.addTask('lint:ts', {
+      exec: 'npx eslint --ext .ts --fix $@',
+      receiveArgs: true,
+      env: {
+        ESLINT_USE_FLAT_CONFIG: 'false',
+      },
+    });
   }
 }
