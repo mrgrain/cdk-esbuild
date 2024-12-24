@@ -35,11 +35,11 @@
         },
         "aws-cdk.asset-awscli-v1": {
             "hashes": [
-                "sha256:5f1c64f65de5ae557010faecd26749233ab061ac359c544ece117c9cebe9862d",
-                "sha256:629738dc7e52dc2d35e41074cbde31ff19dc582aa5e994f69d71a205281ca05d"
+                "sha256:15770113ce84839a27bd90e0a3382875eec91b19136d234714da288b23b97ff2",
+                "sha256:499267bcdb3a9c00fd33f702f8e41c00c5a992814f6792801dda71bc2aa6054a"
             ],
             "markers": "python_version ~= '3.8'",
-            "version": "==2.2.215"
+            "version": "==2.2.216"
         },
         "aws-cdk.asset-kubectl-v20": {
             "hashes": [
