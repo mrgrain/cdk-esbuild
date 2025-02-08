@@ -43,11 +43,11 @@
         },
         "aws-cdk.asset-kubectl-v20": {
             "hashes": [
-                "sha256:237cd8530d9e8be0bbc7159af927dbb6b7f91bf3f4099c8ef4d9a213b34264be",
-                "sha256:d5612e5bd03c215a28ce53193b1144ecf4e93b3b6779563c046a8a74d83a3979"
+                "sha256:14a194e14adbf3868a8105b07e8714e10e6621a22beca9b4859a82a9cfbe68f6",
+                "sha256:c723c94c6c89283efef779ca44bea8e2e312d49b07bf5beaf6f27340e1fecff4"
             ],
             "markers": "python_version ~= '3.8'",
-            "version": "==2.1.3"
+            "version": "==2.1.4"
         },
         "aws-cdk.asset-node-proxy-agent-v5": {
             "hashes": [
