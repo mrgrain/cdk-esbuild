@@ -10,7 +10,7 @@ require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.84.0-alpha.0
 
 require (
 	github.com/aws/constructs-go/constructs/v10 v10.2.26
-	github.com/aws/jsii-runtime-go v1.107.0
+	github.com/aws/jsii-runtime-go v1.108.0
 	github.com/mrgrain/cdk-esbuild-go/cdkesbuild v0.0.0-unpublished
 )
 
@@ -24,10 +24,10 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/yuin/goldmark v1.4.13 // indirect
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
-	golang.org/x/mod v0.22.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/mod v0.23.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
+	golang.org/x/tools v0.30.0 // indirect
 )
 
 replace github.com/mrgrain/cdk-esbuild-go/cdkesbuild v0.0.0-unpublished => ./dist/go/cdkesbuild
