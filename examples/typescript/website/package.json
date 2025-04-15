@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mrgrain/cdk-esbuild": "^5.0.0",
-    "aws-cdk-lib": "^2.178.1",
+    "aws-cdk-lib": "^2.189.1",
     "esbuild": "^0.20.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
