@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1f97323198e7579c7b75c18d83261b949a5f5fbf6b805705d70590bb9c88861d"
+            "sha256": "fccd0c342172c01a88e2e6fadc461431831be09dc0d8c89490483f22d65a018f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -98,13 +98,13 @@
             "markers": "python_version ~= '3.9'",
             "version": "==1.111.0"
         },
-        "mrgrain.cdk-esbuild": {
+        "mrgrain-cdk-esbuild": {
             "hashes": [
                 "sha256:0e6964cb1fee15ec493b1130d8b670b97cd39defced10fda95aafa9a4644c703",
                 "sha256:9baea720b26b1c2715a4be6e68289656c09dd8801519b0b3e826917f830fba3b"
             ],
             "markers": "python_version ~= '3.7'",
-            "path": "./dist/python/mrgrain.cdk_esbuild-0.0.0-py3-none-any.whl"
+            "version": "==0.0.0"
         },
         "publication": {
             "hashes": [

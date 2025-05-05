@@ -150,7 +150,7 @@ export class IntegrationTests extends Component {
     pipenv.addPackage(`aws-cdk-lib@==${pythonCdkVersion}`);
     pipenv.addPackage(`aws-cdk.integ-tests-alpha@==${pythonCdkVersion}a0`);
     pipenv.addPackage('constructs@<11.0.0,>=10.0.0');
-    pipenv.addPackage(`${pythonTarget.distName}@{path = "./dist/python/${pythonTarget.module}-0.0.0-py3-none-any.whl"}`);
+    pipenv.addPackage(`${pythonTarget.distName}@{path = "./dist/python/${pythonTarget.module.replace(/\./g, '_')}-0.0.0-py3-none-any.whl"}`);
   }
 
   private setupGo(_goTarget: {
