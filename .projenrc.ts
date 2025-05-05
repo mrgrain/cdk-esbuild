@@ -11,8 +11,8 @@ const stableReleases = new StableReleases('v5', {
     minNodeVersion: '18',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
-    jsiiVersion: '5.4.x',
-    typescriptVersion: '5.4.x',
+    jsiiVersion: '5.8.x',
+    typescriptVersion: '5.8.x',
     supportedUntil: true,
   },
   v4: {
