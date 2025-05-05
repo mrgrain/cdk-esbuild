@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@mrgrain/cdk-esbuild": "5.0.0-rc.0",
-    "aws-cdk-lib": "^2.181.1"
+    "aws-cdk-lib": "^2.194.0"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^2.68.0",
