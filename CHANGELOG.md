@@ -1,4 +1,11 @@
 
+## [5.4.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.3.10...v5.4.0) (2025-05-05)
+
+
+### Features
+
+* esbuild 0.25.x ([#1513](https://github.com/mrgrain/cdk-esbuild/issues/1513)) ([7503096](https://github.com/mrgrain/cdk-esbuild/commit/75030961527e59c01eb8e60656bfb7c0d67e6f7d)), closes [#1512](https://github.com/mrgrain/cdk-esbuild/issues/1512)
+
 ## [5.3.10](https://github.com/mrgrain/cdk-esbuild/compare/v5.3.9...v5.3.10) (2025-04-01)
 
 ## [5.3.9](https://github.com/mrgrain/cdk-esbuild/compare/v5.3.8...v5.3.9) (2025-03-15)
