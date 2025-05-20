@@ -1,4 +1,11 @@
 
+## [5.5.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.4.1...v5.5.0) (2025-05-20)
+
+
+### Features
+
+* publish for java ([#1298](https://github.com/mrgrain/cdk-esbuild/issues/1298)) ([31a95c0](https://github.com/mrgrain/cdk-esbuild/commit/31a95c04aa9076264fdc4e4b1214e3729e4f58e2)), closes [#181](https://github.com/mrgrain/cdk-esbuild/issues/181)
+
 ## [5.4.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.4.0...v5.4.1) (2025-05-15)
 
 ## [5.4.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.3.10...v5.4.0) (2025-05-05)
