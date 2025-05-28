@@ -1,5 +1,5 @@
 import { Construct } from 'constructs';
-import { Component, FileBase, FileBaseOptions, Project as ProjenProject, Task } from 'projen';
+import { Component, FileBase, FileBaseOptions, javascript, Project as ProjenProject, Task } from 'projen';
 import { execCapture } from 'projen/lib/util';
 import { Project, SourceFile } from 'ts-morph';
 
@@ -24,6 +24,14 @@ export class TypeScriptSourceFile extends FileBase {
     };
 
     this.task = TypeScriptSourceFileLinter.singleton(project).task;
+
+    const eslint = javascript.Eslint.of(project);
+    eslint?.addOverride({
+      files: [filePath],
+      rules: {
+        '@stylistic/max-len': 'off',
+      },
+    });
   }
 
   protected synthesizeContent(): string {
@@ -49,7 +57,12 @@ export class TypeScriptSourceFile extends FileBase {
     super.postSynthesize();
 
     const outdir = this.project.outdir;
-    execCapture(this.project.runTaskCommand(this.task) + ' ' + this.absolutePath, { cwd: outdir });
+    try {
+      execCapture(this.project.runTaskCommand(this.task) + ' ' + this.absolutePath, { cwd: outdir });
+    } catch (error: any) {
+      const msg = error.stdout?.toString() ?? error.message;
+      throw Error(msg);
+    }
   }
 }
 
