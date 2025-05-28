@@ -5,7 +5,7 @@ enum WordmarkStyle {
   DEFAULT,
   DYNAMIC,
   DARK,
-  LIGHT
+  LIGHT,
 }
 
 export interface WordmarkReadmeOptions {
