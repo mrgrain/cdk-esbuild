@@ -109,10 +109,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
     githubDeployKeySecret: 'GO_DEPLOY_KEY',
   },
   publishToMaven: {
+    mavenServerId: 'central-ossrh',
     mavenGroupId: 'io.github.mrgrain',
     mavenArtifactId: 'cdkesbuild',
     javaPackage: 'io.github.mrgrain.cdkesbuild',
-    mavenEndpoint: 'https://ossrh-staging-api.central.sonatype.com',
   },
   catalog: {
     twitter: '@mrgrain',
