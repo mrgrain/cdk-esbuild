@@ -1,4 +1,11 @@
 
+## [5.5.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.5.0...v5.5.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* java release to maven central ([#1520](https://github.com/mrgrain/cdk-esbuild/issues/1520)) ([9f327bd](https://github.com/mrgrain/cdk-esbuild/commit/9f327bd35f1d54886da99c9fbf781d4800540647))
+
 ## [5.5.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.4.1...v5.5.0) (2025-05-20)
 
 
