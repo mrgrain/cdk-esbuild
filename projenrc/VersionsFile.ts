@@ -19,7 +19,7 @@ export class VersionsFile extends Component {
   }: VersionsFileOptions) {
     super(scope, `versions#${path}`);
 
-    const latestVersion = Object.keys(versions).sort().at(-1);
+    const latestVersion = Object.keys(versions).sort().pop();
 
     const table = Object.entries(versions).map(([version, info]) => {
       const base = `| ${version} | ^${info.minCdk} | >=${info.minNode} |`;
