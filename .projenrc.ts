@@ -167,6 +167,10 @@ stableReleases.bind(project);
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
   labels: ['auto-approve'],
 });
+project.tryFindObjectFile('.mergify.yml')?.addOverride('merge_queue', {
+  max_parallel_checks: 1,
+});
+project.tryFindObjectFile('.mergify.yml')?.addDeletionOverride('queue_rules.0.conditions');
 
 
 // setup integration tests

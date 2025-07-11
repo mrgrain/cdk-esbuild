@@ -3,18 +3,6 @@
 queue_rules:
   - name: default
     update_method: merge
-    conditions:
-      - "#approved-reviews-by>=1"
-      - -label~=(do-not-merge)
-      - status-success=build
-      - status-success=package-js
-      - status-success=package-java
-      - status-success=package-python
-      - status-success=package-dotnet
-      - status-success=package-go
-      - status-success=integ-python
-      - status-success=integ-go
-      - status-success=test-latest-versions
     merge_method: squash
     commit_message_template: |-
       {{ title }} (#{{ number }})
@@ -43,3 +31,5 @@ defaults:
     backport:
       labels:
         - auto-approve
+merge_queue:
+  max_parallel_checks: 1
