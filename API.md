@@ -304,6 +304,7 @@ const buildOptions: BuildOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.absPaths">absPaths</a></code> | <code>string[]</code> | Documentation: https://esbuild.github.io/api/#abs-paths. |
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.absWorkingDir">absWorkingDir</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#working-directory. |
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.alias">alias</a></code> | <code>{[ key: string ]: string}</code> | Documentation: https://esbuild.github.io/api/#alias. |
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.allowOverwrite">allowOverwrite</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#allow-overwrite. |
@@ -368,6 +369,18 @@ const buildOptions: BuildOptions = { ... }
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.tsconfig">tsconfig</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#tsconfig. |
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.tsconfigRaw">tsconfigRaw</a></code> | <code>string \| <a href="#@mrgrain/cdk-esbuild.TsconfigRaw">TsconfigRaw</a></code> | Documentation: https://esbuild.github.io/api/#tsconfig-raw. |
 | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions.property.write">write</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#write. |
+
+---
+
+##### `absPaths`<sup>Optional</sup> <a name="absPaths" id="@mrgrain/cdk-esbuild.BuildOptions.property.absPaths"></a>
+
+```typescript
+public readonly absPaths: string[];
+```
+
+- *Type:* string[]
+
+Documentation: https://esbuild.github.io/api/#abs-paths.
 
 ---
 
@@ -1535,6 +1548,7 @@ const providerBuildOptions: ProviderBuildOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.absPaths">absPaths</a></code> | <code>string[]</code> | Documentation: https://esbuild.github.io/api/#abs-paths. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.absWorkingDir">absWorkingDir</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#working-directory. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.alias">alias</a></code> | <code>{[ key: string ]: string}</code> | Documentation: https://esbuild.github.io/api/#alias. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.allowOverwrite">allowOverwrite</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#allow-overwrite. |
@@ -1600,6 +1614,18 @@ const providerBuildOptions: ProviderBuildOptions = { ... }
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.tsconfigRaw">tsconfigRaw</a></code> | <code>string \| <a href="#@mrgrain/cdk-esbuild.TsconfigRaw">TsconfigRaw</a></code> | Documentation: https://esbuild.github.io/api/#tsconfig-raw. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.write">write</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#write. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderBuildOptions.property.entryPoints">entryPoints</a></code> | <code>string[] \| {[ key: string ]: string}</code> | Documentation: https://esbuild.github.io/api/#entry-points. |
+
+---
+
+##### `absPaths`<sup>Optional</sup> <a name="absPaths" id="@mrgrain/cdk-esbuild.ProviderBuildOptions.property.absPaths"></a>
+
+```typescript
+public readonly absPaths: string[];
+```
+
+- *Type:* string[]
+
+Documentation: https://esbuild.github.io/api/#abs-paths.
 
 ---
 
@@ -2397,6 +2423,7 @@ const providerTransformOptions: ProviderTransformOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.absPaths">absPaths</a></code> | <code>string[]</code> | Documentation: https://esbuild.github.io/api/#abs-paths. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.banner">banner</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#banner. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.charset">charset</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#charset. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.color">color</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#color. |
@@ -2438,6 +2465,18 @@ const providerTransformOptions: ProviderTransformOptions = { ... }
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.target">target</a></code> | <code>string \| string[]</code> | Documentation: https://esbuild.github.io/api/#target. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.treeShaking">treeShaking</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#tree-shaking. |
 | <code><a href="#@mrgrain/cdk-esbuild.ProviderTransformOptions.property.tsconfigRaw">tsconfigRaw</a></code> | <code>string \| <a href="#@mrgrain/cdk-esbuild.TsconfigRaw">TsconfigRaw</a></code> | Documentation: https://esbuild.github.io/api/#tsconfig-raw. |
+
+---
+
+##### `absPaths`<sup>Optional</sup> <a name="absPaths" id="@mrgrain/cdk-esbuild.ProviderTransformOptions.property.absPaths"></a>
+
+```typescript
+public readonly absPaths: string[];
+```
+
+- *Type:* string[]
+
+Documentation: https://esbuild.github.io/api/#abs-paths.
 
 ---
 
@@ -2998,6 +3037,7 @@ const transformOptions: TransformOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.absPaths">absPaths</a></code> | <code>string[]</code> | Documentation: https://esbuild.github.io/api/#abs-paths. |
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.banner">banner</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#banner. |
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.charset">charset</a></code> | <code>string</code> | Documentation: https://esbuild.github.io/api/#charset. |
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.color">color</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#color. |
@@ -3039,6 +3079,18 @@ const transformOptions: TransformOptions = { ... }
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.target">target</a></code> | <code>string \| string[]</code> | Documentation: https://esbuild.github.io/api/#target. |
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.treeShaking">treeShaking</a></code> | <code>boolean</code> | Documentation: https://esbuild.github.io/api/#tree-shaking. |
 | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions.property.tsconfigRaw">tsconfigRaw</a></code> | <code>string \| <a href="#@mrgrain/cdk-esbuild.TsconfigRaw">TsconfigRaw</a></code> | Documentation: https://esbuild.github.io/api/#tsconfig-raw. |
+
+---
+
+##### `absPaths`<sup>Optional</sup> <a name="absPaths" id="@mrgrain/cdk-esbuild.TransformOptions.property.absPaths"></a>
+
+```typescript
+public readonly absPaths: string[];
+```
+
+- *Type:* string[]
+
+Documentation: https://esbuild.github.io/api/#abs-paths.
 
 ---
 
