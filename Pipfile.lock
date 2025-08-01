@@ -67,11 +67,11 @@
         },
         "cattrs": {
             "hashes": [
-                "sha256:981a6ef05875b5bb0c7fb68885546186d306f10f0f6718fe9b96c226e68821ff",
-                "sha256:adf957dddd26840f27ffbd060a6c4dd3b2192c5b7c2c0525ef1bd8131d8a83f5"
+                "sha256:1b40b2d3402af7be79a7e7e097a9b4cd16d4c06e6d526644b0b26a063a1cc064",
+                "sha256:c914b734e0f2d59e5b720d145ee010f1fd9a13ee93900922a2f3f9d593b8382c"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==24.1.3"
+            "markers": "python_version >= '3.9'",
+            "version": "==25.1.1"
         },
         "constructs": {
             "hashes": [
@@ -92,11 +92,11 @@
         },
         "jsii": {
             "hashes": [
-                "sha256:6510c223074d9b206fd0570849a791e4d9ecfff7ffe68428de73870cea9f55a1",
-                "sha256:6b7d19f361c2565b76828ecbe8cbed8b8d6028a82aa98a46b206a4ee5083157e"
+                "sha256:2dedea9d6006af53467a7a67f1d35a56ab3f75a3d6ed4b4536fffc3e1d1fe476",
+                "sha256:62377c651554234ea945693f7c03cb96a969ba425a686950c88d43b0d4d76b07"
             ],
             "markers": "python_version ~= '3.9'",
-            "version": "==1.112.0"
+            "version": "==1.113.0"
         },
         "mrgrain-cdk-esbuild": {
             "hashes": [
