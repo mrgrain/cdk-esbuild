@@ -15,11 +15,11 @@ jobs:
       patch_created: ${{ steps.create_patch.outputs.patch_created }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: v5
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 18.x
       - name: Install dependencies
@@ -35,7 +35,7 @@ jobs:
         working-directory: ./
       - name: Upload patch
         if: steps.create_patch.outputs.patch_created
-        uses: actions/upload-artifact@v4.4.0
+        uses: actions/upload-artifact@v4.6.2
         with:
           name: repo.patch
           path: repo.patch
@@ -55,11 +55,11 @@ jobs:
           app-id: ${{ secrets.PROJEN_APP_ID }}
           private-key: ${{ secrets.PROJEN_APP_PRIVATE_KEY }}
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: v5
       - name: Download patch
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: repo.patch
           path: ${{ runner.temp }}
@@ -71,7 +71,7 @@ jobs:
           git config user.email "github-actions@github.com"
       - name: Create Pull Request
         id: create-pr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ steps.generate_token.outputs.token }}
           commit-message: |-
