@@ -1,4 +1,4 @@
-import { awscdk, github, javascript, vscode } from 'projen';
+import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
@@ -93,9 +93,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   // Release
+  releaseEnvironment: 'release',
+  npmTrustedPublishing: true,
   publishToPypi: {
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
+    trustedPublishing: true,
   },
   publishToNuget: {
     dotNetNamespace: 'Mrgrain.CdkEsbuild',
@@ -331,8 +334,14 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
-// Use official github-app-token action
-project.github?.actions.set('tibdex/github-app-token', 'actions/create-github-app-token@v1');
+// TMP Nuget Trusted Publisher
+project.github?.tryFindWorkflow('release')?.file?.patch(
+  JsonPatch.add('/jobs/release_nuget/permissions/id-token', 'write'),
+  JsonPatch.remove('/jobs/release_nuget/steps/10/env/NUGET_API_KEY'),
+  JsonPatch.add('/jobs/release_nuget/steps/10/env/NUGET_TRUSTED_PUBLISHER', true),
+  JsonPatch.add('/jobs/release_nuget/steps/10/env/NUGET_USERNAME', 'mrgrain'),
+  JsonPatch.add('/jobs/release_nuget/steps/10/run', 'npx -p github:cdklabs/publib#mrgrain/feat/nuget-trusted-publishing publib-nuget'),
+);
 
 // Synth project
 project.synth();
