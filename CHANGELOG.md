@@ -1,4 +1,11 @@
 
+## [5.6.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.5.9...v5.6.0) (2025-09-26)
+
+
+### Features
+
+* enable trusted publishing for npm, pypi, and nuget ([#1600](https://github.com/mrgrain/cdk-esbuild/issues/1600)) ([54e4c0c](https://github.com/mrgrain/cdk-esbuild/commit/54e4c0c55223ff253643b2dd5a19ef50ac8dd126))
+
 ## [5.5.9](https://github.com/mrgrain/cdk-esbuild/compare/v5.5.8...v5.5.9) (2025-09-15)
 
 ## [5.5.8](https://github.com/mrgrain/cdk-esbuild/compare/v5.5.7...v5.5.8) (2025-09-01)
