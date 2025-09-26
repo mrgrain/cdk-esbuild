@@ -334,7 +334,12 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
   },
 });
 
-// TMP Nuget Trusted Publisher
+// tmp: NPM Trusted Publishing needs a newer npm version
+project.github?.tryFindWorkflow('release')?.file?.patch(
+  JsonPatch.add('/jobs/release_npm/steps/0/with/node-version', '24.x'),
+);
+
+// tmp: Nuget Trusted Publishing while not in projen
 project.github?.tryFindWorkflow('release')?.file?.patch(
   JsonPatch.add('/jobs/release_nuget/permissions/id-token', 'write'),
   JsonPatch.remove('/jobs/release_nuget/steps/10/env/NUGET_API_KEY'),
