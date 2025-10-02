@@ -82,6 +82,21 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 });
 ```
 
+### Amazon CloudFront: Functions
+
+Use `CloudFrontTypeScriptCode` as the `code` of a [CloudFront Function](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html):
+
+```ts fixture=local
+const functionCode = CloudFrontTypeScriptCode.fromFile("src/function.ts", {
+  runtime: cloudfront.FunctionRuntime.JS_2_0,
+});
+
+const cfFunction = new cloudfront.Function(stack, "MyFunction", {
+  code: functionCode,
+  runtime: cloudfront.FunctionRuntime.JS_2_0,
+});
+```
+
 ### Amazon CloudWatch Synthetics: Canary monitoring
 
 > 💡 See [Monitored Website (TypeScript)](examples/typescript/website) for a working example of a deployed and monitored website.

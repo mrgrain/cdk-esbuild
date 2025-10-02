@@ -139,7 +139,8 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TRUSTED_PUBLISHER: "true"
         run: npx -p publib@latest publib-npm
-      - uses: electron/npm-trusted-auth-action@v1.0.0
+      - id: npm_oidc_token
+        uses: electron/npm-trusted-auth-action@v1.0.0
         with:
           package-name: "@mrgrain/cdk-esbuild"
       - name: Update tags
@@ -149,6 +150,7 @@ jobs:
           npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
         env:
           NPM_REGISTRY: registry.npmjs.org
+          NPM_TOKEN: ${{ steps.npm_oidc_token.outputs.token }}
     env:
       NPM_CONFIG_PROVENANCE: "true"
   release_maven:
