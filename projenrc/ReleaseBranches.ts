@@ -90,6 +90,12 @@ export class StableReleases {
 
       // Additional npm dist tags
       if (opts.npmDistTags) {
+        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', {
+          uses: 'electron/npm-trusted-auth-action@v1.0.0',
+          with: {
+            'package-name': project.package.packageName,
+          },
+        }));
         releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', tagOnNpm(opts.npmDistTags)));
       }
 
@@ -120,7 +126,6 @@ export class StableReleases {
         ].concat(tags.map(tag => `npm dist-tag add ${project.package.packageName}@$version ${tag}`)).join('\n'),
         env: {
           NPM_REGISTRY: 'registry.npmjs.org',
-          NPM_TOKEN: '${{ secrets.NPM_TOKEN }}',
         },
       };
     };
