@@ -1,4 +1,11 @@
 
+## [5.7.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.6.3...v5.7.0) (2025-10-02)
+
+
+### Features
+
+* add CloudFront Functions support ([#1606](https://github.com/mrgrain/cdk-esbuild/issues/1606)) ([ed0d6a5](https://github.com/mrgrain/cdk-esbuild/commit/ed0d6a5f883b4515da9479e1487760e0cbd231bb)), closes [#102](https://github.com/mrgrain/cdk-esbuild/issues/102) [#102](https://github.com/mrgrain/cdk-esbuild/issues/102)
+
 ## [5.6.3](https://github.com/mrgrain/cdk-esbuild/compare/v5.6.2...v5.6.3) (2025-10-02)
 
 ## [5.6.2](https://github.com/mrgrain/cdk-esbuild/compare/v5.6.1...v5.6.2) (2025-10-01)
