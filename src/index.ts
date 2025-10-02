@@ -9,6 +9,13 @@ export {
 } from './bundler';
 
 export {
+  CloudFrontFunctionRuntime,
+  CloudFrontFunctionCodeProps,
+  CloudFrontFunctionInlineCodeProps,
+  CloudFrontTypeScriptCode,
+} from './cloudfront-function-code';
+
+export {
   CodeConfig,
   TypeScriptCode,
   TypeScriptCodeProps,

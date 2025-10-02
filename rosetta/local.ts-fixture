@@ -1,0 +1,11 @@
+import * as cdk from 'aws-cdk-lib/core';
+import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
+
+const stack = new cdk.Stack();
+
+declare class CloudFrontTypeScriptCode {
+    static fromFile(entryPoint: string, props?: object): cloudfront.FunctionCode;
+    static fromInline(code: string, props?: object): cloudfront.FunctionCode;
+}
+
+/// here

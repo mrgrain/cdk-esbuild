@@ -1241,6 +1241,150 @@ Instead use only relative paths and avoid `..`.
 
 ---
 
+### CloudFrontFunctionCodeProps <a name="CloudFrontFunctionCodeProps" id="@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps"></a>
+
+Properties for CloudFront Function TypeScript code.
+
+#### Initializer <a name="Initializer" id="@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.Initializer"></a>
+
+```typescript
+import { CloudFrontFunctionCodeProps } from '@mrgrain/cdk-esbuild'
+
+const cloudFrontFunctionCodeProps: CloudFrontFunctionCodeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.buildOptions">buildOptions</a></code> | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions">BuildOptions</a></code> | Build options passed on to esbuild. Please refer to the esbuild Build API docs for details. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.buildProvider">buildProvider</a></code> | <code><a href="#@mrgrain/cdk-esbuild.IBuildProvider">IBuildProvider</a></code> | The esbuild Build API implementation to be used. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.runtime">runtime</a></code> | <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a></code> | CloudFront Functions JavaScript runtime environment version to build for. |
+
+---
+
+##### `buildOptions`<sup>Optional</sup> <a name="buildOptions" id="@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.BuildOptions">BuildOptions</a>
+
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+* `buildOptions.outdir: string`
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+* `buildOptions.outfile: string`
+Relative path to a file inside the CDK asset output directory.
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+* `buildOptions.absWorkingDir: string`
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> [https://esbuild.github.io/api/#build-api](https://esbuild.github.io/api/#build-api)
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="buildProvider" id="@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.IBuildProvider">IBuildProvider</a>
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
+
+---
+
+##### `runtime`<sup>Optional</sup> <a name="runtime" id="@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps.property.runtime"></a>
+
+```typescript
+public readonly runtime: CloudFrontFunctionRuntime;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a>
+- *Default:* CloudFrontFunctionRuntime.JS_1_0
+
+CloudFront Functions JavaScript runtime environment version to build for.
+
+---
+
+### CloudFrontFunctionInlineCodeProps <a name="CloudFrontFunctionInlineCodeProps" id="@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps"></a>
+
+Properties for CloudFront Function inline code.
+
+#### Initializer <a name="Initializer" id="@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.Initializer"></a>
+
+```typescript
+import { CloudFrontFunctionInlineCodeProps } from '@mrgrain/cdk-esbuild'
+
+const cloudFrontFunctionInlineCodeProps: CloudFrontFunctionInlineCodeProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.transformOptions">transformOptions</a></code> | <code><a href="#@mrgrain/cdk-esbuild.TransformOptions">TransformOptions</a></code> | Transform options passed on to esbuild. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.transformProvider">transformProvider</a></code> | <code><a href="#@mrgrain/cdk-esbuild.ITransformProvider">ITransformProvider</a></code> | The esbuild Transform API implementation to be used. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.runtime">runtime</a></code> | <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a></code> | CloudFront Functions JavaScript runtime environment version to build for. |
+
+---
+
+##### `transformOptions`<sup>Optional</sup> <a name="transformOptions" id="@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.transformOptions"></a>
+
+```typescript
+public readonly transformOptions: TransformOptions;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.TransformOptions">TransformOptions</a>
+
+Transform options passed on to esbuild.
+
+Please refer to the esbuild Transform API docs for details.
+
+> [https://esbuild.github.io/api/#transform-api](https://esbuild.github.io/api/#transform-api)
+
+---
+
+##### `transformProvider`<sup>Optional</sup> <a name="transformProvider" id="@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.transformProvider"></a>
+
+```typescript
+public readonly transformProvider: ITransformProvider;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.ITransformProvider">ITransformProvider</a>
+- *Default:* new DefaultEsbuildProvider()
+
+The esbuild Transform API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `ITransformProvider` as an escape hatch.
+
+---
+
+##### `runtime`<sup>Optional</sup> <a name="runtime" id="@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps.property.runtime"></a>
+
+```typescript
+public readonly runtime: CloudFrontFunctionRuntime;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a>
+- *Default:* CloudFrontFunctionRuntime.JS_1_0
+
+CloudFront Functions JavaScript runtime environment version to build for.
+
+---
+
 ### CodeConfig <a name="CodeConfig" id="@mrgrain/cdk-esbuild.CodeConfig"></a>
 
 Result of binding `Code` into a `Function`.
@@ -3957,6 +4101,136 @@ Defaults to a hash of all files in the resulting bundle.
 ---
 
 ## Classes <a name="Classes" id="Classes"></a>
+
+### CloudFrontFunctionRuntime <a name="CloudFrontFunctionRuntime" id="@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime"></a>
+
+CloudFront Functions JavaScript runtime environment version.
+
+
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.value">value</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `value`<sup>Required</sup> <a name="value" id="@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.value"></a>
+
+```typescript
+public readonly value: string;
+```
+
+- *Type:* string
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.JS_1_0">JS_1_0</a></code> | <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a></code> | cloudfront-js-1.0 - limited ES6 support, no const/let, no async/await. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.JS_2_0">JS_2_0</a></code> | <code><a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a></code> | cloudfront-js-2.0 - enhanced ES6 support, const/let and async/await supported. |
+
+---
+
+##### `JS_1_0`<sup>Required</sup> <a name="JS_1_0" id="@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.JS_1_0"></a>
+
+```typescript
+public readonly JS_1_0: CloudFrontFunctionRuntime;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a>
+
+cloudfront-js-1.0 - limited ES6 support, no const/let, no async/await.
+
+---
+
+##### `JS_2_0`<sup>Required</sup> <a name="JS_2_0" id="@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime.property.JS_2_0"></a>
+
+```typescript
+public readonly JS_2_0: CloudFrontFunctionRuntime;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionRuntime">CloudFrontFunctionRuntime</a>
+
+cloudfront-js-2.0 - enhanced ES6 support, const/let and async/await supported.
+
+---
+
+### CloudFrontTypeScriptCode <a name="CloudFrontTypeScriptCode" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode"></a>
+
+TypeScript code for CloudFront Functions.
+
+#### Initializers <a name="Initializers" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.Initializer"></a>
+
+```typescript
+import { CloudFrontTypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+new CloudFrontTypeScriptCode()
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+
+---
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromFile">fromFile</a></code> | Create CloudFront Function code from a TypeScript file. |
+| <code><a href="#@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromInline">fromInline</a></code> | Create CloudFront Function code from inline TypeScript code. |
+
+---
+
+##### `fromFile` <a name="fromFile" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromFile"></a>
+
+```typescript
+import { CloudFrontTypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+CloudFrontTypeScriptCode.fromFile(entryPoint: string, props?: CloudFrontFunctionCodeProps)
+```
+
+Create CloudFront Function code from a TypeScript file.
+
+###### `entryPoint`<sup>Required</sup> <a name="entryPoint" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromFile.parameter.entryPoint"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromFile.parameter.props"></a>
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionCodeProps">CloudFrontFunctionCodeProps</a>
+
+---
+
+##### `fromInline` <a name="fromInline" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromInline"></a>
+
+```typescript
+import { CloudFrontTypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+CloudFrontTypeScriptCode.fromInline(code: string, props?: CloudFrontFunctionInlineCodeProps)
+```
+
+Create CloudFront Function code from inline TypeScript code.
+
+###### `code`<sup>Required</sup> <a name="code" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromInline.parameter.code"></a>
+
+- *Type:* string
+
+---
+
+###### `props`<sup>Optional</sup> <a name="props" id="@mrgrain/cdk-esbuild.CloudFrontTypeScriptCode.fromInline.parameter.props"></a>
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.CloudFrontFunctionInlineCodeProps">CloudFrontFunctionInlineCodeProps</a>
+
+---
+
+
 
 ### EsbuildBundler <a name="EsbuildBundler" id="@mrgrain/cdk-esbuild.EsbuildBundler"></a>
 
