@@ -149,8 +149,7 @@ jobs:
           echo $version
           npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
         env:
-          NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ steps.npm_oidc_token.outputs.token }}
+          NPM_TOKEN: ${{ steps.npm_oidc_token.outputs.npm-token }}
     env:
       NPM_CONFIG_PROVENANCE: "true"
   release_maven:

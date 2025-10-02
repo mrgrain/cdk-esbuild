@@ -126,8 +126,7 @@ export class StableReleases {
           'echo $version',
         ].concat(tags.map(tag => `npm dist-tag add ${project.package.packageName}@$version ${tag}`)).join('\n'),
         env: {
-          NPM_REGISTRY: 'registry.npmjs.org',
-          NPM_TOKEN: '${{ steps.npm_oidc_token.outputs.token }}',
+          NPM_TOKEN: '${{ steps.npm_oidc_token.outputs.npm-token }}',
         },
       };
     };
