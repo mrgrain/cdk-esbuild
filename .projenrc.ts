@@ -96,11 +96,12 @@ const project = new awscdk.AwsCdkConstructLibrary({
   releaseEnvironment: 'release',
   npmTrustedPublishing: true,
   publishToPypi: {
+    trustedPublishing: true,
     distName: 'mrgrain.cdk-esbuild',
     module: 'mrgrain.cdk_esbuild',
-    trustedPublishing: true,
   },
   publishToNuget: {
+    trustedPublishing: true,
     dotNetNamespace: 'Mrgrain.CdkEsbuild',
     packageId: 'Mrgrain.CdkEsbuild',
     iconUrl: 'https://raw.githubusercontent.com/mrgrain/cdk-esbuild/main/images/logo.png',
@@ -337,15 +338,6 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 // tmp: NPM Trusted Publishing needs a newer npm version
 project.github?.tryFindWorkflow('release')?.file?.patch(
   JsonPatch.add('/jobs/release_npm/steps/0/with/node-version', '24.x'),
-);
-
-// tmp: Nuget Trusted Publishing while not in projen
-project.github?.tryFindWorkflow('release')?.file?.patch(
-  JsonPatch.add('/jobs/release_nuget/permissions/id-token', 'write'),
-  JsonPatch.remove('/jobs/release_nuget/steps/10/env/NUGET_API_KEY'),
-  JsonPatch.add('/jobs/release_nuget/steps/10/env/NUGET_TRUSTED_PUBLISHER', true),
-  JsonPatch.add('/jobs/release_nuget/steps/10/env/NUGET_USERNAME', 'mrgrain'),
-  JsonPatch.add('/jobs/release_nuget/steps/10/run', 'npx -p github:cdklabs/publib#mrgrain/feat/nuget-trusted-publishing publib-nuget'),
 );
 
 // Synth project

@@ -139,6 +139,9 @@ jobs:
           NPM_REGISTRY: registry.npmjs.org
           NPM_TRUSTED_PUBLISHER: "true"
         run: npx -p publib@latest publib-npm
+      - uses: electron/npm-trusted-auth-action@v1.0.0
+        with:
+          package-name: "@mrgrain/cdk-esbuild"
       - name: Update tags
         run: |-
           version=`cat dist.old/version.txt`
@@ -146,7 +149,6 @@ jobs:
           npm dist-tag add @mrgrain/cdk-esbuild@$version cdk-v2
         env:
           NPM_REGISTRY: registry.npmjs.org
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     env:
       NPM_CONFIG_PROVENANCE: "true"
   release_maven:
@@ -278,9 +280,9 @@ jobs:
         run: mv .repo/dist dist
       - name: Release
         env:
-          NUGET_TRUSTED_PUBLISHER: true
-          NUGET_USERNAME: mrgrain
-        run: npx -p github:cdklabs/publib#mrgrain/feat/nuget-trusted-publishing publib-nuget
+          NUGET_TRUSTED_PUBLISHER: "true"
+          NUGET_USERNAME: ${{ secrets.NUGET_USERNAME }}
+        run: npx -p publib@latest publib-nuget
   release_golang:
     name: Publish to GitHub Go Module Repository
     needs: release
