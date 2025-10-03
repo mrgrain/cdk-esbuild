@@ -51,6 +51,24 @@ describe('CloudFrontTypeScriptCode', () => {
       expect(bundledCode.trim().length).toBeGreaterThan(0);
       expect(bundledCode).toContain('function');
     });
+
+    test('warns when handler is not exported', () => {
+      const emitWarningSpy = jest.spyOn(process, 'emitWarning');
+
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler-no-export.ts');
+      code.render();
+
+      expect(emitWarningSpy).toHaveBeenCalledWith(
+        expect.stringContaining('CloudFrontTypeScriptCode produced an empty file'),
+        'EmptyCloudFrontTypeScriptCodeWarning',
+      );
+      expect(emitWarningSpy).toHaveBeenCalledWith(
+        expect.stringContaining('cf-handler-no-export.ts'),
+        'EmptyCloudFrontTypeScriptCodeWarning',
+      );
+
+      emitWarningSpy.mockRestore();
+    });
   });
 
   describe('runtime version differences', () => {
@@ -97,6 +115,20 @@ describe('CloudFrontTypeScriptCode', () => {
       const renderedCode = code.render();
       expect(typeof renderedCode).toBe('string');
       expect(renderedCode.length).toBeGreaterThan(0);
+    });
+
+    test('warns when inline handler is not exported', () => {
+      const emitWarningSpy = jest.spyOn(process, 'emitWarning');
+
+      const code = CloudFrontTypeScriptCode.fromInline('function handler(event) { return { statusCode: 200 }; }');
+      code.render();
+
+      expect(emitWarningSpy).toHaveBeenCalledWith(
+        expect.stringContaining('CloudFrontTypeScriptCode produced an empty file'),
+        'EmptyCloudFrontTypeScriptCodeWarning',
+      );
+
+      emitWarningSpy.mockRestore();
     });
   });
 });

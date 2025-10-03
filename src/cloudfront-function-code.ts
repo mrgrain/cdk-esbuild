@@ -157,6 +157,7 @@ class EsbuildFunctionCode extends FunctionCode {
           throw new Error('Failed to bundle CloudFront Function code');
         }
         this.bundledCode = fs.readFileSync(path.join(tempDir, 'handler.js'), 'utf8');
+        warnIfBundledCodeIsEmpty(this.bundledCode, typeof this.bundler.entryPoints === 'string' ? this.bundler.entryPoints : undefined);
       } finally {
         fs.rmSync(tempDir, { recursive: true, force: true });
       }
@@ -201,6 +202,7 @@ class InlineEsbuildFunctionCode extends FunctionCode {
       };
 
       this.bundledCode = provider.transformSync(this.code, transformOptions);
+      warnIfBundledCodeIsEmpty(this.bundledCode);
     }
     return this.bundledCode!;
   }
@@ -244,4 +246,18 @@ function getSupportedFeatures(runtimeVersion: CloudFrontFunctionRuntime) {
     'regexp-named-capture-groups': true,
     'async-await': isV2,
   };
+}
+
+/**
+ * Warn if bundled code is empty. Requiring that users `export function handler(...)` is a bit different than
+ * the default CloudFront Function code behavior where you can have an un-exported function named "handler".
+ */
+function warnIfBundledCodeIsEmpty(bundledCode: string, filename?: string) {
+  if (!bundledCode || bundledCode.trim().length === 0) {
+    const fileInfo = filename ? ` (${filename})` : '';
+    process.emitWarning(
+      `CloudFrontTypeScriptCode produced an empty file when building${fileInfo}. Ensure you \`export function handler(...)\` in your code.`,
+      'EmptyCloudFrontTypeScriptCodeWarning',
+    );
+  }
 }
