@@ -2,6 +2,7 @@ import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
+import { SelfMutationOnForks } from './projenrc/SelfMutationOnForks';
 import { Esbuild } from './src/private/esbuild-source';
 
 const stableReleases = new StableReleases('v5', {
@@ -339,6 +340,9 @@ new TypeScriptSourceFile(project, 'src/esbuild-types.ts', {
 project.github?.tryFindWorkflow('release')?.file?.patch(
   JsonPatch.add('/jobs/release_npm/steps/0/with/node-version', '24.x'),
 );
+
+// Enable self-mutation on forks
+new SelfMutationOnForks(project);
 
 // Synth project
 project.synth();
