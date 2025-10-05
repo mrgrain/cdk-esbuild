@@ -52,6 +52,28 @@ describe('CloudFrontTypeScriptCode', () => {
       expect(buildOptions.minify).toBe(false);
     });
 
+    test('always includes cloudfront as external and preserves custom externals', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts', {
+        buildOptions: {
+          external: ['aws-sdk', 'lodash'],
+        },
+      });
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.external).toEqual(['cloudfront', 'aws-sdk', 'lodash']);
+    });
+
+    test('includes cloudfront as external when no custom externals provided', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.external).toEqual(['cloudfront']);
+    });
+
     test('renders bundled code', () => {
       const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
 
