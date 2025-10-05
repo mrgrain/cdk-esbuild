@@ -84,6 +84,8 @@ new s3deploy.BucketDeployment(stack, "DeployWebsite", {
 
 ### Amazon CloudFront: Functions
 
+> 💡 See [CloudFront Function (TypeScript)](examples/typescript/cloudfront-function/) for a working example of a CloudFront Distribution using CloudFront Functions.
+
 Use `CloudFrontTypeScriptCode` as the `code` of a [CloudFront Function](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html):
 
 ```ts fixture=local
