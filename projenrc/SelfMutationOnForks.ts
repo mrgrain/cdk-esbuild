@@ -35,7 +35,7 @@ export class SelfMutationOnForks {
           uses: 'dawidd6/action-download-artifact@v11',
           with: {
             name: 'repo.patch',
-            runId: '${{ github.event.workflow_run.id }}',
+            run_id: '${{ github.event.workflow_run.id }}',
           },
         },
         {
@@ -44,29 +44,14 @@ export class SelfMutationOnForks {
           if: 'steps.download_patch.outcome == \'success\'',
           uses: 'actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5',
           with: {
-            appId: '${{ secrets.PROJEN_APP_ID }}',
-            privateKey: '${{ secrets.PROJEN_APP_ID }}',
-          },
-        },
-        {
-          name: 'Get PR number',
-          id: 'pr',
-          if: 'steps.download_patch.outcome == \'success\'',
-          uses: 'actions/github-script@v7',
-          with: {
-            script: `
-              const pr = context.payload.workflow_run.pull_requests[0];
-              if (pr) {
-                core.setOutput('number', pr.number);
-                core.setOutput('head_sha', pr.head.sha);
-              }
-            `,
+            'app-id': '${{ secrets.PROJEN_APP_ID }}',
+            'private-key': '${{ secrets.PROJEN_APP_ID }}',
           },
         },
         {
           name: 'Checkout PR',
-          if: 'steps.download_patch.outcome == \'success\' && steps.pr.outputs.number',
-          uses: 'actions/checkout@v4',
+          if: 'steps.download_patch.outcome == \'success\'',
+          uses: 'actions/checkout@v5',
           with: {
             token: '${{ steps.generate_token.outputs.token }}',
             repository: '${{ github.event.workflow_run.head_repository.full_name }}',
@@ -75,13 +60,13 @@ export class SelfMutationOnForks {
         },
         {
           name: 'Apply patch to PR',
-          if: 'steps.download_patch.outcome == \'success\' && steps.pr.outputs.number',
+          if: 'steps.download_patch.outcome == \'success\'',
           run: [
             'git config user.name "github-actions[bot]"',
             'git config user.email "github-actions[bot]@users.noreply.github.com"',
             'git apply repo.patch',
             'git add .',
-            'git commit -m "chore: self mutation"',
+            'git commit -s -m "chore: self mutation"',
             'git push',
           ].join('\n'),
         },
