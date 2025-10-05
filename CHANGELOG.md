@@ -1,4 +1,13 @@
 
+## [5.7.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.0...v5.7.1) (2025-10-05)
+
+
+### Bug Fixes
+
+* **cloudfront-function:** always add `cloudfront` as external dependency ([#1617](https://github.com/mrgrain/cdk-esbuild/issues/1617)) ([ed59ca4](https://github.com/mrgrain/cdk-esbuild/commit/ed59ca418fdce484632d786063e13998546e7ddc))
+* **cloudfront-function:** change default minify to false ([#1615](https://github.com/mrgrain/cdk-esbuild/issues/1615)) ([eadd7e5](https://github.com/mrgrain/cdk-esbuild/commit/eadd7e52613bffc3c0f2e3f48e840da239dc5105))
+* **cloudfront-function:** treeshaking and exports are breaking function code ([#1611](https://github.com/mrgrain/cdk-esbuild/issues/1611)) ([9b40a62](https://github.com/mrgrain/cdk-esbuild/commit/9b40a6251449c6b23bd6387efbe0fcf15d703306)), closes [#1608](https://github.com/mrgrain/cdk-esbuild/issues/1608)
+
 ## [5.7.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.6.3...v5.7.0) (2025-10-02)
 
 
