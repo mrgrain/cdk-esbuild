@@ -134,6 +134,7 @@ class EsbuildFunctionCode extends FunctionCode {
       format: 'esm',
       target: 'es5',
       platform: 'neutral',
+      external: ['cloudfront', ...(props.buildOptions?.external ?? [])],
       ...minifyOptions(props.buildOptions?.minify),
       supported: {
         ...props.buildOptions?.supported,
@@ -219,7 +220,6 @@ function minifyOptions(minify: boolean = false) {
       minifyWhitespace: false,
       minifySyntax: false,
       minifyIdentifiers: false,
-
     };
   }
 
