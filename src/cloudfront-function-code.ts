@@ -116,6 +116,7 @@ export class CloudFrontTypeScriptCode {
  */
 class EsbuildFunctionCode extends FunctionCode {
   private readonly bundler: EsbuildBundler;
+  private readonly entryPoint: string;
   private bundledCode?: string;
 
   constructor(entryPoint: string, props: CloudFrontFunctionCodeProps) {
@@ -142,6 +143,7 @@ class EsbuildFunctionCode extends FunctionCode {
       },
     };
 
+    this.entryPoint = entryPoint;
     this.bundler = new EsbuildBundler(entryPoint, {
       ...props,
       buildOptions,
@@ -158,7 +160,7 @@ class EsbuildFunctionCode extends FunctionCode {
           throw new Error('Failed to bundle CloudFront Function code');
         }
         this.bundledCode = fs.readFileSync(path.join(tempDir, 'handler.js'), 'utf8');
-        validateCloudFrontFunctionCode(this.bundledCode);
+        validateCloudFrontFunctionCode(this.bundledCode, this.entryPoint);
       } finally {
         fs.rmSync(tempDir, { recursive: true, force: true });
       }
@@ -203,7 +205,7 @@ class InlineEsbuildFunctionCode extends FunctionCode {
       };
 
       this.bundledCode = provider.transformSync(this.code, transformOptions);
-      validateCloudFrontFunctionCode(this.bundledCode);
+      validateCloudFrontFunctionCode(this.bundledCode, '<inline code>');
     }
     return this.bundledCode!;
   }
@@ -255,16 +257,17 @@ function getSupportedFeatures(runtimeVersion: CloudFrontFunctionRuntime) {
  * Validates CloudFront Function code meets requirements.
  * @throws Error if code contains export statements
  */
-function validateCloudFrontFunctionCode(code: string): void {
+function validateCloudFrontFunctionCode(code: string, filePath?: string): void {
   // Check for export statements (not allowed in CloudFront Functions runtime)
   // Match: export { ... }, export{...}, export function, export const, export default, etc.
   // This pattern matches the word "export" followed by either whitespace or a punctuation character
   // to avoid false positives in comments or strings (which are preserved differently by esbuild)
   const exportPattern = /\bexport\s*[{(]|\bexport\s+(function|const|let|var|default|class|async)/;
   if (exportPattern.test(code)) {
+    const fileInfo = filePath ? ` in \`${filePath}\`` : '';
     throw new Error(
-      'CloudFront Function code contains export statements which are not allowed in the CloudFront Functions runtime. ' +
-      'Remove export keywords from your handler function. ' +
+      `CloudFront Function code${fileInfo} contains export statements which are not allowed in the CloudFront Functions runtime. ` +
+      'Remove \`export\` keywords from your handler function. ' +
       'See: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html',
     );
   }

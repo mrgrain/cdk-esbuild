@@ -57,7 +57,7 @@ describe('CloudFrontTypeScriptCode', () => {
     test('throws error when handler is exported', () => {
       const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler-with-export.ts');
 
-      expect(() => code.render()).toThrow(/export.*not allowed/i);
+      expect(() => code.render()).toThrow(/CloudFront Function code.*cf-handler-with-export\.ts.*export statements.*not allowed/i);
     });
 
     test('throws when other functions are exported', () => {
