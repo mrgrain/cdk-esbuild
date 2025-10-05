@@ -36,11 +36,20 @@ describe('CloudFrontTypeScriptCode', () => {
       expect(buildOptions.target).toBe('es5');
       expect(buildOptions.platform).toBe('neutral');
       expect(buildOptions.minify).toBe(false);
-      expect(buildOptions.minifyWhitespace).toBe(true);
-      expect(buildOptions.minifySyntax).toBe(true);
+      expect(buildOptions.minifyWhitespace).toBe(false);
+      expect(buildOptions.minifySyntax).toBe(false);
       expect(buildOptions.minifyIdentifiers).toBe(false);
       expect(buildOptions.bundle).toBe(true);
       expect(buildOptions.define).toEqual({ 'process.env.NODE_ENV': '"production"' });
+    });
+
+    test('defaults minify to false when no options provided', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.minify).toBe(false);
     });
 
     test('renders bundled code', () => {

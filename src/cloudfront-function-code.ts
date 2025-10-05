@@ -208,8 +208,11 @@ class InlineEsbuildFunctionCode extends FunctionCode {
 
 /**
  * Get minify options.
+ *
+ * Defaults to false to match esbuild's default behavior and maintain consistency
+ * with other constructs in this package (TypeScriptCode, etc.).
  */
-function minifyOptions(minify: boolean = true) {
+function minifyOptions(minify: boolean = false) {
   if (!minify) {
     return {
       minify: false,
