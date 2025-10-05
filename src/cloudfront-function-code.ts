@@ -133,7 +133,7 @@ class EsbuildFunctionCode extends FunctionCode {
       format: 'esm',
       target: 'es5',
       platform: 'neutral',
-      treeShaking: false, // required because `export` keywords are not allowed in the final code      
+      treeShaking: false, // required because `export` keywords are not allowed in the final code
       external: ['cloudfront', ...(props.buildOptions?.external ?? [])],
       ...minifyOptions(props.buildOptions?.minify),
       supported: {
