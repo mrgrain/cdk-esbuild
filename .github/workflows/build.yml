@@ -91,7 +91,7 @@ jobs:
       - name: Check if can push to PR
         id: check-push
         env:
-          GH_TOKEN: ${{ secrets.PROJEN_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
           FORK_FULL_NAME: ${{ github.event.pull_request.head.repo.full_name }}
           IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
         run: |-
