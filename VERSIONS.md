@@ -5,10 +5,10 @@ Only the latest release of each major version is supported.
 | Package version | CDK version | Node.js versions | Support                                                       |
 | --------------- | ----------- | ---------------- | ------------------------------------------------------------- |
 | v5 | ^2.51.0 | >=18 | :white_check_mark: |
-| v4 | ^2.12.0 | >=14 | :x: Support ended on 30 November 2024 |
-| v3 | ^2.0.0 | >=14 | :x: Support ended on 31 January 2024 |
-| v2 | ^1.99.0 | >=14 | :x: Support ended on 31 May 2023 |
-| v1 | ^1.99.0 | >=12 | :x: Support ended on 20 November 2021 |
+| v4 | ^2.12.0 | >=14 | :x: Support ended on 1 December 2024 |
+| v3 | ^2.0.0 | >=14 | :x: Support ended on 1 February 2024 |
+| v2 | ^1.99.0 | >=14 | :x: Support ended on 1 June 2023 |
+| v1 | ^1.99.0 | >=12 | :x: Support ended on 21 November 2021 |
 
 ## Tags on npm
 
