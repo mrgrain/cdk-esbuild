@@ -40,7 +40,30 @@ describe('CloudFrontTypeScriptCode', () => {
       expect(buildOptions.minifySyntax).toBe(false);
       expect(buildOptions.minifyIdentifiers).toBe(false);
       expect(buildOptions.bundle).toBe(true);
+      expect(buildOptions.treeShaking).toBe(false);
       expect(buildOptions.define).toEqual({ 'process.env.NODE_ENV': '"production"' });
+    });
+
+    test('works with non-exported handler function', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
+
+      const bundledCode = code.render();
+      expect(typeof bundledCode).toBe('string');
+      expect(bundledCode.trim().length).toBeGreaterThan(0);
+      expect(bundledCode).toContain('function');
+      expect(bundledCode).toContain('handler');
+    });
+
+    test('throws error when handler is exported', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler-with-export.ts');
+
+      expect(() => code.render()).toThrow(/export.*not allowed/i);
+    });
+
+    test('throws when other functions are exported', () => {
+      const code = CloudFrontTypeScriptCode.fromInline('function handler() { return { statusCode: 200, statusDescription: \'OK\' }; } export function other() { return { statusCode: 200, statusDescription: \'OK\' }; }');
+
+      expect(() => code.render()).toThrow(/export.*not allowed/i);
     });
 
     test('defaults minify to false when no options provided', () => {

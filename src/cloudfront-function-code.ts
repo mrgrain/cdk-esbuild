@@ -125,7 +125,6 @@ class EsbuildFunctionCode extends FunctionCode {
 
     const buildOptions: BuildOptions = {
       // defaults
-      treeShaking: true,
       bundle: true,
       // custom
       ...props.buildOptions,
@@ -134,6 +133,7 @@ class EsbuildFunctionCode extends FunctionCode {
       format: 'esm',
       target: 'es5',
       platform: 'neutral',
+      treeShaking: false, // required because `export` keywords are not allowed in the final code
       external: ['cloudfront', ...(props.buildOptions?.external ?? [])],
       ...minifyOptions(props.buildOptions?.minify),
       supported: {
@@ -158,6 +158,7 @@ class EsbuildFunctionCode extends FunctionCode {
           throw new Error('Failed to bundle CloudFront Function code');
         }
         this.bundledCode = fs.readFileSync(path.join(tempDir, 'handler.js'), 'utf8');
+        validateCloudFrontFunctionCode(this.bundledCode);
       } finally {
         fs.rmSync(tempDir, { recursive: true, force: true });
       }
@@ -187,13 +188,13 @@ class InlineEsbuildFunctionCode extends FunctionCode {
 
       const transformOptions: ProviderTransformOptions = {
         // defaults
-        treeShaking: true,
         // custom
         ...this.props.transformOptions,
         // forced
         format: 'esm',
         target: 'es5',
         platform: 'neutral',
+        treeShaking: false, // required because `export` keywords are not allowed in the final code
         ...minifyOptions(this.props.transformOptions?.minify),
         supported: {
           ...this.props.transformOptions?.supported,
@@ -202,6 +203,7 @@ class InlineEsbuildFunctionCode extends FunctionCode {
       };
 
       this.bundledCode = provider.transformSync(this.code, transformOptions);
+      validateCloudFrontFunctionCode(this.bundledCode);
     }
     return this.bundledCode!;
   }
@@ -247,4 +249,23 @@ function getSupportedFeatures(runtimeVersion: CloudFrontFunctionRuntime) {
     'regexp-named-capture-groups': true,
     'async-await': isV2,
   };
+}
+
+/**
+ * Validates CloudFront Function code meets requirements.
+ * @throws Error if code contains export statements
+ */
+function validateCloudFrontFunctionCode(code: string): void {
+  // Check for export statements (not allowed in CloudFront Functions runtime)
+  // Match: export { ... }, export{...}, export function, export const, export default, etc.
+  // This pattern matches the word "export" followed by either whitespace or a punctuation character
+  // to avoid false positives in comments or strings (which are preserved differently by esbuild)
+  const exportPattern = /\bexport\s*[{(]|\bexport\s+(function|const|let|var|default|class|async)/;
+  if (exportPattern.test(code)) {
+    throw new Error(
+      'CloudFront Function code contains export statements which are not allowed in the CloudFront Functions runtime. ' +
+      'Remove export keywords from your handler function. ' +
+      'See: https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/writing-function-code.html',
+    );
+  }
 }
