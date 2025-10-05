@@ -34,8 +34,9 @@ export class SelfMutationOnForks {
           continueOnError: true,
           uses: 'dawidd6/action-download-artifact@v11',
           with: {
-            name: 'repo.patch',
             run_id: '${{ github.event.workflow_run.id }}',
+            name: 'repo.patch',
+            path: '${{ runner.temp }}',
           },
         },
         {
@@ -64,7 +65,7 @@ export class SelfMutationOnForks {
           run: [
             'git config user.name "github-actions[bot]"',
             'git config user.email "github-actions[bot]@users.noreply.github.com"',
-            'git apply repo.patch',
+            'git apply ${{ runner.temp }}/repo.patch',
             'git add .',
             'git commit -s -m "chore: self mutation"',
             'git push',
