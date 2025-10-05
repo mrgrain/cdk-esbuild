@@ -209,7 +209,7 @@ class InlineEsbuildFunctionCode extends FunctionCode {
 /**
  * Get minify options.
  */
-function minifyOptions(minify: boolean = true) {
+function minifyOptions(minify: boolean = false) {
   if (!minify) {
     return {
       minify: false,
