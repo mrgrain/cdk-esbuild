@@ -45,7 +45,7 @@ export class SelfMutationOnForks {
           uses: 'actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5',
           with: {
             'app-id': '${{ secrets.PROJEN_APP_ID }}',
-            'private-key': '${{ secrets.PROJEN_APP_ID }}',
+            'private-key': '${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
           },
         },
         {
