@@ -30,16 +30,18 @@ export class SelfMutationOnForks {
       steps: [
         {
           name: 'Download patch',
+          id: 'download_patch',
+          continueOnError: true,
           uses: 'dawidd6/action-download-artifact@v11',
           with: {
             name: 'repo.patch',
             runId: '${{ github.event.workflow_run.id }}',
-            ifNoArtifactFound: 'ignore',
           },
         },
         {
           name: 'Generate token',
           id: 'generate_token',
+          if: 'steps.download_patch.outcome == \'success\'',
           uses: 'actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5',
           with: {
             appId: '${{ secrets.PROJEN_APP_ID }}',
@@ -49,6 +51,7 @@ export class SelfMutationOnForks {
         {
           name: 'Get PR number',
           id: 'pr',
+          if: 'steps.download_patch.outcome == \'success\'',
           uses: 'actions/github-script@v7',
           with: {
             script: `
@@ -62,7 +65,7 @@ export class SelfMutationOnForks {
         },
         {
           name: 'Checkout PR',
-          if: 'steps.pr.outputs.number',
+          if: 'steps.download_patch.outcome == \'success\' && steps.pr.outputs.number',
           uses: 'actions/checkout@v4',
           with: {
             token: '${{ steps.generate_token.outputs.token }}',
@@ -72,7 +75,7 @@ export class SelfMutationOnForks {
         },
         {
           name: 'Apply patch to PR',
-          if: 'steps.pr.outputs.number && hashFiles(\'repo.patch\') != \'\'',
+          if: 'steps.download_patch.outcome == \'success\' && steps.pr.outputs.number',
           run: [
             'git config user.name "github-actions[bot]"',
             'git config user.email "github-actions[bot]@users.noreply.github.com"',
