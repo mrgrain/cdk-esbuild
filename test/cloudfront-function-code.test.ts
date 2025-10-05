@@ -61,7 +61,7 @@ describe('CloudFrontTypeScriptCode', () => {
     });
 
     test('throws when other functions are exported', () => {
-      const code = CloudFrontTypeScriptCode.fromInline(`function handler() { return { statusCode: 200, statusDescription: 'OK' }; } export function other() { return { statusCode: 200, statusDescription: 'OK' }; }`);
+      const code = CloudFrontTypeScriptCode.fromInline('function handler() { return { statusCode: 200, statusDescription: \'OK\' }; } export function other() { return { statusCode: 200, statusDescription: \'OK\' }; }');
 
       expect(() => code.render()).toThrow(/export.*not allowed/i);
     });
