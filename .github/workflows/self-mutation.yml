@@ -11,13 +11,12 @@ jobs:
   self-mutation:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     if: github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.event == 'pull_request'
     steps:
       - name: Download patch
         id: download_patch
-        uses: dawidd6/action-download-artifact@v11
+        uses: dawidd6/action-download-artifact@ac66b43f0e6a346234dd65d4d0c8fbb31cb316e5
         with:
           run_id: ${{ github.event.workflow_run.id }}
           name: repo.patch
@@ -40,9 +39,22 @@ jobs:
       - name: Apply patch to PR
         if: steps.download_patch.outcome == 'success'
         run: |-
+          set -e
+          if [ ! -f "${{ runner.temp }}/repo.patch" ]; then
+            echo "Patch file not found"
+            exit 1
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          if ! git apply --check ${{ runner.temp }}/repo.patch; then
+            echo "Patch cannot be applied cleanly"
+            exit 1
+          fi
           git apply ${{ runner.temp }}/repo.patch
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "No changes to commit"
+            exit 0
+          fi
           git add .
           git commit -s -m "chore: self mutation"
           git push
