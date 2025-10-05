@@ -256,7 +256,7 @@ function getSupportedFeatures(runtimeVersion: CloudFrontFunctionRuntime) {
 /**
  * Validates CloudFront Function code meets requirements.
  * @throws Error if code contains export statements
- */
+ */        
 function validateCloudFrontFunctionCode(code: string, filePath?: string): void {
   // Check for export statements (not allowed in CloudFront Functions runtime)
   // Match: export { ... }, export{...}, export function, export const, export default, etc.
