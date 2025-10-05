@@ -90,14 +90,16 @@ export class StableReleases {
 
       // Additional npm dist tags
       if (opts.npmDistTags) {
-        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', {
-          id: 'npm_oidc_token',
-          uses: 'electron/npm-trusted-auth-action@v1.0.0',
-          with: {
-            'package-name': project.package.packageName,
-          },
-        }));
-        releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', tagOnNpm(opts.npmDistTags)));
+        // @todo: revert once `npm dist-tag add` is supported by trusted publishers
+        tagOnNpm(opts.npmDistTags);
+        // releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', {
+        //   id: 'npm_oidc_token',
+        //   uses: 'electron/npm-trusted-auth-action@v1.0.0',
+        //   with: {
+        //     'package-name': project.package.packageName,
+        //   },
+        // }));
+        // releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', tagOnNpm(opts.npmDistTags)));
       }
 
       // Go branch
