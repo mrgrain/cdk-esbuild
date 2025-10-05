@@ -133,7 +133,8 @@ class EsbuildFunctionCode extends FunctionCode {
       format: 'esm',
       target: 'es5',
       platform: 'neutral',
-      treeShaking: false, // required because `export` keywords are not allowed in the final code
+      treeShaking: false, // required because `export` keywords are not allowed in the final code      
+      external: ['cloudfront', ...(props.buildOptions?.external ?? [])],
       ...minifyOptions(props.buildOptions?.minify),
       supported: {
         ...props.buildOptions?.supported,
@@ -210,15 +211,17 @@ class InlineEsbuildFunctionCode extends FunctionCode {
 
 /**
  * Get minify options.
+ *
+ * Defaults to false to match esbuild's default behavior and maintain consistency
+ * with other constructs in this package (TypeScriptCode, etc.).
  */
-function minifyOptions(minify: boolean = true) {
+function minifyOptions(minify: boolean = false) {
   if (!minify) {
     return {
       minify: false,
       minifyWhitespace: false,
       minifySyntax: false,
       minifyIdentifiers: false,
-
     };
   }
 

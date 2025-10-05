@@ -36,8 +36,8 @@ describe('CloudFrontTypeScriptCode', () => {
       expect(buildOptions.target).toBe('es5');
       expect(buildOptions.platform).toBe('neutral');
       expect(buildOptions.minify).toBe(false);
-      expect(buildOptions.minifyWhitespace).toBe(true);
-      expect(buildOptions.minifySyntax).toBe(true);
+      expect(buildOptions.minifyWhitespace).toBe(false);
+      expect(buildOptions.minifySyntax).toBe(false);
       expect(buildOptions.minifyIdentifiers).toBe(false);
       expect(buildOptions.bundle).toBe(true);
       expect(buildOptions.treeShaking).toBe(false);
@@ -64,6 +64,37 @@ describe('CloudFrontTypeScriptCode', () => {
       const code = CloudFrontTypeScriptCode.fromInline('function handler() { return { statusCode: 200, statusDescription: \'OK\' }; } export function other() { return { statusCode: 200, statusDescription: \'OK\' }; }');
 
       expect(() => code.render()).toThrow(/export.*not allowed/i);
+    });
+
+    test('defaults minify to false when no options provided', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.minify).toBe(false);
+    });
+
+    test('always includes cloudfront as external and preserves custom externals', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts', {
+        buildOptions: {
+          external: ['aws-sdk', 'lodash'],
+        },
+      });
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.external).toEqual(['cloudfront', 'aws-sdk', 'lodash']);
+    });
+
+    test('includes cloudfront as external when no custom externals provided', () => {
+      const code = CloudFrontTypeScriptCode.fromFile('test/fixtures/handlers/cf-handler.ts');
+
+      const bundler = (code as any).bundler;
+      const buildOptions = (bundler as any).props.buildOptions;
+
+      expect(buildOptions.external).toEqual(['cloudfront']);
     });
 
     test('renders bundled code', () => {
