@@ -1,4 +1,4 @@
-import { JsonPatch, awscdk } from 'projen';
+import { JsonPatch, awscdk, github } from 'projen';
 
 export class SelfMutationOnForks {
   constructor(project: awscdk.AwsCdkConstructLibrary) {
@@ -18,6 +18,71 @@ export class SelfMutationOnForks {
         workflows: [buildWorkflow.name],
         types: ['completed'],
       },
+    });
+
+    selfMutation?.addJob('self-mutation', {
+      runsOn: ['ubuntu-latest'],
+      if: "github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.event == 'pull_request'",
+      permissions: {
+        contents: github.workflows.JobPermission.WRITE,
+        pullRequests: github.workflows.JobPermission.WRITE,
+      },
+      steps: [
+        {
+          name: 'Download patch',
+          uses: 'dawidd6/action-download-artifact@v11',
+          with: {
+            name: 'repo.patch',
+            runId: '${{ github.event.workflow_run.id }}',
+            ifNoArtifactFound: 'ignore',
+          },
+        },
+        {
+          name: 'Generate token',
+          id: 'generate_token',
+          uses: 'actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5',
+          with: {
+            appId: '${{ secrets.PROJEN_APP_ID }}',
+            privateKey: '${{ secrets.PROJEN_APP_ID }}',
+          },
+        },
+        {
+          name: 'Get PR number',
+          id: 'pr',
+          uses: 'actions/github-script@v7',
+          with: {
+            script: `
+              const pr = context.payload.workflow_run.pull_requests[0];
+              if (pr) {
+                core.setOutput('number', pr.number);
+                core.setOutput('head_sha', pr.head.sha);
+              }
+            `,
+          },
+        },
+        {
+          name: 'Checkout PR',
+          if: 'steps.pr.outputs.number',
+          uses: 'actions/checkout@v4',
+          with: {
+            token: '${{ steps.generate_token.outputs.token }}',
+            repository: '${{ github.event.workflow_run.head_repository.full_name }}',
+            ref: '${{ github.event.workflow_run.head_branch }}',
+          },
+        },
+        {
+          name: 'Apply patch to PR',
+          if: 'steps.pr.outputs.number && hashFiles(\'repo.patch\') != \'\'',
+          run: [
+            'git config user.name "github-actions[bot]"',
+            'git config user.email "github-actions[bot]@users.noreply.github.com"',
+            'git apply repo.patch',
+            'git add .',
+            'git commit -m "chore: self mutation"',
+            'git push',
+          ].join('\n'),
+        },
+      ],
     });
   }
 }
