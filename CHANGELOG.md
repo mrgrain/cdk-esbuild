@@ -1,4 +1,11 @@
 
+## [5.7.2](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.1...v5.7.2) (2025-10-15)
+
+
+### Bug Fixes
+
+* **cloudfront:** improve validation error messages with file path context ([#1618](https://github.com/mrgrain/cdk-esbuild/issues/1618)) ([fda9391](https://github.com/mrgrain/cdk-esbuild/commit/fda9391ff23b1287cd958de8ae1aac081a591efa))
+
 ## [5.7.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.0...v5.7.1) (2025-10-05)
 
 
