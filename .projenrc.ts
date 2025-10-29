@@ -342,6 +342,11 @@ project.github?.tryFindWorkflow('release')?.file?.patch(
   JsonPatch.add('/jobs/release_npm/steps/0/with/node-version', '24.x'),
 );
 
+// Automation environment for upgrades
+for (const wf of project.components.filter(c => c instanceof javascript.UpgradeDependencies).flatMap(c => c.workflows)) {
+  wf.file?.patch(JsonPatch.add('/jobs/pr/environment', 'automation'));
+}
+
 // Enable self-mutation on forks
 new components.SelfMutationOnForks(project, {
   environment: 'automation',

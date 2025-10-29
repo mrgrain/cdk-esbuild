@@ -68,6 +68,7 @@ jobs:
           overwrite: true
       - name: Publish Changelog
         run: npx projen publish:git:v5
+    environment: automation
   release_github:
     name: Publish to GitHub Releases
     needs:
