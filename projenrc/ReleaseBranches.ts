@@ -60,6 +60,7 @@ export class StableReleases {
 
       // Use the app to publish the changelog
       releaseWorkflow?.patch(
+        JsonPatch.add('/jobs/release/environment', 'automation'),
         JsonPatch.add('/jobs/release/steps/0', {
           name: 'Generate token',
           id: 'generate_token',

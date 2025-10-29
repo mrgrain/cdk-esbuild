@@ -1,8 +1,8 @@
+import { components } from 'mrpj';
 import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
-import { SelfMutationOnForks } from './projenrc/SelfMutationOnForks';
 import { Esbuild } from './src/private/esbuild-source';
 
 const stableReleases = new StableReleases('v5', {
@@ -129,6 +129,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     Esbuild.spec,
     'jest-mock',
     'ts-morph',
+    'mrpj@<1',
   ],
 
   // Ignore files
@@ -341,8 +342,15 @@ project.github?.tryFindWorkflow('release')?.file?.patch(
   JsonPatch.add('/jobs/release_npm/steps/0/with/node-version', '24.x'),
 );
 
+// Automation environment for upgrades
+for (const wf of project.components.filter(c => c instanceof javascript.UpgradeDependencies).flatMap(c => c.workflows)) {
+  wf.file?.patch(JsonPatch.add('/jobs/pr/environment', 'automation'));
+}
+
 // Enable self-mutation on forks
-new SelfMutationOnForks(project);
+new components.SelfMutationOnForks(project, {
+  environment: 'automation',
+});
 
 // Synth project
 project.synth();
