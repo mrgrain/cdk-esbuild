@@ -98,6 +98,11 @@
       "type": "build"
     },
     {
+      "name": "mrpj",
+      "version": "<1",
+      "type": "build"
+    },
+    {
       "name": "projen",
       "type": "build"
     },
