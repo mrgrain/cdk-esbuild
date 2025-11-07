@@ -403,7 +403,7 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@16 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jest-mock,jsii-diff,jsii-pacmak,projen,ts-jest,ts-morph,ts-node"
+          "exec": "npx npm-check-updates@18 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jest-mock,jsii-diff,jsii-pacmak,projen,ts-jest,ts-morph,ts-node"
         },
         {
           "exec": "npm install"
