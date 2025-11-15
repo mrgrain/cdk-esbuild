@@ -1,4 +1,6 @@
 
+## [5.7.4](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.3...v5.7.4) (2025-11-15)
+
 ## [5.7.3](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.2...v5.7.3) (2025-11-01)
 
 ## [5.7.2](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.1...v5.7.2) (2025-10-15)
