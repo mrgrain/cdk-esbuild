@@ -24,8 +24,8 @@ class WebsiteStack(cdk.Stack):
             "Website",
             sources=[
                 TypeScriptSource(
-                    "../fixtures/handlers/colors.ts",
-                    copy_dir="../fixtures/handlers",
+                    "test/fixtures/handlers/colors.ts",
+                    copy_dir="test/fixtures/handlers",
                     build_provider=EsbuildProvider(),  # Override for a specific construct
                 )
             ],

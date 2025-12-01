@@ -27,8 +27,8 @@ class LambdaStack(cdk.Stack):
             runtime=lambda_.Runtime.NODEJS_16_X,
             handler="index.handler",
             code=TypeScriptCode(
-                "../fixtures/handlers/colors.ts",
-                copy_dir="../fixtures/handlers",
+                "test/fixtures/handlers/colors.ts",
+                copy_dir="test/fixtures/handlers",
                 build_provider=EsbuildProvider(),  # Override for a specific construct
             ),
         )
@@ -40,7 +40,7 @@ class LambdaStack(cdk.Stack):
             runtime=lambda_.Runtime.NODEJS_16_X,
             handler="index.handler",
             code=TypeScriptCode(
-                "../fixtures/handlers/colors.ts",
+                "test/fixtures/handlers/colors.ts",
                 build_options=BuildOptions(
                     format="esm",
                     outfile="index.mjs",
