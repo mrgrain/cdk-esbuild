@@ -26,9 +26,9 @@ func main() {
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("index.handler"),
 		Code: cdkesbuild.NewTypeScriptCode(
-			jsii.String("../fixtures/handlers/colors.ts"),
+			jsii.String("test/fixtures/handlers/colors.ts"),
 			&cdkesbuild.TypeScriptCodeProps{
-				CopyDir: jsii.String("../fixtures/handlers"),
+				CopyDir: jsii.String("test/fixtures/handlers"),
 				BuildProvider: cdkesbuild.NewEsbuildProvider(&cdkesbuild.EsbuildProviderProps{}),
 			},
 		),
@@ -39,7 +39,7 @@ func main() {
 		Runtime: awslambda.Runtime_NODEJS_16_X(),
 		Handler: jsii.String("index.handler"),
 		Code: cdkesbuild.NewTypeScriptCode(
-			jsii.String("../fixtures/handlers/colors.ts"),
+			jsii.String("test/fixtures/handlers/colors.ts"),
 			&cdkesbuild.TypeScriptCodeProps{
 				BuildOptions: &cdkesbuild.BuildOptions{
 					Format: jsii.String("esm"),
