@@ -35,11 +35,11 @@
         },
         "aws-cdk.asset-awscli-v1": {
             "hashes": [
-                "sha256:1f33ba28c1d3874d3a71c95f7b94ecbb102c9bd60c4e1ff696311a47a0f56c35",
-                "sha256:d4ca5f5772a45e519100c7292e6f0a1dddff8c7eb6f3e4b79b6d42047dd588f8"
+                "sha256:175c56b020ebd801253f574e5d1f85fd26713b6f3f443e0150898c0cabf362a6",
+                "sha256:b6026e5079478e6d317f4fcfb242c93332b799920eb977481aa0a838d0ffe72a"
             ],
             "markers": "python_version ~= '3.9'",
-            "version": "==2.2.257"
+            "version": "==2.2.258"
         },
         "aws-cdk.asset-kubectl-v20": {
             "hashes": [
@@ -92,11 +92,11 @@
         },
         "jsii": {
             "hashes": [
-                "sha256:2a91bd6885a9a55f2ebb39e599963d5575f321e276e3cf44ca501caf838ab0a6",
-                "sha256:7d1a08caff2360cd8f475b74f508e623811a962d8064bc34e1ecfee9afa9a8bb"
+                "sha256:28a4de8737ad5a7fd15e34fc55067c18243f9a422b3fb5f9ca6122db16020b9a",
+                "sha256:7773c56cb31195897cff775d2f3eb85d807fdd3f3952db3039d04c8504a51366"
             ],
             "markers": "python_version ~= '3.9'",
-            "version": "==1.123.0"
+            "version": "==1.124.0"
         },
         "mrgrain-cdk-esbuild": {
             "hashes": [
