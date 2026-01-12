@@ -1,4 +1,4 @@
-import { JsonPatch, release, typescript } from 'projen';
+import { github, JsonPatch, release, typescript } from 'projen';
 import { VersionsFile } from './VersionsFile';
 
 export interface StableReleaseBranchOptions extends Omit<release.BranchOptions, 'npmDistTag'> {
@@ -49,6 +49,17 @@ export class StableReleases {
       project.addDevDeps( `@aws-cdk/aws-synthetics-alpha@${opts.syntheticsVersion ?? opts.cdkVersion + '-alpha.0'}`);
     };
 
+
+    const appToken = (repositories?: string[], permissions?: github.workflows.AppPermissions) => {
+      return github.GithubCredentials.fromApp({
+        appIdSecret: 'PROJEN_APP_ID',
+        privateKeySecret: 'PROJEN_APP_PRIVATE_KEY',
+        owner: repositories ? '${{ github.repository_owner }}' : undefined,
+        repositories,
+        permissions,
+      });
+    };
+
     /**
      * Configure features for all branches
      */
@@ -59,18 +70,11 @@ export class StableReleases {
       releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
 
       // Use the app to publish the changelog
+      const releaseToken = appToken();
       releaseWorkflow?.patch(
         JsonPatch.add('/jobs/release/environment', 'automation'),
-        JsonPatch.add('/jobs/release/steps/0', {
-          name: 'Generate token',
-          id: 'generate_token',
-          uses: 'actions/create-github-app-token@v1',
-          with: {
-            'app-id': '${{ secrets.PROJEN_APP_ID }}',
-            'private-key': '${{ secrets.PROJEN_APP_PRIVATE_KEY }}',
-          },
-        }),
-        JsonPatch.add('/jobs/release/steps/1/with/token', '${{ steps.generate_token.outputs.token }}'),
+        JsonPatch.add('/jobs/release/steps/0', releaseToken.setupSteps[0]),
+        JsonPatch.add('/jobs/release/steps/1/with/token', releaseToken.tokenRef),
       );
 
       // Check out the correct ref
@@ -103,13 +107,18 @@ export class StableReleases {
         // releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', tagOnNpm(opts.npmDistTags)));
       }
 
-      // Go branch
-      releaseWorkflow?.patch(JsonPatch.add('/jobs/release_golang/steps/11/env/GIT_BRANCH', branch));
+      // release: GitHub
+      releaseWorkflow?.patch(JsonPatch.remove('/jobs/release_github/steps/3/env'));
 
-      // npm provenance information
+      // release: Go
+      const goPublishToken = appToken(
+        [project.package.manifest.jsii?.targets?.go?.moduleName?.split('/').pop()],
+        { contents: github.workflows.AppPermission.WRITE },
+      );
       releaseWorkflow?.patch(
-        JsonPatch.add('/jobs/release_npm/env', { NPM_CONFIG_PROVENANCE: 'true' }),
-        JsonPatch.add('/jobs/release_npm/permissions/id-token', 'write'),
+        JsonPatch.add('/jobs/release_golang/steps/10', goPublishToken.setupSteps[0]),
+        JsonPatch.add('/jobs/release_golang/steps/11/env/GITHUB_TOKEN', goPublishToken.tokenRef),
+        JsonPatch.add('/jobs/release_golang/steps/11/env/GIT_BRANCH', branch),
       );
     };
 
