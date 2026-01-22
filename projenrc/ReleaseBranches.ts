@@ -57,6 +57,7 @@ export class StableReleases {
         owner: repositories ? '${{ github.repository_owner }}' : undefined,
         repositories,
         permissions,
+        environment: 'automation',
       });
     };
 
@@ -72,7 +73,7 @@ export class StableReleases {
       // Use the app to publish the changelog
       const releaseToken = appToken();
       releaseWorkflow?.patch(
-        JsonPatch.add('/jobs/release/environment', 'automation'),
+        JsonPatch.add('/jobs/release/environment', releaseToken.environment),
         JsonPatch.add('/jobs/release/steps/0', releaseToken.setupSteps[0]),
         JsonPatch.add('/jobs/release/steps/1/with/token', releaseToken.tokenRef),
       );
@@ -116,6 +117,7 @@ export class StableReleases {
         { contents: github.workflows.AppPermission.WRITE },
       );
       releaseWorkflow?.patch(
+        JsonPatch.add('/jobs/release_golang/environment', goPublishToken.environment),
         JsonPatch.add('/jobs/release_golang/steps/10', goPublishToken.setupSteps[0]),
         JsonPatch.add('/jobs/release_golang/steps/11/env/GITHUB_TOKEN', `x-access-token:${goPublishToken.tokenRef}`),
         JsonPatch.add('/jobs/release_golang/steps/11/env/GIT_BRANCH', branch),
