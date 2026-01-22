@@ -320,6 +320,6 @@ jobs:
         env:
           GIT_USER_NAME: github-actions[bot]
           GIT_USER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: x-access-token:${{ steps.generate_token.outputs.token }}
           GIT_BRANCH: v5
         run: npx -p publib@latest publib-golang

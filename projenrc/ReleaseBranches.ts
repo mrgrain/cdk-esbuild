@@ -119,7 +119,7 @@ export class StableReleases {
       releaseWorkflow?.patch(
         JsonPatch.add('/jobs/release_golang/environment', goPublishToken.environment),
         JsonPatch.add('/jobs/release_golang/steps/10', goPublishToken.setupSteps[0]),
-        JsonPatch.add('/jobs/release_golang/steps/11/env/GITHUB_TOKEN', goPublishToken.tokenRef),
+        JsonPatch.add('/jobs/release_golang/steps/11/env/GITHUB_TOKEN', `x-access-token:${goPublishToken.tokenRef}`),
         JsonPatch.add('/jobs/release_golang/steps/11/env/GIT_BRANCH', branch),
       );
     };
