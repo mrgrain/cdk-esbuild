@@ -1,4 +1,11 @@
 
+## [5.7.9](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.8...v5.7.9) (2026-01-22)
+
+
+### Bug Fixes
+
+* **release:** use automation environment for Go release job ([#1681](https://github.com/mrgrain/cdk-esbuild/issues/1681)) ([9f135a9](https://github.com/mrgrain/cdk-esbuild/commit/9f135a9dd8ebf76abd3fc53ecd185ef35a963bf3))
+
 ## [5.7.8](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.7...v5.7.8) (2026-01-15)
 
 ## [5.7.7](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.6...v5.7.7) (2026-01-01)
