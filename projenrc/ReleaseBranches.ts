@@ -108,9 +108,6 @@ export class StableReleases {
         // releaseWorkflow?.patch(JsonPatch.add('/jobs/release_npm/steps/-', tagOnNpm(opts.npmDistTags)));
       }
 
-      // release: GitHub
-      releaseWorkflow?.patch(JsonPatch.remove('/jobs/release_github/steps/3/env'));
-
       // release: Go
       const goPublishToken = appToken(
         [project.package.manifest.jsii?.targets?.go?.moduleName?.split('/').pop()],
