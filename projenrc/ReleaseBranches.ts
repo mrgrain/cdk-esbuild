@@ -70,6 +70,29 @@ export class StableReleases {
       // Release schedule
       releaseWorkflow?.patch(JsonPatch.replace('/on/schedule', [{ cron: opts.releaseSchedule }]));
 
+      // Don't run the workflow if the last commit was a release
+      releaseWorkflow?.patch(
+        JsonPatch.add('/jobs/check', {
+          'runs-on': 'ubuntu-latest',
+          'outputs': {
+            has_changes: '${{ steps.changes.outputs.has_changes }}',
+          },
+          'steps': [
+            github.WorkflowSteps.checkout(),
+            {
+              id: 'changes',
+              run: `if git log --oneline -1 | grep -qv "chore(release):"; then
+  echo "has_changes=true" >> $GITHUB_OUTPUT
+else
+  echo "has_changes=false" >> $GITHUB_OUTPUT
+fi`,
+            },
+          ],
+        }),
+        JsonPatch.add('/jobs/release/needs', 'check'),
+        JsonPatch.add('/jobs/release/if', "needs.check.outputs.has_changes == 'true'"),
+      );
+
       // Use the app to publish the changelog
       const releaseToken = appToken();
       releaseWorkflow?.patch(

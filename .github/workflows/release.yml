@@ -68,6 +68,8 @@ jobs:
           overwrite: true
       - name: Publish Changelog
         run: npx projen publish:git:v5
+    needs: check
+    if: needs.check.outputs.has_changes == 'true'
     environment: automation
   release_github:
     name: Publish to GitHub Releases
@@ -325,3 +327,17 @@ jobs:
           GITHUB_TOKEN: x-access-token:${{ steps.generate_token.outputs.token }}
           GIT_BRANCH: v5
         run: npx -p publib@latest publib-golang
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.changes.outputs.has_changes }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - id: changes
+        run: |-
+          if git log --oneline -1 | grep -qv "chore(release):"; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
