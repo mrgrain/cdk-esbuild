@@ -10,7 +10,7 @@ require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.84.0-alpha.0
 
 require (
 	github.com/aws/constructs-go/constructs/v10 v10.2.26
-	github.com/aws/jsii-runtime-go v1.125.0
+	github.com/aws/jsii-runtime-go v1.126.0
 	github.com/mrgrain/cdk-esbuild-go/cdkesbuild v0.0.0-unpublished
 )
 
