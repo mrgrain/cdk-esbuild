@@ -13,7 +13,9 @@
 /.github/workflows/upgrade-v5.yml linguist-generated
 /.gitignore linguist-generated
 /.mergify.yml linguist-generated
+/.node-version linguist-generated
 /.npmignore linguist-generated
+/.nvmrc linguist-generated
 /.projen/** linguist-generated
 /.projen/deps.json linguist-generated
 /.projen/files.json linguist-generated

@@ -58,6 +58,8 @@ junit.xml
 tsconfig.json
 !/API.md
 !/VERSIONS.md
+!/.nvmrc
+!/.node-version
 cdk-integ.out.*
 !/Pipfile
 .jsii.tabl.json

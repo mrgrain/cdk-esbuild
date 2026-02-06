@@ -1,3 +1,4 @@
+import { NodeVersion } from 'mrpj/lib/components';
 import { github, JsonPatch, release, typescript } from 'projen';
 import { VersionsFile } from './VersionsFile';
 
@@ -29,7 +30,7 @@ export class StableReleases {
       versions: Object.fromEntries(Object.entries(this.branches).map(([version, info]) => [version,
         {
           minCdk: info.cdkVersion,
-          minNode: info.minNodeVersion,
+          minNode: info.minNodeVersion, // don't convert spec to version here
           endOfSupport: info.supportedUntil,
         }]).concat([['v2', {
         minCdk: '1.99.0',
@@ -46,9 +47,9 @@ export class StableReleases {
      * Special configuration for the current branch only
      */
     const configureCurrentBranch = (opts: StableReleaseBranchOptions) => {
+      new NodeVersion(project, { versionSpec: opts.minNodeVersion });
       project.addDevDeps( `@aws-cdk/aws-synthetics-alpha@${opts.syntheticsVersion ?? opts.cdkVersion + '-alpha.0'}`);
     };
-
 
     const appToken = (repositories?: string[], permissions?: github.workflows.AppPermissions) => {
       return github.GithubCredentials.fromApp({
@@ -192,7 +193,7 @@ fi`,
       npmDistTag: 'latest',
       defaultReleaseBranch: this.currentBranch,
       majorVersion: current.majorVersion,
-      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${current.minNodeVersion}.x`,
+      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${NodeVersion.specToVersion(current.minNodeVersion)}.x`,
       prerelease: current.prerelease,
       cdkVersion: current.cdkVersion,
       jsiiVersion: current.jsiiVersion,
