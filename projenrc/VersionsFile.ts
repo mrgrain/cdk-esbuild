@@ -1,4 +1,5 @@
 import { IConstruct } from 'constructs';
+import { NodeVersion } from 'mrpj/lib/components';
 import { Component, TextFile } from 'projen';
 
 export interface VersionsFileOptions {
@@ -22,7 +23,12 @@ export class VersionsFile extends Component {
     const latestVersion = Object.keys(versions).sort().pop();
 
     const table = Object.entries(versions).map(([version, info]) => {
-      const base = `| ${version} | ^${info.minCdk} | >=${info.minNode} |`;
+      let nodeConstraint = `>=${info.minNode}`;
+      const converted = NodeVersion.specToVersion(info.minNode);
+      if (info.minNode !== converted) {
+        nodeConstraint = `${info.minNode}<br>(currently >= ${converted})`;
+      }
+      const base = `| ${version} | ^${info.minCdk} | ${nodeConstraint} |`;
 
       if (!(info.endOfSupport instanceof Date)) {
         return `${base} :white_check_mark: |`;
