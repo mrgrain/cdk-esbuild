@@ -9,7 +9,7 @@ const stableReleases = new StableReleases('v5', {
   v5: {
     majorVersion: 5,
     cdkVersion: '2.51.0',
-    minNodeVersion: '18',
+    minNodeVersion: 'lts/-2',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
     jsiiVersion: '5.9.x',
@@ -142,7 +142,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ],
   npmignore: [
     '.npmrc',
-    '.nvmrc',
     '.versionrc',
     '.gitattributes',
     '*.tgz',
