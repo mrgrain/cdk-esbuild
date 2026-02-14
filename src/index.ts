@@ -45,6 +45,8 @@ export {
   ProviderTransformOptions,
 } from './provider';
 
+export { TypeScriptCodeCollection, TypeScriptCodeCollectionProps } from './typescript-code-collection';
+
 export {
   TypeScriptSource,
   TypeScriptSourceProps,
