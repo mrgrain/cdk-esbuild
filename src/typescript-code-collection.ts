@@ -1,62 +1,106 @@
-import { AssetCode, AssetCodeProps } from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
-import { ProviderBuildOptions } from './provider';
-import { TypeScriptCode } from './typescript-code';
+import { BundlerProps } from './bundler';
+import { TypeScriptCode, TypeScriptCodeProps } from './code';
 
-export interface TypeScriptCodeCollectionProps extends Omit<AssetCodeProps, 'path'> {
+/**
+ * Properties for TypeScriptCodeCollection
+ * 
+ * @stability stable
+ */
+export interface TypeScriptCodeCollectionProps extends BundlerProps {
   /**
    * Entry points to bundle as a collection
-   * Key: output file name (without extension)
+   * Key: logical function name
    * Value: input file path
+   * 
+   * @example
+   * {
+   *   'api': './src/api.ts',
+   *   'auth': './src/auth.ts'
+   * }
+   * 
+   * @stability stable
    */
   readonly entryPoints: Record<string, string>;
 
   /**
-   * Build options to pass to esbuild
+   * A hash of the assets, available at construction time
+   * 
+   * @stability stable
    */
-  readonly buildOptions?: Omit<ProviderBuildOptions, 'entryPoints' | 'outdir'>;
+  readonly assetHash?: string;
 }
 
 /**
  * TypeScript/JavaScript code collection bundled with esbuild
  * 
- * Bundles multiple Lambda function entry points in a single esbuild invocation.
- * This is more efficient than creating individual TypeScriptCode instances when
- * functions share the same build configuration.
+ * Bundles multiple Lambda function entry points, each as separate TypeScriptCode instances.
+ * This allows building multiple functions while sharing the same build configuration.
+ * 
+ * @example
+ * ```typescript
+ * const codeCollection = new TypeScriptCodeCollection(this, 'MultiLambda', {
+ *   entryPoints: {
+ *     'api': './src/api.ts',
+ *     'auth': './src/auth.ts'
+ *   },
+ *   buildOptions: {
+ *     minify: true
+ *   }
+ * });
+ * 
+ * new lambda.Function(this, 'ApiFunc', {
+ *   runtime: lambda.Runtime.NODEJS_18_X,
+ *   handler: 'api.handler',
+ *   code: codeCollection.getCode('api'),
+ * });
+ * ```
+ * 
+ * @stability stable
  */
 export class TypeScriptCodeCollection extends Construct {
-  private readonly codeAssets: Map<string, TypeScriptCode>;
+  private readonly codes: { [name: string]: TypeScriptCode } = {};
 
   constructor(scope: Construct, id: string, props: TypeScriptCodeCollectionProps) {
     super(scope, id);
 
-    this.codeAssets = new Map();
+    const { entryPoints, assetHash, ...buildOptions } = props;
 
-    Object.entries(props.entryPoints).forEach(([name, entryPoint]) => {
-      const code = new TypeScriptCode(this, `Code-${name}`, entryPoint, props.buildOptions);
-      this.codeAssets.set(name, code);
+    // Create individual TypeScriptCode instances for each entry point
+    Object.entries(entryPoints).forEach(([name, entryPoint]) => {
+      const codeProps: TypeScriptCodeProps = {
+        ...buildOptions,
+        assetHash,
+      };
+
+      this.codes[name] = new TypeScriptCode(entryPoint, codeProps);
     });
   }
 
   /**
-   * Get the bundled code asset for a specific function
+   * Get the bundled TypeScript code for a specific function
+   * 
+   * @param functionName The logical function name (key from entryPoints)
+   * @returns TypeScriptCode instance that can be used with Lambda.Function
+   * 
+   * @stability stable
    */
-  public getCode(functionName: string): AssetCode {
-    const code = this.codeAssets.get(functionName);
+  public getCode(functionName: string): TypeScriptCode {
+    const code = this.codes[functionName];
     if (!code) {
       throw new Error(`No entry point found for function: ${functionName}`);
     }
-    return code.asset;
+    return code;
   }
 
   /**
-   * Get all bundled code assets
+   * Get all bundled code instances
+   * 
+   * @returns Object with function names as keys and TypeScriptCode instances as values
+   * 
+   * @stability stable
    */
-  public getAllCodes(): Map<string, AssetCode> {
-    const result = new Map<string, AssetCode>();
-    this.codeAssets.forEach((code, name) => {
-      result.set(name, code.asset);
-    });
-    return result;
+  public getAllCodes(): { [name: string]: TypeScriptCode } {
+    return { ...this.codes };
   }
 }
