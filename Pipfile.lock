@@ -35,11 +35,11 @@
         },
         "aws-cdk.asset-awscli-v1": {
             "hashes": [
-                "sha256:900edd7792c4f6fbbf1c97c31f6cece681b4404012cd11a862a23c75a6c1deb8",
-                "sha256:fc9eafe363f410ec10275bc5796e3486efab362b84dec09352d2e8d03a2d5cc1"
+                "sha256:1e605858aa1130003d669f46e096daceaa35b1b0df2df67c368c5185a6a9c9af",
+                "sha256:dbbdd721b725535811b898c24fa25b653f3d8feaf2ab1d4376cada44115c8cb3"
             ],
             "markers": "python_version ~= '3.9'",
-            "version": "==2.2.265"
+            "version": "==2.2.266"
         },
         "aws-cdk.asset-kubectl-v20": {
             "hashes": [
@@ -75,12 +75,12 @@
         },
         "constructs": {
             "hashes": [
-                "sha256:e63d6675ba2e8a9076db8df1d4c7af78efdb96182ba28abe938384ba321e4b81",
-                "sha256:efa0f9e4fe65bd334bad719d00e0c8d9e3e4c6d873da8e874e67517a029c190b"
+                "sha256:01e613161f087f0432c24824a1ba4e8a3084f5af4c7fcd852c8e94bfc0110ab5",
+                "sha256:88d23b10361c0a8b4896f6bed66693a0f4c61f0aa4247eb33a34a4ed12e67aaf"
             ],
             "index": "pypi",
             "markers": "python_version ~= '3.9'",
-            "version": "==10.4.5"
+            "version": "==10.5.0"
         },
         "importlib-resources": {
             "hashes": [

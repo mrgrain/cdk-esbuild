@@ -1,8 +1,8 @@
 import { resolve } from 'path';
 import { Stack } from 'aws-cdk-lib';
 import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
-import { TypeScriptCodeCollection } from '../src/typescript-code-collection';
 import { EsbuildProvider } from '../src/provider';
+import { TypeScriptCodeCollection } from '../src/typescript-code-collection';
 
 const buildProvider = new EsbuildProvider();
 const buildSyncSpy = jest.spyOn(buildProvider, 'buildSync');
@@ -131,8 +131,8 @@ describe('TypeScriptCodeCollection', () => {
 
       const allCodes = collection.allCodes;
       expect(Object.keys(allCodes)).toHaveLength(2);
-      expect(allCodes['api']).toBeDefined();
-      expect(allCodes['auth']).toBeDefined();
+      expect(allCodes.api).toBeDefined();
+      expect(allCodes.auth).toBeDefined();
     });
 
     it('should return a copy (not a reference to internal state)', () => {
@@ -147,7 +147,7 @@ describe('TypeScriptCodeCollection', () => {
 
       const allCodes = collection.allCodes;
       // Modifying the returned object should not affect internal state
-      delete allCodes['api'];
+      delete allCodes.api;
       expect(collection.getCode('api')).toBeDefined();
     });
   });
