@@ -87,7 +87,7 @@ describe('TypeScriptCodeCollection', () => {
     });
   });
 
-  describe('getFunctionNames()', () => {
+  describe('functionNames', () => {
     it('should return all function names', () => {
       const stack = new Stack();
 
@@ -99,7 +99,7 @@ describe('TypeScriptCodeCollection', () => {
         buildOptions: { absWorkingDir: resolve(__dirname) },
       });
 
-      const names = collection.getFunctionNames();
+      const names = collection.functionNames;
       expect(names).toHaveLength(2);
       expect(names).toContain('api');
       expect(names).toContain('auth');
@@ -113,11 +113,11 @@ describe('TypeScriptCodeCollection', () => {
         buildOptions: { absWorkingDir: resolve(__dirname) },
       });
 
-      expect(collection.getFunctionNames()).toHaveLength(0);
+      expect(collection.functionNames).toHaveLength(0);
     });
   });
 
-  describe('getAllCodes()', () => {
+  describe('allCodes', () => {
     it('should return all code instances', () => {
       const stack = new Stack();
 
@@ -129,7 +129,7 @@ describe('TypeScriptCodeCollection', () => {
         buildOptions: { absWorkingDir: resolve(__dirname) },
       });
 
-      const allCodes = collection.getAllCodes();
+      const allCodes = collection.allCodes;
       expect(Object.keys(allCodes)).toHaveLength(2);
       expect(allCodes['api']).toBeDefined();
       expect(allCodes['auth']).toBeDefined();
@@ -145,7 +145,7 @@ describe('TypeScriptCodeCollection', () => {
         buildOptions: { absWorkingDir: resolve(__dirname) },
       });
 
-      const allCodes = collection.getAllCodes();
+      const allCodes = collection.allCodes;
       // Modifying the returned object should not affect internal state
       delete allCodes['api'];
       expect(collection.getCode('api')).toBeDefined();

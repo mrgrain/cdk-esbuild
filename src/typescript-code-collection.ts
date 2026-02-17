@@ -76,24 +76,20 @@ export class TypeScriptCodeCollection extends Construct {
   }
 
   /**
-   * Get the names of all functions in this collection.
-   *
-   * @returns Array of function names (keys from entryPoints)
+   * The names of all functions in this collection.
    *
    * @stability stable
    */
-  public getFunctionNames(): string[] {
+  public get functionNames(): string[] {
     return Object.keys(this.codes);
   }
 
   /**
-   * Get all bundled code instances.
-   *
-   * @returns Object with function names as keys and TypeScriptCode instances as values
+   * All bundled code instances.
    *
    * @stability stable
    */
-  public getAllCodes(): { [name: string]: TypeScriptCode } {
+  public get allCodes(): { [name: string]: TypeScriptCode } {
     return { ...this.codes };
   }
 }
