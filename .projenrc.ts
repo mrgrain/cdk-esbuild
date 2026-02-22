@@ -60,6 +60,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     's3-deployment',
     'static website',
   ],
+  constructsVersion: '10.0.5',
   author: 'Moritz Kornher',
   authorAddress: '',
   authorEmail: 'mail@moritzkornher.de',

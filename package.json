@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.51.0",
     "commit-and-tag-version": "^12",
-    "constructs": "10.5.1",
+    "constructs": "10.0.5",
     "esbuild": "^0.27.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.51.0",
-    "constructs": "^10.5.1"
+    "constructs": "^10.0.5"
   },
   "keywords": [
     "aws-cdk",
