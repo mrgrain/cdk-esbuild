@@ -334,7 +334,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - run: |-
-          npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"
+          npx npm-check-updates -u "/^(@aws-cdk|aws-cdk|constructs)/"
           npm install
           npx projen compile
           npx projen test
