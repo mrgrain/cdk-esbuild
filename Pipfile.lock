@@ -75,12 +75,12 @@
         },
         "constructs": {
             "hashes": [
-                "sha256:01e613161f087f0432c24824a1ba4e8a3084f5af4c7fcd852c8e94bfc0110ab5",
-                "sha256:88d23b10361c0a8b4896f6bed66693a0f4c61f0aa4247eb33a34a4ed12e67aaf"
+                "sha256:c0e90bb2b9c2782f292017820b91714321cb78393c8965c9362b0b624bfaf23b",
+                "sha256:fc5c14f6b2770c8542a43e298aa29b63dee4b18701763e8c0fdce202624c3a7c"
             ],
             "index": "pypi",
             "markers": "python_version ~= '3.9'",
-            "version": "==10.5.0"
+            "version": "==10.5.1"
         },
         "importlib-resources": {
             "hashes": [

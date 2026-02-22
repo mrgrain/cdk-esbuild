@@ -60,6 +60,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     's3-deployment',
     'static website',
   ],
+  constructsVersion: '10.0.5',
   author: 'Moritz Kornher',
   authorAddress: '',
   authorEmail: 'mail@moritzkornher.de',
@@ -189,7 +190,7 @@ new IntegrationTests(project, {
 
 // test against latest versions
 project.buildWorkflow?.addPostBuildJobCommands('test-latest-versions', [
-  'npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"',
+  'npx npm-check-updates -u "/^(@aws-cdk|aws-cdk|constructs)/"',
   project.package.installAndUpdateLockfileCommand,
   project.runTaskCommand(project.compileTask),
   project.runTaskCommand(project.testTask),
