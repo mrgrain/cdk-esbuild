@@ -190,7 +190,7 @@ new IntegrationTests(project, {
 
 // test against latest versions
 project.buildWorkflow?.addPostBuildJobCommands('test-latest-versions', [
-  'npx npm-check-updates -u "/^(@aws-cdk|aws-cdk)/"',
+  'npx npm-check-updates -u "/^(@aws-cdk|aws-cdk|constructs)/"',
   project.package.installAndUpdateLockfileCommand,
   project.runTaskCommand(project.compileTask),
   project.runTaskCommand(project.testTask),
