@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@mrgrain/cdk-esbuild": "5.0.0-rc.0",
-    "aws-cdk-lib": "^2.95.1",
+    "aws-cdk-lib": "^2.240.0",
     "esbuild": "^0.19.2",
     "esbuild-plugin-cache": "^0.2.10",
     "esbuild-plugin-time": "^1.0.0",
