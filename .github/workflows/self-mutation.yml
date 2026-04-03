@@ -26,13 +26,13 @@ jobs:
       - name: Generate token
         id: generate_token
         if: steps.download_patch.outcome == 'success'
-        uses: actions/create-github-app-token@3ff1caaa28b64c9cc276ce0a02e2ff584f3900c5
+        uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859
         with:
           app-id: ${{ secrets.PROJEN_APP_ID }}
           private-key: ${{ secrets.PROJEN_APP_PRIVATE_KEY }}
       - name: Checkout PR
         if: steps.download_patch.outcome == 'success'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.event.workflow_run.head_branch }}
