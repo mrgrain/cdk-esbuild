@@ -18,11 +18,11 @@
     "default": {
         "attrs": {
             "hashes": [
-                "sha256:16d5969b87f0859ef33a48b35d55ac1be6e42ae49d5e853b597db70c35c57e11",
-                "sha256:adcf7e2a1fb3b36ac48d97835bb6d8ade15b8dcce26aba8bf1d14847b57a3373"
+                "sha256:c647aa4a12dfbad9333ca4e71fe62ddc36f4e63b2d260a37a8b83d2f043ac309",
+                "sha256:d03ceb89cb322a8fd706d4fb91940737b6642aa36998fe130a9bc96c985eff32"
             ],
             "markers": "python_version >= '3.9'",
-            "version": "==25.4.0"
+            "version": "==26.1.0"
         },
         "aws-cdk-lib": {
             "hashes": [
@@ -35,11 +35,11 @@
         },
         "aws-cdk.asset-awscli-v1": {
             "hashes": [
-                "sha256:24139da0eb1be59f8cfda22c6343d51e8d50bb89b5052b049cfab92683de7790",
-                "sha256:f86e61653927f77fb235b5ec148c955c610117430c869d182c8b20f7e07e2df2"
+                "sha256:c74aa5f3c89121560e7fe70b481fa9f5f7ab3fd3da949ef538cd2c68f4cc6194",
+                "sha256:ff56a4d2b974fbd55690854497b17a2d09fd0484ca0155bd70d4f4cee9bf758b"
             ],
-            "markers": "python_version ~= '3.10'",
-            "version": "==2.2.282"
+            "markers": "python_version >= '3.10'",
+            "version": "==2.2.284"
         },
         "aws-cdk.asset-kubectl-v20": {
             "hashes": [
@@ -67,11 +67,11 @@
         },
         "cattrs": {
             "hashes": [
-                "sha256:1ac88d9e5eda10436c4517e390a4142d88638fe682c436c93db7ce4a277b884a",
-                "sha256:9896e84e0a5bf723bc7b4b68f4481785367ce07a8a02e7e9ee6eb2819bc306ff"
+                "sha256:d1e0804c42639494d469d08d4f26d6b9de9b8ab26b446db7b5f8c2e97f7c3096",
+                "sha256:fa239e0f0ec0715ba34852ce813986dfed1e12117e209b816ab87401271cdd40"
             ],
-            "markers": "python_version >= '3.9'",
-            "version": "==25.3.0"
+            "markers": "python_version >= '3.10'",
+            "version": "==26.1.0"
         },
         "constructs": {
             "hashes": [
@@ -82,21 +82,13 @@
             "markers": "python_version ~= '3.9'",
             "version": "==10.6.0"
         },
-        "importlib-resources": {
-            "hashes": [
-                "sha256:0722d4c6212489c530f2a145a34c0a7a3b4721bc96a15fada5930e2a0b760708",
-                "sha256:1bd7b48b4088eddb2cd16382150bb515af0bd2c70128194392725f82ad2c96a1"
-            ],
-            "markers": "python_version >= '3.10'",
-            "version": "==7.1.0"
-        },
         "jsii": {
             "hashes": [
-                "sha256:7dd7af915f540e0b8c0f5162a985f6773a522d0166b690bf4156abf493826bc2",
-                "sha256:8a1bd03fb7b010f104d47f1bfd5df0110280be39a63b2b477ab8d1aa4bb8a1db"
+                "sha256:3d860404e9e350beae0bdae48b473173653bd2be3a901c620feb656b690f9c2f",
+                "sha256:bfab0cc3f99bfbc13683af2afb8d62522af867fb826fc825ab6b27fe636bb087"
             ],
-            "markers": "python_version ~= '3.9'",
-            "version": "==1.132.0"
+            "markers": "python_version >= '3.10'",
+            "version": "==1.135.0"
         },
         "mrgrain-cdk-esbuild": {
             "hashes": [
