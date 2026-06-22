@@ -1,11 +1,11 @@
 import { resolve } from 'path';
+import { Stack } from 'aws-cdk-lib';
+import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
 import {
   Canary,
   Runtime as SyntheticsRuntime,
   Test,
-} from '@aws-cdk/aws-synthetics-alpha';
-import { Stack } from 'aws-cdk-lib';
-import { Function, Runtime as LambdaRuntime } from 'aws-cdk-lib/aws-lambda';
+} from 'aws-cdk-lib/aws-synthetics';
 import { TypeScriptCode } from '../src/code';
 import { EsbuildProvider } from '../src/provider';
 
@@ -196,7 +196,7 @@ describe('Amazon CloudWatch Synthetics', () => {
 
         new Canary(stack, 'MyCanary', {
           test,
-          runtime: SyntheticsRuntime.SYNTHETICS_NODEJS_PUPPETEER_3_2,
+          runtime: SyntheticsRuntime.SYNTHETICS_NODEJS_PUPPETEER_3_5,
         });
       }).not.toThrow();
     });
@@ -217,5 +217,28 @@ describe('multiple Code in the same scope', () => {
 
     codeOne.bind(stack);
     codeTwo.bind(stack);
+  });
+});
+
+describe('construct metadata', () => {
+  it('should add esbuild:input-files metadata', () => {
+    const stack = new Stack();
+
+    const code = new TypeScriptCode('fixtures/handlers/ts-handler.ts', {
+      buildOptions: { absWorkingDir: resolve(__dirname) },
+    });
+
+    new Function(stack, 'MyFunction', {
+      runtime: LambdaRuntime.NODEJS_14_X,
+      handler: 'index.handler',
+      code,
+    });
+
+    const asset = stack.node.findAll().find(c => c.node.metadata.some(m => m.type === '@mrgrain/cdk-esbuild:v5'));
+    expect(asset).toBeDefined();
+
+    const metadata = asset!.node.metadata.find(m => m.type === '@mrgrain/cdk-esbuild:v5');
+    expect(metadata!.data.assetHash).toBeDefined();
+    expect(metadata!.data.inputs['fixtures/handlers/ts-handler.ts']).toMatch(/^[a-f0-9]{64}$/);
   });
 });

@@ -8,7 +8,7 @@ import { Esbuild } from './src/private/esbuild-source';
 const stableReleases = new StableReleases('v5', {
   v5: {
     majorVersion: 5,
-    cdkVersion: '2.51.0',
+    cdkVersion: '2.251.0',
     minNodeVersion: 'lts/-2',
     releaseSchedule: '0 5 1,15 * *',
     npmDistTags: ['cdk-v2'],
@@ -60,7 +60,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     's3-deployment',
     'static website',
   ],
-  constructsVersion: '10.0.5',
+  constructsVersion: '10.5.0',
   author: 'Moritz Kornher',
   authorAddress: '',
   authorEmail: 'mail@moritzkornher.de',

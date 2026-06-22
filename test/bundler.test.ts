@@ -1,3 +1,6 @@
+import { createHash } from 'crypto';
+import { readFileSync } from 'fs';
+import { resolve } from 'path';
 import { FileSystem } from 'aws-cdk-lib';
 import * as esbuild from 'esbuild';
 import { mocked } from 'jest-mock';
@@ -6,6 +9,64 @@ import { BuildOptions, BuildResult } from '../src/esbuild-types';
 
 const buildSync = jest.fn();
 const buildProvider = { buildSync };
+
+describe('inputFiles', () => {
+  afterEach(() => {
+    buildSync.mockReset();
+  });
+
+  it('should extract input files with hashes from metafile', () => {
+    const absWorkingDir = resolve(__dirname);
+    buildSync.mockReturnValue({
+      metafile: {
+        inputs: {
+          'fixtures/handlers/ts-handler.ts': { bytes: 100, imports: [] },
+        },
+        outputs: {},
+      },
+    });
+
+    const bundler = new EsbuildBundler(['index.ts'], {
+      buildProvider,
+      buildOptions: { absWorkingDir },
+    });
+
+    bundler.local?.tryBundle('cdk.out/123456', bundler);
+
+    const expectedHash = createHash('sha256')
+      .update(readFileSync(resolve(absWorkingDir, 'fixtures/handlers/ts-handler.ts')))
+      .digest('hex');
+    expect(bundler.inputFiles).toEqual({
+      'fixtures/handlers/ts-handler.ts': expectedHash,
+    });
+  });
+
+  it('should be undefined when provider returns void', () => {
+    buildSync.mockReturnValue(undefined);
+
+    const bundler = new EsbuildBundler(['index.ts'], {
+      buildProvider,
+      buildOptions: { absWorkingDir: '/project' },
+    });
+
+    bundler.local?.tryBundle('cdk.out/123456', bundler);
+
+    expect(bundler.inputFiles).toBeUndefined();
+  });
+
+  it('should be undefined when metafile is not present', () => {
+    buildSync.mockReturnValue({ errors: [], warnings: [] });
+
+    const bundler = new EsbuildBundler(['index.ts'], {
+      buildProvider,
+      buildOptions: { absWorkingDir: '/project' },
+    });
+
+    bundler.local?.tryBundle('cdk.out/123456', bundler);
+
+    expect(bundler.inputFiles).toBeUndefined();
+  });
+});
 
 describe('bundling', () => {
   describe('Given a project root path', () => {

@@ -145,7 +145,7 @@ export class EsbuildProvider implements IBuildProvider, ITransformProvider {
     const esbuild = this.require(this.esbuildModulePath);
     const buildFn = this.withEsbuildBinaryPath(esbuild.buildSync, this.esbuildBinaryPath);
 
-    buildFn(options);
+    return buildFn({ ...options, metafile: true });
   }
 
   public transformSync(input: string, options?: ProviderTransformOptions): string {

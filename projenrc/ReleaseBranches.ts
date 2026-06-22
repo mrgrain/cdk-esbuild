@@ -48,7 +48,9 @@ export class StableReleases {
      */
     const configureCurrentBranch = (opts: StableReleaseBranchOptions) => {
       new NodeVersion(project, { versionSpec: opts.minNodeVersion });
-      project.addDevDeps( `@aws-cdk/aws-synthetics-alpha@${opts.syntheticsVersion ?? opts.cdkVersion + '-alpha.0'}`);
+      if (opts.syntheticsVersion) {
+        project.addDevDeps(`@aws-cdk/aws-synthetics-alpha@${opts.syntheticsVersion}`);
+      }
     };
 
     const appToken = (repositories?: string[], permissions?: github.workflows.AppPermissions) => {

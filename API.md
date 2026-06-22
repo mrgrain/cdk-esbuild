@@ -47,6 +47,7 @@ new TypeScriptAsset(scope: Construct, id: string, props: TypeScriptAssetProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.addResourceMetadata">addResourceMetadata</a></code> | Adds CloudFormation template metadata to the specified resource with information that indicates which resource property is mapped to this local asset. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.grantRead">grantRead</a></code> | Grants read permissions to the principal on the assets bucket. |
 
@@ -59,6 +60,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@mrgrain/cdk-esbuild.TypeScriptAsset.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@mrgrain/cdk-esbuild.TypeScriptAsset.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addResourceMetadata` <a name="addResourceMetadata" id="@mrgrain/cdk-esbuild.TypeScriptAsset.addResourceMetadata"></a>
 
@@ -101,6 +123,8 @@ public grantRead(grantee: IGrantable): void
 
 Grants read permissions to the principal on the assets bucket.
 
+[disable-awslint:no-grants]
+
 ###### `grantee`<sup>Required</sup> <a name="grantee" id="@mrgrain/cdk-esbuild.TypeScriptAsset.grantRead.parameter.grantee"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.IGrantable
@@ -115,7 +139,7 @@ Grants read permissions to the principal on the assets bucket.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct"></a>
 
 ```typescript
 import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
@@ -124,6 +148,20 @@ TypeScriptAsset.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct.parameter.x"></a>
 
@@ -4290,6 +4328,7 @@ Props to change the behavior of the bundler.
 | <code><a href="#@mrgrain/cdk-esbuild.EsbuildBundler.property.image">image</a></code> | <code>aws-cdk-lib.DockerImage</code> | *No description.* |
 | <code><a href="#@mrgrain/cdk-esbuild.EsbuildBundler.property.local">local</a></code> | <code>aws-cdk-lib.ILocalBundling</code> | Implementation of `ILocalBundling` interface, responsible for calling esbuild functions. |
 | <code><a href="#@mrgrain/cdk-esbuild.EsbuildBundler.property.props">props</a></code> | <code><a href="#@mrgrain/cdk-esbuild.BundlerProps">BundlerProps</a></code> | Props to change the behavior of the bundler. |
+| <code><a href="#@mrgrain/cdk-esbuild.EsbuildBundler.property.inputFiles">inputFiles</a></code> | <code>string[]</code> | A list of input files detected by esbuild from the metafile output. |
 
 ---
 
@@ -4349,6 +4388,20 @@ public readonly props: BundlerProps;
 - *Type:* <a href="#@mrgrain/cdk-esbuild.BundlerProps">BundlerProps</a>
 
 Props to change the behavior of the bundler.
+
+---
+
+##### `inputFiles`<sup>Optional</sup> <a name="inputFiles" id="@mrgrain/cdk-esbuild.EsbuildBundler.property.inputFiles"></a>
+
+```typescript
+public readonly inputFiles: string[];
+```
+
+- *Type:* string[]
+
+A list of input files detected by esbuild from the metafile output.
+
+Only available after bundling has occurred.
 
 ---
 
@@ -4688,7 +4741,9 @@ metadata for tooling like SAM CLI to be able to find their origins.
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromAsset">fromAsset</a></code> | Loads the function code from a local disk path. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromAssetImage">fromAssetImage</a></code> | Create an ECR image from the specified asset and bind it as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucket">fromBucket</a></code> | Lambda handler code as an S3 object. |
+| <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucketV2">fromBucketV2</a></code> | Lambda handler code as an S3 object. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCfnParameters">fromCfnParameters</a></code> | Creates a new Lambda source defined using CloudFormation parameters. |
+| <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCustomCommand">fromCustomCommand</a></code> | Runs a command to build the code asset that will be used. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromDockerBuild">fromDockerBuild</a></code> | Loads the function code from an asset created by a Docker build. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromEcrImage">fromEcrImage</a></code> | Use an existing ECR image as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromInline">fromInline</a></code> | Inline code for Lambda handler. |
@@ -4755,6 +4810,9 @@ InlineJavaScriptCode.fromBucket(bucket: IBucket, key: string, objectVersion?: st
 
 Lambda handler code as an S3 object.
 
+Note: If `objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
 ###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucket.parameter.bucket"></a>
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket
@@ -4779,6 +4837,46 @@ Optional S3 object version.
 
 ---
 
+##### `fromBucketV2` <a name="fromBucketV2" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucketV2"></a>
+
+```typescript
+import { InlineJavaScriptCode } from '@mrgrain/cdk-esbuild'
+
+InlineJavaScriptCode.fromBucketV2(bucket: IBucket, key: string, options?: BucketOptions)
+```
+
+Lambda handler code as an S3 object.
+
+Note: If `options.objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
+###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucketV2.parameter.bucket"></a>
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The S3 bucket.
+
+---
+
+###### `key`<sup>Required</sup> <a name="key" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucketV2.parameter.key"></a>
+
+- *Type:* string
+
+The object key.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromBucketV2.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.BucketOptions
+
+Optional parameters for setting the code, current optional parameters to set here are 1.
+
+`objectVersion` to set S3 object version
+2. `sourceKMSKey` to set KMS Key for encryption of code
+
+---
+
 ##### `fromCfnParameters` <a name="fromCfnParameters" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCfnParameters"></a>
 
 ```typescript
@@ -4793,7 +4891,41 @@ Creates a new Lambda source defined using CloudFormation parameters.
 
 - *Type:* aws-cdk-lib.aws_lambda.CfnParametersCodeProps
 
-optional construction properties of {@link CfnParametersCode}.
+optional construction properties of `CfnParametersCode`.
+
+---
+
+##### `fromCustomCommand` <a name="fromCustomCommand" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCustomCommand"></a>
+
+```typescript
+import { InlineJavaScriptCode } from '@mrgrain/cdk-esbuild'
+
+InlineJavaScriptCode.fromCustomCommand(output: string, command: string[], options?: CustomCommandOptions)
+```
+
+Runs a command to build the code asset that will be used.
+
+###### `output`<sup>Required</sup> <a name="output" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCustomCommand.parameter.output"></a>
+
+- *Type:* string
+
+Where the output of the command will be directed, either a directory or a .zip file with the output Lambda code bundle * For example, if you use the command to run a build script (e.g., [ 'node', 'bundle_code.js' ]), and the build script generates a directory `/my/lambda/code` containing code that should be ran in a Lambda function, then output should be set to `/my/lambda/code`.
+
+---
+
+###### `command`<sup>Required</sup> <a name="command" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCustomCommand.parameter.command"></a>
+
+- *Type:* string[]
+
+The command which will be executed to generate the output, for example, [ 'node', 'bundle_code.js' ].
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.InlineJavaScriptCode.fromCustomCommand.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.CustomCommandOptions
+
+options for the custom command, and other asset options -- but bundling options are not allowed.
 
 ---
 
@@ -4866,7 +4998,7 @@ Inline code for Lambda handler.
 
 - *Type:* string
 
-The actual handler code (limited to 4KiB).
+The actual handler code (the resulting zip file cannot exceed 4MB).
 
 ---
 
@@ -4984,7 +5116,9 @@ metadata for tooling like SAM CLI to be able to find their origins.
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromAsset">fromAsset</a></code> | Loads the function code from a local disk path. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromAssetImage">fromAssetImage</a></code> | Create an ECR image from the specified asset and bind it as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucket">fromBucket</a></code> | Lambda handler code as an S3 object. |
+| <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucketV2">fromBucketV2</a></code> | Lambda handler code as an S3 object. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCfnParameters">fromCfnParameters</a></code> | Creates a new Lambda source defined using CloudFormation parameters. |
+| <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCustomCommand">fromCustomCommand</a></code> | Runs a command to build the code asset that will be used. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromDockerBuild">fromDockerBuild</a></code> | Loads the function code from an asset created by a Docker build. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromEcrImage">fromEcrImage</a></code> | Use an existing ECR image as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromInline">fromInline</a></code> | Inline code for Lambda handler. |
@@ -5051,6 +5185,9 @@ InlineTypeScriptCode.fromBucket(bucket: IBucket, key: string, objectVersion?: st
 
 Lambda handler code as an S3 object.
 
+Note: If `objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
 ###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucket.parameter.bucket"></a>
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket
@@ -5075,6 +5212,46 @@ Optional S3 object version.
 
 ---
 
+##### `fromBucketV2` <a name="fromBucketV2" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucketV2"></a>
+
+```typescript
+import { InlineTypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+InlineTypeScriptCode.fromBucketV2(bucket: IBucket, key: string, options?: BucketOptions)
+```
+
+Lambda handler code as an S3 object.
+
+Note: If `options.objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
+###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucketV2.parameter.bucket"></a>
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The S3 bucket.
+
+---
+
+###### `key`<sup>Required</sup> <a name="key" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucketV2.parameter.key"></a>
+
+- *Type:* string
+
+The object key.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromBucketV2.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.BucketOptions
+
+Optional parameters for setting the code, current optional parameters to set here are 1.
+
+`objectVersion` to set S3 object version
+2. `sourceKMSKey` to set KMS Key for encryption of code
+
+---
+
 ##### `fromCfnParameters` <a name="fromCfnParameters" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCfnParameters"></a>
 
 ```typescript
@@ -5089,7 +5266,41 @@ Creates a new Lambda source defined using CloudFormation parameters.
 
 - *Type:* aws-cdk-lib.aws_lambda.CfnParametersCodeProps
 
-optional construction properties of {@link CfnParametersCode}.
+optional construction properties of `CfnParametersCode`.
+
+---
+
+##### `fromCustomCommand` <a name="fromCustomCommand" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCustomCommand"></a>
+
+```typescript
+import { InlineTypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+InlineTypeScriptCode.fromCustomCommand(output: string, command: string[], options?: CustomCommandOptions)
+```
+
+Runs a command to build the code asset that will be used.
+
+###### `output`<sup>Required</sup> <a name="output" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCustomCommand.parameter.output"></a>
+
+- *Type:* string
+
+Where the output of the command will be directed, either a directory or a .zip file with the output Lambda code bundle * For example, if you use the command to run a build script (e.g., [ 'node', 'bundle_code.js' ]), and the build script generates a directory `/my/lambda/code` containing code that should be ran in a Lambda function, then output should be set to `/my/lambda/code`.
+
+---
+
+###### `command`<sup>Required</sup> <a name="command" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCustomCommand.parameter.command"></a>
+
+- *Type:* string[]
+
+The command which will be executed to generate the output, for example, [ 'node', 'bundle_code.js' ].
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.InlineTypeScriptCode.fromCustomCommand.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.CustomCommandOptions
+
+options for the custom command, and other asset options -- but bundling options are not allowed.
 
 ---
 
@@ -5162,7 +5373,7 @@ Inline code for Lambda handler.
 
 - *Type:* string
 
-The actual handler code (limited to 4KiB).
+The actual handler code (the resulting zip file cannot exceed 4MB).
 
 ---
 
@@ -5289,7 +5500,9 @@ metadata for tooling like SAM CLI to be able to find their origins.
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromAsset">fromAsset</a></code> | Loads the function code from a local disk path. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromAssetImage">fromAssetImage</a></code> | Create an ECR image from the specified asset and bind it as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromBucket">fromBucket</a></code> | Lambda handler code as an S3 object. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromBucketV2">fromBucketV2</a></code> | Lambda handler code as an S3 object. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromCfnParameters">fromCfnParameters</a></code> | Creates a new Lambda source defined using CloudFormation parameters. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromCustomCommand">fromCustomCommand</a></code> | Runs a command to build the code asset that will be used. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromDockerBuild">fromDockerBuild</a></code> | Loads the function code from an asset created by a Docker build. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromEcrImage">fromEcrImage</a></code> | Use an existing ECR image as the Lambda code. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCode.fromInline">fromInline</a></code> | Inline code for Lambda handler. |
@@ -5356,6 +5569,9 @@ TypeScriptCode.fromBucket(bucket: IBucket, key: string, objectVersion?: string)
 
 Lambda handler code as an S3 object.
 
+Note: If `objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
 ###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromBucket.parameter.bucket"></a>
 
 - *Type:* aws-cdk-lib.aws_s3.IBucket
@@ -5380,6 +5596,46 @@ Optional S3 object version.
 
 ---
 
+##### `fromBucketV2` <a name="fromBucketV2" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromBucketV2"></a>
+
+```typescript
+import { TypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+TypeScriptCode.fromBucketV2(bucket: IBucket, key: string, options?: BucketOptions)
+```
+
+Lambda handler code as an S3 object.
+
+Note: If `options.objectVersion` is not defined, the lambda will not be updated automatically if the code in the bucket is updated.
+This is because CDK/Cloudformation does not track changes on the source S3 Bucket. It is recommended to either use S3Code.fromAsset() instead or set objectVersion.
+
+###### `bucket`<sup>Required</sup> <a name="bucket" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromBucketV2.parameter.bucket"></a>
+
+- *Type:* aws-cdk-lib.aws_s3.IBucket
+
+The S3 bucket.
+
+---
+
+###### `key`<sup>Required</sup> <a name="key" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromBucketV2.parameter.key"></a>
+
+- *Type:* string
+
+The object key.
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromBucketV2.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.BucketOptions
+
+Optional parameters for setting the code, current optional parameters to set here are 1.
+
+`objectVersion` to set S3 object version
+2. `sourceKMSKey` to set KMS Key for encryption of code
+
+---
+
 ##### `fromCfnParameters` <a name="fromCfnParameters" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromCfnParameters"></a>
 
 ```typescript
@@ -5394,7 +5650,41 @@ Creates a new Lambda source defined using CloudFormation parameters.
 
 - *Type:* aws-cdk-lib.aws_lambda.CfnParametersCodeProps
 
-optional construction properties of {@link CfnParametersCode}.
+optional construction properties of `CfnParametersCode`.
+
+---
+
+##### `fromCustomCommand` <a name="fromCustomCommand" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromCustomCommand"></a>
+
+```typescript
+import { TypeScriptCode } from '@mrgrain/cdk-esbuild'
+
+TypeScriptCode.fromCustomCommand(output: string, command: string[], options?: CustomCommandOptions)
+```
+
+Runs a command to build the code asset that will be used.
+
+###### `output`<sup>Required</sup> <a name="output" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromCustomCommand.parameter.output"></a>
+
+- *Type:* string
+
+Where the output of the command will be directed, either a directory or a .zip file with the output Lambda code bundle * For example, if you use the command to run a build script (e.g., [ 'node', 'bundle_code.js' ]), and the build script generates a directory `/my/lambda/code` containing code that should be ran in a Lambda function, then output should be set to `/my/lambda/code`.
+
+---
+
+###### `command`<sup>Required</sup> <a name="command" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromCustomCommand.parameter.command"></a>
+
+- *Type:* string[]
+
+The command which will be executed to generate the output, for example, [ 'node', 'bundle_code.js' ].
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="@mrgrain/cdk-esbuild.TypeScriptCode.fromCustomCommand.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.CustomCommandOptions
+
+options for the custom command, and other asset options -- but bundling options are not allowed.
 
 ---
 
@@ -5467,7 +5757,7 @@ Inline code for Lambda handler.
 
 - *Type:* string
 
-The actual handler code (limited to 4KiB).
+The actual handler code (the resulting zip file cannot exceed 4MB).
 
 ---
 

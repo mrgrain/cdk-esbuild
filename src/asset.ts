@@ -1,9 +1,11 @@
 import { isAbsolute, relative } from 'path';
-import { AssetHashType } from 'aws-cdk-lib';
+import { AssetHashType, Stage } from 'aws-cdk-lib';
 import { Asset as S3Asset } from 'aws-cdk-lib/aws-s3-assets';
 import { Construct, Node } from 'constructs';
 import { EsbuildBundler, EntryPoints } from './bundler';
+import { AssetCache, CachedAssetBundler } from './cached-bundler';
 import { TypeScriptCodeProps } from './code';
+import { timer } from './private/timer';
 
 
 export interface TypeScriptAssetProps extends TypeScriptCodeProps {
@@ -78,24 +80,40 @@ export class TypeScriptAsset extends S3Asset {
             ),
         );
 
-
     const buildOptions = {
       bundle: true,
       ...options,
       absWorkingDir,
     };
 
+    // Check if we can reuse a cached bundle
+    const t = timer('cache freshness check');
+    const cache = AssetCache.for(scope, id);
+    const isCached = cache?.isFresh(absWorkingDir) ? cache : undefined;
+    t.stop(isCached ? 'fresh' : 'stale');
+    const bundler = isCached
+      ? new CachedAssetBundler(isCached, name)
+      : new EsbuildBundler(relativeEntryPoints, { ...props, buildOptions });
+
     super(scope, id, {
       path: absWorkingDir,
       assetHash,
       assetHashType: assetHash ? AssetHashType.CUSTOM : AssetHashType.OUTPUT,
-      bundling: new EsbuildBundler(
-        relativeEntryPoints,
-        {
-          ...props,
-          buildOptions,
-        },
-      ),
+      bundling: bundler,
     });
+
+    if (bundler.inputFiles) {
+      const data = { assetHash: this.assetHash, inputs: bundler.inputFiles };
+      this.node.addMetadata('@mrgrain/cdk-esbuild:v5', data);
+
+      const stage = Stage.of(this);
+      if (stage) {
+        (stage as any)._assemblyBuilder.addArtifact(`${this.node.path}.bundle`, {
+          type: '@mrgrain/cdk-esbuild:v5' as any,
+          properties: data,
+        });
+      }
+    }
   }
 }
+

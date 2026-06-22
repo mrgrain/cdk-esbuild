@@ -7,7 +7,7 @@
     "cdk": "cdk"
   },
   "dependencies": {
-    "@mrgrain/cdk-esbuild": "5.0.0-rc.0",
+    "@mrgrain/cdk-esbuild": "file:../../../dist/js/cdk-esbuild@0.0.0.jsii.tgz",
     "aws-cdk-lib": "^2.251.0",
     "node-fetch": "^3.3.2"
   },

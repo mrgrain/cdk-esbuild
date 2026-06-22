@@ -46,7 +46,6 @@
     "organization": false
   },
   "devDependencies": {
-    "@aws-cdk/aws-synthetics-alpha": "2.51.0-alpha.0",
     "@aws-cdk/integ-runner": "latest",
     "@stylistic/eslint-plugin": "^2",
     "@types/eslint": "^7.29.0",
@@ -54,9 +53,9 @@
     "@types/node": "ts5.9",
     "@typescript-eslint/eslint-plugin": "^8",
     "@typescript-eslint/parser": "^8",
-    "aws-cdk-lib": "2.51.0",
+    "aws-cdk-lib": "2.251.0",
     "commit-and-tag-version": "^12",
-    "constructs": "10.0.5",
+    "constructs": "10.5.0",
     "esbuild": "^0.27.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -77,8 +76,8 @@
     "typescript": "5.9.x"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.51.0",
-    "constructs": "^10.0.5"
+    "aws-cdk-lib": "^2.251.0",
+    "constructs": "^10.5.0"
   },
   "keywords": [
     "aws-cdk",

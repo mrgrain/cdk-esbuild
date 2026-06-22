@@ -1,4 +1,5 @@
-import { existsSync, mkdirSync, rmSync } from 'fs';
+import { createHash } from 'crypto';
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'fs';
 import { join, normalize, relative, resolve, posix, isAbsolute } from 'path';
 import {
   BundlingOptions,
@@ -7,6 +8,7 @@ import {
   ILocalBundling,
 } from 'aws-cdk-lib';
 import { BuildOptions } from './esbuild-types';
+import { timer } from './private/timer';
 import { isEsbuildError } from './private/utils';
 import { EsbuildProvider, IBuildProvider } from './provider';
 
@@ -103,6 +105,14 @@ export class EsbuildBundler {
   public readonly local: ILocalBundling;
 
   /**
+   * A map of input file paths to their SHA-256 hashes, detected from the esbuild metafile output.
+   * Only available after bundling has occurred.
+   *
+   * @stability experimental
+   */
+  public inputFiles?: Record<string, string>;
+
+  /**
    * @deprecated This value is ignored since the bundler is always using a locally installed version of esbuild. However the property is required to comply with the `BundlingOptions` interface.
    *
    * @stability deprecated
@@ -143,6 +153,7 @@ export class EsbuildBundler {
     }
     this.local = {
       tryBundle: (outputDir: string, _options: BundlingOptions): boolean => {
+        const t = timer('esbuild bundling');
 
         if (this.props.copyDir) {
           const copyDir = this.getCopyDirList(this.props.copyDir);
@@ -169,19 +180,31 @@ export class EsbuildBundler {
 
         try {
           const provider = props.buildProvider ?? EsbuildProvider.defaultBuildProvider();
+          const absWorkingDir = this.props?.buildOptions?.absWorkingDir ?? process.cwd();
 
-          provider.buildSync({
+          const result: any = provider.buildSync({
             entryPoints: typeof entryPoints === 'string' ? [entryPoints] : entryPoints,
             color: process.env.NO_COLOR ? Boolean(process.env.NO_COLOR) : undefined,
             ...(this.props?.buildOptions || {}),
             ...this.getOutputOptions(outputDir, { normalize, join }),
           });
+
+          if (result?.metafile) {
+            this.inputFiles = Object.fromEntries(
+              Object.keys(result.metafile.inputs).map((file) => [
+                file,
+                createHash('sha256').update(readFileSync(resolve(absWorkingDir, file))).digest('hex'),
+              ]),
+            );
+          }
         } catch (error) {
           if (isEsbuildError(error)) {
             throw new Error(`Esbuild failed to bundle ${entryPoints}`);
           }
           throw error;
         }
+
+        t.stop();
 
         return true;
       },
