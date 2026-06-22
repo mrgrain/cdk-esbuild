@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.51.0",
     "commit-and-tag-version": "^12",
-    "constructs": "10.0.5",
+    "constructs": "10.5.1",
     "esbuild": "^0.27.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -65,12 +65,12 @@
     "jest-junit": "^17",
     "jest-mock": "^27.5.1",
     "jsii": "5.9.x",
-    "jsii-diff": "^1.132.0",
+    "jsii-diff": "^1.136.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.132.0",
+    "jsii-pacmak": "^1.136.0",
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
-    "projen": "^0.99.66",
+    "projen": "^0.100.2",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.51.0",
-    "constructs": "^10.0.5"
+    "constructs": "^10.5.1"
   },
   "keywords": [
     "aws-cdk",
@@ -100,6 +100,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
+  "stability": "stable",
   "version": "0.0.0",
   "jest": {
     "coverageProvider": "v8",
@@ -149,7 +150,6 @@
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "stable",
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -174,10 +174,8 @@
         "packageName": "cdkesbuild"
       }
     },
-    "tsc": {
-      "outDir": "lib",
-      "rootDir": "src"
-    }
+    "tsconfig": "tsconfig.json",
+    "validateTsconfig": "strict"
   },
   "awscdkio": {
     "twitter": "@mrgrain"
