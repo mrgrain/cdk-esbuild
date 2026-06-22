@@ -1,6 +1,6 @@
-import { IConstruct } from 'constructs';
-import { NodeVersion } from 'mrpj/lib/components';
+import { components } from 'mrpj';
 import { Component, TextFile } from 'projen';
+import type { IConstruct } from 'projenConstructs';
 
 export interface VersionsFileOptions {
   path?: string;
@@ -24,7 +24,7 @@ export class VersionsFile extends Component {
 
     const table = Object.entries(versions).map(([version, info]) => {
       let nodeConstraint = `>=${info.minNode}`;
-      const converted = NodeVersion.specToVersion(info.minNode);
+      const converted = components.NodeVersion.specToVersion(info.minNode);
       if (info.minNode !== converted) {
         nodeConstraint = `${info.minNode}<br>(currently >= ${converted})`;
       }

@@ -49,13 +49,13 @@ junit.xml
 !/.github/workflows/upgrade-v5.yml
 !/.github/pull_request_template.md
 !/test/
+!/tsconfig.json
 !/tsconfig.dev.json
 !/src/
 /lib
 /dist/
 !/.eslintrc.json
 .jsii
-tsconfig.json
 !/API.md
 !/VERSIONS.md
 !/.nvmrc

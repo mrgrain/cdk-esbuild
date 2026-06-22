@@ -1,4 +1,4 @@
-import { NodeVersion } from 'mrpj/lib/components';
+import { components } from 'mrpj';
 import { github, JsonPatch, release, typescript } from 'projen';
 import { VersionsFile } from './VersionsFile';
 
@@ -47,7 +47,7 @@ export class StableReleases {
      * Special configuration for the current branch only
      */
     const configureCurrentBranch = (opts: StableReleaseBranchOptions) => {
-      new NodeVersion(project, { versionSpec: opts.minNodeVersion });
+      new components.NodeVersion(project as any, { versionSpec: opts.minNodeVersion });
       project.addDevDeps( `@aws-cdk/aws-synthetics-alpha@${opts.syntheticsVersion ?? opts.cdkVersion + '-alpha.0'}`);
     };
 
@@ -193,7 +193,7 @@ fi`,
       npmDistTag: 'latest',
       defaultReleaseBranch: this.currentBranch,
       majorVersion: current.majorVersion,
-      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${NodeVersion.specToVersion(current.minNodeVersion)}.x`,
+      workflowNodeVersion: current.workflowNodeVersion ? current.workflowNodeVersion : `${components.NodeVersion.specToVersion(current.minNodeVersion)}.x`,
       prerelease: current.prerelease,
       cdkVersion: current.cdkVersion,
       jsiiVersion: current.jsiiVersion,
