@@ -65,12 +65,13 @@
     "jest-junit": "^17",
     "jest-mock": "^27.5.1",
     "jsii": "5.9.x",
-    "jsii-diff": "^1.132.0",
+    "jsii-diff": "^1.136.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.132.0",
+    "jsii-pacmak": "^1.136.0",
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
-    "projen": "^0.99.66",
+    "projen": "^0.100.2",
+    "projenConstructs": "npm:constructs@^10.5.0",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
@@ -100,6 +101,7 @@
   "main": "lib/index.js",
   "license": "MIT",
   "homepage": "https://github.com/mrgrain/cdk-esbuild",
+  "stability": "stable",
   "version": "0.0.0",
   "jest": {
     "coverageProvider": "v8",
@@ -149,7 +151,6 @@
     }
   },
   "types": "lib/index.d.ts",
-  "stability": "stable",
   "jsii": {
     "outdir": "dist",
     "targets": {
@@ -174,10 +175,8 @@
         "packageName": "cdkesbuild"
       }
     },
-    "tsc": {
-      "outDir": "lib",
-      "rootDir": "src"
-    }
+    "tsconfig": "tsconfig.json",
+    "validateTsconfig": "strict"
   },
   "awscdkio": {
     "twitter": "@mrgrain"

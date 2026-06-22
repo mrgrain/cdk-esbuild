@@ -1,5 +1,5 @@
 import { components } from 'mrpj';
-import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
+import { awscdk, DependencyType, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
@@ -85,6 +85,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
       },
     },
   },
+  depsUpgradeOptions: {
+    exclude: ['projenConstructs'],
+  },
   autoApproveUpgrades: true,
   autoApproveOptions: {
     allowedUsernames: [
@@ -141,31 +144,36 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'examples/template',
     '!/examples/**',
   ],
-  npmignore: [
-    '.npmrc',
-    '.versionrc',
-    '.gitattributes',
-    '*.tgz',
-    '*.gz',
-    '*.zip',
-    'cdk.out',
-    '.cdk.staging',
-    '/examples',
-    'PUBLISHING.md',
-    '.vscode',
-    '.projenrc.ts',
-    'projenrc',
-    '/images',
-    'API.md',
-    'CHANGELOG.md',
-    'CONTRIBUTING.md',
-    'SECURITY.md',
-  ],
+  npmIgnoreOptions: {
+    ignorePatterns: [
+      '.npmrc',
+      '.versionrc',
+      '.gitattributes',
+      '*.tgz',
+      '*.gz',
+      '*.zip',
+      'cdk.out',
+      '.cdk.staging',
+      '/examples',
+      'PUBLISHING.md',
+      '.vscode',
+      '.projenrc.ts',
+      'projenrc',
+      '/images',
+      'API.md',
+      'CHANGELOG.md',
+      'CONTRIBUTING.md',
+      'SECURITY.md',
+    ],
+  },
 
   // Force stable release options
   ...stableReleases.projectOptions,
 });
 stableReleases.bind(project);
+
+// projen c
+project.deps.addDependency('projenConstructs@npm:constructs@^10.5.0', DependencyType.BUILD);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
