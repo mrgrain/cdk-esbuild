@@ -47,6 +47,7 @@ new TypeScriptAsset(scope: Construct, id: string, props: TypeScriptAssetProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.with">with</a></code> | Applies one or more mixins to this construct. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.addResourceMetadata">addResourceMetadata</a></code> | Adds CloudFormation template metadata to the specified resource with information that indicates which resource property is mapped to this local asset. |
 | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptAsset.grantRead">grantRead</a></code> | Grants read permissions to the principal on the assets bucket. |
 
@@ -59,6 +60,27 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@mrgrain/cdk-esbuild.TypeScriptAsset.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@mrgrain/cdk-esbuild.TypeScriptAsset.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+The mixins to apply.
+
+---
 
 ##### `addResourceMetadata` <a name="addResourceMetadata" id="@mrgrain/cdk-esbuild.TypeScriptAsset.addResourceMetadata"></a>
 
@@ -115,7 +137,7 @@ Grants read permissions to the principal on the assets bucket.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct"></a>
 
 ```typescript
 import { TypeScriptAsset } from '@mrgrain/cdk-esbuild'
@@ -124,6 +146,20 @@ TypeScriptAsset.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
+
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
 
 ###### `x`<sup>Required</sup> <a name="x" id="@mrgrain/cdk-esbuild.TypeScriptAsset.isConstruct.parameter.x"></a>
 
