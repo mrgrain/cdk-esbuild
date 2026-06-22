@@ -107,6 +107,11 @@
       "type": "build"
     },
     {
+      "name": "projenConstructs",
+      "version": "npm:constructs@^10.5.0",
+      "type": "build"
+    },
+    {
       "name": "ts-jest",
       "type": "build"
     },
@@ -130,7 +135,7 @@
     },
     {
       "name": "constructs",
-      "version": "^10.5.1",
+      "version": "^10.0.5",
       "type": "peer"
     }
   ],

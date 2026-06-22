@@ -56,7 +56,7 @@
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.51.0",
     "commit-and-tag-version": "^12",
-    "constructs": "10.5.1",
+    "constructs": "10.0.5",
     "esbuild": "^0.27.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -71,6 +71,7 @@
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
     "projen": "^0.100.2",
+    "projenConstructs": "npm:constructs@^10.5.0",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
@@ -78,7 +79,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.51.0",
-    "constructs": "^10.5.1"
+    "constructs": "^10.0.5"
   },
   "keywords": [
     "aws-cdk",

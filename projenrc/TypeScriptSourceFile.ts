@@ -1,6 +1,6 @@
-import { Construct } from 'constructs';
 import { Component, FileBase, FileBaseOptions, javascript, Project as ProjenProject, Task } from 'projen';
 import { execCapture } from 'projen/lib/util';
+import type { IConstruct } from 'projenConstructs';
 import { Project, SourceFile } from 'ts-morph';
 
 interface TypeScriptSourceFileOptions extends Omit<FileBaseOptions, 'readonly'> {
@@ -69,13 +69,13 @@ export class TypeScriptSourceFile extends FileBase {
 export class TypeScriptSourceFileLinter extends Component {
   public readonly task: Task;
 
-  public static singleton(scope: Construct): TypeScriptSourceFileLinter {
+  public static singleton(scope: IConstruct): TypeScriptSourceFileLinter {
     const root = scope.node.root;
     return (root.node.findAll().find((c) => c instanceof TypeScriptSourceFileLinter) ??
       new TypeScriptSourceFileLinter(root)) as TypeScriptSourceFileLinter;
   }
 
-  private constructor(scope: Construct) {
+  private constructor(scope: IConstruct) {
     super(scope, 'TypeScriptSourceFileLinter');
 
     this.task = this.project.addTask('lint:ts', {

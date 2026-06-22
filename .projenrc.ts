@@ -1,5 +1,5 @@
 import { components } from 'mrpj';
-import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
+import { awscdk, DependencyType, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
@@ -60,7 +60,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     's3-deployment',
     'static website',
   ],
-  // constructsVersion: '^10.0.5',
+  constructsVersion: '10.0.5',
   author: 'Moritz Kornher',
   authorAddress: '',
   authorEmail: 'mail@moritzkornher.de',
@@ -84,6 +84,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
         types: ['feat', 'fix', 'chore', 'docs', 'ci', 'revert'],
       },
     },
+  },
+  depsUpgradeOptions: {
+    exclude: ['projenConstructs'],
   },
   autoApproveUpgrades: true,
   autoApproveOptions: {
@@ -168,6 +171,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
   ...stableReleases.projectOptions,
 });
 stableReleases.bind(project);
+
+// projen c
+project.deps.addDependency('projenConstructs@npm:constructs@^10.5.0', DependencyType.BUILD);
 
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
