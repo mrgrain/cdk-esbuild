@@ -8,7 +8,7 @@ require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.84.0-alpha.0
 
 require (
 	github.com/aws/constructs-go/constructs/v10 v10.2.26
-	github.com/aws/jsii-runtime-go v1.132.0
+	github.com/aws/jsii-runtime-go v1.136.0
 	github.com/mrgrain/cdk-esbuild-go/cdkesbuild v0.0.0-unpublished
 )
 
@@ -22,11 +22,11 @@ require (
 	github.com/mattn/go-isatty v0.0.22 // indirect
 	github.com/yuin/goldmark v1.7.16 // indirect
 	golang.org/x/lint v0.0.0-20241112194109-818c5a804067 // indirect
-	golang.org/x/mod v0.36.0 // indirect
-	golang.org/x/sync v0.20.0 // indirect
-	golang.org/x/sys v0.44.0 // indirect
-	golang.org/x/telemetry v0.0.0-20260508192327-42602be52be6 // indirect
-	golang.org/x/tools v0.45.0 // indirect
+	golang.org/x/mod v0.37.0 // indirect
+	golang.org/x/sync v0.21.0 // indirect
+	golang.org/x/sys v0.46.0 // indirect
+	golang.org/x/telemetry v0.0.0-20260610154732-fb80ec83bdd9 // indirect
+	golang.org/x/tools v0.46.0 // indirect
 	golang.org/x/tools/cmd/godoc v0.1.0-deprecated // indirect
 	golang.org/x/tools/godoc v0.1.0-deprecated // indirect
 )
