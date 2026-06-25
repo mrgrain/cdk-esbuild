@@ -324,6 +324,155 @@ For example, `s3://bucket/key`
 ---
 
 
+### TypeScriptCodeCollection <a name="TypeScriptCodeCollection" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection"></a>
+
+Manages multiple Lambda function entry points that share the same build configuration.
+
+Creates a {@link TypeScriptCode} asset for each entry point, allowing related
+functions to be organized with common build options. This is primarily a
+convenience construct for managing multiple Lambda functions that share
+the same esbuild configuration.
+
+#### Initializers <a name="Initializers" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer"></a>
+
+```typescript
+import { TypeScriptCodeCollection } from '@mrgrain/cdk-esbuild'
+
+new TypeScriptCodeCollection(scope: Construct, id: string, props: TypeScriptCodeCollectionProps)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.props">props</a></code> | <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps">TypeScriptCodeCollectionProps</a></code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+##### `props`<sup>Required</sup> <a name="props" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.Initializer.parameter.props"></a>
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps">TypeScriptCodeCollectionProps</a>
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.getCode">getCode</a></code> | Get the bundled TypeScript code for a specific function. |
+
+---
+
+##### `toString` <a name="toString" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `getCode` <a name="getCode" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.getCode"></a>
+
+```typescript
+public getCode(functionName: string): TypeScriptCode
+```
+
+Get the bundled TypeScript code for a specific function.
+
+###### `functionName`<sup>Required</sup> <a name="functionName" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.getCode.parameter.functionName"></a>
+
+- *Type:* string
+
+The logical function name (key from entryPoints).
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.isConstruct"></a>
+
+```typescript
+import { TypeScriptCodeCollection } from '@mrgrain/cdk-esbuild'
+
+TypeScriptCodeCollection.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.allCodes">allCodes</a></code> | <code>{[ key: string ]: <a href="#@mrgrain/cdk-esbuild.TypeScriptCode">TypeScriptCode</a>}</code> | All bundled code instances. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.functionNames">functionNames</a></code> | <code>string[]</code> | The names of all functions in this collection. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+##### `allCodes`<sup>Required</sup> <a name="allCodes" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.allCodes"></a>
+
+```typescript
+public readonly allCodes: {[ key: string ]: TypeScriptCode};
+```
+
+- *Type:* {[ key: string ]: <a href="#@mrgrain/cdk-esbuild.TypeScriptCode">TypeScriptCode</a>}
+
+All bundled code instances.
+
+---
+
+##### `functionNames`<sup>Required</sup> <a name="functionNames" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollection.property.functionNames"></a>
+
+```typescript
+public readonly functionNames: string[];
+```
+
+- *Type:* string[]
+
+The names of all functions in this collection.
+
+---
+
+
 ## Structs <a name="Structs" id="Structs"></a>
 
 ### BuildOptions <a name="BuildOptions" id="@mrgrain/cdk-esbuild.BuildOptions"></a>
@@ -3921,6 +4070,130 @@ Examples:
  - `require.resolve('./lambda')`
  - `['src/index.ts', 'src/util.ts']`
  - `{one: 'src/two.ts', two: 'src/one.ts'}`
+
+---
+
+### TypeScriptCodeCollectionProps <a name="TypeScriptCodeCollectionProps" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps"></a>
+
+Properties for TypeScriptCodeCollection.
+
+#### Initializer <a name="Initializer" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.Initializer"></a>
+
+```typescript
+import { TypeScriptCodeCollectionProps } from '@mrgrain/cdk-esbuild'
+
+const typeScriptCodeCollectionProps: TypeScriptCodeCollectionProps = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.buildOptions">buildOptions</a></code> | <code><a href="#@mrgrain/cdk-esbuild.BuildOptions">BuildOptions</a></code> | Build options passed on to esbuild. Please refer to the esbuild Build API docs for details. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.buildProvider">buildProvider</a></code> | <code><a href="#@mrgrain/cdk-esbuild.IBuildProvider">IBuildProvider</a></code> | The esbuild Build API implementation to be used. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.copyDir">copyDir</a></code> | <code>string \| string[] \| {[ key: string ]: string \| string[]}</code> | Copy additional files to the code [asset staging directory](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.AssetStaging.html#absolutestagedpath), before the build runs. Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.entryPoints">entryPoints</a></code> | <code>{[ key: string ]: string}</code> | Entry points to bundle as a collection. |
+| <code><a href="#@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.assetHash">assetHash</a></code> | <code>string</code> | A hash of this asset, which is available at construction time. |
+
+---
+
+##### `buildOptions`<sup>Optional</sup> <a name="buildOptions" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.buildOptions"></a>
+
+```typescript
+public readonly buildOptions: BuildOptions;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.BuildOptions">BuildOptions</a>
+
+Build options passed on to esbuild. Please refer to the esbuild Build API docs for details.
+
+* `buildOptions.outdir: string`
+The actual path for the output directory is defined by CDK. However setting this option allows to write files into a subdirectory. \
+For example `{ outdir: 'js' }` will create an asset with a single directory called `js`, which contains all built files. This approach can be useful for static website deployments, where JavaScript code should be placed into a subdirectory. \
+*Cannot be used together with `outfile`*.
+* `buildOptions.outfile: string`
+Relative path to a file inside the CDK asset output directory.
+For example `{ outfile: 'js/index.js' }` will create an asset with a single directory called `js`, which contains a single file `index.js`. This can be useful to rename the entry point. \
+*Cannot be used with multiple entryPoints or together with `outdir`.*
+* `buildOptions.absWorkingDir: string`
+Absolute path to the [esbuild working directory](https://esbuild.github.io/api/#working-directory) and defaults to the [current working directory](https://en.wikipedia.org/wiki/Working_directory). \
+If paths cannot be found, a good starting point is to look at the concatenation of `absWorkingDir + entryPoint`. It must always be a valid absolute path pointing to the entry point. When needed, the probably easiest way to set absWorkingDir is to use a combination of `resolve` and `__dirname` (see "Library authors" section in the documentation).
+
+> [https://esbuild.github.io/api/#build-api](https://esbuild.github.io/api/#build-api)
+
+---
+
+##### `buildProvider`<sup>Optional</sup> <a name="buildProvider" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.buildProvider"></a>
+
+```typescript
+public readonly buildProvider: IBuildProvider;
+```
+
+- *Type:* <a href="#@mrgrain/cdk-esbuild.IBuildProvider">IBuildProvider</a>
+- *Default:* new EsbuildProvider()
+
+The esbuild Build API implementation to be used.
+
+Configure the default `EsbuildProvider` for more options or
+provide a custom `IBuildProvider` as an escape hatch.
+
+---
+
+##### `copyDir`<sup>Optional</sup> <a name="copyDir" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.copyDir"></a>
+
+```typescript
+public readonly copyDir: string | string[] | {[ key: string ]: string | string[]};
+```
+
+- *Type:* string | string[] | {[ key: string ]: string | string[]}
+
+Copy additional files to the code [asset staging directory](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.AssetStaging.html#absolutestagedpath), before the build runs. Files copied like this will be overwritten by esbuild if they share the same name as any of the outputs.
+
+* When provided with a `string` or `array`, all files are copied to the root of asset staging directory.
+* When given a `map`, the key indicates the destination relative to the asset staging directory and the value is a list of all sources to be copied.
+
+Therefore the following values for `copyDir` are all equivalent:
+```
+{ copyDir: "path/to/source" }
+{ copyDir: ["path/to/source"] }
+{ copyDir: { ".": "path/to/source" } }
+{ copyDir: { ".": ["path/to/source"] } }
+```
+The destination cannot be outside of the asset staging directory.
+If you are receiving the error "Cannot copy files to outside of the asset staging directory."
+you are likely using `..` or an absolute path as key on the `copyDir` map.
+Instead use only relative paths and avoid `..`.
+
+---
+
+##### `entryPoints`<sup>Required</sup> <a name="entryPoints" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.entryPoints"></a>
+
+```typescript
+public readonly entryPoints: {[ key: string ]: string};
+```
+
+- *Type:* {[ key: string ]: string}
+
+Entry points to bundle as a collection.
+
+Key: logical function name (used to retrieve the code later).
+Value: path to the entry point file.
+
+---
+
+##### `assetHash`<sup>Optional</sup> <a name="assetHash" id="@mrgrain/cdk-esbuild.TypeScriptCodeCollectionProps.property.assetHash"></a>
+
+```typescript
+public readonly assetHash: string;
+```
+
+- *Type:* string
+
+A hash of this asset, which is available at construction time.
+
+As this is a plain string, it can be used in construct IDs in order to enforce creation of a new resource when the content hash has changed.
+
+Defaults to a hash of all files in the resulting bundle.
 
 ---
 

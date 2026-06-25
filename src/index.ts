@@ -49,3 +49,8 @@ export {
   TypeScriptSource,
   TypeScriptSourceProps,
 } from './source';
+
+export {
+  TypeScriptCodeCollection,
+  TypeScriptCodeCollectionProps,
+} from './typescript-code-collection';
