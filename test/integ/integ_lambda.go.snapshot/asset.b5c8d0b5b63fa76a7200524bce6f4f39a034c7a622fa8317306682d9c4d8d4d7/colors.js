@@ -17,7 +17,7 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// ../fixtures/handlers/colors.ts
+// test/fixtures/handlers/colors.ts
 var colors_exports = {};
 __export(colors_exports, {
   handler: () => handler

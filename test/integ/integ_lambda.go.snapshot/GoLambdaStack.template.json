@@ -38,20 +38,39 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "dd0163817ea2933593cd66b107092d6f6005e66e7d2fbc0a876b3eb86cd3d3a8.zip"
+     "S3Key": "b5c8d0b5b63fa76a7200524bce6f4f39a034c7a622fa8317306682d9c4d8d4d7.zip"
     },
+    "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
       "FunctionOneServiceRoleB0F6870D",
       "Arn"
      ]
     },
-    "Handler": "index.handler",
     "Runtime": "nodejs16.x"
    },
    "DependsOn": [
     "FunctionOneServiceRoleB0F6870D"
    ]
+  },
+  "FunctionOneLogGroupD340A018": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "FunctionOne8A86801F"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
   },
   "FunctionTwoServiceRoleF26DAB39": {
    "Type": "AWS::IAM::Role",
@@ -91,20 +110,39 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6877b7d4626f48a6cbebe7b4b7dede1761bef6c4c3ec1ea03d0dd6e8301212f9.zip"
+     "S3Key": "80d6c07a319f85b802d25f48f3aa45f9c1e0dab8b969dd6de27d5441c96f84dd.zip"
     },
+    "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
       "FunctionTwoServiceRoleF26DAB39",
       "Arn"
      ]
     },
-    "Handler": "index.handler",
     "Runtime": "nodejs16.x"
    },
    "DependsOn": [
     "FunctionTwoServiceRoleF26DAB39"
    ]
+  },
+  "FunctionTwoLogGroupD4407F19": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "FunctionTwoDAB66576"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
   },
   "InlineFunctionServiceRole8084C553": {
    "Type": "AWS::IAM::Role",
@@ -143,18 +181,37 @@
     "Code": {
      "ZipFile": "var __defProp = Object.defineProperty;\nvar __getOwnPropDesc = Object.getOwnPropertyDescriptor;\nvar __getOwnPropNames = Object.getOwnPropertyNames;\nvar __hasOwnProp = Object.prototype.hasOwnProperty;\nvar __export = (target, all) => {\n  for (var name in all)\n    __defProp(target, name, { get: all[name], enumerable: true });\n};\nvar __copyProps = (to, from, except, desc) => {\n  if (from && typeof from === \"object\" || typeof from === \"function\") {\n    for (let key of __getOwnPropNames(from))\n      if (!__hasOwnProp.call(to, key) && key !== except)\n        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });\n  }\n  return to;\n};\nvar __toCommonJS = (mod) => __copyProps(__defProp({}, \"__esModule\", { value: true }), mod);\nvar stdin_exports = {};\n__export(stdin_exports, {\n  handler: () => handler\n});\nmodule.exports = __toCommonJS(stdin_exports);\nconst hello = \"world\";\nfunction handler() {\n  console.log(hello);\n}\n// Annotate the CommonJS export names for ESM import in node:\n0 && (module.exports = {\n  handler\n});\n"
     },
+    "Handler": "index.handler",
     "Role": {
      "Fn::GetAtt": [
       "InlineFunctionServiceRole8084C553",
       "Arn"
      ]
     },
-    "Handler": "index.handler",
     "Runtime": "nodejs16.x"
    },
    "DependsOn": [
     "InlineFunctionServiceRole8084C553"
    ]
+  },
+  "InlineFunctionLogGroupA8663D3C": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "InlineFunction18B48CA2"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain"
   }
  },
  "Parameters": {

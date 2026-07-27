@@ -1,5 +1,5 @@
 {
-  "version": "22.0.0",
+  "version": "54.0.0",
   "testCases": {
     "GoLambdaFunctions/DefaultTest": {
       "stacks": [
@@ -8,5 +8,7 @@
       "assertionStack": "GoLambdaFunctions/DefaultTest/DeployAssert",
       "assertionStackName": "GoLambdaFunctionsDefaultTestDeployAssert141E9B32"
     }
-  }
+  },
+  "enableLookups": true,
+  "minimumCliVersion": "2.1133.0"
 }
