@@ -24,8 +24,14 @@ export class WordmarkReadme extends Component {
     const readme = project.tasks.addTask('prepare:readme', {
       exec: `sed -i -e '1,5d' -e '6i ${this.imageTag(WordmarkStyle.DEFAULT)}' README.md`,
     });
-    project.tasks.tryFind('compile')?.prependExec(`if [ ! -z \${CI} ]; then npx projen ${readme.name}; fi`);
-    project.tasks.tryFind('compile')?.exec('if [ ! -z ${CI} ]; then git checkout README.md; fi');
+    project.tasks.tryFind('compile')?.prependSteps({
+      exec: `if [ ! -z \${CI} ]; then npx projen ${readme.name}; fi`,
+      shell: 'system',
+    });
+    project.tasks.tryFind('compile')?.addSteps({
+      exec: 'if [ ! -z ${CI} ]; then git checkout README.md; fi',
+      shell: 'system',
+    });
   }
 
   private imageTag(style: WordmarkStyle): string {
