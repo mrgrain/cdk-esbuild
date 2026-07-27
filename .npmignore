@@ -26,7 +26,7 @@ permissions-backup.acl
 /dist/version.txt
 /.mergify.yml
 /test/
-/tsconfig.dev.json
+/test/tsconfig.json
 /src/
 !/lib/
 !/lib/**/*.js
@@ -39,6 +39,7 @@ dist
 /.projenrc.js
 tsconfig.tsbuildinfo
 /.eslintrc.json
+/projenrc/tsconfig.json
 !.jsii
 .nvmrc
 .node-version

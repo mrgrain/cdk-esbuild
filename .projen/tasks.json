@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 1,
+  "manifestVersion": 3,
   "env": {
     "PATH": "$(npx -c \"node --print process.env.PATH\")"
   },
@@ -41,10 +41,32 @@
       },
       "steps": [
         {
-          "builtin": "release/bump-version"
+          "builtin": "release/resolve-latest-tag",
+          "outputEnv": "LATEST_TAG"
+        },
+        {
+          "spawn": "bump:releasable-commits",
+          "outputEnv": "RELEASABLE_COMMITS",
+          "condition": "git rev-parse --verify --quiet \"refs/tags/$LATEST_TAG\""
+        },
+        {
+          "builtin": "release/suggest-version-bump",
+          "outputEnv": "SUGGESTED_BUMP"
+        },
+        {
+          "builtin": "release/apply-version-bump"
         }
       ],
-      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
+    },
+    "bump:releasable-commits": {
+      "name": "bump:releasable-commits",
+      "description": "Print the releasable commits since the latest release",
+      "steps": [
+        {
+          "exec": "git log --oneline $LATEST_TAG..HEAD"
+        }
+      ]
     },
     "clobber": {
       "name": "clobber",
@@ -92,13 +114,15 @@
       "description": "Only compile",
       "steps": [
         {
-          "exec": "if [ ! -z ${CI} ]; then npx projen prepare:readme; fi"
+          "exec": "if [ ! -z ${CI} ]; then npx projen prepare:readme; fi",
+          "shell": "system"
         },
         {
           "exec": "jsii --silence-warnings=reserved-word"
         },
         {
-          "exec": "if [ ! -z ${CI} ]; then git checkout README.md; fi"
+          "exec": "if [ ! -z ${CI} ]; then git checkout README.md; fi",
+          "shell": "system"
         }
       ]
     },
@@ -107,7 +131,12 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project tsconfig.dev.json .projenrc.ts"
+          "execArgs": [
+            "ts-node",
+            "--project",
+            "projenrc/tsconfig.json",
+            ".projenrc.ts"
+          ]
         }
       ]
     },
@@ -116,7 +145,11 @@
       "description": "Generate API.md from .jsii manifest",
       "steps": [
         {
-          "exec": "jsii-docgen -o API.md"
+          "execArgs": [
+            "jsii-docgen",
+            "-o",
+            "API.md"
+          ]
         }
       ]
     },
@@ -237,16 +270,29 @@
       "description": "Create dotnet language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target dotnet"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "dotnet"
+          ]
         }
       ]
     },
     "package:go": {
       "name": "package:go",
       "description": "Create go language bindings",
+      "env": {
+        "JSII_BUILD_GO": "0"
+      },
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target go"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "go"
+          ]
         }
       ]
     },
@@ -255,7 +301,12 @@
       "description": "Create java language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target java"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "java"
+          ]
         }
       ]
     },
@@ -264,7 +315,12 @@
       "description": "Create js language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target js"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "js"
+          ]
         }
       ]
     },
@@ -273,7 +329,12 @@
       "description": "Create python language bindings",
       "steps": [
         {
-          "exec": "jsii-pacmak -v --target python"
+          "execArgs": [
+            "jsii-pacmak",
+            "-v",
+            "--target",
+            "python"
+          ]
         }
       ]
     },
@@ -325,7 +386,7 @@
           "exec": "git push --follow-tags origin v5"
         }
       ],
-      "condition": "git log --oneline -1 | grep -qv \"chore(release):\""
+      "condition": "git log --oneline -1 | grep -v \"chore(release):\" > /dev/null"
     },
     "release:v5": {
       "name": "release:v5",
@@ -407,13 +468,54 @@
       },
       "steps": [
         {
-          "exec": "npx npm-check-updates@20 --upgrade --target=minor --peer --no-deprecated --dep=dev,peer,prod,optional --filter=@types/eslint,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jest-mock,jsii-diff,jsii-pacmak,projen,ts-jest,ts-morph,ts-node"
+          "execArgs": [
+            "npx",
+            "npm-check-updates@20",
+            "--upgrade",
+            "--target=minor",
+            "--peer",
+            "--no-deprecated",
+            "--dep=dev,prod,peer,optional",
+            "--filter=@types/eslint,@types/jest,eslint-import-resolver-typescript,eslint-plugin-import,jest,jest-mock,jsii-diff,jsii-pacmak,projen,ts-jest,ts-morph,ts-node"
+          ]
         },
         {
           "exec": "npm install"
         },
         {
-          "exec": "npm update @aws-cdk/aws-synthetics-alpha @aws-cdk/integ-runner @stylistic/eslint-plugin @types/eslint @types/jest @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser commit-and-tag-version esbuild eslint-import-resolver-typescript eslint-plugin-import eslint jest jest-junit jest-mock jsii-diff jsii-docgen jsii-pacmak jsii-rosetta jsii mrpj projen ts-jest ts-morph ts-node typescript aws-cdk-lib constructs"
+          "execArgs": [
+            "npm",
+            "update",
+            "@aws-cdk/aws-synthetics-alpha",
+            "@aws-cdk/integ-runner",
+            "@stylistic/eslint-plugin",
+            "@types/eslint",
+            "@types/jest",
+            "@types/node",
+            "@typescript-eslint/eslint-plugin",
+            "@typescript-eslint/parser",
+            "commit-and-tag-version",
+            "esbuild",
+            "eslint-import-resolver-typescript",
+            "eslint-plugin-import",
+            "eslint",
+            "jest",
+            "jest-junit",
+            "jest-mock",
+            "jsii-diff",
+            "jsii-docgen",
+            "jsii-pacmak",
+            "jsii-rosetta",
+            "jsii",
+            "mrpj",
+            "projen",
+            "ts-jest",
+            "ts-morph",
+            "ts-node",
+            "typescript",
+            "aws-cdk-lib",
+            "constructs"
+          ]
         },
         {
           "exec": "npx projen"

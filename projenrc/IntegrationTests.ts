@@ -1,6 +1,7 @@
 import { readdirSync } from 'fs';
 import { basename, join } from 'path';
 import { Component, JsonPatch, awscdk } from 'projen';
+import { GoDotMod } from './GoDotMod';
 import { Pipenv } from './Pipenv';
 
 export interface IntegrationTestsOptions {
@@ -35,6 +36,11 @@ export interface IntegrationTestsOptions {
    */
   readonly go?: {
     /**
+     * The Go version to use.
+     */
+    goVersion: string;
+
+    /**
      * The version of CDK to use for the integration test.
      *
      * @default - CDK version from project
@@ -57,7 +63,7 @@ export class IntegrationTests extends Component {
 
   public constructor(
     public readonly project: awscdk.AwsCdkConstructLibrary,
-    private readonly options: IntegrationTestsOptions,
+    options: IntegrationTestsOptions,
   ) {
     super(project);
 
@@ -87,19 +93,21 @@ export class IntegrationTests extends Component {
     // Languages
     const jsiiTargets = project.package.manifest?.jsii?.targets;
 
-    if (jsiiTargets.python && hasTestFor.python) {
-      this.setupPython(jsiiTargets.python);
+    if (options.python && jsiiTargets.python && hasTestFor.python) {
+      this.setupPython(options.python, jsiiTargets.python);
     }
 
-    if (jsiiTargets.go && hasTestFor.go) {
-      this.setupGo(jsiiTargets.go);
+    if (options.go && jsiiTargets.go && hasTestFor.go) {
+      this.setupGo(options.go, jsiiTargets.go);
     }
   }
 
-  private setupPython(pythonTarget: {
-    distName: string;
-    module: string;
-  }) {
+  private setupPython(
+    options: NonNullable<IntegrationTestsOptions['python']>,
+    pythonTarget: {
+      distName: string;
+      module: string;
+    }) {
     // Task
     const pythonInteg = this.project.addTask('integ:python', {
       exec: `integ-runner --app="pipenv run python {filePath}" --test-regex="${this.pythonPattern}"`,
@@ -145,7 +153,7 @@ export class IntegrationTests extends Component {
     this.project.addPackageIgnore('Pipfile');
     this.project.addPackageIgnore('Pipfile.lock');
 
-    const pythonCdkVersion = this.options.python?.cdkVersion ?? this.project.cdkVersion;
+    const pythonCdkVersion = options.cdkVersion ?? this.project.cdkVersion;
     const pipenv = new Pipenv(this.project);
     pipenv.addPackage(`aws-cdk-lib@==${pythonCdkVersion}`);
     pipenv.addPackage(`aws-cdk.integ-tests-alpha@==${pythonCdkVersion}a0`);
@@ -153,14 +161,30 @@ export class IntegrationTests extends Component {
     pipenv.addPackage(`${pythonTarget.distName}@{path = "./dist/python/${pythonTarget.module.replace(/\./g, '_')}-0.0.0-py3-none-any.whl"}`);
   }
 
-  private setupGo(_goTarget: {
-    moduleName: string;
-    packageName?: string;
-  }) {
-    const goVersion = '1.18'; // same version as package uses
-    // const goCdkVersion = this.options.go?.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
-    // const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
-    // const goRepository = goTarget.moduleName;
+  private setupGo(
+    options: NonNullable<IntegrationTestsOptions['go']>,
+    goTarget: {
+      moduleName: string;
+      packageName?: string;
+    }) {
+    const goVersion = options.goVersion;
+    const goCdkVersion = options.cdkVersion ?? this.project.cdkVersion.replace(/[\^~]+/g, '');
+    const goRepository = goTarget.moduleName;
+    const goPackageName = goTarget.packageName ?? this.project.name.replace(/[\W_]+/g, '');
+    const goModulePath = `${goRepository}/${goPackageName}`;
+    const localUnpublished = 'v0.0.0-unpublished';
+
+    const goDotMod = new GoDotMod(this.project, {
+      goVersion,
+      moduleName: 'cdkesbuild_integ_tests',
+    });
+    goDotMod.require(`github.com/aws/aws-cdk-go/awscdk/v2@v${goCdkVersion}`);
+    goDotMod.require('github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2@v2.84.0-alpha.0');
+
+    goDotMod.require(`${goModulePath}@${localUnpublished}`);
+    goDotMod.replace(`${goModulePath}@${localUnpublished}`, './dist/go/cdkesbuild');
+    goDotMod.replace(`${goModulePath}/jsii@${localUnpublished}`, './dist/go/cdkesbuild/jsii');
+    goDotMod.replace(`${goModulePath}/internal@${localUnpublished}`, './dist/go/cdkesbuild/internal');
 
     // Task
     this.project.addTask('integ:go', {
@@ -191,7 +215,7 @@ export class IntegrationTests extends Component {
       installDeps: true,
       tools: {
         go: {
-          version: `^${goVersion}.0`,
+          version: `^${goVersion}`,
         },
         node: {
           version: this.nodeVersion,
@@ -203,24 +227,6 @@ export class IntegrationTests extends Component {
     // go.mod
     this.project.addPackageIgnore('go.mod');
     this.project.addPackageIgnore('go.sum');
-
-    // new TextFile(this.project, 'go.mod', {
-    //   marker: true,
-    //   readonly: false,
-    //   lines: [
-    //     `// ${PROJEN_MARKER}`,
-    //     `module ${goPackageName}_integ_tests`,
-    //     '',
-    //     `go ${goVersion}`,
-    //     '',
-    //     `require github.com/aws/aws-cdk-go/awscdk/v2 v${goCdkVersion}`,
-    //     `require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v${goCdkVersion}-alpha.0`,
-    //     `require ${goRepository}/${goPackageName} v0.0.0-unpublished`,
-    //     `replace ${goRepository}/${goPackageName} v0.0.0-unpublished => ./dist/go/${goPackageName}`,
-    //     `replace ${goRepository}/${goPackageName}/jsii v0.0.0-unpublished => ./dist/go/${goPackageName}/jsii`,
-    //     `replace ${goRepository}/${goPackageName}/internal v0.0.0-unpublished => ./dist/go/${goPackageName}/internal`,
-    //   ],
-    // });
   }
 
   private fixIntegTestJob(name: string) {

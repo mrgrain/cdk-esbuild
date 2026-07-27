@@ -1,6 +1,6 @@
+import type { IConstruct } from 'constructs';
 import { components } from 'mrpj';
 import { Component, TextFile } from 'projen';
-import type { IConstruct } from 'projenConstructs';
 
 export interface VersionsFileOptions {
   path?: string;
