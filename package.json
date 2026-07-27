@@ -8,6 +8,7 @@
   "scripts": {
     "build": "projen build",
     "bump": "projen bump",
+    "bump:releasable-commits": "projen bump:releasable-commits",
     "clobber": "projen clobber",
     "compat": "projen compat",
     "compile": "projen compile",
@@ -56,7 +57,7 @@
     "@typescript-eslint/parser": "^8",
     "aws-cdk-lib": "2.51.0",
     "commit-and-tag-version": "^12",
-    "constructs": "10.0.5",
+    "constructs": "10.5.0",
     "esbuild": "^0.27.0",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^2.7.1",
@@ -65,12 +66,12 @@
     "jest-junit": "^17",
     "jest-mock": "^27.5.1",
     "jsii": "5.9.x",
-    "jsii-diff": "^1.136.0",
+    "jsii-diff": "^1.139.0",
     "jsii-docgen": "^10.5.0",
-    "jsii-pacmak": "^1.136.0",
+    "jsii-pacmak": "^1.139.0",
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
-    "projen": "^0.100.2",
+    "projen": "^0.101.20",
     "projenConstructs": "npm:constructs@^10.5.0",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
@@ -79,7 +80,7 @@
   },
   "peerDependencies": {
     "aws-cdk-lib": "^2.51.0",
-    "constructs": "^10.0.5"
+    "constructs": "^10.5.0"
   },
   "keywords": [
     "aws-cdk",
@@ -145,7 +146,7 @@
       "^.+\\.[t]sx?$": [
         "ts-jest",
         {
-          "tsconfig": "tsconfig.dev.json"
+          "tsconfig": "test/tsconfig.json"
         }
       ]
     }

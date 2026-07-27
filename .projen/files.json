@@ -21,7 +21,8 @@
     ".vscode/settings.json",
     "LICENSE",
     "Pipfile",
-    "tsconfig.dev.json",
+    "projenrc/tsconfig.json",
+    "test/tsconfig.json",
     "tsconfig.json",
     "VERSIONS.md"
   ],

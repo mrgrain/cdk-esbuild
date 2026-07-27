@@ -1,5 +1,4 @@
 import { Component, FileBase, FileBaseOptions, javascript, Project as ProjenProject, Task } from 'projen';
-import { execCapture } from 'projen/lib/util';
 import type { IConstruct } from 'projenConstructs';
 import { Project, SourceFile } from 'ts-morph';
 
@@ -56,9 +55,8 @@ export class TypeScriptSourceFile extends FileBase {
   public postSynthesize() {
     super.postSynthesize();
 
-    const outdir = this.project.outdir;
     try {
-      execCapture(this.project.runTaskCommand(this.task) + ' ' + this.absolutePath, { cwd: outdir });
+      this.project.tasks.runTask(this.task.name, [this.absolutePath]);
     } catch (error: any) {
       const msg = error.stdout?.toString() ?? error.message;
       throw Error(msg);
