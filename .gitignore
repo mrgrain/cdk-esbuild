@@ -63,6 +63,7 @@ junit.xml
 !/.node-version
 cdk-integ.out.*
 !/Pipfile
+!/go.mod
 .jsii.tabl.json
 !/.vscode/extensions.json
 !/.vscode/settings.json

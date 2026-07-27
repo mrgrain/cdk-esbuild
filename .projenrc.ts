@@ -188,6 +188,7 @@ new IntegrationTests(project, {
     cdkVersion: '2.84.0',
   },
   go: {
+    goVersion: '1.25.0',
     cdkVersion: '2.239.0',
   },
 });

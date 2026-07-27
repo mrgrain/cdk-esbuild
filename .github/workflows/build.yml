@@ -306,7 +306,7 @@ jobs:
           package-manager-cache: false
       - uses: actions/setup-go@v6
         with:
-          go-version: ^1.18.0
+          go-version: ^1.25.0
           cache: false
       - name: Checkout
         uses: actions/checkout@v6
