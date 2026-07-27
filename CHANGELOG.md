@@ -1,4 +1,12 @@
 
+## [5.8.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.11...v5.8.0) (2026-07-27)
+
+
+### Features
+
+* **deps:** upgrade esbuild to ^0.27.0 ([#1692](https://github.com/mrgrain/cdk-esbuild/issues/1692)) ([3952329](https://github.com/mrgrain/cdk-esbuild/commit/3952329affdfecadaa3db30b28098bfa76bce02a))
+* upgrade minimum Node.js version to 20 ([#1693](https://github.com/mrgrain/cdk-esbuild/issues/1693)) ([d0755e1](https://github.com/mrgrain/cdk-esbuild/commit/d0755e12bb79eaf34950094ffdbee30cf08bd1e8))
+
 ## [5.7.11](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.10...v5.7.11) (2026-02-01)
 
 ## [5.7.10](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.9...v5.7.10) (2026-01-22)
