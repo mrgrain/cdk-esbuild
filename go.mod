@@ -2,21 +2,23 @@ module cdkesbuild_integ_tests
 
 go 1.25.0
 
-require github.com/aws/aws-cdk-go/awscdk/v2 v2.84.0
+require github.com/aws/aws-cdk-go/awscdk/v2 v2.253.0
 
 require github.com/aws/aws-cdk-go/awscdkintegtestsalpha/v2 v2.84.0-alpha.0
 
 require (
-	github.com/aws/constructs-go/constructs/v10 v10.2.26
+	github.com/aws/constructs-go/constructs/v10 v10.5.1
 	github.com/aws/jsii-runtime-go v1.136.0
 	github.com/mrgrain/cdk-esbuild-go/cdkesbuild v0.0.0-unpublished
 )
 
 require (
 	github.com/Masterminds/semver/v3 v3.5.0 // indirect
-	github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.210 // indirect
+	github.com/cdklabs/awscdk-asset-awscli-go/awscliv1/v2 v2.2.273 // indirect
 	github.com/cdklabs/awscdk-asset-kubectl-go/kubectlv20/v2 v2.1.3 // indirect
 	github.com/cdklabs/awscdk-asset-node-proxy-agent-go/nodeproxyagentv5/v2 v2.0.166 // indirect
+	github.com/cdklabs/awscdk-asset-node-proxy-agent-go/nodeproxyagentv6/v2 v2.1.1 // indirect
+	github.com/cdklabs/cloud-assembly-schema-go/awscdkcloudassemblyschema/v53 v53.18.0 // indirect
 	github.com/fatih/color v1.19.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.22 // indirect
