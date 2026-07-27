@@ -1,5 +1,5 @@
+import type { IConstruct } from 'constructs';
 import { Component, FileBase, FileBaseOptions, javascript, Project as ProjenProject, Task } from 'projen';
-import type { IConstruct } from 'projenConstructs';
 import { Project, SourceFile } from 'ts-morph';
 
 interface TypeScriptSourceFileOptions extends Omit<FileBaseOptions, 'readonly'> {

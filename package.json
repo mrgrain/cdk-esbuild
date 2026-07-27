@@ -72,7 +72,6 @@
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
     "projen": "^0.101.20",
-    "projenConstructs": "npm:constructs@^10.5.0",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",

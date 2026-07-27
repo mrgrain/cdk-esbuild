@@ -282,6 +282,9 @@
     "package:go": {
       "name": "package:go",
       "description": "Create go language bindings",
+      "env": {
+        "JSII_BUILD_GO": "0"
+      },
       "steps": [
         {
           "execArgs": [

@@ -1,5 +1,5 @@
 import { components } from 'mrpj';
-import { awscdk, DependencyType, github, javascript, JsonPatch, vscode } from 'projen';
+import { awscdk, github, javascript, JsonPatch, vscode } from 'projen';
 import { SourceFile } from 'ts-morph';
 import { StableReleases, TypeScriptSourceFile, WordmarkReadme } from './projenrc';
 import { IntegrationTests } from './projenrc/IntegrationTests';
@@ -85,9 +85,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
       },
     },
   },
-  depsUpgradeOptions: {
-    exclude: ['projenConstructs'],
-  },
   autoApproveUpgrades: true,
   autoApproveOptions: {
     allowedUsernames: [
@@ -172,9 +169,6 @@ const project = new awscdk.AwsCdkConstructLibrary({
 });
 stableReleases.bind(project);
 
-// projen c
-project.deps.addDependency('projenConstructs@npm:constructs@^10.5.0', DependencyType.BUILD);
-
 // auto approve backports
 project.tryFindObjectFile('.mergify.yml')?.addOverride('defaults.actions.backport', {
   labels: ['auto-approve'],
@@ -184,6 +178,9 @@ project.tryFindObjectFile('.mergify.yml')?.addOverride('merge_queue', {
 });
 project.tryFindObjectFile('.mergify.yml')?.addDeletionOverride('queue_rules.0.conditions');
 
+// Go does not compile when using older versions with the current constructs requirement
+// @TODO remove when releasing v6 and upping the minium CDK requirement
+project.tasks.tryFind('package:go')?.env('JSII_BUILD_GO', '0');
 
 // setup integration tests
 new IntegrationTests(project, {
@@ -191,7 +188,7 @@ new IntegrationTests(project, {
     cdkVersion: '2.84.0',
   },
   go: {
-    cdkVersion: '2.84.0',
+    cdkVersion: '2.239.0',
   },
 });
 
