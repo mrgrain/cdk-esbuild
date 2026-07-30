@@ -75,12 +75,12 @@
         },
         "constructs": {
             "hashes": [
-                "sha256:7b33d60851fc8c6d4c4a111dc342088e467c344b22d9a562a5e0b6fbbbaf4b2a",
-                "sha256:f212c66b37249c45eca4638c6b33c68efddae50599d27062d71d0bf81c11431e"
+                "sha256:477653592e18a317537dbadd1bcb404f72fc68390a8154dca4a13bd8a63f79de",
+                "sha256:9067cbc6315d92e47550d0a9be6e508366b5765990c8eeb25892cb070612f599"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.10'",
-            "version": "==10.7.1"
+            "version": "==10.7.2"
         },
         "jsii": {
             "hashes": [
