@@ -1,4 +1,11 @@
 
+## [5.8.1](https://github.com/mrgrain/cdk-esbuild/compare/v5.8.0...v5.8.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* require constructs >= 10.5.0 ([#1796](https://github.com/mrgrain/cdk-esbuild/issues/1796)) ([9ccd8de](https://github.com/mrgrain/cdk-esbuild/commit/9ccd8deac67bfcfe67ac2a074136be1aab23b5cc))
+
 ## [5.8.0](https://github.com/mrgrain/cdk-esbuild/compare/v5.7.11...v5.8.0) (2026-07-27)
 
 
