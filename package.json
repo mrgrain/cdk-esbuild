@@ -71,7 +71,7 @@
     "jsii-pacmak": "^1.139.0",
     "jsii-rosetta": "5.9.x",
     "mrpj": "<1",
-    "projen": "^0.101.27",
+    "projen": "^0.101.29",
     "ts-jest": "^29",
     "ts-morph": "^17.0.1",
     "ts-node": "^10",
