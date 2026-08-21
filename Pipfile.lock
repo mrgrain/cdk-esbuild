@@ -95,7 +95,6 @@
                 "sha256:0e6964cb1fee15ec493b1130d8b670b97cd39defced10fda95aafa9a4644c703",
                 "sha256:9baea720b26b1c2715a4be6e68289656c09dd8801519b0b3e826917f830fba3b"
             ],
-            "markers": "python_version ~= '3.7'",
             "version": "==0.0.0"
         },
         "publication": {
