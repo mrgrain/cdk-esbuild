@@ -33,7 +33,7 @@ jobs:
       - name: Checkout PR
         id: checkout_pr
         if: steps.download_patch.outcome == 'success'
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           token: ${{ steps.generate_token.outputs.token }}
           ref: ${{ github.event.workflow_run.head_branch }}
