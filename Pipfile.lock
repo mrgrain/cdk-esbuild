@@ -106,11 +106,11 @@
         },
         "python-dateutil": {
             "hashes": [
-                "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3",
-                "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"
+                "sha256:3c79630202e4152c6add678446984236efe4f57e84d8e892aab0637bab82e9fd",
+                "sha256:7ebcb3c29a92f3ceafe79a7a48a5c45677e9e004bbeec5742ac0bbb00560b7a2"
             ],
             "markers": "python_version >= '2.7' and python_version != '3.0' and python_version != '3.1' and python_version != '3.2'",
-            "version": "==2.9.0.post0"
+            "version": "==3.0.0"
         },
         "six": {
             "hashes": [
@@ -135,6 +135,14 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==4.16.0"
+        },
+        "tzdata": {
+            "hashes": [
+                "sha256:8cc73c0a0bfca7dbfa59235d60b2eff82231dee33f53d206db1acd9173cfc0a7",
+                "sha256:b683bd1b6659ddcd810ff02ad09ba821d4bf1065072805063eb35c49617905ac"
+            ],
+            "markers": "python_version >= '2'",
+            "version": "==2026.5"
         }
     },
     "develop": {}
